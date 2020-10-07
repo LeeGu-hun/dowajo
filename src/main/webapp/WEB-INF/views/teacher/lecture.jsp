@@ -16,7 +16,7 @@
 				</div>
         		<div style="height:20%; width:100%; background-color:yellow;">menu</div>
         	</div>
-        	<div style="width:20%; height:100%; background-color:green; float:right;">pop<br>up</div>
+        	<div style="width:20%; height:100%; background-color:green; float:right;">pop up</div>
         </div>
     </div>
 </section>
