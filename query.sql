@@ -45,15 +45,24 @@ create table ds_lecture(
       regdate date default sysdate
       );
       
-insert into ds_room (room_no, room_name, room_description, room_videoaddress) values (1, '테스트강의실', '테스트강의실설명', 'https://tv.kakao.com/channel/3673853');
+insert into ds_lecture (lecture_no, lecture_name, lecture_description, lecture_videoaddress) values (1, '테스트강의실1', '테스트강의실설명1', 'https://tv.kakao.com/channel/3673853');
+insert into ds_lecture (lecture_no, lecture_name, lecture_description, lecture_videoaddress) values (2, '테스트강의실2', '테스트강의실설명2', 'https://www.twitch.tv/kbo2');
+insert into ds_lecture (lecture_no, lecture_name, lecture_description, lecture_videoaddress) values (3, '테스트강의실3', '테스트강의실설명3', 'https://www.youtube.com/watch?v=U_sYIKWhJvk');
       
-CREATE SEQUENCE  "DB7"."DS_ROOM_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 21 CACHE 20 NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
+CREATE SEQUENCE  "DB7"."DS_LECTURE_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 21 CACHE 20 NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
 
 create table ds_class_list(
-	  lecture_no NUMBER not null primary key,
+	  lecture_no NUMBER not null,
       user_no varchar2(100) not null,
       class_status varchar2(100) not null,
-      regdate date default sysdate
+      regdate date default sysdate,
+      constraint fk_ds_class_list foreign key(lecture_no) references ds_lecture(lecture_no) on delete cascade
       );
+
+insert into ds_class_list (lecture_no, user_no, class_status) values (1, 2, 'true');
+insert into ds_class_list (lecture_no, user_no, class_status) values (1, 3, 'true');
+insert into ds_class_list (lecture_no, user_no, class_status) values (2, 2, 'true');
+insert into ds_class_list (lecture_no, user_no, class_status) values (2, 3, 'false');
+insert into ds_class_list (lecture_no, user_no, class_status) values (3, 2, 'true');
 
 COMMIT;	 
