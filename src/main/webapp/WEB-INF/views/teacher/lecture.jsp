@@ -12,7 +12,7 @@
         <div class="block-header" id="height" >
         	<div style="width:80%;  height:100%; float:left;">
         		<div style="height:80%; width:100%; background-color:red;">
-					<iframe src="https://tv.kakao.com/embed/player/livelink?service=kakao_tv&amp;autoplay=1&amp;profile=HIGH&amp;wmode=transparent&amp;liveLinkId=9333611" allow="autoplay, fullscreen" allowfullscreen="" style="width: 100%; height: 100%; border: 0px;"></iframe>
+					<iframe src="https://player.twitch.tv/?channel=kbo2&parent=www.example.com" frameborder="0" allowfullscreen="true" scrolling="no" height="100%" width="100%"></iframe>
 				</div>
         		<div style="height:20%; width:100%; background-color:yellow;">menu</div>
         	</div>
