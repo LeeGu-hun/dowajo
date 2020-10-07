@@ -34,15 +34,23 @@ COMMIT;
 
 CREATE SEQUENCE  "DB7"."DS_USER_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 21 CACHE 20 NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
 
-create table ds_room(
-	  room_no NUMBER not null primary key,
-      room_name varchar2(100) not null,
-      room_description varchar2(2000 BYTE) not null,
-      room_videoaddress varchar2(200),
+create table ds_lecture(
+	  lecture_no NUMBER not null primary key,
+      lecture_name varchar2(100) not null,
+      lecture_description varchar2(2000 BYTE) not null,
+      lecture_videoaddress varchar2(200),
       regdate date default sysdate
       );
       
 insert into ds_room (room_no, room_name, room_description, room_videoaddress) values (1, '테스트강의실', '테스트강의실설명', 'https://tv.kakao.com/channel/3673853');
       
 CREATE SEQUENCE  "DB7"."DS_ROOM_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 21 CACHE 20 NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
+
+create table ds_class_list(
+	  lecture_no NUMBER not null primary key,
+      user_no varchar2(100) not null,
+      class_status varchar2(100) not null,
+      regdate date default sysdate
+      );
+
 COMMIT;	 
