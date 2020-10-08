@@ -11,6 +11,7 @@
     <div class="container-fluid">
         <div class="block-header">
             <h2>Teacher PAGE</h2>
+            <a href='./lecture'>./lecture</a>
         </div>
     </div>
 </section>
