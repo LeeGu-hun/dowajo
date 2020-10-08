@@ -41,13 +41,13 @@ create table ds_lecture(
 	  lecture_no NUMBER not null primary key,
       lecture_name varchar2(100) not null,
       lecture_description varchar2(2000 BYTE) not null,
-      lecture_videoaddress varchar2(200),
+      lecture_twitchid varchar2(200),
       regdate date default sysdate
       );
       
-insert into ds_lecture (lecture_no, lecture_name, lecture_description, lecture_videoaddress) values (1, '테스트강의실1', '테스트강의실설명1', 'https://tv.kakao.com/channel/3673853');
-insert into ds_lecture (lecture_no, lecture_name, lecture_description, lecture_videoaddress) values (2, '테스트강의실2', '테스트강의실설명2', 'https://www.twitch.tv/kbo2');
-insert into ds_lecture (lecture_no, lecture_name, lecture_description, lecture_videoaddress) values (3, '테스트강의실3', '테스트강의실설명3', 'https://www.youtube.com/watch?v=U_sYIKWhJvk');
+insert into ds_lecture (lecture_no, lecture_name, lecture_description, lecture_twitchid) values (1, '테스트강의실1', '테스트강의실설명1', 'childish1986');
+insert into ds_lecture (lecture_no, lecture_name, lecture_description, lecture_twitchid) values (2, '테스트강의실2', '테스트강의실설명2', 'kbo2');
+insert into ds_lecture (lecture_no, lecture_name, lecture_description, lecture_twitchid) values (3, '테스트강의실3', '테스트강의실설명3', 'lck');
       
 CREATE SEQUENCE  "DB7"."DS_LECTURE_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 21 CACHE 20 NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
 
