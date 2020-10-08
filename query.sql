@@ -41,7 +41,7 @@ create table ds_lecture(
 	  lecture_no NUMBER not null primary key,
       lecture_name varchar2(100) not null,
       lecture_description varchar2(2000 BYTE) not null,
-      lecture_twitchid varchar2(200),
+      lecture_twitchid varchar2(100),
       regdate date default sysdate
       );
       
