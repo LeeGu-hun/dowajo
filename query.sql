@@ -12,7 +12,7 @@ create table ds_user(
 create table ds_auth(
      user_no NUMBER not null,
      user_auth varchar2(100) not null,
-     constraint fk_ds_auth foreign key(user_no) references ds_user(user_no)
+     constraint fk_ds_auth foreign key(user_no) references ds_user(user_no) on delete cascade
      );
      
 create table persistent_logins (
