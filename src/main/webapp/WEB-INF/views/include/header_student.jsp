@@ -314,7 +314,7 @@
                     </li>
                     
                     
-                    <li>a
+                    <li>asasas
                     	<a href="#">                        
                        		<i class="material-icons">view_list</i>
                        		<span>수강중인 강의목록</span>
