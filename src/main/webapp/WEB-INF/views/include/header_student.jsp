@@ -286,18 +286,17 @@
                     <img src="/resources/images/user.png" width="48" height="48" alt="User" />
                 </div>
                 <div class="info-container">
-                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">John Doe</div>
-                    <div class="email">john.doe@example.com</div>
+                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <sec:authorize access="isAuthenticated()">
+					<sec:authentication property="principal.username"/>
+					</sec:authorize>
+                    </div>                    
                     <div class="btn-group user-helper-dropdown">
                         <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
                         <ul class="dropdown-menu pull-right">
-                            <li><a href="javascript:void(0);"><i class="material-icons">person</i>Profile</a></li>
+                            <li><a href="javascript:void(0);"><i class="material-icons">person</i>내 정보</a></li>                            
                             <li role="seperator" class="divider"></li>
-                            <li><a href="javascript:void(0);"><i class="material-icons">group</i>Followers</a></li>
-                            <li><a href="javascript:void(0);"><i class="material-icons">shopping_cart</i>Sales</a></li>
-                            <li><a href="javascript:void(0);"><i class="material-icons">favorite</i>Likes</a></li>
-                            <li role="seperator" class="divider"></li>
-                            <li><a id='logout' href="javascript:void(0);"><i class="material-icons">input</i>Sign Out</a></li>
+                            <li><a id='logout' href="javascript:void(0);"><i class="material-icons">input</i>로그아웃</a></li>
                         </ul>
                     </div>
                 </div>
@@ -308,190 +307,25 @@
                 <ul class="list">
                     <li class="header">MAIN NAVIGATION</li>
                     <li>
-                        <a href="/resources/index.html">
+                        <a href="/student/main">
                             <i class="material-icons">home</i>
-                            <span>Home</span>
+                            <span>홈으로</span>
                         </a>
                     </li>
+                    
+                    
                     <li>
-                        <a href="/resources/pages/typography.html">
-                            <i class="material-icons">text_fields</i>
-                            <span>Typography</span>
-                        </a>
+                    	<a href="#">                        
+                       		<i class="material-icons">view_list</i>
+                       		<span>수강중인 강의목록</span>
+                       	</a>                       
                     </li>
+                    
                     <li>
-                        <a href="/resources/pages/helper-classes.html">
-                            <i class="material-icons">layers</i>
-                            <span>Helper Classes</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0);" class="menu-toggle">
-                            <i class="material-icons">widgets</i>
-                            <span>Widgets</span>
-                        </a>
-                        <ul class="ml-menu">
-                            <li>
-                                <a href="javascript:void(0);" class="menu-toggle">
-                                    <span>Cards</span>
-                                </a>
-                                <ul class="ml-menu">
-                                    <li>
-                                        <a href="/resources/pages/widgets/cards/basic.html">Basic</a>
-                                    </li>
-                                    <li>
-                                        <a href="/resources/pages/widgets/cards/colored.html">Colored</a>
-                                    </li>
-                                    <li>
-                                        <a href="/resources/pages/widgets/cards/no-header.html">No Header</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0);" class="menu-toggle">
-                                    <span>Infobox</span>
-                                </a>
-                                <ul class="ml-menu">
-                                    <li>
-                                        <a href="/resources/pages/widgets/infobox/infobox-1.html">Infobox-1</a>
-                                    </li>
-                                    <li>
-                                        <a href="/resources/pages/widgets/infobox/infobox-2.html">Infobox-2</a>
-                                    </li>
-                                    <li>
-                                        <a href="/resources/pages/widgets/infobox/infobox-3.html">Infobox-3</a>
-                                    </li>
-                                    <li>
-                                        <a href="/resources/pages/widgets/infobox/infobox-4.html">Infobox-4</a>
-                                    </li>
-                                    <li>
-                                        <a href="/resources/pages/widgets/infobox/infobox-5.html">Infobox-5</a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0);" class="menu-toggle">
-                            <i class="material-icons">swap_calls</i>
-                            <span>User Interface (UI)</span>
-                        </a>
-                        <ul class="ml-menu">
-                            <li>
-                                <a href="/resources/pages/ui/alerts.html">Alerts</a>
-                            </li>
-                            <li>
-                                <a href="/resources/pages/ui/animations.html">Animations</a>
-                            </li>
-                            <li>
-                                <a href="/resources/pages/ui/badges.html">Badges</a>
-                            </li>
-
-                            <li>
-                                <a href="/resources/pages/ui/breadcrumbs.html">Breadcrumbs</a>
-                            </li>
-                            <li>
-                                <a href="/resources/pages/ui/buttons.html">Buttons</a>
-                            </li>
-                            <li>
-                                <a href="/resources/pages/ui/collapse.html">Collapse</a>
-                            </li>
-                            <li>
-                                <a href="/resources/pages/ui/colors.html">Colors</a>
-                            </li>
-                            <li>
-                                <a href="/resources/pages/ui/dialogs.html">Dialogs</a>
-                            </li>
-                            <li>
-                                <a href="/resources/pages/ui/icons.html">Icons</a>
-                            </li>
-                            <li>
-                                <a href="/resources/pages/ui/labels.html">Labels</a>
-                            </li>
-                            <li>
-                                <a href="/resources/pages/ui/list-group.html">List Group</a>
-                            </li>
-                            <li>
-                                <a href="/resources/pages/ui/media-object.html">Media Object</a>
-                            </li>
-                            <li>
-                                <a href="/resources/pages/ui/modals.html">Modals</a>
-                            </li>
-                            <li>
-                                <a href="/resources/pages/ui/notifications.html">Notifications</a>
-                            </li>
-                            <li>
-                                <a href="/resources/pages/ui/pagination.html">Pagination</a>
-                            </li>
-                            <li>
-                                <a href="/resources/pages/ui/preloaders.html">Preloaders</a>
-                            </li>
-                            <li>
-                                <a href="/resources/pages/ui/progressbars.html">Progress Bars</a>
-                            </li>
-                            <li>
-                                <a href="/resources/pages/ui/range-sliders.html">Range Sliders</a>
-                            </li>
-                            <li>
-                                <a href="/resources/pages/ui/sortable-nestable.html">Sortable & Nestable</a>
-                            </li>
-                            <li>
-                                <a href="/resources/pages/ui/tabs.html">Tabs</a>
-                            </li>
-                            <li>
-                                <a href="/resources/pages/ui/thumbnails.html">Thumbnails</a>
-                            </li>
-                            <li>
-                                <a href="/resources/pages/ui/tooltips-popovers.html">Tooltips & Popovers</a>
-                            </li>
-                            <li>
-                                <a href="/resources/pages/ui/waves.html">Waves</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0);" class="menu-toggle">
-                            <i class="material-icons">assignment</i>
-                            <span>Forms</span>
-                        </a>
-                        <ul class="ml-menu">
-                            <li>
-                                <a href="/resources/pages/forms/basic-form-elements.html">Basic Form Elements</a>
-                            </li>
-                            <li>
-                                <a href="/resources/pages/forms/advanced-form-elements.html">Advanced Form Elements</a>
-                            </li>
-                            <li>
-                                <a href="/resources/pages/forms/form-examples.html">Form Examples</a>
-                            </li>
-                            <li>
-                                <a href="/resources/pages/forms/form-validation.html">Form Validation</a>
-                            </li>
-                            <li>
-                                <a href="/resources/pages/forms/form-wizard.html">Form Wizard</a>
-                            </li>
-                            <li>
-                                <a href="/resources/pages/forms/editors.html">Editors</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0);" class="menu-toggle">
-                            <i class="material-icons">view_list</i>
-                            <span>Tables</span>
-                        </a>
-                        <ul class="ml-menu">
-                            <li>
-                                <a href="/resources/pages/tables/normal-tables.html">Normal Tables</a>
-                            </li>
-                            <li>
-                                <a href="/resources/pages/tables/jquery-datatable.html">Jquery Datatables</a>
-                            </li>
-                            <li>
-                                <a href="/resources/pages/tables/editable-table.html">Editable Tables</a>
-                            </li>
-                        </ul>
-                    </li>
+                    	<a href="#">
+                    		<i class="material-icons">search</i>
+                    		<span>강의실 찾기</span>
+                    	</a>                    
                     <li>
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">perm_media</i>
