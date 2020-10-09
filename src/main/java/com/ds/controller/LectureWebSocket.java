@@ -3,6 +3,7 @@ package com.ds.controller;
 import java.io.IOException;
 
 import javax.websocket.EncodeException;
+import javax.websocket.MessageHandler;
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
 import javax.websocket.OnMessage;
@@ -53,14 +54,22 @@ public class LectureWebSocket {
         System.out.println("Open session getRequestURI : " + session.getRequestURI());
         System.out.println("Open session getUserPrincipal : " + session.getUserPrincipal());
         System.out.println("Open session name : " + session.getUserPrincipal().getName());
-        
-       
+        System.out.println("Open session getMaxBinaryMessageBufferSize : " + session.getMaxBinaryMessageBufferSize());
+        System.out.println("Open session getMaxIdleTimeout : " + session.getMaxIdleTimeout());
+        System.out.println("Open session getMaxTextMessageBufferSize : " + session.getMaxTextMessageBufferSize());
+        session.setMaxBinaryMessageBufferSize(1);
+        // 위에꺼랑 https://3167.tistory.com/2 참고하고 스프링책에서 /chat/{userId}로 주소구현하는거 하면 될듯
+        // 혹은 https://nowonbun.tistory.com/621 참조
         try {
             final Basic basic = session.getBasicRemote();
             basic.sendText("Connection Established");
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+//        MessageHandler handler = null;
+//        session.addMessageHandler(handler);
+//        session.getMessageHandlers();
+        
        
         sessions.add(session);
     }
