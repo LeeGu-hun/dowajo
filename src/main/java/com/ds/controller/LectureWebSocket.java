@@ -59,7 +59,7 @@ public class LectureWebSocket {
     	
     	JsonObject jsonObjectAlt = JsonParser.parseString(msg).getAsJsonObject();
     	System.out.println("msg " + session.getId() + ": " + msg);
-    	System.out.println("msg " + session.getId() + ": " + jsonObjectAlt.get("text"));
+    	System.out.println("msg " + session.getId() + ": " + jsonObjectAlt.get("type"));
 //    	System.out.println("Message from " + session.getId() + ": " + message);
     	try {
     		final Basic basic = session.getBasicRemote();

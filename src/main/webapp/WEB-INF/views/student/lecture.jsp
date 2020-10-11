@@ -102,21 +102,13 @@ new Twitch.Player("twitch-embed", options);
 
 	$("#chkProgressPopCheck").on("click", function(e){
   	  console.log("왜안돼");
-        var mytest={
-        	    type: "yesItis"
+        var message={
+        	    message: "yesItis"
         	  };
-    	webSocket.send(JSON.stringify(mytest));
+    	webSocket.send(JSON.stringify(message));
     	$("#chkProgressPop").fadeOut(300);
     });
-	/* $("#chkProgressPopCheck").on("click", function(e){
-		var message={
-				type: "예쓰. 다따라잡음"
-    	  };
-		console.log(message);
-		webSocket.send(message);
-		$("#chkProgressPop").remove();
-		
-    }); */
+	
 	
 
 	

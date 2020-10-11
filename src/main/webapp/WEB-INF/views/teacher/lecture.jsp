@@ -78,7 +78,7 @@ new Twitch.Player("twitch-embed", options);
 
         	var myJsonData=JSON.parse(event.data);
             $.each(myJsonData, function(key, value) {
-            	$("#pop").append(key+": "+value);
+            	$("#pop").append(key+": "+value+"<br>");
             	
             });
         	
