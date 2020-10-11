@@ -12,6 +12,7 @@
         <div class="block-header">
         	
             <h2>Student PAGE</h2>
+            <a href='./lecture'>./lecture</a>
         </div>
     </div>
 </section>

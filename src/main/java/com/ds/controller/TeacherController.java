@@ -17,7 +17,7 @@ import lombok.extern.log4j.Log4j;
 @RequestMapping("/teacher/*")
 @PreAuthorize("hasRole('ROLE_TEACHER')")
 public class TeacherController {
-	@Setter(onMethod_ = { @Autowired }) // 혹은 위에 //@AllArgsConstructor 붙이든지
+	@Setter(onMethod_ = { @Autowired })
 	private LectureService lecureService;
 
 	@GetMapping("/main")

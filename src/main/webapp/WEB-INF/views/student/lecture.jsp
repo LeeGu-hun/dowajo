@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<%@ include file="/WEB-INF/views/include/header_teacher.jsp" %>
+<%@ include file="/WEB-INF/views/include/header_student.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
@@ -16,16 +16,11 @@
 					<div id="twitch-embed" style="height:100%; width:100%"></div>
 				</div>
         		<div style="height:20%; width:100%;">
-	        		<ul style="list-style:none; margin-top:30px">
-	        			<li style="display:inline; margin-right:100px"><button type="button" class="btn btn-primary waves-effect" id="chkAttendance">출석확인</button></li>
-	        			<li style="display:inline; margin-right:100px"><button type="button" class="btn btn-primary waves-effect" id="chkProgress">수행여부확인</button></li>
-	        			<li style="display:inline; margin-right:100px"><button type="button" class="btn btn-primary waves-effect" id="chkHomework">과제제출보내기</button></li>
-	        			
-	        		</ul>
+	        		
         		</div>
         	</div>
         	<div id="pop" style="width:20%; height:100%; background-color:green; float:right;">
-        		
+        		<div id="chkProgressPop" style="display:none;">강사의 진도를 다 따라잡았나요? Y/N <br><button id="chkProgressPopCheck">확인</button></div>
 			</div>
         </div>
     </div>
@@ -75,17 +70,26 @@ new Twitch.Player("twitch-embed", options);
         
         webSocket.onmessage = function(event) {
         	console.log(event.data);
-
-        	var myJsonData=JSON.parse(event.data);
+        	
+            var myJsonData=JSON.parse(event.data);
             $.each(myJsonData, function(key, value) {
-            	$("#pop").append(key+": "+value);
+            	if(key=='type' && value=='chkProgress'){
+            		$("#chkProgressPop").fadeIn(300);
+               	}
+            	if(key=='type' && value=='chkAttendance'){
+            		$("#pop").append('<div id="chkAttendancePop">출석확인?</div>');
+               	}
+            	if(key=='type' && value=='chkHomework'){
+            		$("#pop").append('<div id="chkHomeworkPop">과제보내기 창</div>');
+               	}
             	
             });
-        	
+            
+			
         };
 
         webSocket.onclose = function(event) {
-        	alert('세션접속종료됨');
+            alert('세션접속종료됨');
         };
     }
 
@@ -94,25 +98,28 @@ new Twitch.Player("twitch-embed", options);
     }
 
 
-    openSocket();
-    $("#chkProgress").on("click", function(e){
-        var chkProgress={
-        	    type: "chkProgress"
+	openSocket();
+
+	$("#chkProgressPopCheck").on("click", function(e){
+  	  console.log("왜안돼");
+        var mytest={
+        	    type: "yesItis"
         	  };
-    	webSocket.send(JSON.stringify(chkProgress));
+    	webSocket.send(JSON.stringify(mytest));
+    	$("#chkProgressPop").fadeOut(300);
     });
-    $("#chkAttendance").on("click", function(e){
-        var chkAttendance={
-        	    type: "chkAttendance"
-        	  };
-    	webSocket.send(JSON.stringify(chkAttendance));
-    });
-    $("#chkHomework").on("click", function(e){
-        var chkHomework={
-        	    type: "chkHomework"
-        	  };
-    	webSocket.send(JSON.stringify(chkHomework));
-    });
+	/* $("#chkProgressPopCheck").on("click", function(e){
+		var message={
+				type: "예쓰. 다따라잡음"
+    	  };
+		console.log(message);
+		webSocket.send(message);
+		$("#chkProgressPop").remove();
+		
+    }); */
+	
+
+	
 </script>
 
-<%@ include file="/WEB-INF/views/include/footer_teacher.jsp" %>
+<%@ include file="/WEB-INF/views/include/footer_student.jsp" %>

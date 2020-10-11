@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ds.mapper.LectureMapper">
 	
-  <resultMap type="com.ds.domain.LecturerVO" id="lectureMap">
+  <resultMap type="com.ds.domain.LectureVO" id="lectureMap">
     <id property="lecture_no" column="lecture_no"/>
     <result property="lecture_name" column="lecture_name"/>
     <result property="lecture_description" column="lecture_description"/>
