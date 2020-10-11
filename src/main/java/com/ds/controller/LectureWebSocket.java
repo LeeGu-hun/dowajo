@@ -58,6 +58,7 @@ public class LectureWebSocket {
         System.out.println("Open session getMaxIdleTimeout : " + session.getMaxIdleTimeout());
         System.out.println("Open session getMaxTextMessageBufferSize : " + session.getMaxTextMessageBufferSize());
         session.setMaxBinaryMessageBufferSize(1);
+        System.out.println("Open session getMaxBinaryMessageBufferSize : " + session.getMaxBinaryMessageBufferSize());
         // 위에꺼랑 https://3167.tistory.com/2 참고하고 스프링책에서 /chat/{userId}로 주소구현하는거 하면 될듯
         // 혹은 https://nowonbun.tistory.com/621 참조
         try {

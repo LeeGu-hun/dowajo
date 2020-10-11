@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ds.mapper.LectureMapper">
+	
+  <resultMap type="com.ds.domain.LecturerVO" id="lectureMap">
+    <id property="lecture_no" column="lecture_no"/>
+    <result property="lecture_name" column="lecture_name"/>
+    <result property="lecture_description" column="lecture_description"/>
+    <result property="lecture_twitchid" column="lecture_twitchid"/>
+    <result property="regdate" column="regdate"/>
+    <collection property="classList" resultMap="classMap">
+    </collection> 
+  </resultMap>
+  
+  <resultMap type="com.ds.domain.ClassListVO" id="classMap">
+    <result property="lecture_no" column="lecture_no"/>
+    <result property="user_no" column="user_no"/>
+    <result property="class_status" column="class_status"/>
+  </resultMap>
+
+	<select id="lectureInfo" resultMap="lectureMap">
+		select l.lecture_no, lecture_name, lecture_description, lecture_twitchid, l.regdate, user_no, class_status from 
+		ds_lecture l LEFT OUTER JOIN ds_class_list c on l.lecture_no = c.lecture_no WHERE l.lecture_no =  #{lecture_no}
+	</select>
+
+
+</mapper>
