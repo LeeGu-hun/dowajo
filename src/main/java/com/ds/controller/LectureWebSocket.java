@@ -1,6 +1,8 @@
 package com.ds.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Iterator;
 
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
@@ -12,7 +14,6 @@ import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -23,6 +24,7 @@ import com.google.gson.JsonParser;
 public class LectureWebSocket {
 
     private static final java.util.Set<Session> sessions = java.util.Collections.synchronizedSet(new java.util.HashSet<Session>());
+    private static final HashMap<String, Integer> lectureNoMap = new HashMap<>();
    
 
     @OnOpen
@@ -31,12 +33,10 @@ public class LectureWebSocket {
         System.out.println("Open session getRequestURI : " + session.getRequestURI());
         System.out.println("Open session getUserPrincipal : " + session.getUserPrincipal());
         System.out.println("Open session name : " + session.getUserPrincipal().getName());
-        System.out.println("Open session getMaxBinaryMessageBufferSize : " + session.getMaxBinaryMessageBufferSize());
-        System.out.println("Open session getMaxIdleTimeout : " + session.getMaxIdleTimeout());
-        System.out.println("Open session getMaxTextMessageBufferSize : " + session.getMaxTextMessageBufferSize());
         int number=Integer.parseInt(lecture_no);
-        session.setMaxBinaryMessageBufferSize(number);
-        System.out.println("Open session getMaxBinaryMessageBufferSize : " + session.getMaxBinaryMessageBufferSize());
+        lectureNoMap.put(session.getId(),number);
+        System.out.println(session.getId()+"의 접속시 강의실번호 : "+lectureNoMap.get(session.getId()));
+        System.out.println(lectureNoMap);
         
         
         try {
@@ -46,11 +46,6 @@ public class LectureWebSocket {
             System.out.println(e.getMessage());
         }
         
-//        MessageHandler handler = null;
-//        session.addMessageHandler(handler);
-//        session.getMessageHandlers();
-        
-       
         sessions.add(session);
     }
     
@@ -60,7 +55,6 @@ public class LectureWebSocket {
     	JsonObject jsonObjectAlt = JsonParser.parseString(msg).getAsJsonObject();
     	System.out.println("msg " + session.getId() + ": " + msg);
     	System.out.println("msg " + session.getId() + ": " + jsonObjectAlt.get("type"));
-//    	System.out.println("Message from " + session.getId() + ": " + message);
     	try {
     		final Basic basic = session.getBasicRemote();
 //    			basic.sendText("to : " + jsonObjectAlt);
@@ -78,8 +72,7 @@ public class LectureWebSocket {
         try {
             for( Session session : LectureWebSocket.sessions ){
                 if( ! self.getId().equals(session.getId()) ) {
-                	if(session.getMaxBinaryMessageBufferSize()==self.getMaxBinaryMessageBufferSize()) {
-                		//session.getBasicRemote().sendText("All : " + message);
+                	if(lectureNoMap.get(self.getId())==lectureNoMap.get(session.getId())) {
                 		session.getBasicRemote().sendText(msg);
                 		
                 	}
@@ -99,6 +92,7 @@ public class LectureWebSocket {
     @OnClose
     public void onClose(Session session){
         System.out.println("Session " +session.getId()+" has ended");
+        lectureNoMap.remove(session.getId());
         sessions.remove(session);
     }
 }
