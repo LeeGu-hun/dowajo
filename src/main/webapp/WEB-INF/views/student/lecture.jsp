@@ -113,7 +113,9 @@ new Twitch.Player("twitch-embed", options);
 
 	$("#chkProgressPopCheck").on("click", function(e){
         var message={
-        	    type: "yesItis"
+        		 type: "message",
+	        	 data: "학생수행완료",
+	        	 name: "<sec:authentication property='principal.user.user_name'/>"
         	  };
     	webSocket.send(JSON.stringify(message));
     	$("#chkProgressPop").fadeOut(300);

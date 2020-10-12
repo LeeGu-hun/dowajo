@@ -135,7 +135,6 @@ new Twitch.Player("twitch-embed", options);
 		        	    type: "message",
 		        	    data: $('#messageinput').val(),
 		        	    name: "<sec:authentication property='principal.user.user_name'/>"
-			        	    
 		        	  };
 				webSocket.send(JSON.stringify(message));
 				$("#messageinput").val("");

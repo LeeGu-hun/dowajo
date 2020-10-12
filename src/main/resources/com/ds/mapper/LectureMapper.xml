@@ -24,6 +24,11 @@
 		select l.lecture_no, lecture_name, lecture_description, lecture_twitchid, l.regdate, user_no, class_status from 
 		ds_lecture l LEFT OUTER JOIN ds_class_list c on l.lecture_no = c.lecture_no WHERE l.lecture_no =  #{lecture_no}
 	</select>
+	<select id="lectureUser" resultType="String">
+		select user_name from 
+		(select l.lecture_no, user_no from ds_lecture l , ds_class_list c WHERE l.lecture_no = c.lecture_no and l.lecture_no=#{lecture_no} and class_status='true') a, ds_user u 
+		where a.user_no=u.user_no
+	</select>
 
 
 </mapper>
