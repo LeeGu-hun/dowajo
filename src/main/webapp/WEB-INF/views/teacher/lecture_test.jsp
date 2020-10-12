@@ -26,7 +26,7 @@
         	</div>
         	<div style="width:20%; height:100%; background-color:green; float:right;">
         		<div>
-			        <input type="text" id="messageinput" />
+			        <input type="text" id="messageinput" />test
 			    </div>
 			    <div>
 			        <button type="button" onclick="openSocket();">Open</button>

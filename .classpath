@@ -30,8 +30,8 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/save/Downloads/classSpring/lib/log4j-1.2.17.jar"/>
-	<classpathentry kind="lib" path="C:/Users/save/Downloads/classSpring/lib/ojdbc8.jar">
+	<classpathentry kind="lib" path="D:/classSpring/lib/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="D:/classSpring/lib/ojdbc8.jar">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
