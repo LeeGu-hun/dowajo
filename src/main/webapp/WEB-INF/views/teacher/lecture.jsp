@@ -25,13 +25,23 @@
         		</div>
         	</div>
         	<div id="pop" style="width:20%; height:100%; float:right;">
-        		<div style="overflow:auto; height:50%; background-color:green;">
-       				<span class="label label-default">출석상황</span>
-        			<ul style="list-style:none; margin-top:30px;">
-	        			<li>학생1 <i class="material-icons">cached</i></li>
-	        			<li>학생2 <i class="material-icons">check_circle</i></li>
+        		<div style="height:50%;">
+        			<div style="overflow:auto; height:100%; width:65%; float:left; background-color:green;">
+        				<span class="label label-default">접속 유저</span>
+        				<ul id="attendance" style="margin-top:30px;">
+		        			<li>학생1 <i class="material-icons">cached</i></li>
+		        			<li>학생2 <i class="material-icons">check_circle</i></li>
 	        			
-	        		</ul>
+	        			</ul>
+        			</div>
+        			<div style="overflow:auto; height:100%; width:35%; float:right; background-color:gray;">
+	        			<span class="label label-default">미접속 유저</span>
+       					<ul id="nonAttendance" style="margin-top:30px;">
+		       				<c:forEach items="${lectureUser}" var="userList">
+	       						<li id="${userList}">${userList} </li>
+		       				</c:forEach>
+       					</ul>
+        			</div>
 				</div>
         		<div style="height:50%; background-color:yellow;">
         			<div style="overflow:auto; height:90%;" id="messages"></div>
@@ -69,7 +79,7 @@ new Twitch.Player("twitch-embed", options);
 
     function openSocket() {
     	if (webSocket !== undefined && webSocket.readyState !== WebSocket.CLOSED) {
-    		alert("이미 소켓에 접속해있습니다.");
+    		alert("이미 세션에 접속해있습니다.");
             return;
         }
         //webSocket = new WebSocket("ws://192.168.0.185:8080/echo/");
@@ -92,6 +102,11 @@ new Twitch.Player("twitch-embed", options);
             	//$("#messages").append(key+": "+value+"<br>");
             	if(key=='type' && value=='message'){
 					$("#messages").append(myJsonData.name + ": " + myJsonData.data + "<br>");
+					$("#messages").scrollTop($("#messages").height());
+          		}
+            	if(key=='type' && value=='attendance'){
+            		//여기부터 수정해야함
+					$("#messages").append(myJsonData.name);
 					$("#messages").scrollTop($("#messages").height());
           		}
             });
@@ -141,6 +156,18 @@ new Twitch.Player("twitch-embed", options);
 			}
 		}
     });
+
+    function sendAttendence() {
+		var attendance={
+        	    type: "attendance",
+            	name: "<sec:authentication property='principal.user.user_name'/>"
+        	  };
+		webSocket.send(JSON.stringify(attendance));
+    }
+	sendAttendence();
+
+
+    
 </script>
 
 <%@ include file="/WEB-INF/views/include/footer_teacher.jsp" %>

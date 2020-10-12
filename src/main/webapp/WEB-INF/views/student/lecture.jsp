@@ -59,7 +59,7 @@ new Twitch.Player("twitch-embed", options);
 
     function openSocket() {
     	if (webSocket !== undefined && webSocket.readyState !== WebSocket.CLOSED) {
-    		alert("이미 소켓에 접속해있습니다.");
+    		alert("이미 세션에 접속해있습니다.");
             return;
         }
         //webSocket = new WebSocket("ws://192.168.0.185:8080/echo/");
@@ -137,6 +137,16 @@ new Twitch.Player("twitch-embed", options);
 			}
 		}
     });
+
+
+	function sendAttendence() {
+		var attendance={
+        	    type: "attendance",
+        	    name: "<sec:authentication property='principal.user.user_name'/>"
+        	  };
+		webSocket.send(JSON.stringify(attendance));
+    }
+	sendAttendence();
 
 	
 
