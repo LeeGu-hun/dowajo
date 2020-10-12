@@ -24,8 +24,19 @@
 	        		</ul>
         		</div>
         	</div>
-        	<div id="pop" style="width:20%; height:100%; background-color:green; float:right;">
-        		
+        	<div id="pop" style="width:20%; height:100%; float:right;">
+        		<div style="overflow:auto; height:50%; background-color:green;">
+       				<span class="label label-default">출석상황</span>
+        			<ul style="list-style:none; margin-top:30px;">
+	        			<li>학생1 <i class="material-icons">cached</i></li>
+	        			<li>학생2 <i class="material-icons">check_circle</i></li>
+	        			
+	        		</ul>
+				</div>
+        		<div style="height:50%; background-color:yellow;">
+        			<div style="overflow:auto; height:90%;" id="messages"></div>
+        			<input style="margin-bottom:0;" type="text" id="messageinput" />
+				</div>
 			</div>
         </div>
     </div>
@@ -78,8 +89,11 @@ new Twitch.Player("twitch-embed", options);
 
         	var myJsonData=JSON.parse(event.data);
             $.each(myJsonData, function(key, value) {
-            	$("#pop").append(key+": "+value+"<br>");
-            	
+            	//$("#messages").append(key+": "+value+"<br>");
+            	if(key=='type' && value=='message'){
+					$("#messages").append(myJsonData.name + ": " + myJsonData.data + "<br>");
+					$("#messages").scrollTop($("#messages").height());
+          		}
             });
         	
         };
@@ -112,6 +126,21 @@ new Twitch.Player("twitch-embed", options);
         	    type: "chkHomework"
         	  };
     	webSocket.send(JSON.stringify(chkHomework));
+    });
+
+    $("#messageinput").on("keypress", function(e){
+		if(e.keyCode==13){
+			if($('#messageinput').val()!=""){
+				var message={
+		        	    type: "message",
+		        	    data: $('#messageinput').val(),
+		        	    name: "<sec:authentication property='principal.user.user_name'/>"
+			        	    
+		        	  };
+				webSocket.send(JSON.stringify(message));
+				$("#messageinput").val("");
+			}
+		}
     });
 </script>
 

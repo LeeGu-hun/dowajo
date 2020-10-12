@@ -19,8 +19,14 @@
 	        		
         		</div>
         	</div>
-        	<div id="pop" style="width:20%; height:100%; background-color:green; float:right;">
-        		<div id="chkProgressPop" style="display:none;">강사의 진도를 다 따라잡았나요? Y/N <br><button id="chkProgressPopCheck">확인</button></div>
+        	<div id="pop" style="width:20%; height:100%; background-color:green; float:right;">        		
+        		<div style="overflow:auto; height:50%; background-color:green;">
+	        		<div id="chkProgressPop" style="display:none;">강사의 진도를 다 따라잡았나요? Y/N <br><button id="chkProgressPopCheck">확인</button></div>
+				</div>
+        		<div style="height:50%; background-color:yellow;">
+        			<div style="overflow:auto; height:90%;" id="messages"></div>
+        			<input style="margin-bottom:0;" type="text" id="messageinput" />
+				</div>
 			</div>
         </div>
     </div>
@@ -73,6 +79,7 @@ new Twitch.Player("twitch-embed", options);
         	
             var myJsonData=JSON.parse(event.data);
             $.each(myJsonData, function(key, value) {
+            	
             	if(key=='type' && value=='chkProgress'){
             		$("#chkProgressPop").fadeIn(300);
                	}
@@ -82,6 +89,10 @@ new Twitch.Player("twitch-embed", options);
             	if(key=='type' && value=='chkHomework'){
             		$("#pop").append('<div id="chkHomeworkPop">과제보내기 창</div>');
                	}
+            	if(key=='type' && value=='message'){
+   					$("#messages").append(myJsonData.name + ": " + myJsonData.data + "<br>");
+   					$("#messages").scrollTop($("#messages").height());
+            	}
             	
             });
             
@@ -101,14 +112,30 @@ new Twitch.Player("twitch-embed", options);
 	openSocket();
 
 	$("#chkProgressPopCheck").on("click", function(e){
-  	  console.log("왜안돼");
         var message={
-        	    message: "yesItis"
+        	    type: "yesItis"
         	  };
     	webSocket.send(JSON.stringify(message));
     	$("#chkProgressPop").fadeOut(300);
     });
-	
+
+
+	$("#messageinput").on("keypress", function(e){
+		//e.stopPropagation();
+		if(e.keyCode==13){
+			if($('#messageinput').val()!=""){
+				var message={
+		        	    type: "message",
+		        	    data: $('#messageinput').val(),
+		        	    name: "<sec:authentication property='principal.user.user_name'/>"
+			        	    
+		        	  };
+				webSocket.send(JSON.stringify(message));
+				$("#messageinput").val("");
+			}
+		}
+    });
+
 	
 
 	
