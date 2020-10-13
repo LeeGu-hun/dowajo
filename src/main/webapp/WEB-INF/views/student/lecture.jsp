@@ -102,9 +102,6 @@ new Twitch.Player("twitch-embed", options);
 				$("#messages").append(myJsonData.name + ": " + myJsonData.data + "<br>");
 				$("#messages").scrollTop($("#messages").height());
            	}
-            	
-           
-            
 			
         };
 
@@ -154,7 +151,8 @@ new Twitch.Player("twitch-embed", options);
         	    name: "<sec:authentication property='principal.user.user_name'/>",
             	id: "<sec:authentication property='principal.user.user_id'/>"
         	  };
-		webSocket.onopen = () =>webSocket.send(JSON.stringify(attendance));
+		//webSocket.onopen = () =>webSocket.send(JSON.stringify(attendance)); //ie에선 람다식 안먹힘
+		webSocket.onopen = function(){webSocket.send(JSON.stringify(attendance))};
     }
 	sendAttendence();
 

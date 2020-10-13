@@ -185,7 +185,8 @@ new Twitch.Player("twitch-embed", options);
             	name: "<sec:authentication property='principal.user.user_name'/>",
             	id: "<sec:authentication property='principal.user.user_id'/>"
         	  };
-		webSocket.onopen = () =>webSocket.send(JSON.stringify(attendance));
+		//webSocket.onopen = () =>webSocket.send(JSON.stringify(attendance)); //function webSocket.onopen(){}과 같은 의미? webSocket.onopen = function(){}의 의미?
+		webSocket.onopen = function(){webSocket.send(JSON.stringify(attendance))};
     }
     sendAttendence();
 
