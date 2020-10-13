@@ -26,6 +26,7 @@ public class TeacherController {
 	@GetMapping("/lecture")
 	public void lecture(Model model) {
 		model.addAttribute("lectureInfo", lecureService.lectureInfo(1l));
+		model.addAttribute("lectureUser", lecureService.lectureUser(1l));
 	}
 
 }

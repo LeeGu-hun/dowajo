@@ -28,5 +28,9 @@ public class StudentController {
 	public void lecture(Model model) {
 		model.addAttribute("lectureInfo", lecureService.lectureInfo(1l));
 	}
+	
+	@GetMapping("/lecturelist")
+	public void lecturelist() {		
+	}
 
 }

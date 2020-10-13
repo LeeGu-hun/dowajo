@@ -13,7 +13,7 @@
         	<div style="width:80%;  height:100%; float:left;">
         		<div style="height:80%; width:100%;">
 					<!-- Add a placeholder for the Twitch embed -->
-					<div id="twitch-embed" style="height:100%; width:100%"></div>
+					<div id="twitch-embed" style="height:100%; width:100%;"></div>
 				</div>
         		<div style="height:20%; width:100%;">
 	        		
@@ -23,7 +23,7 @@
         		<div style="overflow:auto; height:50%; background-color:green;">
 	        		<div id="chkProgressPop" style="display:none;">강사의 진도를 다 따라잡았나요? Y/N <br><button id="chkProgressPopCheck">확인</button></div>
 				</div>
-        		<div style="height:50%; background-color:yellow;">
+        		<div style="height:40%; background-color:yellow;">
         			<div style="overflow:auto; height:90%;" id="messages"></div>
         			<input style="margin-bottom:0;" type="text" id="messageinput" />
 				</div>
@@ -55,16 +55,26 @@ new Twitch.Player("twitch-embed", options);
 </script>
 
 <script type="text/javascript">
+	//html decoder
+	function decodeEntities(encodedString) {
+	  var div = document.createElement('div');
+	  div.innerHTML = encodedString;
+	  return div.textContent;
+	}
+
+
+
     var webSocket;
 
     function openSocket() {
     	if (webSocket !== undefined && webSocket.readyState !== WebSocket.CLOSED) {
-    		alert("이미 소켓에 접속해있습니다.");
+    		alert("이미 세션에 접속해있습니다.");
             return;
         }
         //webSocket = new WebSocket("ws://192.168.0.185:8080/echo/");
         var url="ws://localhost:8080/echo/";
-            url+="${lectureInfo.lecture_no}";
+	        url+="${lectureInfo.lecture_no}/";
+	        url+=decodeEntities("<sec:authentication property='principal.user.user_name'/>");
         webSocket = new WebSocket(url);
 
         webSocket.onopen = function(event) {
@@ -78,24 +88,20 @@ new Twitch.Player("twitch-embed", options);
         	console.log(event.data);
         	
             var myJsonData=JSON.parse(event.data);
-            $.each(myJsonData, function(key, value) {
             	
-            	if(key=='type' && value=='chkProgress'){
-            		$("#chkProgressPop").fadeIn(300);
-               	}
-            	if(key=='type' && value=='chkAttendance'){
-            		$("#pop").append('<div id="chkAttendancePop">출석확인?</div>');
-               	}
-            	if(key=='type' && value=='chkHomework'){
-            		$("#pop").append('<div id="chkHomeworkPop">과제보내기 창</div>');
-               	}
-            	if(key=='type' && value=='message'){
-   					$("#messages").append(myJsonData.name + ": " + myJsonData.data + "<br>");
-   					$("#messages").scrollTop($("#messages").height());
-            	}
-            	
-            });
-            
+           	if(myJsonData.type=='chkProgress'){
+           		$("#chkProgressPop").fadeIn(300);
+              	}
+           	if(myJsonData.type=='chkAttendance'){
+           		$("#pop").append('<div id="chkAttendancePop">출석확인?</div>');
+              	}
+           	if(myJsonData.type=='chkHomework'){
+           		$("#pop").append('<div id="chkHomeworkPop">과제보내기 창</div>');
+              	}
+           	if(myJsonData.type=='message'){
+				$("#messages").append(myJsonData.name + ": " + myJsonData.data + "<br>");
+				$("#messages").scrollTop($("#messages").height());
+           	}
 			
         };
 
@@ -113,7 +119,9 @@ new Twitch.Player("twitch-embed", options);
 
 	$("#chkProgressPopCheck").on("click", function(e){
         var message={
-        	    type: "yesItis"
+        		 type: "message",
+	        	 data: "학생수행완료",
+	        	 name: "<sec:authentication property='principal.user.user_name'/>"
         	  };
     	webSocket.send(JSON.stringify(message));
     	$("#chkProgressPop").fadeOut(300);
@@ -135,6 +143,18 @@ new Twitch.Player("twitch-embed", options);
 			}
 		}
     });
+
+
+	function sendAttendence() {
+		var attendance={
+        	    type: "attendance",
+        	    name: "<sec:authentication property='principal.user.user_name'/>",
+            	id: "<sec:authentication property='principal.user.user_id'/>"
+        	  };
+		//webSocket.onopen = () =>webSocket.send(JSON.stringify(attendance)); //ie에선 람다식 안먹힘
+		webSocket.onopen = function(){webSocket.send(JSON.stringify(attendance))};
+    }
+	sendAttendence();
 
 	
 
