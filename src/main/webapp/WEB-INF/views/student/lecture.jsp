@@ -78,23 +78,22 @@ new Twitch.Player("twitch-embed", options);
         	console.log(event.data);
         	
             var myJsonData=JSON.parse(event.data);
-            $.each(myJsonData, function(key, value) {
             	
-            	if(key=='type' && value=='chkProgress'){
-            		$("#chkProgressPop").fadeIn(300);
-               	}
-            	if(key=='type' && value=='chkAttendance'){
-            		$("#pop").append('<div id="chkAttendancePop">출석확인?</div>');
-               	}
-            	if(key=='type' && value=='chkHomework'){
-            		$("#pop").append('<div id="chkHomeworkPop">과제보내기 창</div>');
-               	}
-            	if(key=='type' && value=='message'){
-   					$("#messages").append(myJsonData.name + ": " + myJsonData.data + "<br>");
-   					$("#messages").scrollTop($("#messages").height());
-            	}
+           	if(myJsonData.type=='chkProgress'){
+           		$("#chkProgressPop").fadeIn(300);
+              	}
+           	if(myJsonData.type=='chkAttendance'){
+           		$("#pop").append('<div id="chkAttendancePop">출석확인?</div>');
+              	}
+           	if(myJsonData.type=='chkHomework'){
+           		$("#pop").append('<div id="chkHomeworkPop">과제보내기 창</div>');
+              	}
+           	if(myJsonData.type=='message'){
+				$("#messages").append(myJsonData.name + ": " + myJsonData.data + "<br>");
+				$("#messages").scrollTop($("#messages").height());
+           	}
             	
-            });
+           
             
 			
         };
@@ -142,9 +141,10 @@ new Twitch.Player("twitch-embed", options);
 	function sendAttendence() {
 		var attendance={
         	    type: "attendance",
-        	    name: "<sec:authentication property='principal.user.user_name'/>"
+        	    name: "<sec:authentication property='principal.user.user_name'/>",
+            	id: "<sec:authentication property='principal.user.user_id'/>"
         	  };
-		webSocket.send(JSON.stringify(attendance));
+		webSocket.onopen = () =>webSocket.send(JSON.stringify(attendance));
     }
 	sendAttendence();
 

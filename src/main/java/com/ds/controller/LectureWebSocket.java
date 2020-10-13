@@ -39,12 +39,12 @@ public class LectureWebSocket {
         System.out.println(lectureNoMap);
         
         
-        try {
-            final Basic basic = session.getBasicRemote();
-            basic.sendText("Connection Established");
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+//        try {
+//            final Basic basic = session.getBasicRemote();
+//            basic.sendText("Connection Established");
+//        } catch (IOException e) {
+//            System.out.println(e.getMessage());
+//        }
         
         sessions.add(session);
     }

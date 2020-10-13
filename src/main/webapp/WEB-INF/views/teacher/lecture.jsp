@@ -29,8 +29,8 @@
         			<div style="overflow:auto; height:100%; width:65%; float:left; background-color:green;">
         				<span class="label label-default">접속 유저</span>
         				<ul id="attendance" style="margin-top:30px;">
-		        			<li>학생1 <i class="material-icons">cached</i></li>
-		        			<li>학생2 <i class="material-icons">check_circle</i></li>
+		        			<!-- <li>학생1 <i class="material-icons">cached</i></li>
+		        			<li>학생2 <i class="material-icons">check_circle</i></li> -->
 	        			
 	        			</ul>
         			</div>
@@ -38,7 +38,7 @@
 	        			<span class="label label-default">미접속 유저</span>
        					<ul id="nonAttendance" style="margin-top:30px;">
 		       				<c:forEach items="${lectureUser}" var="userList">
-	       						<li id="${userList}">${userList} </li>
+	       						<li id="${userList.user_id}">${userList.user_name} </li>
 		       				</c:forEach>
        					</ul>
         			</div>
@@ -75,6 +75,15 @@ new Twitch.Player("twitch-embed", options);
 </script>
 
 <script type="text/javascript">
+	//html decoder
+	function decodeEntities(encodedString) {
+	  var div = document.createElement('div');
+	  div.innerHTML = encodedString;
+	  return div.textContent;
+	}
+
+
+
     var webSocket;
 
     function openSocket() {
@@ -98,24 +107,27 @@ new Twitch.Player("twitch-embed", options);
         	console.log(event.data);
 
         	var myJsonData=JSON.parse(event.data);
-            $.each(myJsonData, function(key, value) {
-            	//$("#messages").append(key+": "+value+"<br>");
-            	if(key=='type' && value=='message'){
-					$("#messages").append(myJsonData.name + ": " + myJsonData.data + "<br>");
-					$("#messages").scrollTop($("#messages").height());
-          		}
-            	if(key=='type' && value=='attendance'){
-            		//여기부터 수정해야함
-					$("#messages").append(myJsonData.name);
-					$("#messages").scrollTop($("#messages").height());
-          		}
-            });
+            
+           	if(myJsonData.type=='message'){
+				$("#messages").append(myJsonData.name + ": " + myJsonData.data + "<br>");
+				$("#messages").scrollTop($("#messages").height());
+       		}
+           	if(myJsonData.type=='attendance'){
+               	var name=decodeEntities(myJsonData.name);
+               	var id=decodeEntities(myJsonData.id);
+				$('#'+ id ).remove();
+				$("#attendance").append('<li id="'+id+'" >' + name + '</li>');
+				
+       		}
+            
         	
         };
 
         webSocket.onclose = function(event) {
         	alert('세션접속종료됨');
         };
+
+        
     }
 
     function closeSocket() {
@@ -157,14 +169,16 @@ new Twitch.Player("twitch-embed", options);
 		}
     });
 
+    
     function sendAttendence() {
 		var attendance={
         	    type: "attendance",
-            	name: "<sec:authentication property='principal.user.user_name'/>"
+            	name: "<sec:authentication property='principal.user.user_name'/>",
+            	id: "<sec:authentication property='principal.user.user_id'/>"
         	  };
-		webSocket.send(JSON.stringify(attendance));
+		webSocket.onopen = () =>webSocket.send(JSON.stringify(attendance));
     }
-	sendAttendence();
+    sendAttendence();
 
 
     
