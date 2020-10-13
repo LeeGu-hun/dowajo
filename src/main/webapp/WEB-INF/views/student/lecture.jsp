@@ -13,7 +13,7 @@
         	<div style="width:80%;  height:100%; float:left;">
         		<div style="height:80%; width:100%;">
 					<!-- Add a placeholder for the Twitch embed -->
-					<div id="twitch-embed" style="height:100%; width:100%"></div>
+					<div id="twitch-embed" style="height:100%; width:100%;"></div>
 				</div>
         		<div style="height:20%; width:100%;">
 	        		
@@ -23,7 +23,7 @@
         		<div style="overflow:auto; height:50%; background-color:green;">
 	        		<div id="chkProgressPop" style="display:none;">강사의 진도를 다 따라잡았나요? Y/N <br><button id="chkProgressPopCheck">확인</button></div>
 				</div>
-        		<div style="height:50%; background-color:yellow;">
+        		<div style="height:40%; background-color:yellow;">
         			<div style="overflow:auto; height:90%;" id="messages"></div>
         			<input style="margin-bottom:0;" type="text" id="messageinput" />
 				</div>
