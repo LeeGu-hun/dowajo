@@ -93,7 +93,9 @@ new Twitch.Player("twitch-embed", options);
         }
         //webSocket = new WebSocket("ws://192.168.0.185:8080/echo/");
         var url="ws://localhost:8080/echo/";
-            url+="${lectureInfo.lecture_no}";
+            url+="${lectureInfo.lecture_no}/";
+            url+=decodeEntities("<sec:authentication property='principal.user.user_name'/>");
+            console.log(url);
         webSocket = new WebSocket(url);
 
         webSocket.onopen = function(event) {
@@ -115,8 +117,15 @@ new Twitch.Player("twitch-embed", options);
            	if(myJsonData.type=='attendance'){
                	var name=decodeEntities(myJsonData.name);
                	var id=decodeEntities(myJsonData.id);
-				$('#'+ id ).remove();
+				$('#nonAttendance #'+ id ).remove();
 				$("#attendance").append('<li id="'+id+'" >' + name + '</li>');
+				
+       		}
+           	if(myJsonData.type=='nonAttendance'){
+               	var name=decodeEntities(myJsonData.name);
+               	var id=decodeEntities(myJsonData.id);
+               	$('#attendance #'+ id ).remove();
+				$("#nonAttendance").append('<li id="'+id+'" >' + name + '</li>');
 				
        		}
             
