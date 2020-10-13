@@ -15,6 +15,21 @@ public class AdminController {
 
 	@GetMapping("/main")
 	public void main() {
+		
+	}
+	
+	@GetMapping("/admin_regist")
+	public void admin_regist() {
+		
+	}
+	
+	@GetMapping("/teacher_regist")
+	public void teacher_regist() {
+		
+	}
+	@GetMapping("/questions")
+	public void questions() {
+		
 	}
 
 }

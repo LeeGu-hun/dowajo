@@ -9,9 +9,8 @@
 
 <section class="content">
     <div class="container-fluid">
-        <div class="block-header">
-        	
-            <h2>Admin PAGE</h2>
+        <div class="block-header">      	
+            <h2>questions</h2>
             <a href='./lecture'>./lecture</a>
         </div>
     </div>
