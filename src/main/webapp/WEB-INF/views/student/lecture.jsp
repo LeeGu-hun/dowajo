@@ -21,7 +21,8 @@
         	</div>
         	<div id="pop" style="width:20%; height:100%; background-color:green; float:right;">        		
         		<div style="overflow:auto; height:50%; background-color:green;">
-	        		<div id="chkProgressPop" style="display:none;">강사의 진도를 다 따라잡았나요? Y/N <br><button id="chkProgressPopCheck">확인</button></div>
+	        		<div id="chkProgressPop" style="display:none; height:50%;">강사의 진도를 다 따라잡았나요? <br><button id="chkProgressPopCheck">확인</button></div>
+	        		<div id="chkHomeworkPop" style="display:none; height:50%;">파일제출할까요? <br><button id="chkHomeworkPopCheck">확인</button></div>
 				</div>
         		<div style="height:40%; background-color:yellow;">
         			<div style="overflow:auto; height:90%;" id="messages"></div>
