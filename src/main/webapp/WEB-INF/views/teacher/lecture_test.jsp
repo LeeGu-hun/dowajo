@@ -101,6 +101,22 @@ new Twitch.Player("twitch-embed", options);
         	//var msg = JSON.parse(event.data); 실패
         	//writeResponse(msg.type='type'); 실패
         	console.log(event.data);
+
+
+        	/* var myJsonData=JSON.parse(event.data);
+            $.each(myJsonData, function(key, value) {
+            	//$("#messages").append(key+": "+value+"<br>");
+            	if(key=='type' && value=='message'){
+					$("#messages").append(myJsonData.name + ": " + myJsonData.data + "<br>");
+					$("#messages").scrollTop($("#messages").height());
+          		}
+            	if(key=='type' && value=='attendance'){
+                	var name=decodeEntities(myJsonData.name);
+					$("#attendance").append("<li >" + myJsonData.name + "</li>");
+					$('#'+ name ).remove();
+					
+          		}
+            }); *///이게 다양하게 활용은 가능할듯.
         	
         	 
 

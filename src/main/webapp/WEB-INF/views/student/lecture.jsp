@@ -55,16 +55,26 @@ new Twitch.Player("twitch-embed", options);
 </script>
 
 <script type="text/javascript">
+	//html decoder
+	function decodeEntities(encodedString) {
+	  var div = document.createElement('div');
+	  div.innerHTML = encodedString;
+	  return div.textContent;
+	}
+
+
+
     var webSocket;
 
     function openSocket() {
     	if (webSocket !== undefined && webSocket.readyState !== WebSocket.CLOSED) {
-    		alert("이미 소켓에 접속해있습니다.");
+    		alert("이미 세션에 접속해있습니다.");
             return;
         }
         //webSocket = new WebSocket("ws://192.168.0.185:8080/echo/");
         var url="ws://localhost:8080/echo/";
-            url+="${lectureInfo.lecture_no}";
+	        url+="${lectureInfo.lecture_no}/";
+	        url+=decodeEntities("<sec:authentication property='principal.user.user_name'/>");
         webSocket = new WebSocket(url);
 
         webSocket.onopen = function(event) {
@@ -78,23 +88,22 @@ new Twitch.Player("twitch-embed", options);
         	console.log(event.data);
         	
             var myJsonData=JSON.parse(event.data);
-            $.each(myJsonData, function(key, value) {
             	
-            	if(key=='type' && value=='chkProgress'){
-            		$("#chkProgressPop").fadeIn(300);
-               	}
-            	if(key=='type' && value=='chkAttendance'){
-            		$("#pop").append('<div id="chkAttendancePop">출석확인?</div>');
-               	}
-            	if(key=='type' && value=='chkHomework'){
-            		$("#pop").append('<div id="chkHomeworkPop">과제보내기 창</div>');
-               	}
-            	if(key=='type' && value=='message'){
-   					$("#messages").append(myJsonData.name + ": " + myJsonData.data + "<br>");
-   					$("#messages").scrollTop($("#messages").height());
-            	}
+           	if(myJsonData.type=='chkProgress'){
+           		$("#chkProgressPop").fadeIn(300);
+              	}
+           	if(myJsonData.type=='chkAttendance'){
+           		$("#pop").append('<div id="chkAttendancePop">출석확인?</div>');
+              	}
+           	if(myJsonData.type=='chkHomework'){
+           		$("#pop").append('<div id="chkHomeworkPop">과제보내기 창</div>');
+              	}
+           	if(myJsonData.type=='message'){
+				$("#messages").append(myJsonData.name + ": " + myJsonData.data + "<br>");
+				$("#messages").scrollTop($("#messages").height());
+           	}
             	
-            });
+           
             
 			
         };
@@ -113,7 +122,9 @@ new Twitch.Player("twitch-embed", options);
 
 	$("#chkProgressPopCheck").on("click", function(e){
         var message={
-        	    type: "yesItis"
+        		 type: "message",
+	        	 data: "학생수행완료",
+	        	 name: "<sec:authentication property='principal.user.user_name'/>"
         	  };
     	webSocket.send(JSON.stringify(message));
     	$("#chkProgressPop").fadeOut(300);
@@ -135,6 +146,17 @@ new Twitch.Player("twitch-embed", options);
 			}
 		}
     });
+
+
+	function sendAttendence() {
+		var attendance={
+        	    type: "attendance",
+        	    name: "<sec:authentication property='principal.user.user_name'/>",
+            	id: "<sec:authentication property='principal.user.user_id'/>"
+        	  };
+		webSocket.onopen = () =>webSocket.send(JSON.stringify(attendance));
+    }
+	sendAttendence();
 
 	
 
