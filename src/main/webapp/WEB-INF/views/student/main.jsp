@@ -8,9 +8,10 @@
 
 <section class="content" >
     <a href='./lecture'>강의 	화면으로</a><br><br>
+    <h3>공지사항</h3><br>
     <div id="container">        
    <div id="gongzi" style="overflow:auto; width:100%; height:100%; border: 1px solid black;">
-    	<h3>공지사항</h3><br>
+    	
     	<br>
     	<br>
     	<br>

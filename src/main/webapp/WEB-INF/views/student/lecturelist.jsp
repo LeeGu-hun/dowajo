@@ -7,23 +7,27 @@
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
 <section class="content" >
+<h3>수강중인 강의 목록</h3><br>
   <div id="container">        
    <div id="list" style="overflow:auto; width:100%; height:100%; border: 1px solid black;">
-    	<h3>강의실목록</h3><br>
-    	<br>
-    	<br>
-    	<br>
-    	<br>
-    	<br>
-    	<br>
-    	<br>
-    	<br>
-    	<br>
-    	<br>
-    	<br>
-    	<br>
-    	<br>
-    	<br>
+    	<table class="table table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>강의실명</th>
+                                        <th>선생님 아이디</th>                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach items="${leLi}" var="lect">
+                                    <tr>
+                                        <td><c:out value="${lect.lecture_no }" /></td>
+                                        <td><c:out value="${lect.lecture_name }" /></td>
+                                        <td><c:out value="${lect.lecture_twitchid }" /></td>                                        
+                                    </tr>
+                                    </c:forEach>                                    
+                                </tbody>
+                            </table>
    	</div>
    </div>
 </section>
