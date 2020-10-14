@@ -2,8 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ds.mapper.UserMapper">
-
+<mapper namespace="com.ds.mapper.UserMapper">  	
 	
   <resultMap type="com.ds.domain.UserVO" id="userMap">
     <id property="user_no" column="user_no"/>
@@ -22,6 +21,8 @@
     <result property="user_no" column="user_no"/>
     <result property="user_auth" column="user_auth"/>
   </resultMap>
+  
+  
 
 	<select id="checkLogin" resultMap="userMap">
 		SELECT
@@ -31,6 +32,10 @@
 		ds_user u LEFT OUTER JOIN ds_auth a on u.user_no = a.user_no
 		WHERE user_id = #{id}
 	</select>
-
+	
+	<select id="lecutureList" resultType="com.ds.domain.LectureVO">
+	select lecture_no, lecture_name, lecture_twitchid from ds_lecture l natural join ds_class_list c
+	where c.user_no=#{user_no}
+	</select>
 
 </mapper>
