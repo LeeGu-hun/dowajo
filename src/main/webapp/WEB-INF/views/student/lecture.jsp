@@ -92,13 +92,25 @@ new Twitch.Player("twitch-embed", options);
             	
            	if(myJsonData.type=='chkProgress'){
            		$("#chkProgressPop").fadeIn(300);
-              	}
+           	}
+           	if(myJsonData.type=='chkHomework'){
+           		$("#chkHomeworkPop").fadeIn(300);
+           	}
            	if(myJsonData.type=='chkAttendance'){
-           		$("#pop").append('<div id="chkAttendancePop">출석확인?</div>');
-              	}
+           		var attendance={
+                	    type: "attendance",
+                	    name: "<sec:authentication property='principal.user.user_name'/>",
+                    	id: "<sec:authentication property='principal.user.user_id'/>"
+                	  };
+           		webSocket.send(JSON.stringify(attendance))
+           	}
            	if(myJsonData.type=='chkHomework'){
            		$("#pop").append('<div id="chkHomeworkPop">과제보내기 창</div>');
               	}
+           	if(myJsonData.type=='message'){
+				$("#messages").append(myJsonData.name + ": " + myJsonData.data + "<br>");
+				$("#messages").scrollTop($("#messages").height());
+           	}
            	if(myJsonData.type=='message'){
 				$("#messages").append(myJsonData.name + ": " + myJsonData.data + "<br>");
 				$("#messages").scrollTop($("#messages").height());

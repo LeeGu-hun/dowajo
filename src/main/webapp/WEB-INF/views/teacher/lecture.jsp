@@ -17,7 +17,7 @@
 				</div>
         		<div style="height:20%; width:100%;">
 	        		<ul style="list-style:none; margin-top:30px">
-	        			<li style="display:inline; margin-right:100px"><button type="button" class="btn btn-primary waves-effect" id="chkAttendance">출석확인</button></li>
+	        			
 	        			<li style="display:inline; margin-right:100px"><button type="button" class="btn btn-primary waves-effect" id="chkProgress">수행여부확인</button></li>
 	        			<li style="display:inline; margin-right:100px"><button type="button" class="btn btn-primary waves-effect" id="chkHomework">과제제출보내기</button></li>
 	        			
@@ -118,7 +118,7 @@ new Twitch.Player("twitch-embed", options);
                	var name=decodeEntities(myJsonData.name);
                	var id=decodeEntities(myJsonData.id);
 				$('#nonAttendance #'+ id ).remove();
-				$("#attendance").append('<li id="'+id+'" >' + name + '</li>');
+				$("#attendance").append('<li id="'+id+'" >' + name + '  <div style="display:inline; vertical-align: middle;" class="chkPg" id="chk'+id+'"></div></li>');
 				
        		}
            	if(myJsonData.type=='nonAttendance'){
@@ -146,17 +146,15 @@ new Twitch.Player("twitch-embed", options);
 
     openSocket();
     $("#chkProgress").on("click", function(e){
+		var str="<div class='preloader pl-size-xs'> <div class='spinner-layer pl-grey'> <div class='circle-clipper left'> <div class='circle'> </div> </div> <div class='circle-clipper right'> <div class='circle'> </div> </div> </div> </div>";
+		$(".chkPg").html(str);
+        
         var chkProgress={
         	    type: "chkProgress"
         	  };
     	webSocket.send(JSON.stringify(chkProgress));
     });
-    $("#chkAttendance").on("click", function(e){
-        var chkAttendance={
-        	    type: "chkAttendance"
-        	  };
-    	webSocket.send(JSON.stringify(chkAttendance));
-    });
+    
     $("#chkHomework").on("click", function(e){
         var chkHomework={
         	    type: "chkHomework"
@@ -186,10 +184,25 @@ new Twitch.Player("twitch-embed", options);
             	id: "<sec:authentication property='principal.user.user_id'/>"
         	  };
 		//webSocket.onopen = () =>webSocket.send(JSON.stringify(attendance)); //function webSocket.onopen(){}과 같은 의미? webSocket.onopen = function(){}의 의미?
-		webSocket.onopen = function(){webSocket.send(JSON.stringify(attendance))};
+		//webSocket.onopen = function(){webSocket.send(JSON.stringify(attendance))};
+		webSocket.send(JSON.stringify(attendance));
     }
-    sendAttendence();
+    //sendAttendence();
 
+
+    function checkAttendence() {
+		var chkAttendance={
+        	    type: "chkAttendance"
+        	  };
+		//webSocket.onopen = () =>webSocket.send(JSON.stringify(attendance)); //ie에선 람다식 안먹힘
+		//webSocket.onopen = function(){webSocket.send(JSON.stringify(chkAttendance))};
+		webSocket.send(JSON.stringify(chkAttendance));
+    }
+    //checkAttendence();
+
+    webSocket.onopen = function(){sendAttendence(); checkAttendence();}
+
+    
 
     
 </script>
