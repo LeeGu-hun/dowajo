@@ -10,6 +10,10 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class CommonController {
 	
+	@GetMapping("/user_register")
+	public void register() {
+		log.info("User_Register");
+	}
 	
 	@GetMapping("/customLogin")
 	public void loginInput(String error, String logout, Model model) {
