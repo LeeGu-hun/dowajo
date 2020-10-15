@@ -117,12 +117,12 @@ new Twitch.Player("twitch-embed", options);
                	var name=decodeEntities(myJsonData.name);
                	var id=decodeEntities(myJsonData.id);
                	var role=decodeEntities(myJsonData.role);
-               	
+
 				$('#nonAttendance #'+ id ).remove();
-				if(role=="[ROLE_TEACHER]"){
+				if(role.includes("ROLE_TEACHER")){
 					$("#"+id).html(name);
 				}
-				else{
+				else if(role.includes("ROLE_STUDENT")){
 					$("#attendance").append('<li id="'+id+'" >' + name + '  <div style="display:inline; vertical-align: middle;" class="chkPg" id="chk'+id+'"></div></li>');
 				}
 				
