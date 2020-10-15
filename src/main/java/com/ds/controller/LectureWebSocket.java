@@ -15,6 +15,7 @@ import javax.websocket.server.ServerEndpoint;
 
 import org.springframework.stereotype.Controller;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -54,25 +55,25 @@ public class LectureWebSocket {
     
     @OnMessage
     public void onMessage(String msg,  Session session){
+    	sendAllSessionToMessage( session, msg );
     	
-//    	JsonObject jsonObjectAlt = JsonParser.parseString(msg).getAsJsonObject();
-//    	System.out.println("msg " + session.getId() + ": " + msg);
-//    	System.out.println("msg " + session.getId() + ": " + jsonObjectAlt.get("type"));
+    	JsonObject jsonObjectAlt = JsonParser.parseString(msg).getAsJsonObject();
+    	if(jsonObjectAlt.get("type").toString().equals("\"message\"")) {
+    		jsonObjectAlt.addProperty("name", "나");
+    	}
+    	msg=jsonObjectAlt.toString();
     	try {
     		final Basic basic = session.getBasicRemote();
-//    			basic.sendText("to : " + jsonObjectAlt);
     			basic.sendText(msg);
     	} catch (IOException ex) {
     		ex.printStackTrace();
     	}
     	
-    	sendAllSessionToMessage( session, msg );
     }
    
 
     private void sendAllSessionToMessage(Session self, String message){
-//    	JsonObject jsonObjectAlt = JsonParser.parseString(message).getAsJsonObject();
-//    	String msg=jsonObjectAlt.toString();
+    	
         try {
             for( Session session : LectureWebSocket.sessions ){
                 if( ! self.getId().equals(session.getId()) ) {

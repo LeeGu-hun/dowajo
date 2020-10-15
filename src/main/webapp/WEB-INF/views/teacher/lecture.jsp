@@ -29,9 +29,8 @@
         			<div style="overflow:auto; height:100%; width:65%; float:left; background-color:green;">
         				<span class="label label-default">접속 유저</span>
         				<ul id="attendance" style="margin-top:30px;">
-		        			<!-- <li>학생1 <i class="material-icons">cached</i></li>
-		        			<li>학생2 <i class="material-icons">check_circle</i></li> -->
-	        			
+		        			<li id="<sec:authentication property='principal.user.user_id'/>"></li>
+	        				
 	        			</ul>
         			</div>
         			<div style="overflow:auto; height:100%; width:35%; float:right; background-color:gray;">
@@ -117,8 +116,15 @@ new Twitch.Player("twitch-embed", options);
            	if(myJsonData.type=='attendance'){
                	var name=decodeEntities(myJsonData.name);
                	var id=decodeEntities(myJsonData.id);
+               	var role=decodeEntities(myJsonData.role);
+               	
 				$('#nonAttendance #'+ id ).remove();
-				$("#attendance").append('<li id="'+id+'" >' + name + '  <div style="display:inline; vertical-align: middle;" class="chkPg" id="chk'+id+'"></div></li>');
+				if(role=="[ROLE_TEACHER]"){
+					$("#"+id).html(name);
+				}
+				else{
+					$("#attendance").append('<li id="'+id+'" >' + name + '  <div style="display:inline; vertical-align: middle;" class="chkPg" id="chk'+id+'"></div></li>');
+				}
 				
        		}
            	if(myJsonData.type=='nonAttendance'){
@@ -126,6 +132,11 @@ new Twitch.Player("twitch-embed", options);
                	var id=decodeEntities(myJsonData.id);
                	$('#attendance #'+ id ).remove();
 				$("#nonAttendance").append('<li id="'+id+'" >' + name + '</li>');
+				
+       		}
+           	if(myJsonData.type=='progressChecked'){
+               	var id=decodeEntities(myJsonData.id);
+               	$('#chk'+ id ).html("<i class='material-icons'>check_circle</i>");
 				
        		}
             
@@ -181,7 +192,9 @@ new Twitch.Player("twitch-embed", options);
 		var attendance={
         	    type: "attendance",
             	name: "<sec:authentication property='principal.user.user_name'/>",
-            	id: "<sec:authentication property='principal.user.user_id'/>"
+            	id: "<sec:authentication property='principal.user.user_id'/>",
+            	role: "<sec:authentication property='principal.Authorities'/>"
+                	
         	  };
 		//webSocket.onopen = () =>webSocket.send(JSON.stringify(attendance)); //function webSocket.onopen(){}과 같은 의미? webSocket.onopen = function(){}의 의미?
 		//webSocket.onopen = function(){webSocket.send(JSON.stringify(attendance))};

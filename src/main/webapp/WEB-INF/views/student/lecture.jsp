@@ -101,21 +101,16 @@ new Twitch.Player("twitch-embed", options);
            		var attendance={
                 	    type: "attendance",
                 	    name: "<sec:authentication property='principal.user.user_name'/>",
-                    	id: "<sec:authentication property='principal.user.user_id'/>"
+                    	id: "<sec:authentication property='principal.user.user_id'/>",
+                	    role: "<sec:authentication property='principal.Authorities'/>"
                 	  };
            		webSocket.send(JSON.stringify(attendance))
            	}
-           	if(myJsonData.type=='chkHomework'){
-           		$("#pop").append('<div id="chkHomeworkPop">과제보내기 창</div>');
-              	}
            	if(myJsonData.type=='message'){
 				$("#messages").append(myJsonData.name + ": " + myJsonData.data + "<br>");
 				$("#messages").scrollTop($("#messages").height());
            	}
-           	if(myJsonData.type=='message'){
-				$("#messages").append(myJsonData.name + ": " + myJsonData.data + "<br>");
-				$("#messages").scrollTop($("#messages").height());
-           	}
+           	
 			
         };
 
@@ -133,12 +128,19 @@ new Twitch.Player("twitch-embed", options);
 
 	$("#chkProgressPopCheck").on("click", function(e){
         var message={
-        		 type: "message",
-	        	 data: "학생수행완료",
-	        	 name: "<sec:authentication property='principal.user.user_name'/>"
+        		 type: "progressChecked",
+	        	 id: "<sec:authentication property='principal.user.user_id'/>"
         	  };
     	webSocket.send(JSON.stringify(message));
     	$("#chkProgressPop").fadeOut(300);
+    });
+	$("#chkHomeworkPopCheck").on("click", function(e){
+        var message={
+        		 type: "homeworkChecked",
+	        	 id: "<sec:authentication property='principal.user.user_id'/>"
+        	  };
+    	webSocket.send(JSON.stringify(message));
+    	$("#chkHomeworkPop").fadeOut(300);
     });
 
 
@@ -163,7 +165,8 @@ new Twitch.Player("twitch-embed", options);
 		var attendance={
         	    type: "attendance",
         	    name: "<sec:authentication property='principal.user.user_name'/>",
-            	id: "<sec:authentication property='principal.user.user_id'/>"
+            	id: "<sec:authentication property='principal.user.user_id'/>",
+        	    role: "<sec:authentication property='principal.Authorities'/>"
         	  };
 		//webSocket.onopen = () =>webSocket.send(JSON.stringify(attendance)); //ie에선 람다식 안먹힘
 		webSocket.onopen = function(){webSocket.send(JSON.stringify(attendance))};
