@@ -127,11 +127,9 @@
     <script src="/resources/plugins/node-waves/waves.js"></script>
 
     <!-- Validation Plugin Js -->
-    
 
     <!-- Custom Js -->
     <script src="/resources/js/admin.js"></script>
-    
 </body>
 
 </html>
