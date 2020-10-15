@@ -177,7 +177,7 @@
                 <div class="info-container">
                     <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <sec:authorize access="isAuthenticated()">
-					<sec:authentication property="principal.username"/>
+					<sec:authentication property="principal.user.user_name"/>
 					</sec:authorize>
                     </div>                    
                     <div class="btn-group user-helper-dropdown">
@@ -204,7 +204,7 @@
                     
                     
                     <li>
-                    	<a href="/student/lecturelist">                        
+                    	<a href="/student/lecturelist" id="leLi">                        
                        		<i class="material-icons">view_list</i>
                        		<span>수강중인 강의목록</span>
                        	</a>                       
@@ -396,6 +396,11 @@
 <form action="/customLogout" method='post' id="logoutForm">
 	<input type="hidden"name="${_csrf.parameterName}"value="${_csrf.token}"/>
 </form>
+	
+<form action="/student/lecturelist" method='get' id="shootuserNo">
+	<input type="hidden"name="${_csrf.parameterName}"value="${_csrf.token}"/>
+</form>
+
 <script>
 	$(document).ready(function(){
 		$('#logout').on("click", function(e){
