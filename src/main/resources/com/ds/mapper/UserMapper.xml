@@ -33,9 +33,15 @@
 		WHERE user_id = #{id}
 	</select>
 	
-	<select id="lecutureList" resultType="com.ds.domain.LectureVO">
+	<select id="lectureList" resultType="com.ds.domain.LectureVO">
 	select lecture_no, lecture_name, lecture_twitchid from ds_lecture l natural join ds_class_list c
 	where c.user_no=#{user_no}
+	</select>
+	
+	<select id="lectureAllList" resultType="com.ds.domain.LectureVO">
+	<![CDATA[
+	select lecture_no, lecture_name, lecture_twitchid from ds_lecture where lecture_no>0
+	]]>
 	</select>
 
 </mapper>

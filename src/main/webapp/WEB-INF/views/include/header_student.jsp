@@ -398,7 +398,7 @@
 </form>
 	
 <form action="/student/lecturelist" method='get' id="shootuserNo">
-	<input type="hidden"name="${_csrf.parameterName}"value="${_csrf.token}"/>
+	<input type='hidden' name='user_no' value='<sec:authentication property="principal.user.user_no"/>'>
 </form>
 
 <script>

@@ -20,9 +20,13 @@ public class UserServiceImpl implements UserService{
 	private UserMapper mapper;
 
 	@Override
-	public List<LectureVO> lecutureList(Long user_no) {
-		log.info("check service");
-		return mapper.lecutureList(user_no);
+	public List<LectureVO> lectureList(Long user_no) {		
+		return mapper.lectureList(user_no);
+	}
+	
+	@Override
+	public List<LectureVO> lectureAllList(){
+		return mapper.lectureAllList();		
 	}
 	
 

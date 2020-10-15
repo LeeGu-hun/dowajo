@@ -8,6 +8,7 @@ import com.ds.domain.UserVO;
 public interface UserMapper {
 
 	public UserVO checkLogin(String id);
-	public List<LectureVO> lecutureList(Long user_no);
+	public List<LectureVO> lectureList(Long user_no);
+	public List<LectureVO> lectureAllList();
 	
 }
