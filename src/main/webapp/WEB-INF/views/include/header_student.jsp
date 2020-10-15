@@ -407,5 +407,10 @@
 			e.preventDefault();
 			$('#logoutForm').submit();
 		});
+
+		$('#leLi').on("click", function(e){
+			e.preventDefault();
+			$('#shootuserNo').submit();
+		});
 	});
 </script>

@@ -36,9 +36,9 @@ public class StudentController {
 	}
 	
 	@GetMapping("/lecturelist")
-	public void lecturelist(Model model) {	
+	public void lecturelist(@RequestParam("user_no")Long user_no, Model model) {	
 		log.info("check controller");
-		model.addAttribute("leLi",userService.lecutureList(3l));
+		model.addAttribute("leLi",userService.lecutureList(user_no));
 	}
 
 }
