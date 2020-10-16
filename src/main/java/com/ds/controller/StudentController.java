@@ -40,11 +40,17 @@ public class StudentController {
 	}
 	
 	@GetMapping("/lecturelist")	
+	@Transactional
 	public void lecturelist(@RequestParam("user_no")Long user_no, Model model) {		
 		List<LectureVO> list = userService.lectureAllList();
 		model.addAttribute("leLi",userService.lectureList(user_no));
+		model.addAttribute("leAL", list);		
+	}
+	
+	@GetMapping("/lectureSearch")
+	public void lectureSearch(Model model) {
+		List<LectureVO> list = userService.lectureAllList();
 		model.addAttribute("leAL", list);
-		
 	}
 
 }
