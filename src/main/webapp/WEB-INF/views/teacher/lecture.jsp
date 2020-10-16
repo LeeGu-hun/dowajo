@@ -16,12 +16,28 @@
 					<div id="twitch-embed" style="height:100%; width:100%"></div>
 				</div>
         		<div style="height:20%; width:100%;">
-	        		<ul style="list-style:none; margin-top:30px">
-	        			
-	        			<li style="display:inline; margin-right:100px"><button type="button" class="btn btn-primary waves-effect" id="chkProgress">수행여부확인</button></li>
-	        			<li style="display:inline; margin-right:100px"><button type="button" class="btn btn-primary waves-effect" id="chkHomework">과제제출보내기</button></li>
-	        			
-	        		</ul>
+        		
+        			<table>
+        				<tr style="height:10px;"></tr>
+        				<tr>
+        					<td style="width:500px;">
+        						<button type="button" class="btn btn-primary waves-effect" id="chkProgress">수행여부 확인하기</button>
+        					</td>
+        					<td style="width:500px;">
+        						<button type="button" class="btn btn-primary waves-effect" id="chkHomework">과제제출 보내기</button>
+        					</td>
+        				</tr>
+        				<tr style="height:10px;"></tr>
+        				<tr>
+        					<td style="width:500px;">
+        						<button style="display:none;" type="button" class="btn btn-success waves-effect" id="clsProgress">수행여부 확인종료</button>
+        					</td>
+        					<td style="width:500px;">
+        						<button style="display:none;" type="button" class="btn btn-success waves-effect" id="clsHomework">학생 과제 받기</button>
+        					</td>
+        				</tr>
+        			</table>
+        			
         		</div>
         	</div>
         	<div id="pop" style="width:20%; height:100%; float:right;">
@@ -164,6 +180,16 @@ new Twitch.Player("twitch-embed", options);
         	    type: "chkProgress"
         	  };
     	webSocket.send(JSON.stringify(chkProgress));
+    	$("#clsProgress").fadeIn(300);
+    });
+    $("#clsProgress").on("click", function(e){
+		$(".chkPg").html("");
+        
+        var clsProgress={
+        	    type: "clsProgress"
+        	  };
+    	webSocket.send(JSON.stringify(clsProgress));
+    	$("#clsProgress").fadeOut(300);
     });
     
     $("#chkHomework").on("click", function(e){
@@ -171,6 +197,8 @@ new Twitch.Player("twitch-embed", options);
         	    type: "chkHomework"
         	  };
     	webSocket.send(JSON.stringify(chkHomework));
+    	
+    	
     });
 
     $("#messageinput").on("keypress", function(e){
