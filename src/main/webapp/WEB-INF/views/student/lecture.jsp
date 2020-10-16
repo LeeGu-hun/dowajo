@@ -98,13 +98,7 @@ new Twitch.Player("twitch-embed", options);
            		$("#chkHomeworkPop").fadeIn(300);
            	}
            	if(myJsonData.type=='chkAttendance'){
-           		var attendance={
-                	    type: "attendance",
-                	    name: "<sec:authentication property='principal.user.user_name'/>",
-                    	id: "<sec:authentication property='principal.user.user_id'/>",
-                	    role: "<sec:authentication property='principal.Authorities'/>"
-                	  };
-           		webSocket.send(JSON.stringify(attendance))
+           		sendAttendence();
            	}
            	if(myJsonData.type=='message'){
 				$("#messages").append(myJsonData.name + ": " + myJsonData.data + "<br>");
@@ -169,9 +163,9 @@ new Twitch.Player("twitch-embed", options);
         	    role: "<sec:authentication property='principal.Authorities'/>"
         	  };
 		//webSocket.onopen = () =>webSocket.send(JSON.stringify(attendance)); //ie에선 람다식 안먹힘
-		webSocket.onopen = function(){webSocket.send(JSON.stringify(attendance))};
+		webSocket.send(JSON.stringify(attendance));
     }
-	sendAttendence();
+    webSocket.onopen = function(){sendAttendence();}
 
 	
 
