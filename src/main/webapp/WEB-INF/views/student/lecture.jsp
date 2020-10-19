@@ -22,7 +22,7 @@
         	<div id="pop" style="width:20%; height:100%; background-color:green; float:right;">        		
         		<div style="overflow:auto; height:50%; background-color:green;">
 	        		<div id="chkProgressPop" style="display:none; height:50%;">강사의 진도를 다 따라잡았나요? <br><button id="chkProgressPopCheck">확인</button></div>
-	        		<div id="chkHomeworkPop" style="display:none; height:50%;">파일제출할까요? <br><button id="chkHomeworkPopCheck">확인</button></div>
+	        		<div id="chkHomeworkPop" style="display:none; height:50%;">파일을 제출하세요 <br><input type="file" name="uploadFile" multiple><br><button id="chkHomeworkPopCheck">확인</button></div>
 	        		
 				</div>
         		<div style="height:40%; background-color:yellow;">
@@ -76,7 +76,8 @@ new Twitch.Player("twitch-embed", options);
         //webSocket = new WebSocket("ws://192.168.0.185:8080/echo/");
         var url="ws://localhost:8080/echo/";
 	        url+="${lectureInfo.lecture_no}/";
-	        url+=decodeEntities("<sec:authentication property='principal.user.user_name'/>");
+	        url+=decodeEntities("<sec:authentication property='principal.user.user_name'/>/");
+	        url+=decodeEntities("<sec:authentication property='principal.user.user_no'/>");
         webSocket = new WebSocket(url);
 
         webSocket.onopen = function(event) {
@@ -90,6 +91,28 @@ new Twitch.Player("twitch-embed", options);
         	console.log(event.data);
         	
             var myJsonData=JSON.parse(event.data);
+
+            if(myJsonData.type=='overlap'){
+            	
+            	alert("강의창은 하나만 띄울 수 있습니다.");
+            	window.open('http://localhost:8080/student/main','_self').close();
+            	
+            	//self.opener=self;
+            	//window.close();
+            	
+            	//window.open('','_self').close();
+            	     
+            	//window.open('','_parent','');
+                //window.close();
+                
+           		//alert("강의창은 하나만 띄울 수 있습니다.");
+           		//window.close();
+           	}
+           	
+           	if(myJsonData.type=='message'){
+				$("#messages").append(myJsonData.name + ": " + myJsonData.data + "<br>");
+				$("#messages").scrollTop($("#messages").height());
+           	}
             	
            	if(myJsonData.type=='chkProgress'){
            		$("#chkProgressPop").fadeIn(300);
@@ -99,10 +122,6 @@ new Twitch.Player("twitch-embed", options);
            	}
            	if(myJsonData.type=='chkAttendance'){
            		sendAttendence();
-           	}
-           	if(myJsonData.type=='message'){
-				$("#messages").append(myJsonData.name + ": " + myJsonData.data + "<br>");
-				$("#messages").scrollTop($("#messages").height());
            	}
            	
 			
@@ -160,7 +179,8 @@ new Twitch.Player("twitch-embed", options);
         	    type: "attendance",
         	    name: "<sec:authentication property='principal.user.user_name'/>",
             	id: "<sec:authentication property='principal.user.user_id'/>",
-        	    role: "<sec:authentication property='principal.Authorities'/>"
+        	    role: "<sec:authentication property='principal.Authorities'/>",
+            	no: "<sec:authentication property='principal.user.user_no'/>"
         	  };
 		//webSocket.onopen = () =>webSocket.send(JSON.stringify(attendance)); //ie에선 람다식 안먹힘
 		webSocket.send(JSON.stringify(attendance));

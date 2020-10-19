@@ -13,24 +13,49 @@ import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import com.google.gson.JsonArray;
+import com.ds.domain.UserVO;
+import com.ds.service.LectureService;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import lombok.Setter;
+
 
 @Controller("LectureWebSocketController")
-@ServerEndpoint(value="/echo/{lecture_no}/{user_name}")
+@ServerEndpoint(value="/echo/{lecture_no}/{user_name}/{user_no}")
 public class LectureWebSocket {
+	
+	//@Setter(onMethod_ = { @Autowired })
+	//private LectureService lecureService;
 
     private static final java.util.Set<Session> sessions = java.util.Collections.synchronizedSet(new java.util.HashSet<Session>());
     private static final HashMap<String, Integer> lectureNoMap = new HashMap<>();
     private static final HashMap<String, String> userNameMap = new HashMap<>();
-   
+    private static final HashMap<String, Long> userNoMap = new HashMap<>();
 
     @OnOpen
-    public void onOpen(Session session, @PathParam("lecture_no") int lecture_no, @PathParam("user_name") String user_name){
+    public void onOpen(Session session, @PathParam("lecture_no") int lecture_no, @PathParam("user_name") String user_name,  @PathParam("user_no") Long user_no){
+    	
+    	//UserVO userVo=lecureService.userInfo(user_no); // onOpen이나 onClose에서는 JsonParser도 그렇고 쓰레드 사용할만한 것들은 죄다 안되는듯
+    	
+    	Iterator<String> keys = userNoMap.keySet().iterator();
+    	while( keys.hasNext() ){
+    		String key = keys.next();
+    		if(userNoMap.get(key)==user_no) {
+    			try {
+    	            final Basic basic = session.getBasicRemote();
+    	            String overlap="{\"type\":\"overlap\"}";
+    	            basic.sendText(overlap);
+    	        } catch (IOException e) {
+    	            System.out.println(e.getMessage());
+    	        }
+    			return;
+    		}
+    	}
+    	
         System.out.println("Open session id : " + session.getId());
         System.out.println("Open session getRequestURI : " + session.getRequestURI());
         System.out.println("Open session getUserPrincipal : " + session.getUserPrincipal());
@@ -41,14 +66,10 @@ public class LectureWebSocket {
         userNameMap.put(session.getId(),user_name);
         System.out.println(session.getId()+"의 이름 : "+userNameMap.get(session.getId()));
         System.out.println(userNameMap);
-        //현재 한사람이 같은페이지 두번띄우면 중복세션접속되는 문제있음. user_no도 받아서 hashmap추가하고 중복검사 하면 되긴할건데 귀찮다아... 그리고 user_name받는거 말고 number받아서 mapper에서 정보불러오는것도 괜찮겠네.
+        userNoMap.put(session.getId(),user_no);
+        System.out.println(session.getId()+"의 유저번호 : "+userNoMap.get(session.getId()));
+        System.out.println(userNoMap);
         
-//        try {
-//            final Basic basic = session.getBasicRemote();
-//            basic.sendText("Connection Established");
-//        } catch (IOException e) {
-//            System.out.println(e.getMessage());
-//        }
         
         sessions.add(session);
     }
@@ -100,6 +121,7 @@ public class LectureWebSocket {
         sendAllSessionToMessage( session, str );
         lectureNoMap.remove(session.getId());
         userNameMap.remove(session.getId());
+        userNoMap.remove(session.getId());
         sessions.remove(session);
     }
 }

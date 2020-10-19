@@ -42,10 +42,14 @@
         	</div>
         	<div id="pop" style="width:20%; height:100%; float:right;">
         		<div style="height:50%;">
-        			<div style="overflow:auto; height:100%; width:65%; float:left; background-color:green;">
+        			<div style="overflow:auto; height:100%; width:65%; float:left; background-color:#f8cb4f;">
         				<span class="label label-default">접속 유저</span>
         				<ul id="attendance" style="margin-top:30px;">
 		        			<li id="<sec:authentication property='principal.user.user_id'/>"></li>
+		        			
+		        			<c:forEach items="${lectureUser}" var="userList">
+	       						<div id="${userList.user_no}"></div>
+		       				</c:forEach>
 	        				
 	        			</ul>
         			</div>
@@ -109,7 +113,8 @@ new Twitch.Player("twitch-embed", options);
         //webSocket = new WebSocket("ws://192.168.0.185:8080/echo/");
         var url="ws://localhost:8080/echo/";
             url+="${lectureInfo.lecture_no}/";
-            url+=decodeEntities("<sec:authentication property='principal.user.user_name'/>");
+            url+=decodeEntities("<sec:authentication property='principal.user.user_name'/>/");
+            url+=decodeEntities("<sec:authentication property='principal.user.user_no'/>");
             console.log(url);
         webSocket = new WebSocket(url);
 
@@ -124,6 +129,22 @@ new Twitch.Player("twitch-embed", options);
         	console.log(event.data);
 
         	var myJsonData=JSON.parse(event.data);
+			if(myJsonData.type=='overlap'){
+            	
+            	alert("강의창은 하나만 띄울 수 있습니다.");
+            	window.open('http://localhost:8080/teacher/main','_self').close();
+            	
+            	//self.opener=self;
+            	//window.close();
+            	
+            	//window.open('','_self').close();
+            	     
+            	//window.open('','_parent','');
+                //window.close();
+                
+           		//alert("강의창은 하나만 띄울 수 있습니다.");
+           		//window.close();
+           	}
             
            	if(myJsonData.type=='message'){
 				$("#messages").append(myJsonData.name + ": " + myJsonData.data + "<br>");
@@ -133,13 +154,14 @@ new Twitch.Player("twitch-embed", options);
                	var name=decodeEntities(myJsonData.name);
                	var id=decodeEntities(myJsonData.id);
                	var role=decodeEntities(myJsonData.role);
+               	var no=decodeEntities(myJsonData.no);
 
 				$('#nonAttendance #'+ id ).remove();
 				if(role.includes("ROLE_TEACHER")){
 					$("#"+id).html(name);
 				}
 				else if(role.includes("ROLE_STUDENT")){
-					$("#attendance").append('<li id="'+id+'" >' + name + '  <div style="display:inline; vertical-align: middle;" class="chkPg" id="chk'+id+'"></div></li>');
+					$("#attendance #"+no).html('<li id="'+id+'" >' + name + '  <div style="display:inline; vertical-align: middle;" class="chkPg" id="chkPg'+id+'"></div> <div style="display:inline; vertical-align: middle;" class="chkHw" id="chkHw'+id+'"></div></li>');
 				}
 				
        		}
@@ -152,7 +174,12 @@ new Twitch.Player("twitch-embed", options);
        		}
            	if(myJsonData.type=='progressChecked'){
                	var id=decodeEntities(myJsonData.id);
-               	$('#chk'+ id ).html("<i class='material-icons'>check_circle</i>");
+               	$('#chkPg'+ id ).html("<i class='material-icons'>check_circle</i>");
+				
+       		}
+           	if(myJsonData.type=='homeworkChecked'){
+               	var id=decodeEntities(myJsonData.id);
+               	$('#chkHw'+ id ).html("<i class='material-icons'>cloud_done</i>");
 				
        		}
             
@@ -193,12 +220,24 @@ new Twitch.Player("twitch-embed", options);
     });
     
     $("#chkHomework").on("click", function(e){
+    	var str="<img src='/resources/images/cloud.gif' style='height:30px; width:30px;' > ";
+		$(".chkHw").html(str);
+        
         var chkHomework={
         	    type: "chkHomework"
         	  };
     	webSocket.send(JSON.stringify(chkHomework));
+    	$("#clsHomework").fadeIn(300);
     	
-    	
+    });
+    $("#clsHomework").on("click", function(e){
+		$(".chkHw").html("");
+        
+        var clsHomework={
+        	    type: "clsHomework"
+        	  };
+    	webSocket.send(JSON.stringify(clsHomework));
+    	$("#clsHomework").fadeOut(300);
     });
 
     $("#messageinput").on("keypress", function(e){
@@ -221,7 +260,8 @@ new Twitch.Player("twitch-embed", options);
         	    type: "attendance",
             	name: "<sec:authentication property='principal.user.user_name'/>",
             	id: "<sec:authentication property='principal.user.user_id'/>",
-            	role: "<sec:authentication property='principal.Authorities'/>"
+            	role: "<sec:authentication property='principal.Authorities'/>",
+            	no: "<sec:authentication property='principal.user.user_no'/>"
                 	
         	  };
 		//webSocket.onopen = () =>webSocket.send(JSON.stringify(attendance)); //function webSocket.onopen(){}과 같은 의미? webSocket.onopen = function(){}의 의미?
