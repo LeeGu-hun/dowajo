@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.ds.domain.LectureVO;
 import com.ds.domain.UserVO;
 import com.ds.service.LectureService;
+import com.ds.service.StudentService;
 import com.ds.service.UserService;
 
 import lombok.Setter;
@@ -28,7 +29,7 @@ public class StudentController {
 	private LectureService lecureService;
 	
 	@Setter(onMethod_ = { @Autowired })
-	private UserService userService;
+	private StudentService studentService;
 
 	@GetMapping("/main")
 	public void main() {
@@ -42,14 +43,14 @@ public class StudentController {
 	@GetMapping("/lecturelist")	
 	@Transactional
 	public void lecturelist(@RequestParam("user_no")Long user_no, Model model) {		
-		List<LectureVO> list = userService.lectureAllList();
-		model.addAttribute("leLi",userService.lectureList(user_no));
+		List<LectureVO> list = studentService.lectureAllList();
+		model.addAttribute("leLi",studentService.lectureList(user_no));
 		model.addAttribute("leAL", list);		
 	}
 	
 	@GetMapping("/lectureSearch")
 	public void lectureSearch(Model model) {
-		List<LectureVO> list = userService.lectureAllList();
+		List<LectureVO> list = studentService.lectureAllList();
 		model.addAttribute("leAL", list);
 	}
 

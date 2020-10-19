@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.ds.domain.LectureVO;
 import com.ds.domain.UserVO;
 import com.ds.mapper.LectureMapper;
+import com.ds.mapper.StudentMapper;
 import com.ds.mapper.UserMapper;
 
 import lombok.AllArgsConstructor;
@@ -15,10 +16,19 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 @Service
 @AllArgsConstructor
-public class UserServiceImpl implements UserService{
+public class StudentServiceImpl implements StudentService{
 
-	private UserMapper mapper;
+	private StudentMapper mapper;
+
+	@Override
+	public List<LectureVO> lectureList(Long user_no) {		
+		return mapper.lectureList(user_no);
+	}
 	
+	@Override
+	public List<LectureVO> lectureAllList(){
+		return mapper.lectureAllList();		
+	}
 	
 
 	

@@ -211,7 +211,7 @@
                     </li>
                     
                     <li>
-                    	<a href="#">
+                    	<a href="/student/lectureSearch">                    	
                     		<i class="material-icons">search</i>
                     		<span>강의실 찾기</span>
                     	</a>                    
