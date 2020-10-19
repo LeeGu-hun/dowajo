@@ -9,7 +9,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <title>classHELPER | 사용자 등록</title>
+    <title>classHELPER | 사용자 등록!</title>
     <!-- Favicon-->
     <link rel="icon" href="/resources/favicon.ico" type="image/x-icon">
 
@@ -44,7 +44,7 @@
         <div class="card">
             <div class="body">
                 <form id="sign_up" method="POST">
-                    <div class="msg">신규 회원 가입</div>
+                    <div class="msg"><b>회원 가입</b></div>
                     <div class="input-group">
                         <span class="input-group-addon">
                             <i class="material-icons">person</i>
@@ -58,7 +58,7 @@
                             <i class="material-icons">lock</i>
                         </span>
                         <div class="form-line">
-                            <input type="password" class="form-control" name="password" minlength="6" placeholder="비밀번호" required>
+                            <input type="password" class="form-control" name="password" placeholder="비밀번호" required>
                         </div>
                     </div>
                     <div class="input-group">
@@ -66,7 +66,7 @@
                             <i class="material-icons">lock</i>
                         </span>
                         <div class="form-line">
-                            <input type="password" class="form-control" name="confirm" minlength="6" placeholder="비밀번호 확인" required>
+                            <input type="password" class="form-control" name="confirm" placeholder="비밀번호 확인" required>
                         </div>
                     </div>
                     <div class="input-group">
@@ -74,7 +74,7 @@
                             <i class="material-icons">face</i>
                         </span>
                         <div class="form-line">
-                            <input type="email" class="form-control" name="email" placeholder="이름" required>
+                            <input type="text" class="form-control" name="name" placeholder="이름" required>
                         </div>
                     </div>
                     <div class="input-group">
@@ -82,7 +82,7 @@
                             <i class="material-icons">location_city</i>
                         </span>
                         <div class="form-line">
-                            <input type="text" class="form-control" name="email" placeholder="소속" required>
+                            <input type="text" class="form-control" name="depart" placeholder="소속" required>
                         </div>
                     </div>
                     <div class="input-group">
@@ -98,19 +98,14 @@
                             <i class="material-icons">smartphone</i>
                         </span>
                         <div class="form-line">
-                            <input type="text" class="form-control" name="email" placeholder="연락처" required><br>
+                            <input type="text" class="form-control" name="mobile" placeholder="연락처" required><br>
                         </div>                        
-                    </div>           
-                    <div class="form-group">
-                        <input type="checkbox" name="terms" id="terms" class="filled-in chk-col-red">
-                        <label for="terms">I read and agree to the <a href="javascript:void(0);">terms of usage</a>.</label>
-                        
                     </div>
 					
-                    <button class="btn btn-block btn-lg bg-pink waves-effect" type="submit">SIGN UP</button>
+                    <button id=Regbtn class="btn btn-block btn-lg bg-pink waves-effect" type="submit">가입하기</button>
 
                     <div class="m-t-25 m-b--5 align-center">
-                        <a href="sign-in.html">You already have a membership?</a>
+                        <a href="/customLogin">이미 계정이 있으신가요?</a>
                     </div>                    
                 </form>
             </div>
@@ -133,5 +128,9 @@
     <script src="/resources/js/admin.js"></script>
     <script src="/resources/js/pages/examples/sign-up.js"></script>
 </body>
-
+<script type="text/javascript">
+$(#Regbtn).onclick(function(){
+	alert("hello");
+});
+</script>
 </html>
