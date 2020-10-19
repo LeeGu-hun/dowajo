@@ -22,7 +22,11 @@
         	<div id="pop" style="width:20%; height:100%; background-color:green; float:right;">        		
         		<div style="overflow:auto; height:50%; background-color:green;">
 	        		<div id="chkProgressPop" style="display:none; height:50%;">강사의 진도를 다 따라잡았나요? <br><button id="chkProgressPopCheck">확인</button></div>
-	        		<div id="chkHomeworkPop" style="display:none; height:50%;">파일을 제출하세요 <br><input type="file" name="uploadFile" multiple><br><button id="chkHomeworkPopCheck">확인</button></div>
+	        		<div id="chkHomeworkPop" style="display:none; height:50%;">파일을 제출하세요 <br>
+	        		
+	        		<input type="file" name="uploadFile" multiple>
+	        		
+	        		<br><button id="chkHomeworkPopCheck">확인</button></div>
 	        		
 				</div>
         		<div style="height:40%; background-color:yellow;">
@@ -63,6 +67,66 @@ new Twitch.Player("twitch-embed", options);
 	  div.innerHTML = encodedString;
 	  return div.textContent;
 	}
+
+
+
+	/* -- 파일업로드 위한 추가 ------------------------------------------ */ 
+	var csrfHeaderName = "${_csrf.headerName}";
+	var csrfTokenValue = "${_csrf.token}";
+
+	/* -- 파일업로드 위한 추가 ------------------------------------------ */ 
+	// 업로드 파일 확장자 필터링
+	var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");  //정규식
+	var maxSize = 5242880;  //5MB
+
+	function checkExtension(fileName, fileSize) {
+		if (fileSize >= maxSize) {
+			alert("파일 사이즈 초과");
+			return false;
+		}
+		
+		if (regex.test(fileName)) {
+			alert("해당 종류의 파일은 업로드할 수 없습니다.");
+			return false;
+		}
+		return true;
+	}
+
+
+	function fileUpload(){
+	    var formData = new FormData();  //폼 태그에 대응되는 객체
+		var inputFile = $("input[name='uploadFile']");
+		var files = inputFile[0].files;
+		console.log(inputFile)
+		console.log(files)
+		
+		// formData 에 file 추가
+		for (var i = 0; i < files.length; i++) {
+			if (!checkExtension(files[i].name, files[i].size)) {
+				return false;
+			}
+			formData.append("uploadFile", files[i]);
+			console.log(formData)
+		}
+		
+		$.ajax({
+			url: '/file/uploadAjaxAction',
+			processData: false,
+			contentType: false,
+			beforeSend: function(xhr){
+				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);  //로그인 시큐리티 관련 token전달. 위에 hidden으로 토큰전달하듯이 ajax에선 이렇게 보내는듯.
+			},
+			data: formData,
+			type: 'POST',
+			dataType: 'text',  
+			success: function(result){
+				console.log("result : "+result);
+				//var str="<input type='hidden' name='filename' value='"+result+"' >"
+				//$('#registfrm').append(str).submit();
+			}
+		});
+	}
+	/* -- 파일업로드 위한 추가 끝 ----------- */ 
 
 
 
@@ -148,6 +212,7 @@ new Twitch.Player("twitch-embed", options);
     	$("#chkProgressPop").fadeOut(300);
     });
 	$("#chkHomeworkPopCheck").on("click", function(e){
+		fileUpload();
         var message={
         		 type: "homeworkChecked",
 	        	 id: "<sec:authentication property='principal.user.user_id'/>"
@@ -186,9 +251,6 @@ new Twitch.Player("twitch-embed", options);
 		webSocket.send(JSON.stringify(attendance));
     }
     webSocket.onopen = function(){sendAttendence();}
-
-	
-
 	
 </script>
 
