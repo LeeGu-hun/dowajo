@@ -237,6 +237,10 @@ new Twitch.Player("twitch-embed", options);
         	    type: "clsHomework"
         	  };
     	webSocket.send(JSON.stringify(clsHomework));
+
+    	self.location = "/file/download?fileName=dream01.png";
+        	// + "${product.filename}";
+    	
     	$("#clsHomework").fadeOut(300);
     });
 

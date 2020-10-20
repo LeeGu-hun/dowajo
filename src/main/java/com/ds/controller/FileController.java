@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,16 +30,16 @@ public class FileController {
 	
 	
 	
-	@PostMapping(value="/uploadAjaxAction", produces="application/text;charset=utf-8")
+	@PostMapping(value="/uploadAjaxAction/{lectureNo}/{userNo}", produces="application/text;charset=utf-8")
 	@ResponseBody
-	public String uploadAjaxPost(MultipartFile[] uploadFile) {
+	public String uploadAjaxPost(MultipartFile[] uploadFile, @PathVariable Long lectureNo, @PathVariable Long userNo) {
+		
 		String result=null;
 		
-		String uploadFolder = "C:\\upload";
+		String uploadFolder = "C:\\upload\\"+lectureNo;
 		
-//		String uploadFolderPath = getFolder();  //추가
-		// 년/월/일 폴더 생성
-		File uploadPath = new File(uploadFolder);  //수정
+
+		File uploadPath = new File(uploadFolder);
 		log.info("upload path: " + uploadPath);
 		
 		if (uploadPath.exists() == false) {
@@ -48,66 +49,36 @@ public class FileController {
 		
 		for (MultipartFile multipartFile : uploadFile) {
 			
-//			AttachFileDTO attachDTO = new AttachFileDTO();  //추가
-			
 			String uploadFileName = multipartFile.getOriginalFilename();
 			log.info("uploadFileName: " + uploadFileName);
-			// IE 에서 filepath 삭제하고 파일명만 구하기
-			uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\")+1);
-			log.info("only file name: " + uploadFileName);
-//			attachDTO.setFileName(uploadFileName);  //추가
 			
-			//아래두줄 파일 중복없애기 위해 랜덤문장을 원래 파일명 앞쪽에 붙이는거.
-//			UUID uuid = UUID.randomUUID();
-//			uploadFileName = uuid.toString() + "_" + uploadFileName;
+			uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\")+1);
+			String savingFileName=userNo.toString()+"_"+uploadFileName;
+			log.info("savingFileName: " + savingFileName);
 			result=uploadFileName;
 			try {
-				File saveFile = new File(uploadPath, uploadFileName);
-				multipartFile.transferTo(saveFile); //saveFile경로에 multipartFile저장
-				
-//				//추가
-//				attachDTO.setUuid(uuid.toString());
-//				attachDTO.setUploadPath(uploadFolderPath);
-//				
-//				//아래는 섬네일만드는거 thumbnailator 가 pom에 넣어서 라이브러리가 있어야 하는듯.
-//				if (checkImageType(saveFile)) {
-//					
-//					attachDTO.setImage(true);  //추가
-//					
-//					FileOutputStream thumbnail = new FileOutputStream(
-//							new File(uploadPath, "s_" + uploadFileName));
-//					Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 100, 100);
-//					
-//					thumbnail.close();
-//				}
-//				
-//				list.add(attachDTO);  //추가
+				File saveFile = new File(uploadPath, savingFileName);
+				multipartFile.transferTo(saveFile);
 				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 		log.info("result: " + result);
-		return result;  //추가
+		return result;
 	}
 	
 
 	
 	@GetMapping(value = "/download", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
 	@ResponseBody
-	public ResponseEntity<Resource> downloadFile(
-			@RequestHeader("User-Agent") String userAgent,  //추가) 디바이스 정보를 알아냄 @RequestHeader는 헤더정보 받아서 ie인지 chrome인지 알게함.
-			String fileName) 
-	{
+	public ResponseEntity<Resource> downloadFile(@RequestHeader("User-Agent") String userAgent,	String fileName) {
 		log.info("download file: " + fileName);
 		Resource resource = new FileSystemResource("c:\\upload\\" + fileName);
 		
 		
 		String uploadFolder = "C:\\upload";
 		File uploadPath = new File(uploadFolder);
-		
-		
-		
 		
 		log.info("resource: " + resource);
 		
