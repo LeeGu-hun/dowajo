@@ -20,6 +20,22 @@
     <result property="class_status" column="class_status"/>
   </resultMap>
     	
+	<sql id="criteria">
+	<trim prefix="(" suffix=") AND " prefixOverrides="OR">
+	<foreach item='type' collection="typeArr">
+		<trim prefix="OR">
+			<choose>
+				<when test="type=='N'.toString()">
+					lecture_name like '%'||#{keyword}||'%'
+				</when>
+				<when test="type=='T'.toString()">
+					lecture_twitchid like '%'||#{keyword}||'%'
+				</when>				
+			</choose>
+		</trim>
+	</foreach>
+</trim>
+	</sql>
 	
 	<select id="lectureList" resultType="com.ds.domain.LectureVO">
 	select lecture_no, lecture_name, lecture_twitchid from ds_lecture l natural join ds_class_list c
@@ -28,8 +44,27 @@
 	
 	<select id="lectureAllList" resultType="com.ds.domain.LectureVO">
 	<![CDATA[
-	select lecture_no, lecture_name, lecture_twitchid from ds_lecture where lecture_no>0
-	]]>
+	select lecture_no, lecture_name, lecture_twitchid 
+	from (select rownum rn, lecture_no, lecture_name, lecture_twitchid from ds_lecture where
+	]]>  
+  
+  <include refid="criteria"></include>
+  
+  <![CDATA[
+  rownum<= #{pageNum} * #{amount})
+  where rn>(#{pageNum}-1)*#{amount}
+  ]]>
 	</select>
+	
+	
+	 <select id="getTotalCount" resultType="int">
+  <![CDATA[
+  select count(*) from ds_lecture where
+  ]]>
+  <include refid="criteria"></include>
+  <![CDATA[
+  lecture_no>0
+  ]]>
+  </select>
 
 </mapper>

@@ -2,6 +2,7 @@ package com.ds.service;
 
 import java.util.List;
 
+import com.ds.domain.Criteria;
 import org.springframework.stereotype.Service;
 
 import com.ds.domain.LectureVO;
@@ -26,10 +27,14 @@ public class StudentServiceImpl implements StudentService{
 	}
 	
 	@Override
-	public List<LectureVO> lectureAllList(){
-		return mapper.lectureAllList();		
+	public List<LectureVO> lectureAllList(Criteria cri){
+		return mapper.lectureAllList(cri);		
 	}
 	
+	@Override
+	public int getTotal(Criteria cri) {
+		return mapper.getTotalCount(cri);
+	}
 
 	
 
