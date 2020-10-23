@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ds.domain.UserVO;
@@ -39,9 +40,7 @@ public class AdminController {
 	@PostMapping("/admin_regist")
 	public String admin_registPost(UserVO vo, RedirectAttributes rttr) {
 		service.admin_regist(vo);
-	
-		rttr.addFlashAttribute("result", vo.getUser_id());
-			
+		rttr.addFlashAttribute("result", vo.getUser_id());			
 		return "redirect:/admin/main";
 	}
 	
@@ -50,9 +49,22 @@ public class AdminController {
 		
 	}
 	
+	@PostMapping("/teacher_regist")
+	public String teacher_registPost(UserVO vo, RedirectAttributes rttr) {
+		service.teacher_regist(vo);
+		rttr.addFlashAttribute("result", vo.getUser_id());			
+		return "redirect:/admin/main";
+	}
+	
 	@GetMapping("/questions")
 	public void questions() {
 		
+	}
+	
+	@GetMapping(value = "/duplicateId", produces = "text/plain;charset=utf-8")
+	@ResponseBody
+	public String duplicateId(String user_id) {
+		return service.duplicateId(user_id);
 	}
 
 }

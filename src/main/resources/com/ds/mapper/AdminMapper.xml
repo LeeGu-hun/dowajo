@@ -22,18 +22,9 @@
     <result property="user_auth" column="user_auth"/>
   </resultMap>
   
-	<select id="checkLogin" resultMap="userMap">
-		SELECT
-		u.user_no, user_id, user_pw, user_name, user_depart, user_mobile, user_email,
-		regdate, user_auth
-		FROM
-		ds_user u LEFT OUTER JOIN ds_auth a on u.user_no = a.user_no
-		WHERE user_id = #{id}
-	</select>
-	
-	<select id="lecutureList" resultType="com.ds.domain.LectureVO">
-	select lecture_no, lecture_name, lecture_twitchid from ds_lecture l natural join ds_class_list c
-	where c.user_no=#{user_no}
+  	<select id="duplicateId" resultType="string">
+		SELECT user_id FROM ds_user
+		WHERE user_id = #{user_id}
 	</select>
 	
 	<insert id="admin_regist">
@@ -48,5 +39,20 @@
 	<insert id="admin_registAuth">
 		insert into ds_auth values (#{user_no},'ROLE_ADMIN')
 	</insert>
+	
+	<insert id="teacher_regist">
+		insert into ds_user (user_no,user_id,user_pw,user_name,user_depart,user_mobile,user_email,regdate)
+		values (ds_user_seq.nextval, #{user_id}, #{user_pw}, #{user_name}, #{user_depart}, #{user_mobile}, #{user_email}, sysdate)
+		<selectKey resultType="long" keyProperty="user_no"
+			order="AFTER">
+			SELECT ds_user_seq.currval from dual
+		</selectKey>
+	</insert>	
+	
+	<insert id="teacher_registAuth">
+		insert into ds_auth values (#{user_no},'ROLE_TEACHER')
+	</insert>
+	
+	
 	
 </mapper>

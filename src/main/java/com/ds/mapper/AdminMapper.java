@@ -11,4 +11,8 @@ public interface AdminMapper {
 
 	public void admin_regist(UserVO vo);
 	public void admin_registAuth(AuthVO auth);
+	public void teacher_regist(UserVO vo);
+	public void teacher_registAuth(AuthVO auth);
+	
+	public String duplicateId(String user_id);
 }

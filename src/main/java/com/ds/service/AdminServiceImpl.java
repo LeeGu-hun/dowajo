@@ -42,4 +42,27 @@ public class AdminServiceImpl implements AdminService{
 			mapper.admin_registAuth(auth);
 		});
 	}
+
+	@Override
+	public void teacher_regist(UserVO vo) {
+		vo.setUser_pw(pwencoder.encode(vo.getUser_pw()));
+		List<AuthVO> list = new ArrayList<AuthVO>();
+		list.add(new AuthVO("ROLE_TEACHER"));
+		vo.setAuthList(list);
+		
+		mapper.teacher_regist(vo);
+		
+		vo.getAuthList().forEach(auth ->{
+			
+			auth.setUser_no(String.valueOf(vo.getUser_no()));
+			
+			mapper.teacher_registAuth(auth);
+		});
+		
+	}
+
+	@Override
+	public String duplicateId(String user_id) {
+		return mapper.duplicateId(user_id);
+	}
 }

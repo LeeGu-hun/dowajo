@@ -10,4 +10,7 @@ public interface AdminService {
 	
 	//admin
 	public void admin_regist(UserVO vo);
+	public void teacher_regist(UserVO vo);
+	
+	public String duplicateId(String user_id);
 }
