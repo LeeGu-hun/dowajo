@@ -118,7 +118,15 @@ new Twitch.Player("twitch-embed", options);
 			type: 'POST',
 			dataType: 'text',  
 			success: function(result){
-				$("#uplodedHomework").html("<span>"+result+" 이/가 업로드 되었습니다.</span>")
+				var mynum=userNo.length;
+				var myfile=result.substring(mynum+1);
+				$("#uplodedHomework").html("<span>"+myfile+" 이/가 업로드 되었습니다.</span>")
+				var message={
+	        		 type: "homeworkChecked",
+		        	 id: "<sec:authentication property='principal.user.user_id'/>",
+		        	 file: result
+	        	  };
+	    	webSocket.send(JSON.stringify(message));
 			}
 		});
 	}
@@ -134,6 +142,7 @@ new Twitch.Player("twitch-embed", options);
             return;
         }
         //webSocket = new WebSocket("ws://192.168.0.185:8080/echo/");
+        //var url="ws://192.168.0.185:8080/echo/";
         var url="ws://localhost:8080/echo/";
 	        url+="${lectureInfo.lecture_no}/";
 	        url+=decodeEntities("<sec:authentication property='principal.user.user_name'/>/");
@@ -209,11 +218,7 @@ new Twitch.Player("twitch-embed", options);
     });
 	$("#chkHomeworkPopCheck").on("click", function(e){
 		fileUpload();
-        var message={
-        		 type: "homeworkChecked",
-	        	 id: "<sec:authentication property='principal.user.user_id'/>"
-        	  };
-    	webSocket.send(JSON.stringify(message));
+        
     });
 
 

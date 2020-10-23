@@ -12,6 +12,9 @@
         <div class="block-header" id="height" >
         	<div style="width:80%;  height:100%; float:left;">
         		<div style="height:80%; width:100%;">
+        		
+        			<iframe width="560" height="315" src="https://www.youtube.com/embed/SORD03t7nlo?controls=0&autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        		
 					<!-- Add a placeholder for the Twitch embed -->
 					<div id="twitch-embed" style="height:100%; width:100%"></div>
 				</div>
@@ -69,6 +72,13 @@
 			</div>
         </div>
     </div>
+    <form id='receiveFile' action="/file/download" method='post'>
+    	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+    	<input type='hidden' name="lectureNo" value="${lectureInfo.lecture_no}">
+    	<c:forEach items="${lectureUser}" var="userList">
+			<input type='hidden' id="file${userList.user_id}" name="fileName">
+		</c:forEach>
+    </form>
 </section>
 
 
@@ -80,6 +90,7 @@ var options = {
 	    width: '100%',
 	    height: '100%',
 	    channel: "${lectureInfo.lecture_twitchid}"
+		    
 	  };
 
 new Twitch.Player("twitch-embed", options);
@@ -111,6 +122,7 @@ new Twitch.Player("twitch-embed", options);
             return;
         }
         //webSocket = new WebSocket("ws://192.168.0.185:8080/echo/");
+        //var url="ws://192.168.0.185:8080/echo/";
         var url="ws://localhost:8080/echo/";
             url+="${lectureInfo.lecture_no}/";
             url+=decodeEntities("<sec:authentication property='principal.user.user_name'/>/");
@@ -179,7 +191,9 @@ new Twitch.Player("twitch-embed", options);
        		}
            	if(myJsonData.type=='homeworkChecked'){
                	var id=decodeEntities(myJsonData.id);
+               	var file=decodeEntities(myJsonData.file);
                	$('#chkHw'+ id ).html("<i class='material-icons'>cloud_done</i>");
+               	$('#file'+ id ).val(file);
 				
        		}
             
@@ -238,8 +252,19 @@ new Twitch.Player("twitch-embed", options);
         	  };
     	webSocket.send(JSON.stringify(clsHomework));
 
-    	self.location = "/file/download?fileName=dream01.png";
+
+
+    	
+
+    	
+    	
+		$("#receiveFile").submit();
+    	//self.location = "/file/download?fileName=dream01.png";
         	// + "${product.filename}";
+    	
+    	
+    	
+    	
     	
     	$("#clsHomework").fadeOut(300);
     });
