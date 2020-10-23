@@ -19,7 +19,7 @@
 	        		
         		</div>
         	</div>
-        	<div id="pop" style="width:20%; height:100%; background-color:green; float:right;">        		
+        	<div id="pop" style="width:20%; height:90%; background-color:green; float:right;">        		
         		<div style="overflow:auto; height:50%; background-color:green;">
 	        		<div id="chkProgressPop" style="display:none; height:50%;">강사의 진도를 다 따라잡았나요? <br><button id="chkProgressPopCheck">확인</button></div>
 	        		<div id="chkHomeworkPop" style="display:none; height:50%;">파일을 제출하세요 <br>
@@ -29,9 +29,13 @@
 	        		<br><button id="chkHomeworkPopCheck">확인</button></div>
 	        		
 				</div>
-        		<div style="height:40%; background-color:yellow;">
-        			<div style="overflow:auto; height:90%;" id="messages"></div>
-        			<input style="margin-bottom:0;" type="text" id="messageinput" />
+        		<div style="height:50%; background-color:yellow; vertical-align:middle;">
+        			<div style="overflow:auto; height:80%;" id="messages"></div>
+        			<div style="height:30px;"></div>
+        			<input style="margin-bottom:0; width:80%;" type="text" id="messageinput" />
+        			<button type="button" class="btn btn-default btn-circle waves-effect waves-green waves-circle waves-float pull-right" >
+						<i class="material-icons">forum</i>
+					</button>
 				</div>
 			</div>
         </div>
