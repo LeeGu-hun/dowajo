@@ -26,8 +26,7 @@
 
 	<select id="checkLogin" resultMap="userMap">
 		SELECT
-		u.user_no, user_id, user_pw, user_name, user_depart, user_mobile, user_email,
-		regdate, user_auth
+		u.user_no, user_id, user_pw, user_name, user_depart, user_mobile, user_email,regdate, user_auth		
 		FROM
 		ds_user u LEFT OUTER JOIN ds_auth a on u.user_no = a.user_no
 		WHERE user_id = #{id}
