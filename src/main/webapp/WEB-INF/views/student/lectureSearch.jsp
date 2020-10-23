@@ -82,7 +82,7 @@ $(document).ready(function(){
 	var actionForm = $("#actionForm");
 	var searchForm = $("#searchForm");
 	
-	$(".paginate_button a").on("click", fuinction(e){
+	$(".paginate_button a").on("click", function(e){
 		e.preventDefault();
 
 		console.log('click');
@@ -91,7 +91,7 @@ $(document).ready(function(){
 		actionForm.submit();
 		});
 
-	$("#searchForm button").on("click", function(e){
+	$("#searchForm>button").on("click", function(e){
 		if(!searchForm.find("option:selected").val()){
 			alert("검색 종류를 선택하세요");
 			return false;

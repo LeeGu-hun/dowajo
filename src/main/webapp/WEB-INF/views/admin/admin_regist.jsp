@@ -40,18 +40,28 @@
     <div class="signup-box">
         <div class="logo">
             <a href="admin/admin_regist">관리자<b>등록</b></a>
-            <small>Admin BootStrap Based - Material Design</small>
         </div>
         <div class="card">
             <div class="body">
-                <form id="sign_up" method="POST">
-                    <div class="msg">Register a new membership</div>
+                <form id="sign_up" role="form" action="/admin/admin_regist" method="POST">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                    <div class="msg"></div>
+                     <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">person</i>
+                        </span>
+                        <div class="form-line">
+                            <input type="text" class="form-control" name="user_id" id="user_id" placeholder="아이디" required autofocus>
+                            <span id="idcheck" style="color:red;"></span>
+                        </div>
+                    </div>
                     <div class="input-group">
                         <span class="input-group-addon">
                             <i class="material-icons">person</i>
                         </span>
                         <div class="form-line">
-                            <input type="text" class="form-control" name="namesurname" placeholder="이름" required autofocus>
+                            <input type="text" class="form-control" name="user_name" id="user_name" placeholder="이름" required autofocus>
+                            <span id="idcheck" style="color:red;"></span>
                         </div>
                     </div>
                     <div class="input-group">
@@ -59,7 +69,7 @@
                             <i class="material-icons">phone</i>
                         </span>
                         <div class="form-line">
-                            <input type="text" class="form-control" name="phone" placeholder="전화번호" required autofocus>
+                            <input type="text" class="form-control" name="user_mobile" id="user_mobile" placeholder="전화번호" required autofocus>
                         </div>
                     </div>
                     <div class="input-group">
@@ -67,7 +77,7 @@
                             <i class="material-icons">email</i>
                         </span>
                         <div class="form-line">
-                            <input type="email" class="form-control" name="email" placeholder="이메일" required>
+                            <input type="email" class="form-control" name="user_email" id="user_email" placeholder="이메일" required>
                         </div>
                     </div>
                     <div class="input-group">
@@ -75,18 +85,18 @@
                             <i class="material-icons">lock</i>
                         </span>
                         <div class="form-line">
-                            <input type="password" class="form-control" name="password" minlength="6" placeholder="비밀번호" required>
+                            <input type="password" class="form-control" name="user_pw" id="user_pw" minlength="6" placeholder="비밀번호" required>
                         </div>
                     </div>
-                    <div class="input-group">
-                        <span class="input-group-addon">
+                   	<div class="input-group">
+                    	<span class="input-group-addon">
                             <i class="material-icons">lock</i>
                         </span>
                         <div class="form-line">
-                            <input type="password" class="form-control" name="confirm" minlength="6" placeholder="비밀번호 확인" required>
+                            <input type="password" class="form-control" name="re_pw" id="re_pw" minlength="6" placeholder="비밀번호 확인" required>
                         </div>
-                    </div>                 
-                    <button class="btn btn-block btn-lg bg-pink waves-effect" type="submit">등록</button>
+                    </div>                  
+                    <button class="btn btn-block btn-lg bg-pink waves-effect" id="submitBtn" type="submit">등록</button>
                 </form>
             </div>
         </div>
@@ -110,3 +120,65 @@
 </body>
 
 </html>
+<script>
+$(document).ready(function() {
+	var formObj = $("form[role='form']");
+	var idObj = $('#user_id');
+	$('#submitBtn').on("click", function(e){
+		e.preventDefault();
+		if($('#re_pw').val()!=$('#user_pw').val()){
+			alert("비밀번호가 맞지 않습니다.");
+			$('#user_pw').val("");
+			$('#re_pw').val("");
+			$('#user_pw').focus();
+			return false;
+		}
+		formObj.submit();
+	});
+
+	$('#user_id').focusout(function(e){
+		e.preventDefault();
+		if(idObj.val()!='' && checkId()){
+			console.log('ajax load...');
+			var csrfHeaderName = "${_csrf.headerName}";
+			var csrfTokenValue = "${_csrf.token}";
+			$.ajax({
+				type : 'GET',
+				url : '/admin/duplicateId',
+				data : "user_id=" + idObj.val(),
+				beforeSend : function(xhr){
+					xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+				},
+				success : function(result) {
+					console.log("result::::::::: ["+result.trim()+"]");
+					if(result!=''){
+						$('#user_id').focus()
+					 	$('#idcheck').html(' (중복된 아이디입니다.)')
+					  	.css('color','red');
+					} else {
+						$('#idcheck').html(' (사용할 수 있는 아이디입니다.)')
+						.css('color','green');
+					}
+				},
+				error:function(request,status,error){
+				    console.log("code:"+request.status+"\n"
+						    +"message:"+request.responseText
+						    +"\n"+"error:"+error);
+		    }
+			});
+		}
+	});	
+	function checkId(){
+		$('#idcheck').html('');
+		var id = $("#user_id");
+		var idReg = /^[a-z0-9_]{3,12}$/g;
+  if( !idReg.test(id.val())) {
+	  $('#idcheck').html('(조건이 만족되지 않습니다.)');
+	  id.focus();
+    return false;
+  } else {
+    return true;
+  }
+	}	
+});
+</script>
