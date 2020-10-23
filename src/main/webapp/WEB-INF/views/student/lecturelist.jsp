@@ -79,9 +79,10 @@
 </section>
 
 
-<form id='actionForm' action="/student/lectureSearch" method='get'>
+<form id='actionForm' action="/student/lecturelist" method='get'>
 	<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
-	<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>	
+	<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
+	<input type='hidden' name='user_no' value='<sec:authentication property="principal.user.user_no"/>'>	
 </form>
 
 <script type="text/javascript">
@@ -89,7 +90,7 @@ $(document).ready(function(){
 	var actionForm = $("#actionForm");
 	
 	
-	$(".paginate_button a").on("click", fuinction(e){
+	$(".paginate_button a").on("click", function(e){
 		e.preventDefault();
 
 		console.log('click');
