@@ -62,7 +62,7 @@ insert into ds_class_list (lecture_no, user_no, class_status) values (3, 2, 'tru
 
 COMMIT;	 
 
-<수정 10/26> ------------------------------------------------------------------------------------
+/*<추가 10/26> ------------------------------------------------------------------------------------*/
 delete from ds_class_list;
 alter table ds_class_list modify user_no number;
 insert into ds_class_list (lecture_no, user_no, class_status) values (1, 2, 'true');
@@ -76,5 +76,16 @@ update ds_lecture set lecture_afreecaid = 'afbaseball1' where lecture_afreecaid=
 update ds_lecture set lecture_afreecaid = 'AFLOL' where lecture_afreecaid='lck';
 
 commit;
-</수정 10/26> ------------------------------------------------------------------------------------
+/*</추가 10/26> ------------------------------------------------------------------------------------*/
 
+/*<추가 10/26> ------------------------------------------------------------------------------------*/
+CREATE TABLE DS_QA (
+    QA_NO NUMBER NOT NULL PRIMARY KEY, 
+    QA_WRITER VARCHAR2(20),
+    QA_TITLE VARCHAR2(20),
+    QA_CONTENT VARCHAR2(200),
+    QA_DATE DATE,
+    QA_REPLY VARCHAR2(20));
+    
+CREATE SEQUENCE  "DB7"."DS_QA_SEQ"  MINVALUE 1 MAXVALUE 99999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL;
+/*</추가 10/26> ------------------------------------------------------------------------------------*/

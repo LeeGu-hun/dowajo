@@ -53,5 +53,9 @@ public class CommonController {
 		return service.twin_check(user_id);
 	}
 	
+	@GetMapping("/myPage")
+	public void myPage(){
+		log.info("My Page");
+	}
 
 }
