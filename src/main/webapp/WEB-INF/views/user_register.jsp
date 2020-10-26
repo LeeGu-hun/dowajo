@@ -9,7 +9,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <title>classHELPER | 사용자 등록!</title>
+    <title>classHELPER | 사용자 등록</title>
     <!-- Favicon-->
     <link rel="icon" href="/resources/favicon.ico" type="image/x-icon">
 
@@ -43,14 +43,15 @@
         </div>
         <div class="card">
             <div class="body">
-                <form id="sign_up" method="POST">
+                <form id="sign_up" method="POST" action="/user_register" role="form">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                     <div class="msg"><b>회원 가입</b></div>
                     <div class="input-group">
                         <span class="input-group-addon">
                             <i class="material-icons">person</i>
                         </span>
                         <div class="form-line">
-                            <input type="text" class="form-control" name="namesurname" placeholder="ID" required autofocus>
+                            <input type="text" class="form-control" name="user_id" id="id" placeholder="ID" required autofocus>
                         </div>
                     </div>                    
                     <div class="input-group">
@@ -58,7 +59,7 @@
                             <i class="material-icons">lock</i>
                         </span>
                         <div class="form-line">
-                            <input type="password" class="form-control" name="password" placeholder="비밀번호" required>
+                            <input type="password" class="form-control" name="user_pw" placeholder="비밀번호" value="1" required >
                         </div>
                     </div>
                     <div class="input-group">
@@ -66,7 +67,7 @@
                             <i class="material-icons">lock</i>
                         </span>
                         <div class="form-line">
-                            <input type="password" class="form-control" name="confirm" placeholder="비밀번호 확인" required>
+                            <input type="password" class="form-control" name="confirm" placeholder="비밀번호 확인" value="1" required>
                         </div>
                     </div>
                     <div class="input-group">
@@ -74,7 +75,7 @@
                             <i class="material-icons">face</i>
                         </span>
                         <div class="form-line">
-                            <input type="text" class="form-control" name="name" placeholder="이름" required>
+                            <input type="text" class="form-control" name="user_name" placeholder="이름" required>
                         </div>
                     </div>
                     <div class="input-group">
@@ -82,7 +83,7 @@
                             <i class="material-icons">location_city</i>
                         </span>
                         <div class="form-line">
-                            <input type="text" class="form-control" name="depart" placeholder="소속" required>
+                            <input type="text" class="form-control" name="user_depart" placeholder="소속" value="동성" required>
                         </div>
                     </div>
                     <div class="input-group">
@@ -90,7 +91,7 @@
                             <i class="material-icons">email</i>
                         </span>
                         <div class="form-line">
-                            <input type="email" class="form-control" name="email" placeholder="이메일" required>
+                            <input type="text" class="form-control" name="user_email" placeholder="이메일" value="sample@naver.com" required>
                         </div>
                     </div>                    
                     <div class="input-group">
@@ -98,11 +99,11 @@
                             <i class="material-icons">smartphone</i>
                         </span>
                         <div class="form-line">
-                            <input type="text" class="form-control" name="mobile" placeholder="연락처" required><br>
+                            <input type="text" class="form-control" name="user_mobile" placeholder="연락처" value="010-0000-0000" required><br>
                         </div>                        
                     </div>
 					
-                    <button id=Regbtn class="btn btn-block btn-lg bg-pink waves-effect" type="submit">가입하기</button>
+                    <button id="regBtn" class="btn btn-block btn-lg bg-pink waves-effect" type="submit">가입하기</button>
 
                     <div class="m-t-25 m-b--5 align-center">
                         <a href="/customLogin">이미 계정이 있으신가요?</a>
@@ -128,9 +129,64 @@
     <script src="/resources/js/admin.js"></script>
     <script src="/resources/js/pages/examples/sign-up.js"></script>
 </body>
-<script type="text/javascript">
-$(#Regbtn).onclick(function(){
-	alert("hello");
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+	integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+	crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+	integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+	crossorigin="anonymous"></script>
+<script>
+$(document).ready(function() {		
+	var formObj = $("#sign_up");
+	
+	$('#regBtn').on("click", function(e){
+		
+		e.preventDefault();		
+		
+		$('#id').focusout(function(e){
+			e.preventDefault();
+			var idObj = $('#id');
+			if(idObj.val()!='' && checkId()){
+				console.log('ajax load...');
+				var csrfHeaderName = "${_csrf.headerName}";
+				var csrfTokenValue = "${_csrf.token}";
+
+				$.ajax({
+				type : 'GET',
+				url : '/duplicateId',
+				data : "id=" + idObj.val(),
+				beforeSend : function(xhr){
+					xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+				},
+				success : function(result) {
+					console.log("result::::::::: ["+result.trim()+"]");
+					if(result!=''){
+						$('#idcheck').html("중복된 아이디입니다.").css('color', 'red');			 		  
+			 		} else {
+			 			$('#idcheck').html("사용가능한 아이디입니다.").css('color', 'blue');			
+					}
+				},
+				error:function(request,status,error){
+				    console.log("code:"+request.status+"\n"
+							    +"message:"+request.responseText
+							    +"\n"+"error:"+error);
+			    }
+			});
+		}
+	});
+
+	function checkId(){
+		$('#idcheck').html('');
+		var id = $("#user_id");
+		var idReg = /^[a-z0-9_]{3,12}$/g;
+	    if( !idReg.test(id.val())) {
+	    	$('#idcheck').html("(아이디 생성 불가)").css('color', 'red');
+    		id.focus();
+    		return false;
+      	} else {
+        	return true;
+      	}
+	}
 });
 </script>
 </html>

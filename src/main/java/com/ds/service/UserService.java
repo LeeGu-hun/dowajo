@@ -1,11 +1,9 @@
 package com.ds.service;
 
-import java.util.List;
+import com.ds.domain.UserVO;
 
-import com.ds.domain.LectureVO;
-	
 public interface UserService {
 	
-	
+	public void user_register(UserVO vo);	
 
 }
