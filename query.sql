@@ -28,12 +28,7 @@ insert into ds_user (user_no, user_id, user_pw, user_name, user_depart) values (
 insert into ds_auth values(1, 'ROLE_ADMIN');
 insert into ds_auth values(2, 'ROLE_TEACHER');
 insert into ds_auth values(3, 'ROLE_STUDENT');
-COMMIT;	  
-	  
-
-
-
-
+COMMIT;
 
 CREATE SEQUENCE  "DB7"."DS_USER_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 21 CACHE 20 NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
 
@@ -67,7 +62,7 @@ insert into ds_class_list (lecture_no, user_no, class_status) values (3, 2, 'tru
 
 COMMIT;	 
 
-
+<수정 10/26> ------------------------------------------------------------------------------------
 delete from ds_class_list;
 alter table ds_class_list modify user_no number;
 insert into ds_class_list (lecture_no, user_no, class_status) values (1, 2, 'true');
@@ -81,3 +76,5 @@ update ds_lecture set lecture_afreecaid = 'afbaseball1' where lecture_afreecaid=
 update ds_lecture set lecture_afreecaid = 'AFLOL' where lecture_afreecaid='lck';
 
 commit;
+</수정 10/26> ------------------------------------------------------------------------------------
+

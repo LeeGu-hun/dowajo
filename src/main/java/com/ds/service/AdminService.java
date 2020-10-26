@@ -2,9 +2,8 @@ package com.ds.service;
 
 import java.util.List;
 
+import com.ds.domain.QuestionsVO;
 import com.ds.domain.UserVO;
-
-import com.ds.domain.LectureVO;
 	
 public interface AdminService {
 	
@@ -13,4 +12,5 @@ public interface AdminService {
 	public void teacher_regist(UserVO vo);
 	
 	public String duplicateId(String user_id);
+	public List<QuestionsVO> getList();
 }

@@ -12,8 +12,10 @@ public interface StudentService {
 	public List<LectureVO> lectureConfirmList(Long user_no);
 	public List<LectureVO> lectureAllList(Criteria cri);
 	public List<LectureVO> lectureInfo(String lecture_name);
-	public int getTotal(Criteria cri);
 	
+	public int getTotal(Criteria cri);
+	public int getCoCount(Long user_no);
+	public int getLeCount(Long user_no);
 	
 
 }

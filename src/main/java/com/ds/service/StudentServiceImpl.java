@@ -45,5 +45,15 @@ public class StudentServiceImpl implements StudentService{
 	public List<LectureVO> lectureConfirmList(Long user_no){
 		return mapper.lectureConfirmList(user_no);
 	}
+	
+	@Override
+	public int getCoCount(Long user_no) {
+		return mapper.getCoCount(user_no);
+	}
+	
+	@Override
+	public int getLeCount(Long user_no) {
+		return mapper.getLeCount(user_no);
+	}
 
 }

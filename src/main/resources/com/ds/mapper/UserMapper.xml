@@ -25,8 +25,7 @@
 	<select id="checkLogin" resultMap="userMap">
 		SELECT
 		u.user_no, user_id,
-		user_pw, user_name, user_depart, user_mobile, user_email,regdate,
-		user_auth
+		user_pw, user_name, user_depart, user_mobile, user_email, regdate, user_auth
 		FROM
 		ds_user u LEFT OUTER JOIN ds_auth a on u.user_no = a.user_no
 		WHERE
@@ -46,4 +45,9 @@
 	<insert id="user_regAuth">
 		insert into ds_auth values	(#{user_no},'ROLE_STUDENT')
 	</insert>
+	
+	<select id="twin_check" resultType="string">
+		SELECT user_id FROM ds_user
+		WHERE user_id = #{user_id}
+	</select>
 </mapper>

@@ -13,5 +13,7 @@ public interface StudentMapper {
 	public List<LectureVO> lectureInfo(String lecture_name);
 	
 	public int getTotalCount(Criteria cri);
+	public int getCoCount(Long user_no);
+	public int getLeCount(Long user_no);
 
 }
