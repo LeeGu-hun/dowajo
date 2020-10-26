@@ -11,13 +11,13 @@
     <div class="container-fluid">
         <div class="block-header" id="height" >
         	<div style="width:80%;  height:100%; float:left;">
-        		<div style="height:80%; width:100%;">
+        		<div style="height:80%; width:100%;" id="lecture">
         			<iframe src="http://play.afreecatv.com/${lectureInfo.lecture_afreecaid}/embed?autoplay=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>
-        			
+
 				</div>
         		<div style="height:20%; width:100%;">
         		
-        			<table>
+        			<table id="lecture_button">
         				<tr style="height:10px;"></tr>
         				<tr>
         					<td style="width:500px;">
@@ -62,9 +62,12 @@
        					</ul>
         			</div>
 				</div>
-        		<div style="height:50%; background-color:yellow;">
+        		<div style="height:50%; background-color:#FFEB3B; padding:0px 0px 10px 10px;">
         			<div style="overflow:auto; height:90%;" id="messages"></div>
-        			<input style="margin-bottom:0;" type="text" id="messageinput" />
+        			<input style="width:80%; margin-top:6px;" type="text" id="messageinput" />
+        			<button style="margin-right:10px;"  type="button" class="btn btn-default btn-circle waves-effect waves-green waves-circle waves-float pull-right" >
+						<i class="material-icons">forum</i>
+					</button>
 				</div>
 			</div>
         </div>
@@ -84,9 +87,14 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		var windowHeight=window.innerHeight;
-		$('#height').css('height', windowHeight);
+		var navHeight=$('.navbar').height();
+		$('#height').css('height', (windowHeight-navHeight)*0.95);
 	});
 </script>
+<style>
+	#lecture_button td {text-align: center;}
+</style>
+
 
 <script type="text/javascript">
 	//html decoder
@@ -143,8 +151,8 @@
            	}
             
            	if(myJsonData.type=='message'){
-				$("#messages").append(myJsonData.name + ": " + myJsonData.data + "<br>");
-				$("#messages").scrollTop($("#messages").height());
+				$("#messages").append(myJsonData.name + " : " + myJsonData.data + "<br>");
+				$("#messages").scrollTop($("#messages")[0].scrollHeight);
        		}
            	if(myJsonData.type=='attendance'){
                	var name=decodeEntities(myJsonData.name);

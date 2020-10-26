@@ -2,6 +2,7 @@ package com.ds.controller;
 
 import java.util.List;
 
+import com.ds.domain.ClassListVO;
 import com.ds.domain.Criteria;
 import com.ds.domain.PageDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ds.domain.LectureVO;
 import com.ds.domain.UserVO;
@@ -47,10 +50,20 @@ public class StudentController {
 	@GetMapping("/lecturelist")	
 	@Transactional
 	public void lecturelist(@RequestParam("user_no")Long user_no, Model model, @ModelAttribute("cri") Criteria cri) {		
-		int total=studentService.getTotal(cri);
+		int total=studentService.getCoCount(user_no);
+		int total2=studentService.getLeCount(user_no);
 		model.addAttribute("leCo",studentService.lectureConfirmList(user_no));
 		model.addAttribute("leLi",studentService.lectureList(user_no));
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
+		model.addAttribute("pageMaker2", new PageDTO(cri, total2));
+		
+	}
+	
+	@PostMapping("/lectureInfo")
+	public String lectureInfo(ClassListVO vo, RedirectAttributes rttr) {
+		studentService.applyClass(vo);
+		rttr.addFlashAttribute("result", vo.getUser_no());
+		return "redirect:/student/lecturelist";
 		
 	}
 	

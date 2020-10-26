@@ -68,7 +68,7 @@
 	
 		
 	<select id="lectureInfo" resultType="com.ds.domain.LectureVO">
-	select lecture_name, lecture_description, lecture_afreecaid from ds_lecture
+	select lecture_no, lecture_name, lecture_description, lecture_afreecaid from ds_lecture
 	where lecture_name=#{lecture_name}
 	</select>
 	
@@ -82,5 +82,27 @@
     lecture_no>0
     ]]>
     </select>
+    
+    <select id="getCoCount" resultType="int">
+    <![CDATA[
+    select count(*) from ds_lecture l inner join ds_class_list c
+	on l.lecture_no=c.lecture_no
+	where c.user_no=#{user_no} and c.class_status='true'
+    ]]>
+    </select>
 
+	<select id="getLeCount" resultType="int">
+    <![CDATA[
+    select count(*) from ds_lecture l inner join ds_class_list c
+	on l.lecture_no=c.lecture_no
+	where c.user_no=#{user_no}
+	]]>
+    </select>
+    
+    <insert id="applyClass">
+    insert into ds_class_list (lecture_no, user_no, class_status) 
+	VALUES (#{lecture_no}, #{user_no}, 'false')   
+    </insert>
+    
+    
 </mapper>
