@@ -11,7 +11,7 @@
     <div class="container-fluid">
         <div class="block-header" id="height" >
         	<div style="width:80%;  height:100%; float:left;">
-        		<div style="height:80%; width:100%;">
+        		<div style="height:80%; width:100%;" id="lecture">
 					<iframe src="http://play.afreecatv.com/${lectureInfo.lecture_afreecaid}/embed?autoplay=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>
 					
 				</div>
@@ -19,21 +19,63 @@
 	        		
         		</div>
         	</div>
-        	<div id="pop" style="width:20%; height:90%; background-color:green; float:right;">        		
-        		<div style="overflow:auto; height:50%; background-color:green;">
-	        		<div id="chkProgressPop" style="display:none; height:50%;">강사의 진도를 다 따라잡았나요? <br><button id="chkProgressPopCheck">확인</button></div>
+        	<div id="pop" style="width:20%; height:100%; float:right;">        		
+        		<div style="height:50%; border:1px solid #9E9E9E;">
+        		
+        			
+        			
+        			
+        			
+   			
+                    <div class="card" style="margin:0 auto; height:50%; display:none;" id="chkProgressPop">
+                        <div class="header">
+                            <h2>
+                              	진도 체크
+                            </h2>
+                        </div>
+                        <div class="body">
+                           <div class="form-group">
+                               <div class="form-line">
+                                   <input type="text" class="form-control" value="강사의 진도까지 완료하셨나요?" readonly>
+                               </div>
+                           </div>
+                           <button type="button" class="btn btn-primary m-t-15 waves-effect" id="chkProgressPopCheck">확인</button>
+                        </div>
+                    </div>
+                    
+                    <div class="card" style="margin:0 auto; height:50%; display:none;" id="chkHomeworkPop">
+                        <div class="header">
+                            <h2>
+                              	파일 제출
+                            </h2>
+                        </div>
+                        <div class="body">
+                           <div class="form-group">
+                               <div class="form-line">
+                                   <input type="file" name="uploadFile" class="form-control">
+                               </div>
+                           </div>
+                           <button type="button" class="btn btn-primary m-t-15 waves-effect" id="chkHomeworkPopCheck">제출</button>
+                        </div>
+                    </div>
+                
+        			
+        			
+        			
+        			
+        			
+	        		<!-- <div id="chkProgressPop" style="display:none; height:50%;">강사의 진도를 다 따라잡았나요? <br><button id="chkProgressPopCheck">확인</button></div>
 	        		<div id="chkHomeworkPop" style="display:none; height:50%;">파일을 제출하세요 <br>
 	        		
 	        		<input type="file" name="uploadFile">
 	        		<br><div id="uplodedHomework"></div>
-	        		<br><button id="chkHomeworkPopCheck">확인</button></div>
+	        		<br><button id="chkHomeworkPopCheck">확인</button></div> -->
 	        		
 				</div>
-        		<div style="height:50%; background-color:yellow; vertical-align:middle;">
-        			<div style="overflow:auto; height:80%;" id="messages"></div>
-        			<div style="height:30px;"></div>
-        			<input style="margin-bottom:0; width:80%;" type="text" id="messageinput" />
-        			<button type="button" class="btn btn-default btn-circle waves-effect waves-green waves-circle waves-float pull-right" >
+        		<div style="height:50%; background-color:#FFEB3B; padding:0px 0px 10px 10px;">
+        			<div style="overflow:auto; height:90%;" id="messages"></div>
+        			<input style="width:80%; margin-top:6px;" type="text" id="messageinput" />
+        			<button style="margin-right:10px;"  type="button" class="btn btn-default btn-circle waves-effect waves-green waves-circle waves-float pull-right" >
 						<i class="material-icons">forum</i>
 					</button>
 				</div>
@@ -49,7 +91,8 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		var windowHeight=window.innerHeight;
-		$('#height').css('height', windowHeight);
+		var navHeight=$('.navbar').height();
+		$('#height').css('height', (windowHeight-navHeight)*0.95);
 	});
 </script>
 
@@ -172,15 +215,27 @@
            	}
            	
            	if(myJsonData.type=='message'){
-				$("#messages").append(myJsonData.name + ": " + myJsonData.data + "<br>");
-				$("#messages").scrollTop($("#messages").height());
+				$("#messages").append(myJsonData.name + " : " + myJsonData.data + "<br>");
+				$("#messages").scrollTop($("#messages")[0].scrollHeight);
            	}
+           	if(myJsonData.type=='attendance'){
+               	var role=decodeEntities(myJsonData.role);
+				if(role.includes("ROLE_TEACHER")){
+					$('#lecture').html('<iframe src="http://play.afreecatv.com/${lectureInfo.lecture_afreecaid}/embed?autoplay=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>');
+				}
+       		}
             	
            	if(myJsonData.type=='chkProgress'){
            		$("#chkProgressPop").fadeIn(300);
            	}
+           	if(myJsonData.type=='clsProgress'){
+           		$("#chkProgressPop").fadeOut(300);
+           	}
            	if(myJsonData.type=='chkHomework'){
            		$("#chkHomeworkPop").fadeIn(300);
+           	}
+           	if(myJsonData.type=='clsHomework'){
+           		$("#chkHomeworkPop").fadeOut(300);
            	}
            	if(myJsonData.type=='chkAttendance'){
            		sendAttendence();
