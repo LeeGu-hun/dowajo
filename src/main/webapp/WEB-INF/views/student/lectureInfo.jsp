@@ -24,12 +24,52 @@
     	<br>
     	<br>
     	<div>
-    	<input type="button" id="callBtn" value="신청"> <input type="button" id="backBtn" value="목록으로">
+    	<input type="button" data-toggle="modal" data-target="#defaultModal" value="신청"> <input type="button" id="backBtn" value="목록으로">
     	</div>    	
    	</div>
    </div>
 </section>
+<div class="modal fade" id="defaultModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="defaultModalLabel">신청</h4>
+                        </div>
+                        <div class="modal-body">
+                            	선택하신 강의를 신청하시겠습니까?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-link waves-effect" id="subBtn">신청</button>
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">취소</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <!-- Jquery Core Js -->
+    <script src="../../plugins/jquery/jquery.min.js"></script>
 
+    <!-- Bootstrap Core Js -->
+    <script src="../../plugins/bootstrap/js/bootstrap.js"></script>
+
+    <!-- Select Plugin Js -->
+    <script src="../../plugins/bootstrap-select/js/bootstrap-select.js"></script>
+
+    <!-- Slimscroll Plugin Js -->
+    <script src="../../plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+
+    <!-- Bootstrap Notify Plugin Js -->
+    <script src="../../plugins/bootstrap-notify/bootstrap-notify.js"></script>
+
+    <!-- Waves Effect Plugin Js -->
+    <script src="../../plugins/node-waves/waves.js"></script>
+
+    <!-- Custom Js -->
+    <script src="../../js/admin.js"></script>
+    <script src="../../js/pages/ui/modals.js"></script>
+
+    <!-- Demo Js -->
+    <script src="../../js/demo.js"></script>
+    
 <script type="text/javascript">
 $(document).ready(function() {
 	$('#backBtn').on("click", function() {

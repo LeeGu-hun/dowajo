@@ -82,5 +82,22 @@
     lecture_no>0
     ]]>
     </select>
+    
+    <select id="getCoCount" resultType="int">
+    <![CDATA[
+    select count(*) from ds_lecture l inner join ds_class_list c
+	on l.lecture_no=c.lecture_no
+	where c.user_no=#{user_no} and c.class_status='true'
+    ]]>
+    </select>
 
+	<select id="getLeCount" resultType="int">
+    <![CDATA[
+    select count(*) from ds_lecture l inner join ds_class_list c
+	on l.lecture_no=c.lecture_no
+	where c.user_no=#{user_no}
+	]]>
+    </select>
+    
+    
 </mapper>
