@@ -41,4 +41,10 @@ public class UserServiceImpl implements UserService{
 			mapper.user_regAuth(auth);;
 		});
 	}
+
+	@Override
+	public String twin_check(String user_id) {
+		return mapper.twin_check(user_id);		
+	}
+	
 }
