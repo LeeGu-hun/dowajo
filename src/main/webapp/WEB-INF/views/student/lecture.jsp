@@ -12,8 +12,8 @@
         <div class="block-header" id="height" >
         	<div style="width:80%;  height:100%; float:left;">
         		<div style="height:80%; width:100%;">
-					<!-- Add a placeholder for the Twitch embed -->
-					<div id="twitch-embed" style="height:100%; width:100%;"></div>
+					<iframe src="http://play.afreecatv.com/${lectureInfo.lecture_afreecaid}/embed?autoplay=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>
+					
 				</div>
         		<div style="height:20%; width:100%;">
 	        		
@@ -43,18 +43,7 @@
 </section>
 
 
-<!-- Load the Twitch embed script -->
-<script src="https://player.twitch.tv/js/embed/v1.js"></script>
-<!-- Create a Twitch.Player object. This will render within the placeholder div -->
-<script type="text/javascript">
-var options = {
-	    width: '100%',
-	    height: '100%',
-	    channel: "${lectureInfo.lecture_twitchid}"
-	  };
 
-new Twitch.Player("twitch-embed", options);
-</script>
 
 
 <script type="text/javascript">

@@ -12,11 +12,8 @@
         <div class="block-header" id="height" >
         	<div style="width:80%;  height:100%; float:left;">
         		<div style="height:80%; width:100%;">
-        			<iframe src="http://play.afreecatv.com/childish1986/embed?autoplay=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" width="640" height="360" frameborder="0" allowfullscreen></iframe>
-        			<iframe width="560" height="315" src="https://www.youtube.com/embed/qhT1L3wnjhc?autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        			<iframe src="http://play.afreecatv.com/${lectureInfo.lecture_afreecaid}/embed?autoplay=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>
         			
-					<!-- Add a placeholder for the Twitch embed -->
-					<div id="twitch-embed" style="height:100%; width:100%"></div>
 				</div>
         		<div style="height:20%; width:100%;">
         		
@@ -82,19 +79,6 @@
 </section>
 
 
-<!-- Load the Twitch embed script -->
-<script src="https://player.twitch.tv/js/embed/v1.js"></script>
-<!-- Create a Twitch.Player object. This will render within the placeholder div -->
-<script type="text/javascript">
-var options = {
-	    width: '100%',
-	    height: '100%',
-	    channel: "${lectureInfo.lecture_twitchid}"
-		    
-	  };
-
-new Twitch.Player("twitch-embed", options);
-</script>
 
 
 <script type="text/javascript">
@@ -122,8 +106,8 @@ new Twitch.Player("twitch-embed", options);
             return;
         }
         //webSocket = new WebSocket("ws://192.168.0.185:8080/echo/");
-        var url="ws://192.168.0.185:8080/echo/";
-        //var url="ws://localhost:8080/echo/";
+        //var url="ws://192.168.0.185:8080/echo/";
+        var url="ws://localhost:8080/echo/";
             url+="${lectureInfo.lecture_no}/";
             url+=decodeEntities("<sec:authentication property='principal.user.user_name'/>/");
             url+=decodeEntities("<sec:authentication property='principal.user.user_no'/>");
