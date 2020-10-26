@@ -2,6 +2,7 @@ package com.ds.service;
 
 import java.util.List;
 
+import com.ds.domain.ClassListVO;
 import com.ds.domain.Criteria;
 import org.springframework.stereotype.Service;
 
@@ -54,6 +55,11 @@ public class StudentServiceImpl implements StudentService{
 	@Override
 	public int getLeCount(Long user_no) {
 		return mapper.getLeCount(user_no);
+	}
+	
+	@Override
+	public void applyClass(ClassListVO vo) {
+		mapper.applyClass(vo);
 	}
 
 }

@@ -2,8 +2,8 @@ package com.ds.mapper;
 
 import java.util.List;
 
+import com.ds.domain.ClassListVO;
 import com.ds.domain.Criteria;
-
 import com.ds.domain.LectureVO;
 
 public interface StudentMapper {
@@ -15,5 +15,7 @@ public interface StudentMapper {
 	public int getTotalCount(Criteria cri);
 	public int getCoCount(Long user_no);
 	public int getLeCount(Long user_no);
+	
+	public void applyClass(ClassListVO vo);
 
 }

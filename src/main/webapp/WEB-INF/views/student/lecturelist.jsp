@@ -105,7 +105,7 @@
 	<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
 	<input type='hidden' name='pageNum2' value='${pageMaker2.cri.pageNum}'>
 	<input type='hidden' name='amount2' value='${pageMaker2.cri.amount}'>
-	<<input type='hidden' name='user_no' value='<sec:authentication property="principal.user.user_no"/>'> 
+	<input type='hidden' name='user_no' value='<sec:authentication property="principal.user.user_no"/>'> 
 </form>
 
 <script type="text/javascript">

@@ -29,6 +29,14 @@
    	</div>
    </div>
 </section>
+
+<form id='actionForm' action="/student/lectureInfo" method='post'>
+<c:forEach items="${leIn}" var="lein">
+<input type='hidden' name='user_no' value='<sec:authentication property="principal.user.user_no"/>'> 
+<input type='hidden' name='lecture_no' value='<c:out value="${lein.lecture_no}"/>'>
+</c:forEach> 
+</form>
+
 <div class="modal fade" id="defaultModal" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -45,6 +53,7 @@
                     </div>
                 </div>
             </div>
+            
              <!-- Jquery Core Js -->
     <script src="../../plugins/jquery/jquery.min.js"></script>
 
@@ -75,6 +84,11 @@ $(document).ready(function() {
 	$('#backBtn').on("click", function() {
 		location.href = "./lectureSearch";
 	});		
+
+	$('#subBtn').on("click", function() {
+		$("#actionForm").submit();
+	});		
+		
 	
 });
 

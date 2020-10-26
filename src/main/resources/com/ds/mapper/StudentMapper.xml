@@ -68,7 +68,7 @@
 	
 		
 	<select id="lectureInfo" resultType="com.ds.domain.LectureVO">
-	select lecture_name, lecture_description, lecture_afreecaid from ds_lecture
+	select lecture_no, lecture_name, lecture_description, lecture_afreecaid from ds_lecture
 	where lecture_name=#{lecture_name}
 	</select>
 	
@@ -98,6 +98,11 @@
 	where c.user_no=#{user_no}
 	]]>
     </select>
+    
+    <insert id="applyClass">
+    insert into ds_class_list (lecture_no, user_no, class_status) 
+	VALUES (#{lecture_no}, #{user_no}, 'false')   
+    </insert>
     
     
 </mapper>
