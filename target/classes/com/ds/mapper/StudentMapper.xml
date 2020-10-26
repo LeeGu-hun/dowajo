@@ -37,14 +37,18 @@
 </trim>
 	</sql>
 	<select id="lectureConfirmList" resultType="com.ds.domain.LectureVO">
-	select lecture_no, lecture_name, lecture_twitchid from ds_lecture l natural join ds_class_list c
+	select l.lecture_no, l.lecture_name, l.lecture_twitchid from ds_lecture l inner join ds_class_list c
+	on l.lecture_no=c.lecture_no
 	where c.user_no=#{user_no}
 	and c.class_status='true'
+	order by lecture_no
 	</select>
 	
 	<select id="lectureList" resultType="com.ds.domain.LectureVO">
-	select lecture_no, lecture_name, lecture_twitchid from ds_lecture l natural join ds_class_list c
+	select l.lecture_no, l.lecture_name, l.lecture_twitchid from ds_lecture l inner join ds_class_list c
+	on l.lecture_no=c.lecture_no
 	where c.user_no=#{user_no}
+	order by lecture_no
 	</select>
 	
 	<select id="lectureAllList" resultType="com.ds.domain.LectureVO">

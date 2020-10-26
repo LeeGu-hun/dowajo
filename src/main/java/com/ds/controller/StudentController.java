@@ -47,9 +47,10 @@ public class StudentController {
 	@GetMapping("/lecturelist")	
 	@Transactional
 	public void lecturelist(@RequestParam("user_no")Long user_no, Model model, @ModelAttribute("cri") Criteria cri) {		
+		int total=studentService.getTotal(cri);
 		model.addAttribute("leCo",studentService.lectureConfirmList(user_no));
 		model.addAttribute("leLi",studentService.lectureList(user_no));
-				
+		model.addAttribute("pageMaker", new PageDTO(cri, total));
 		
 	}
 	

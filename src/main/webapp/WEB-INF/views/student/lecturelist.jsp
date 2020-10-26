@@ -31,6 +31,24 @@
 					</c:forEach>
 				</tbody>
 			</table>
+			<div class='pull-right'>
+			  <ul class='pagination'>
+			  <c:if test="${pageMaker.prev}">
+			  <li class="paginate_button previous"><a href="${pageMaker.startPage -1}">Previous</a>
+			  </li>
+			  </c:if>
+			  
+			  <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+			  <li class="paginate_button ${pageMaker.cri.pageNum==num?"active":""}"><a href="${num}">${num}</a></li>
+			  
+			  </c:forEach>
+			  
+			  <c:if test="${pageMaker.next}">
+			  <li class="paginate_button next"><a href="${pageMaker.endPage+1}">Next</a>
+			  </li>
+			  </c:if>
+			  </ul>
+			  </div>
 		</div>
 	</div>
 
@@ -58,17 +76,48 @@
 					</c:forEach>
 				</tbody>
 			</table>
+			<div class='pull-right'>
+			  <ul class='pagination'>
+			  <c:if test="${pageMaker.prev}">
+			  <li class="paginate_button previous"><a href="${pageMaker.startPage -1}">Previous</a>
+			  </li>
+			  </c:if>
+			  
+			  <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+			  <li class="paginate_button ${pageMaker.cri.pageNum==num?"active":""}"><a href="${num}">${num}</a></li>
+			  
+			  </c:forEach>
+			  
+			  <c:if test="${pageMaker.next}">
+			  <li class="paginate_button next"><a href="${pageMaker.endPage+1}">Next</a>
+			  </li>
+			  </c:if>
+			  </ul>
+			  </div>
 		</div>
 	</div>
 	
 	
 </section>
 
-
+<form id='actionForm' action="/student/lectureSearch" method='get'>
+	<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
+	<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
+	<<input type='hidden' name='user_no' value='<sec:authentication property="principal.user.user_no"/>'> 
+</form>
 
 <script type="text/javascript">
 $(document).ready(function(){
-	
+	var actionForm = $("#actionForm");
+
+	$(".paginate_button a").on("click", function(e){
+		e.preventDefault();
+
+		console.log('click');
+
+		actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+		actionForm.submit();
+		});	
 	
 });
 </script>
