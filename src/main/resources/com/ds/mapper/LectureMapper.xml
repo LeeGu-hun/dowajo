@@ -8,7 +8,7 @@
     <id property="lecture_no" column="lecture_no"/>
     <result property="lecture_name" column="lecture_name"/>
     <result property="lecture_description" column="lecture_description"/>
-    <result property="lecture_twitchid" column="lecture_twitchid"/>
+    <result property="lecture_afreecaid" column="lecture_afreecaid"/>
     <result property="regdate" column="regdate"/>
     <collection property="classList" resultMap="classMap">
     </collection> 
@@ -21,7 +21,7 @@
   </resultMap>
 
 	<select id="lectureInfo" resultMap="lectureMap">
-		select l.lecture_no, lecture_name, lecture_description, lecture_twitchid, l.regdate, user_no, class_status from 
+		select l.lecture_no, lecture_name, lecture_description, lecture_afreecaid, l.regdate, user_no, class_status from 
 		ds_lecture l LEFT OUTER JOIN ds_class_list c on l.lecture_no = c.lecture_no WHERE l.lecture_no =  #{lecture_no}
 	</select>
 	<select id="lectureUser" resultType="com.ds.domain.UserVO">

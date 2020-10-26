@@ -7,7 +7,6 @@
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
 
-
 <section class="content">
 	<div class="container-fluid">
 		<div class="block-header">
@@ -36,7 +35,12 @@
 													aria-controls="DataTables_Table_1" rowspan="1" colspan="1"
 													aria-sort="ascending"
 													aria-label="Name: activate to sort column descending"
-													style="width: 250px;">이름</th>
+													style="width: 150px;">번호</th>
+												<th class="sorting_asc" tabindex="0"
+													aria-controls="DataTables_Table_1" rowspan="1" colspan="1"
+													aria-sort="ascending"
+													aria-label="Name: activate to sort column descending"
+													style="width: 250px;">아이디</th>
 												<th class="sorting" tabindex="0"
 													aria-controls="DataTables_Table_1" rowspan="1" colspan="1"
 													aria-label="Position: activate to sort column ascending"
@@ -48,11 +52,15 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr role="row" class="odd">
-												<td class="sorting_1">Airi Satou</td>
-												<td>Accountant</td>
-												<td>Tokyo</td>
+											<c:forEach items="${questions}" var="user">
+												<tr role="row" class="odd">
+												<td><c:out value="${user.que_no }" /></td>
+												<td><c:out value="${user.que_writer }" /></td>
+												<td><c:out value="${user.que_title }" /></td>
+												<td><fmt:formatDate pattern="yyyy-MM-dd"
+													value="${user.que_date }" /></td>
 											</tr>
+											</c:forEach>
 										</tbody>
 									</table>
 									<div class="dataTables_info" id="DataTables_Table_1_info"

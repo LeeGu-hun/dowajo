@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.ds.domain.LectureVO;
+import com.ds.domain.QuestionsVO;
 import com.ds.domain.UserVO;
 import com.ds.mapper.LectureMapper;
 import com.ds.mapper.AdminMapper;
@@ -64,5 +65,10 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public String duplicateId(String user_id) {
 		return mapper.duplicateId(user_id);
+	}
+
+	@Override
+	public List<QuestionsVO> getList() {
+		return mapper.getQueList();
 	}
 }
