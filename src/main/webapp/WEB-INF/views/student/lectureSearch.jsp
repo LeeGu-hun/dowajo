@@ -43,7 +43,7 @@
 							<td><c:out value="${leAL.lecture_no }" /></td>							
 							<td><a class="move" href="${leAL.lecture_name }">
 							<c:out value="${leAL.lecture_name }" /></a></td>
-							<td><c:out value="${leAL.lecture_twitchid }" /></td>
+							<td><c:out value="${leAL.lecture_afreecaid }" /></td>
 						</tr>
 					</c:forEach>
 				</tbody>

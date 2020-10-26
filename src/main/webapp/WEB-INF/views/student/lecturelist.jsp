@@ -26,7 +26,7 @@
 						<tr>
 							<td><c:out value="${leco.lecture_no }" /></td>
 							<td><c:out value="${leco.lecture_name }" /></td>
-							<td><c:out value="${leco.lecture_twitchid }" /></td>
+							<td><c:out value="${leco.lecture_afreecaid }" /></td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -71,7 +71,7 @@
 						<tr>
 							<td><c:out value="${lect.lecture_no }" /></td>
 							<td><c:out value="${lect.lecture_name }" /></td>
-							<td><c:out value="${lect.lecture_twitchid }" /></td>
+							<td><c:out value="${lect.lecture_afreecaid }" /></td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -100,7 +100,7 @@
 	
 </section>
 
-<form id='actionForm' action="/student/lectureSearch" method='get'>
+<form id='actionForm' action="/student/lecturelist" method='get'>
 	<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
 	<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
 	<<input type='hidden' name='user_no' value='<sec:authentication property="principal.user.user_no"/>'> 
