@@ -18,7 +18,7 @@
     	<label>강의소개</label> : <label><c:out value="${lein.lecture_description}"/></label><br>
     	<br>
     	<br>
-    	<label>강 사 명</label> :  <label><c:out value="${lein.lecture_twitchid}"/></label>
+    	<label>강 사 명</label> :  <label><c:out value="${lein.lecture_afreecaid}"/></label>
 	</c:forEach>
     	<br>
     	<br>

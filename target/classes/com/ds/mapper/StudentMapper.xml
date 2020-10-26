@@ -8,7 +8,7 @@
     <id property="lecture_no" column="lecture_no"/>
     <result property="lecture_name" column="lecture_name"/>
     <result property="lecture_description" column="lecture_description"/>
-    <result property="lecture_twitchid" column="lecture_twitchid"/>
+    <result property="lecture_afreecaid" column="lecture_afreecaid"/>
     <result property="regdate" column="regdate"/>
     <collection property="classList" resultMap="classMap">
     </collection> 
@@ -29,7 +29,7 @@
 					lecture_name like '%'||#{keyword}||'%'
 				</when>
 				<when test="type=='T'.toString()">
-					lecture_twitchid like '%'||#{keyword}||'%'
+					lecture_afreecaid like '%'||#{keyword}||'%'
 				</when>				
 			</choose>
 		</trim>
@@ -37,7 +37,7 @@
 </trim>
 	</sql>
 	<select id="lectureConfirmList" resultType="com.ds.domain.LectureVO">
-	select l.lecture_no, l.lecture_name, l.lecture_twitchid from ds_lecture l inner join ds_class_list c
+	select l.lecture_no, l.lecture_name, l.lecture_afreecaid from ds_lecture l inner join ds_class_list c
 	on l.lecture_no=c.lecture_no
 	where c.user_no=#{user_no}
 	and c.class_status='true'
@@ -45,7 +45,7 @@
 	</select>
 	
 	<select id="lectureList" resultType="com.ds.domain.LectureVO">
-	select l.lecture_no, l.lecture_name, l.lecture_twitchid from ds_lecture l inner join ds_class_list c
+	select l.lecture_no, l.lecture_name, l.lecture_id from ds_lecture l inner join ds_class_list c
 	on l.lecture_no=c.lecture_no
 	where c.user_no=#{user_no}
 	order by lecture_no
@@ -53,8 +53,8 @@
 	
 	<select id="lectureAllList" resultType="com.ds.domain.LectureVO">
 	<![CDATA[
-	select lecture_no, lecture_name, lecture_twitchid 
-	from (select rownum rn, lecture_no, lecture_name, lecture_twitchid from ds_lecture where
+	select lecture_no, lecture_name, lecture_afreecaid 
+	from (select rownum rn, lecture_no, lecture_name, lecture_afreecaid from ds_lecture where
 	]]>	
   
   <include refid="criteria"></include>
@@ -68,7 +68,7 @@
 	
 		
 	<select id="lectureInfo" resultType="com.ds.domain.LectureVO">
-	select lecture_name, lecture_description, lecture_twitchid from ds_lecture
+	select lecture_name, lecture_description, lecture_afreecaid from ds_lecture
 	where lecture_name=#{lecture_name}
 	</select>
 	
