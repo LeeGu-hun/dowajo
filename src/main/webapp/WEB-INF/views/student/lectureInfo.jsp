@@ -24,13 +24,23 @@
     	<br>
     	<br>
     	<div>
-    	<input type="button" id="callbtn" value="신청"> <input type="button" id="backbtn" value="목록으로">
+    	<input type="button" id="callBtn" value="신청"> <input type="button" id="backBtn" value="목록으로">
     	</div>    	
    	</div>
    </div>
 </section>
 
-        
+<script type="text/javascript">
+$(document).ready(function() {
+	$('#backBtn').on("click", function() {
+		location.href = "./lectureSearch";
+	});		
+	
+});
+
+
+</script>
+       
 
 
 <%@ include file="/WEB-INF/views/include/footer_student.jsp" %>

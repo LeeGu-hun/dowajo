@@ -36,6 +36,11 @@
 	</foreach>
 </trim>
 	</sql>
+	<select id="lectureConfirmList" resultType="com.ds.domain.LectureVO">
+	select lecture_no, lecture_name, lecture_twitchid from ds_lecture l natural join ds_class_list c
+	where c.user_no=#{user_no}
+	and c.class_status='true'
+	</select>
 	
 	<select id="lectureList" resultType="com.ds.domain.LectureVO">
 	select lecture_no, lecture_name, lecture_twitchid from ds_lecture l natural join ds_class_list c

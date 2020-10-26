@@ -40,5 +40,10 @@ public class StudentServiceImpl implements StudentService{
 	public List<LectureVO> lectureInfo(String lecture_name){
 		return mapper.lectureInfo(lecture_name);
 	}
+	
+	@Override
+	public List<LectureVO> lectureConfirmList(Long user_no){
+		return mapper.lectureConfirmList(user_no);
+	}
 
 }

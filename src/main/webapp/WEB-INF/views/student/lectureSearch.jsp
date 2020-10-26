@@ -40,8 +40,9 @@
 				<tbody>
 					<c:forEach items="${leAL}" var="leAL">
 						<tr>
-							<td><c:out value="${leAL.lecture_no }" /></td>
-							<td><c:out value="${leAL.lecture_name }" /></td>
+							<td><c:out value="${leAL.lecture_no }" /></td>							
+							<td><a class="move" href="${leAL.lecture_name }">
+							<c:out value="${leAL.lecture_name }" /></a></td>
 							<td><c:out value="${leAL.lecture_twitchid }" /></td>
 						</tr>
 					</c:forEach>
@@ -106,6 +107,16 @@ $(document).ready(function(){
 
 		searchForm.submit();
 		});
+
+	$('.move').on("click", function(e){
+
+		e.preventDefault();
+		
+		$("#actionForm").append("<input type='hidden' name='lecture_name' value='"+$(this).attr("href")+"' />");
+		$("#actionForm").attr("action", "/student/lectureInfo");
+		$("#actionForm").submit();
+		});
+	
 });
 </script>
 
