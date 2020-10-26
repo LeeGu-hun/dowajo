@@ -66,3 +66,18 @@ insert into ds_class_list (lecture_no, user_no, class_status) values (2, 3, 'fal
 insert into ds_class_list (lecture_no, user_no, class_status) values (3, 2, 'true');
 
 COMMIT;	 
+
+
+delete from ds_class_list;
+alter table ds_class_list modify user_no number;
+insert into ds_class_list (lecture_no, user_no, class_status) values (1, 2, 'true');
+insert into ds_class_list (lecture_no, user_no, class_status) values (1, 3, 'true');
+insert into ds_class_list (lecture_no, user_no, class_status) values (2, 2, 'true');
+insert into ds_class_list (lecture_no, user_no, class_status) values (2, 3, 'false');
+insert into ds_class_list (lecture_no, user_no, class_status) values (3, 2, 'true');
+
+alter table ds_lecture rename COLUMN lecture_twitchid to lecture_afreecaid;
+update ds_lecture set lecture_afreecaid = 'afbaseball1' where lecture_afreecaid='kbo2';
+update ds_lecture set lecture_afreecaid = 'AFLOL' where lecture_afreecaid='lck';
+
+commit;
