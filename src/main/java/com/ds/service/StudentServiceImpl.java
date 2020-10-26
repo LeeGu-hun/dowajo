@@ -35,7 +35,10 @@ public class StudentServiceImpl implements StudentService{
 	public int getTotal(Criteria cri) {
 		return mapper.getTotalCount(cri);
 	}
-
 	
+	@Override
+	public List<LectureVO> lectureInfo(String lecture_name){
+		return mapper.lectureInfo(lecture_name);
+	}
 
 }

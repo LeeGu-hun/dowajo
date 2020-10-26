@@ -9,6 +9,7 @@ import com.ds.domain.LectureVO;
 public interface StudentMapper {
 	public List<LectureVO> lectureList(Long user_no);
 	public List<LectureVO> lectureAllList(Criteria cri);
+	public List<LectureVO> lectureInfo(String lecture_name);
 	
 	public int getTotalCount(Criteria cri);
 

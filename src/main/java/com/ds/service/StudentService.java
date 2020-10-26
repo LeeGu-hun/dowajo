@@ -10,6 +10,7 @@ public interface StudentService {
 	
 	public List<LectureVO> lectureList(Long user_no);
 	public List<LectureVO> lectureAllList(Criteria cri);
+	public List<LectureVO> lectureInfo(String lecture_name);
 	public int getTotal(Criteria cri);
 	
 	

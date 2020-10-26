@@ -62,4 +62,8 @@ public class StudentController {
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
 	}
 
+	@GetMapping("/lectureInfo")
+	public void lectureInfo(@RequestParam("lecture_name")String lecture_name, Model model, @ModelAttribute("cri") Criteria cri) {
+		model.addAttribute("leIn", studentService.lectureInfo(lecture_name));
+	}
 }

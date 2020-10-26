@@ -46,7 +46,7 @@
 	<![CDATA[
 	select lecture_no, lecture_name, lecture_twitchid 
 	from (select rownum rn, lecture_no, lecture_name, lecture_twitchid from ds_lecture where
-	]]>  
+	]]>	
   
   <include refid="criteria"></include>
   
@@ -57,15 +57,21 @@
   ]]>
 	</select>
 	
+		
+	<select id="lectureInfo" resultType="com.ds.domain.LectureVO">
+	select lecture_name, lecture_description, lecture_twitchid from ds_lecture
+	where lecture_name=#{lecture_name}
+	</select>
 	
-	 <select id="getTotalCount" resultType="int">
-  <![CDATA[
-  select count(*) from ds_lecture where
-  ]]>
-  <include refid="criteria"></include>
-  <![CDATA[
-  lecture_no>0
-  ]]>
-  </select>
+	
+  <select id="getTotalCount" resultType="int">
+    <![CDATA[
+    select count(*) from ds_lecture where
+    ]]>
+    <include refid="criteria"></include>
+    <![CDATA[
+    lecture_no>0
+    ]]>
+    </select>
 
 </mapper>
