@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ds.domain.UserVO;
@@ -46,6 +47,11 @@ public class CommonController {
 		}
 	}
 
+	@GetMapping(value="/twin_check", produces = "text/plain;charset-UTF-8")
+	@ResponseBody
+	public String twin_chk(String user_id) {
+		return service.twin_check(user_id);
+	}
 	
 
 }
