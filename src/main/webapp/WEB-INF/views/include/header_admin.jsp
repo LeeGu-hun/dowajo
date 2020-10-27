@@ -294,7 +294,7 @@
                     <div class="btn-group user-helper-dropdown">
                         <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
                         <ul class="dropdown-menu pull-right">
-                            <li><a href="javascript:void(0);"><i class="material-icons">person</i>내 정보</a></li>                            
+                            <li><a href="/myPage"><i class="material-icons">person</i>내 정보</a></li>                            
                             <li role="seperator" class="divider"></li>
                             <li><a id='logout' href="javascript:void(0);"><i class="material-icons">input</i>로그아웃</a></li>
                         </ul>
