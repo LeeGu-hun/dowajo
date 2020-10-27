@@ -12,6 +12,7 @@
         <div class="block-header">
             <h2>Teacher PAGE</h2>
             <a href='./lecture'>./lecture</a>
+            <a href='./teacher_check'>./check</a>
         </div>
     </div>
 </section>
