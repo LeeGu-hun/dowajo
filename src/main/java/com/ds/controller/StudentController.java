@@ -2,9 +2,6 @@ package com.ds.controller;
 
 import java.util.List;
 
-import com.ds.domain.ClassListVO;
-import com.ds.domain.Criteria;
-import com.ds.domain.PageDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -17,12 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.ds.domain.ClassListVO;
+import com.ds.domain.Criteria;
 import com.ds.domain.LectureVO;
-import com.ds.domain.UserVO;
+import com.ds.domain.PageDTO;
 import com.ds.service.LectureService;
 import com.ds.service.StudentService;
-import com.ds.service.UserService;
-import com.ds.domain.Criteria;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
