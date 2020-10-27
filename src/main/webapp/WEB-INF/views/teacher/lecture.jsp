@@ -121,7 +121,7 @@
     		alert("이미 세션에 접속해있습니다.");
             return;
         }
-        //webSocket = new WebSocket("ws://192.168.0.185:8080/echo/");
+
         //var url="ws://192.168.0.185:8080/echo/";
         var url="ws://localhost:8080/echo/";
             url+="${lectureInfo.lecture_no}/";
@@ -246,9 +246,9 @@
 
     	$.ajax({
 	        url: '/file/fileState',
-	        data: {file_status: true, lecture_no: ${lectureInfo.lecture_no}}, //넘겨줄 데이터 1개인경우엔 이름 정의안해도 되는데 2개이상일경우 정의해줘야 하는 듯.
+	        data: {file_status: true, lecture_no: ${lectureInfo.lecture_no}}, 
 	        beforeSend: function(xhr){
-				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);  //로그인 시큐리티 관련 token전달. 위에 hidden으로 토큰전달하듯이 ajax에선 이렇게 보내는듯.
+				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
 			},
 	        dataType: 'text',
 	        type: 'POST',
@@ -276,9 +276,9 @@
 
     	$.ajax({
 	        url: '/file/fileState',
-	        data: {file_status: false, lecture_no: ${lectureInfo.lecture_no}}, //넘겨줄 데이터 1개인경우엔 이름 정의안해도 되는데 2개이상일경우 정의해줘야 하는 듯.
+	        data: {file_status: false, lecture_no: ${lectureInfo.lecture_no}}, 
 	        beforeSend: function(xhr){
-				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);  //로그인 시큐리티 관련 token전달. 위에 hidden으로 토큰전달하듯이 ajax에선 이렇게 보내는듯.
+				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
 			},
 	        dataType: 'text',
 	        type: 'POST',

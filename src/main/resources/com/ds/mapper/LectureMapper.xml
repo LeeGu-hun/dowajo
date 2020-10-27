@@ -34,6 +34,22 @@
 	<update id="fileState">
 		update ds_lecture set file_status = #{file_status} where lecture_no = #{lecture_no}
 	</update>
+	<insert id="fileSave">
+		insert into ds_file (LECTURE_NO, USER_NO, FILE_NAME)
+		values (#{lecture_no}, #{user_no}, #{file_name})
+	</insert>
+	<delete id="fileDelete">
+		delete ds_file where lecture_no = #{lecture_no} and user_no = #{user_no}
+	</delete>
+	<select id="fileList" resultType="com.ds.domain.FileVO">
+		select LECTURE_NO, USER_NO, FILE_NAME, REGDATE from ds_file where lecture_no = #{lecture_no} and user_no = #{user_no}
+	</select>
+	<delete id="fileDeleteAll">
+		delete ds_file where lecture_no = #{lecture_no}
+	</delete>
+	<select id="fileListAll" resultType="com.ds.domain.FileVO">
+		select LECTURE_NO, USER_NO, FILE_NAME, REGDATE from ds_file where lecture_no = #{lecture_no}
+	</select>
 
 
 </mapper>

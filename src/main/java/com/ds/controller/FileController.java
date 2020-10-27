@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -29,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.ds.domain.FileVO;
 import com.ds.service.LectureService;
 
 import lombok.Setter;
@@ -41,7 +40,7 @@ import lombok.extern.log4j.Log4j;
 public class FileController {
 	
 	@Setter(onMethod_ = { @Autowired })
-	private LectureService lecureService;
+	private LectureService lectureService;
 	
 	
 	@PostMapping(value="/uploadAjaxAction/{lectureNo}/{userNo}", produces="application/text;charset=utf-8")
@@ -51,6 +50,8 @@ public class FileController {
 		String result=null;
 		
 		String uploadFolder = "C:\\upload\\"+lectureNo;
+		
+		List<FileVO> fileVo=lectureService.fileListAll(lectureNo);
 		
 
 		File uploadPath = new File(uploadFolder);
@@ -69,6 +70,19 @@ public class FileController {
 			uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\")+1);
 			String savingFileName=userNo.toString()+"_"+uploadFileName;
 			log.info("savingFileName: " + savingFileName);
+			
+			for(int i=0;i<fileVo.size();i++) {
+				if(fileVo.get(i).getFile_name().equals(savingFileName)) {
+					
+				}
+			}
+			
+			FileVO vo=new FileVO();
+			vo.setLecture_no(lectureNo);
+			vo.setUser_no(userNo);
+			vo.setFile_name(savingFileName);
+			lectureService.fileSave(vo);
+			
 			result=savingFileName;
 			try {
 				File saveFile = new File(uploadPath, savingFileName);
@@ -143,12 +157,24 @@ public class FileController {
 
 		List<String> sourceFiles = new ArrayList<String>();
 		
-		for(int i=0; i<fileName.length;i++) {
-			if(!fileName[i].equals("")) {
-				log.info("fileName : " + fileName[i]);
-				sourceFiles.add("C:/upload/"+lectureNo+"/"+fileName[i]);
-			}
+		
+		
+		List<FileVO> fileVo=lectureService.fileListAll(Long.parseLong(lectureNo));
+		for(int i=0; i<fileVo.size();i++) {
+			String voFileName=fileVo.get(i).getFile_name();
+			log.info("fileName : " + voFileName);
+			sourceFiles.add("C:/upload/"+lectureNo+"/"+voFileName);
 		}
+		lectureService.fileDeleteAll(Long.parseLong(lectureNo));
+		
+		
+		
+//		for(int i=0; i<fileName.length;i++) {
+//			if(!fileName[i].equals("")) {
+//				log.info("fileName : " + fileName[i]);
+//				sourceFiles.add("C:/upload/"+lectureNo+"/"+fileName[i]);
+//			}
+//		}
 		//sourceFiles.add("C:/upload/1/dream02.png");
 		FileOutputStream fout = new FileOutputStream(zipFile);
 	    ZipOutputStream zout = new ZipOutputStream(fout);
@@ -199,7 +225,7 @@ public class FileController {
 	public String fileState(boolean file_status, Long lecture_no) {
 	    log.info("file_state: " + file_status);
 	    log.info("lecture_no: " + lecture_no);
-    	lecureService.fileState(file_status, lecture_no);
+	    lectureService.fileState(file_status, lecture_no);
 	    
 	    
 	    

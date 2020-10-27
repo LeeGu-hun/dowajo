@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.ds.domain.FileVO;
 import com.ds.domain.LectureVO;
 import com.ds.domain.UserVO;
 import com.ds.mapper.LectureMapper;
@@ -28,11 +29,39 @@ public class LectureServiceImpl implements LectureService{
 		
 		return  mapper.lectureUser(lecture_no);
 	}
+	
+	
 	@Override
 	public void fileState(boolean file_status, Long lecture_no) {
 		mapper.fileState(file_status, lecture_no);
 		
 	}
+	@Override
+	public void fileSave(FileVO vo) {
+		mapper.fileSave(vo);
+		
+	}
+	@Override
+	public void fileDelete(Long lecture_no, Long user_no) {
+		mapper.fileDelete(lecture_no, user_no);
+		
+	}
+	@Override
+	public List<FileVO> fileList(Long lecture_no, Long user_no) {
+		
+		return mapper.fileList(lecture_no, user_no);
+	}
+	@Override
+	public void fileDeleteAll(Long lecture_no) {
+		mapper.fileDeleteAll(lecture_no);
+		
+	}
+	@Override
+	public List<FileVO> fileListAll(Long lecture_no) {
+		
+		return mapper.fileListAll(lecture_no);
+	}
+	
 	
 
 }

@@ -52,7 +52,7 @@
                         <div class="body">
                            <div class="form-group">
                                <div class="form-line">
-                                   <input type="file" name="uploadFile" class="form-control">
+                                   <input type="file" name="uploadFile" class="form-control" multiple>
                                </div>
                            </div>
                            <button type="button" class="btn btn-primary m-t-15 waves-effect" id="chkHomeworkPopCheck">제출</button>
@@ -181,7 +181,7 @@
     		alert("이미 세션에 접속해있습니다.");
             return;
         }
-        //webSocket = new WebSocket("ws://192.168.0.185:8080/echo/");
+
         //var url="ws://192.168.0.185:8080/echo/";
         var url="ws://localhost:8080/echo/";
 	        url+="${lectureInfo.lecture_no}/";
