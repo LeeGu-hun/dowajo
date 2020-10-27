@@ -1,5 +1,7 @@
 package com.ds.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ds.domain.Criteria;
+import com.ds.domain.PageDTO;
+import com.ds.domain.QuestionsVO;
 import com.ds.domain.UserVO;
 import com.ds.service.AdminService;
 
@@ -58,7 +62,9 @@ public class AdminController {
 	
 	@GetMapping("/questions")
 	public void questions(Criteria cri, Model model) {
-		model.addAttribute("questions", service.getList());
+		int total = service.getTotal(cri);
+		model.addAttribute("questions", service.getList(cri));
+		model.addAttribute("pageMaker", new PageDTO(cri, total));
 	}
 	
 	@GetMapping(value = "/duplicateId", produces = "text/plain;charset=utf-8")

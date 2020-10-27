@@ -21,9 +21,6 @@
 								<div id="DataTables_Table_1_wrapper"
 									class="dataTables_wrapper form-inline dt-bootstrap">
 									<div id="DataTables_Table_1_filter" class="dataTables_filter">
-										<label>Search:<input type="search"
-											class="form-control input-sm" placeholder=""
-											aria-controls="DataTables_Table_1"></label>
 									</div>
 									<table
 										class="table table-bordered table-striped table-hover dataTable js-exportable"
@@ -61,42 +58,27 @@
 													value="${user.que_date }" /></td>
 											</tr>
 											</c:forEach>
-										</tbody>
+										</tbody>	
 									</table>
-									<div class="dataTables_info" id="DataTables_Table_1_info"
-										role="status" aria-live="polite">Showing 1 to 10 of 57
-										entries</div>
-									<div class="dataTables_paginate paging_simple_numbers"
-										id="DataTables_Table_1_paginate">
-										<ul class="pagination">
-											<li class="paginate_button previous disabled"
-												id="DataTables_Table_1_previous"><a href="#"
-												aria-controls="DataTables_Table_1" data-dt-idx="0"
-												tabindex="0">Previous</a></li>
-											<li class="paginate_button active"><a href="#"
-												aria-controls="DataTables_Table_1" data-dt-idx="1"
-												tabindex="0">1</a></li>
-											<li class="paginate_button "><a href="#"
-												aria-controls="DataTables_Table_1" data-dt-idx="2"
-												tabindex="0">2</a></li>
-											<li class="paginate_button "><a href="#"
-												aria-controls="DataTables_Table_1" data-dt-idx="3"
-												tabindex="0">3</a></li>
-											<li class="paginate_button "><a href="#"
-												aria-controls="DataTables_Table_1" data-dt-idx="4"
-												tabindex="0">4</a></li>
-											<li class="paginate_button "><a href="#"
-												aria-controls="DataTables_Table_1" data-dt-idx="5"
-												tabindex="0">5</a></li>
-											<li class="paginate_button "><a href="#"
-												aria-controls="DataTables_Table_1" data-dt-idx="6"
-												tabindex="0">6</a></li>
-											<li class="paginate_button next" id="DataTables_Table_1_next"><a
-												href="#" aria-controls="DataTables_Table_1" data-dt-idx="7"
-												tabindex="0">Next</a></li>
-										</ul>
-									</div>
 								</div>
+								<div class='pull-right'>
+								  <ul class='pagination'>
+								  <c:if test="${pageMaker.prev}">
+								  <li class="paginate_button previous"><a href="${pageMaker.startPage -1}">Previous</a>
+								  </li>
+								  </c:if>
+								  
+								  <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+								  <li class="paginate_button ${pageMaker.cri.pageNum==num?"active":""}"><a href="${num}">${num}</a></li>
+								  
+								  </c:forEach>
+								  
+								  <c:if test="${pageMaker.next}">
+								  <li class="paginate_button next"><a href="${pageMaker.endPage+1}">Next</a>
+								  </li>
+								  </c:if>
+								  </ul>
+								  </div>
 							</div>
 						</div>
 					</div>
@@ -105,5 +87,28 @@
 		</div>
 	</div>
 </section>
+
+<form id='actionForm' action="/admin/questions" method='get'>
+	<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
+	<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
+	<input type='hidden' name='type' value='${pageMaker.cri.type}'>
+	<input type='hidden' name='keyword' value='${pageMaker.cri.keyword}'>
+</form>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	var actionForm = $("#actionForm");
+
+	$(".paginate_button a").on("click", function(e){
+		e.preventDefault();
+
+		console.log('click');
+
+		actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+		actionForm.submit();
+		});	
+	
+});
+</script>
 
 <%@ include file="/WEB-INF/views/include/footer_admin.jsp"%>

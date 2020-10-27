@@ -3,12 +3,14 @@ package com.ds.mapper;
 import java.util.List;
 
 import com.ds.domain.AuthVO;
+import com.ds.domain.Criteria;
+import com.ds.domain.LectureVO;
 import com.ds.domain.QuestionsVO;
 import com.ds.domain.UserVO;
 
 public interface AdminMapper {
 	
-	public List<QuestionsVO> getQueList();
+	public List<QuestionsVO> getQueList(Criteria cri);
 	
 	public void admin_regist(UserVO vo);
 	public void admin_registAuth(AuthVO auth);
@@ -16,4 +18,6 @@ public interface AdminMapper {
 	public void teacher_registAuth(AuthVO auth);
 	
 	public String duplicateId(String user_id);
+
+	public int getTotalCount(Criteria cri);
 }
