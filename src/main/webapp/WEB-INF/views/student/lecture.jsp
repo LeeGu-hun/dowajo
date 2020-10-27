@@ -46,7 +46,7 @@
                     <div class="card" style="margin:0 auto; height:50%; display:none;" id="chkHomeworkPop">
                         <div class="header">
                             <h2>
-                              	파일 제출
+                              	파일 제출 (5MB 이하)
                             </h2>
                         </div>
                         <div class="body">
@@ -94,6 +94,10 @@
 		var navHeight=$('.navbar').height();
 		$('#height').css('height', (windowHeight-navHeight)*0.95);
 	});
+
+	if(${lectureInfo.file_status}==true){
+		$("#chkHomeworkPop").fadeIn(300);
+	}
 </script>
 
 <script type="text/javascript">

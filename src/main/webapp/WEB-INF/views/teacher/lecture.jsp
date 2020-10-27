@@ -90,6 +90,11 @@
 		var navHeight=$('.navbar').height();
 		$('#height').css('height', (windowHeight-navHeight)*0.95);
 	});
+
+	if(${lectureInfo.file_status}==true){
+		$("#clsHomework").fadeIn(300);
+	}
+
 </script>
 <style>
 	#lecture_button td {text-align: center;}
@@ -97,6 +102,9 @@
 
 
 <script type="text/javascript">
+	var csrfHeaderName = "${_csrf.headerName}";
+	var csrfTokenValue = "${_csrf.token}";
+	
 	//html decoder
 	function decodeEntities(encodedString) {
 	  var div = document.createElement('div');
@@ -234,6 +242,21 @@
         	  };
     	webSocket.send(JSON.stringify(chkHomework));
     	$("#clsHomework").fadeIn(300);
+
+
+    	$.ajax({
+	        url: '/file/fileState',
+	        data: {file_status: true, lecture_no: ${lectureInfo.lecture_no}}, //넘겨줄 데이터 1개인경우엔 이름 정의안해도 되는데 2개이상일경우 정의해줘야 하는 듯.
+	        beforeSend: function(xhr){
+				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);  //로그인 시큐리티 관련 token전달. 위에 hidden으로 토큰전달하듯이 ajax에선 이렇게 보내는듯.
+			},
+	        dataType: 'text',
+	        type: 'POST',
+	        success: function(result) {
+	            console.log(result);
+	        }
+	    });
+    	
     	
     });
     $("#clsHomework").on("click", function(e){
@@ -249,6 +272,22 @@
         	// + "${product.filename}";
     	
     	$("#clsHomework").fadeOut(300);
+
+
+    	$.ajax({
+	        url: '/file/fileState',
+	        data: {file_status: false, lecture_no: ${lectureInfo.lecture_no}}, //넘겨줄 데이터 1개인경우엔 이름 정의안해도 되는데 2개이상일경우 정의해줘야 하는 듯.
+	        beforeSend: function(xhr){
+				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);  //로그인 시큐리티 관련 token전달. 위에 hidden으로 토큰전달하듯이 ajax에선 이렇게 보내는듯.
+			},
+	        dataType: 'text',
+	        type: 'POST',
+	        success: function(result) {
+	            console.log(result);
+	        }
+	    });
+
+	    
     });
 
     $("#messageinput").on("keypress", function(e){

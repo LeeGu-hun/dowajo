@@ -10,5 +10,6 @@ public interface LectureService {
 	public LectureVO lectureInfo(Long lecture_no);
 	public List<UserVO> lectureUser(Long lecture_no);
 	
+	public void fileState(boolean file_status, Long lecture_no);	
 
 }
