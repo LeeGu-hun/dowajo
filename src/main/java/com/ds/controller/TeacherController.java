@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ds.domain.Criteria;
 import com.ds.domain.TeacherVO;
@@ -32,21 +33,24 @@ public class TeacherController {
 	public void teacher_main(/*Criteria cri,*/Model model) {
 		log.info("teachergetList.....");
 		//int total = TeacherService.getTotal(cri);
-		List<TeacherVO> list = TeacherService.getList();//cri³Ö±â
+		List<TeacherVO> list = TeacherService.getList();//crië„£ê¸°
 		System.out.println("list : "+list);
 		model.addAttribute("list",list);
 		//model.addAttribute("pageMaker", new PageDTO(cri,total));
 		
 	}
 	@GetMapping("/teacher_check")
-	public void teacher_check(Model model) {
-		List<TeacherVO> cancel = TeacherService.cancel();//cri³Ö±â
+	@RequestMapping("/test")
+	public void teacher_check(@RequestParam(value="val[]")List<Integer>vals, Model model) {
+		List<TeacherVO> cancel = TeacherService.cancel();//crië„£ê¸°
 		System.out.println("cancel : "+cancel);
 		model.addAttribute("cancel",cancel);
 		
-		List<TeacherVO> sign_up = TeacherService.sign_up();//cri³Ö±â
-		System.out.println("sign_up : "+sign_up);//get2 ¹®ÀÚ¿­¿¡ ½á³õÀº°Ô mapper.xml¿¡ 
-		model.addAttribute("sign_up",sign_up);//<c:forEach items="${get2}" var="teacher">µ¿ÀÏÇØ¾ßÇÔ
+		List<TeacherVO> sign_up = TeacherService.sign_up();//crië„£ê¸°
+		System.out.println("sign_up : "+sign_up);//get2 ë¬¸ìì—´ì— ì¨ë†“ì€ê²Œ mapper.xmlì— 
+		model.addAttribute("sign_up",sign_up);//<c:forEach items="${get2}" var="teacher">ë™ì¼í•´ì•¼í•¨
+		
+		List<TeacherVO> refresh = TeacherService.refresh();
 	}
 	@GetMapping("/teacher_reg")
 	public void teacher_reg() {
