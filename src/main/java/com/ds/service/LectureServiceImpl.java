@@ -28,7 +28,11 @@ public class LectureServiceImpl implements LectureService{
 		
 		return  mapper.lectureUser(lecture_no);
 	}
-
+	@Override
+	public void fileState(boolean file_status, Long lecture_no) {
+		mapper.fileState(file_status, lecture_no);
+		
+	}
 	
 
 }

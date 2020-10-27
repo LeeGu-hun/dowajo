@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -11,6 +13,7 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -26,6 +29,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.ds.service.LectureService;
+
+import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 @Controller
@@ -34,6 +40,8 @@ import lombok.extern.log4j.Log4j;
 @PreAuthorize("isAuthenticated()")
 public class FileController {
 	
+	@Setter(onMethod_ = { @Autowired })
+	private LectureService lecureService;
 	
 	
 	@PostMapping(value="/uploadAjaxAction/{lectureNo}/{userNo}", produces="application/text;charset=utf-8")
@@ -185,6 +193,18 @@ public class FileController {
 		return new ResponseEntity<Resource>(resource, headers, HttpStatus.OK);
 	}
 	
+	
+	@PostMapping("/fileState")
+	@ResponseBody
+	public String fileState(boolean file_status, Long lecture_no) {
+	    log.info("file_state: " + file_status);
+	    log.info("lecture_no: " + lecture_no);
+    	lecureService.fileState(file_status, lecture_no);
+	    
+	    
+	    
+	    return "file_status changed successfully";
+	}
 	
 
 }
