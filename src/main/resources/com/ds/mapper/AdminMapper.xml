@@ -61,8 +61,37 @@
 		insert into ds_auth values (#{user_no},'ROLE_TEACHER')
 	</insert>
 	
-	<select id="getQueList" resultType="com.ds.domain.QuestionsVO" >
-		SELECT que_no,que_writer,que_title,que_content,que_date FROM ds_question
-	</select> 
+
+	<sql id="criteria">
+		<trim prefix="(" suffix=") AND " prefixOverrides="OR">
+			<foreach item='type' collection="typeArr">
+			</foreach>
+		</trim>
+	</sql>
+	
+	<select id="getTotalCount" resultType="int">
+		<![CDATA[ 
+		select count(*) from ds_qa where 
+		]]>
+		<include refid="criteria"></include>
+		<![CDATA[ 
+		qa_no > 0
+		]]>
+	</select>
+	
+	<select id="getQueList" resultType="com.ds.domain.QuestionsVO">
+	<![CDATA[
+	select qa_no, qa_writer, qa_title,qa_date 
+	from (select rownum rn, qa_no, qa_writer, qa_title,qa_date from ds_qa where
+	]]>	
+  
+  <include refid="criteria"></include>
+  
+  <![CDATA[
+  rownum<= #{pageNum} * #{amount})
+  where rn>(#{pageNum}-1)*#{amount}  
+  order by qa_no
+  ]]>
+	</select>
 	
 </mapper>

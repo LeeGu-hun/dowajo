@@ -11,7 +11,7 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <title>Blank Page | Bootstrap Based Admin Template - Material Design</title>
     <!-- Favicon-->
-    <link rel="icon" href="/resources/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/resources/favicon.ico" type="image/x-icon"> 
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
@@ -312,6 +312,18 @@
                         <a href="/resources/index.html">
                             <i class="material-icons">home</i>
                             <span>Home</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/teacher/teacher_main.html">
+                            <i class="material-icons">home</i>
+                            <span>강사홈으로</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/teacher/teacher_reg.html">
+                            <i class="material-icons">create</i>
+                            <span>강의실만들기</span>
                         </a>
                     </li>
                     <li>

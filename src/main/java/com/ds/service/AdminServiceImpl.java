@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ds.domain.AuthVO;
+import com.ds.domain.Criteria;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -68,7 +70,13 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public List<QuestionsVO> getList() {
-		return mapper.getQueList();
+	public List<QuestionsVO> getList(Criteria cri) {
+		return mapper.getQueList(cri);
 	}
+
+	@Override
+	public int getTotal(Criteria cri) {
+		return mapper.getTotalCount(cri);
+	}
+
 }

@@ -8,10 +8,11 @@ import lombok.Data;
 @Data
 public class QuestionsVO {
 	
-	private Long que_no;
-	private String que_writer;
-	private String que_title;
-	private String que_content;
-	private Date que_date;
+	private Long qa_no;
+	private String qa_writer;
+	private String qa_title;
+	private String qa_content;
+	private String qa_reply;
+	private Date qa_date;
 	
 }
