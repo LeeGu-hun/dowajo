@@ -51,11 +51,11 @@
 										<tbody>
 											<c:forEach items="${questions}" var="user">
 												<tr role="row" class="odd">
-												<td><c:out value="${user.que_no }" /></td>
-												<td><c:out value="${user.que_writer }" /></td>
-												<td><c:out value="${user.que_title }" /></td>
+												<td><c:out value="${user.qa_no }" /></td>
+												<td><c:out value="${user.qa_writer }" /></td>
+												<td><c:out value="${user.qa_title }" /></td>
 												<td><fmt:formatDate pattern="yyyy-MM-dd"
-													value="${user.que_date }" /></td>
+													value="${user.qa_date }" /></td>
 											</tr>
 											</c:forEach>
 										</tbody>	
