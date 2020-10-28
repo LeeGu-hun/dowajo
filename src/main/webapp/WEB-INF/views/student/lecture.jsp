@@ -51,15 +51,16 @@
                         </div>
                         <div class="body">
                            <div class="form-group">
-                               <div class="form-line">
+                               <div class="form-line" id="uplodedHomework">
                                    <input type="file" name="uploadFile" class="form-control" multiple>
                                </div>
                            </div>
-                           <button type="button" class="btn btn-primary m-t-15 waves-effect" id="chkHomeworkPopCheck">제출</button>
+                           <button type="button" class="btn btn-primary m-t-15 waves-effect" id="chkHomeworkPopCheck" data-toggle="modal" data-target="#defaultModal">제출</button>
                         </div>
                     </div>
+                    
+                    
                 
-        			
         			
         			
         			
@@ -82,9 +83,31 @@
 			</div>
         </div>
     </div>
+    
+    
+    
+    <div class="modal fade" id="defaultModal" tabindex="-1" role="dialog" style="display: none;">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="defaultModalLabel">파일 전송완료</h4>
+                        </div>
+                        <div class="modal-body">
+                        	<div class="form-group">
+                               <div class="form-line" id="fileResult_modal">
+                               </div>
+                            </div>
+                        
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+
 </section>
-
-
 
 
 
@@ -159,14 +182,15 @@
 			dataType: 'text',  
 			success: function(result){
 				var mynum=userNo.length;
-				var myfile=result.substring(mynum+1);
-				$("#uplodedHomework").html("<span>"+myfile+" 이/가 업로드 되었습니다.</span>")
+				var mylecturenum=lectureNo.length;
+				var myfile=result.substring(mylecturenum+mynum+2);
+				$("#fileResult_modal").html("<input type='text' class='form-control' value='"+myfile+" 이/가 업로드되었습니다.' readonly>");
 				var message={
 	        		 type: "homeworkChecked",
 		        	 id: "<sec:authentication property='principal.user.user_id'/>",
 		        	 file: result
 	        	  };
-	    	webSocket.send(JSON.stringify(message));
+	    		webSocket.send(JSON.stringify(message));
 			}
 		});
 	}
