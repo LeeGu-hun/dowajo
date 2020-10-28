@@ -50,4 +50,8 @@
 		SELECT user_id FROM ds_user
 		WHERE user_id = #{user_id}
 	</select>
+	
+	<select id="user_read" resultType="com.ds.domain.UserVO">
+		select * from ds_user where user_id = #{user_id} 
+	</select>
 </mapper>
