@@ -2,15 +2,12 @@ package com.ds.service;
 
 import java.util.List;
 
-import com.ds.domain.ClassListVO;
-import com.ds.domain.Criteria;
 import org.springframework.stereotype.Service;
 
+import com.ds.domain.ClassListVO;
+import com.ds.domain.Criteria;
 import com.ds.domain.LectureVO;
-import com.ds.domain.UserVO;
-import com.ds.mapper.LectureMapper;
 import com.ds.mapper.StudentMapper;
-import com.ds.mapper.UserMapper;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -46,19 +43,10 @@ public class StudentServiceImpl implements StudentService{
 	public List<LectureVO> lectureConfirmList(Long user_no){
 		return mapper.lectureConfirmList(user_no);
 	}
-	
-	@Override
-	public int getCoCount(Long user_no) {
-		return mapper.getCoCount(user_no);
-	}
-	
-	@Override
-	public int getLeCount(Long user_no) {
-		return mapper.getLeCount(user_no);
-	}
-	
+		
 	@Override
 	public void applyClass(ClassListVO vo) {
+		log.info("applyClass ::" + vo);
 		mapper.applyClass(vo);
 	}
 
