@@ -294,7 +294,7 @@
                     <div class="btn-group user-helper-dropdown">
                         <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
                         <ul class="dropdown-menu pull-right">
-                            <li id="myPage"><a href="/myPage?user_id=<sec:authentication property='principal.user.user_id'/>"><i class="material-icons" >person</i>내 정보</a></li>                            
+                            <li><a href="javascript:void(0);"><i class="material-icons">person</i>내 정보</a></li>                            
                             <li role="seperator" class="divider"></li>
                             <li><a id='logout' href="javascript:void(0);"><i class="material-icons">input</i>로그아웃</a></li>
                         </ul>
@@ -334,7 +334,7 @@
                                 <a href="/admin/student_list">학생계정</a>
                             </li>
                         </ul>
-                    </li>                            
+                    </li>                    
                     <li>
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">person_add</i>
@@ -539,12 +539,10 @@
 	<input type="hidden"name="${_csrf.parameterName}"value="${_csrf.token}"/>
 </form>
 <script>
-$(document).ready(function(){
-	$('#logout').on("click", function(e){
-		e.preventDefault();
-		$('#logoutForm').submit();
+	$(document).ready(function(){
+		$('#logout').on("click", function(e){
+			e.preventDefault();
+			$('#logoutForm').submit();
+		});
 	});
-	
-	
-});
 </script>

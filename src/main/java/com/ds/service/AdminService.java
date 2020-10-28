@@ -16,6 +16,11 @@ public interface AdminService {
 	public String duplicateId(String user_id);
 	
 	public List<QuestionsVO> getList(Criteria cri);
-	
 	public int getTotal(Criteria cri);
+	
+	public List<UserVO> admin_list(Criteria cri);
+	public List<UserVO> teacher_list(Criteria cri);
+	public List<UserVO> student_list(Criteria cri);
+	public int getlistTotal(Criteria cri);
+	
 }

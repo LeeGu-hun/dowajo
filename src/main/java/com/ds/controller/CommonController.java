@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -53,9 +54,9 @@ public class CommonController {
 		return service.twin_check(user_id);
 	}
 	
-	@GetMapping("/myPage")
-	public void myPage(){
-		log.info("My Page");
+	@GetMapping({"/myPage", "/myPage_modify"})
+	public void getUser(@RequestParam("user_id") String user_id, Model model){
+		model.addAttribute("user", service.user_read(user_id));
 	}
 
 }

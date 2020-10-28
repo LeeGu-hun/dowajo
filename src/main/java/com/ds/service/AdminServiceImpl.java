@@ -79,4 +79,24 @@ public class AdminServiceImpl implements AdminService{
 		return mapper.getTotalCount(cri);
 	}
 
+	@Override
+	public List<UserVO> admin_list(Criteria cri) {
+		return mapper.admin_List(cri);
+	}
+
+	@Override
+	public int getlistTotal(Criteria cri) {
+		return mapper.getlistTotal(cri);
+	}
+
+	@Override
+	public List<UserVO> teacher_list(Criteria cri) {
+		return mapper.teahcer_List(cri);
+	}
+
+	@Override
+	public List<UserVO> student_list(Criteria cri) {
+		return mapper.student_List(cri);
+	}
+
 }

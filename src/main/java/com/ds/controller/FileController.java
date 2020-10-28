@@ -68,7 +68,7 @@ public class FileController {
 			log.info("uploadFileName: " + uploadFileName);
 			
 			uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\")+1);
-			String savingFileName=userNo.toString()+"_"+uploadFileName;
+			String savingFileName=lectureNo.toString()+"_"+userNo.toString()+"_"+uploadFileName;
 			log.info("savingFileName: " + savingFileName);
 			
 			for(int i=0;i<fileVo.size();i++) {
@@ -81,7 +81,12 @@ public class FileController {
 			vo.setLecture_no(lectureNo);
 			vo.setUser_no(userNo);
 			vo.setFile_name(savingFileName);
-			lectureService.fileSave(vo);
+			try {
+				lectureService.fileSave(vo);
+			} catch (Exception e) {
+				return savingFileName+"(기존 파일에 덮어씌워짐)";
+			}
+			
 			
 			result=savingFileName;
 			try {
@@ -180,9 +185,15 @@ public class FileController {
 	    ZipOutputStream zout = new ZipOutputStream(fout);
 
 	    for(int i=0; i < sourceFiles.size(); i++){
-
+	    	String sourceName=new File(sourceFiles.get(i)).getName();
+	    	int idx = sourceName.indexOf("_");
+	    	String beforeRealName = sourceName.substring(idx+1);
+	    	int idx2 = beforeRealName.indexOf("_");
+	    	String realName = beforeRealName.substring(idx2+1);
+	    	
 	        //본래 파일명 유지, 경로제외 파일압축을 위해 new File로 
-	        ZipEntry zipEntry = new ZipEntry(new File(sourceFiles.get(i)).getName());
+	        //ZipEntry zipEntry = new ZipEntry(new File(sourceFiles.get(i)).getName());
+	        ZipEntry zipEntry = new ZipEntry(beforeRealName);
 	        zout.putNextEntry(zipEntry);
 
 	        //경로포함 압축

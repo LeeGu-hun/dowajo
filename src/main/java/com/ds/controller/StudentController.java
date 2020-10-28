@@ -1,5 +1,6 @@
 package com.ds.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,23 +47,11 @@ public class StudentController {
 	
 	@GetMapping("/lecturelist")	
 	@Transactional
-	public void lecturelist(@RequestParam("user_no")Long user_no, Model model, @ModelAttribute("cri") Criteria cri) {		
-		int total=studentService.getCoCount(user_no);
-		int total2=studentService.getLeCount(user_no);
+	public void lecturelist(@RequestParam("user_no")Long user_no, Model model) {		
 		model.addAttribute("leCo",studentService.lectureConfirmList(user_no));
-		model.addAttribute("leLi",studentService.lectureList(user_no));
-		model.addAttribute("pageMaker", new PageDTO(cri, total));
-		model.addAttribute("pageMaker2", new PageDTO(cri, total2));
-		
+		model.addAttribute("leLi",studentService.lectureList(user_no));		
 	}
 	
-	@PostMapping("/lectureInfo")
-	public String lectureInfo(ClassListVO vo, RedirectAttributes rttr) {
-		studentService.applyClass(vo);
-		rttr.addFlashAttribute("result", vo.getUser_no());
-		return "redirect:/student/lecturelist";
-		
-	}
 	
 	@GetMapping("/lectureSearch")
 	public void lectureSearch(Criteria cri, Model model) {
@@ -74,6 +63,22 @@ public class StudentController {
 
 	@GetMapping("/lectureInfo")
 	public void lectureInfo(@RequestParam("lecture_name")String lecture_name, Model model, @ModelAttribute("cri") Criteria cri) {
-		model.addAttribute("leIn", studentService.lectureInfo(lecture_name));
+		List<LectureVO> list = studentService.lectureInfo(lecture_name);
+		LectureVO vo = (LectureVO) list.get(0);
+		log.info(">>>>>"+vo.getLecture_name()+"///////////"+lecture_name);
+		model.addAttribute("leIn", vo);
 	}
+	
+	@PostMapping("/lectureInfo")
+	public String lectureInfo(@RequestParam("lecture_no")Long lecture_no,
+			@RequestParam("user_no")Long user_no, RedirectAttributes rttr) {
+		ClassListVO vo = new ClassListVO();		
+		vo.setLecture_no(lecture_no);
+		vo.setUser_no(user_no);		
+		studentService.applyClass(vo);		
+		rttr.addAttribute("user_no", user_no);		
+		return "redirect:/student/lecturelist";
+		
+	}
+	
 }

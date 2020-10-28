@@ -34,7 +34,7 @@
 					<tr>
 						<th>#</th>
 						<th>강의실명</th>
-						<th>선생님 아이디</th>
+						<th>선생님 이름</th>
 					</tr>
 				</thead>
 				<tbody>

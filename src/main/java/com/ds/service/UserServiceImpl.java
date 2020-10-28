@@ -47,4 +47,15 @@ public class UserServiceImpl implements UserService{
 		return mapper.twin_check(user_id);		
 	}
 	
+	@Override
+	public UserVO user_read(String user_id) {
+		return mapper.user_read(user_id);				
+	}
+
+	@Override
+	public boolean user_modify(UserVO vo) {
+		vo.setUser_pw(pwencoder.encode(vo.getUser_pw()));
+		boolean modifyResult = mapper.update(vo) == 1;
+		return modifyResult;		
+	}
 }
