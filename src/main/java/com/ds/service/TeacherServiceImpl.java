@@ -61,11 +61,22 @@ public class TeacherServiceImpl implements TeacherService{
 		log.info("sign_up......" ); 
 		return mapper.read_sign_up();
 	}
+	@Override
+	public List<TeacherVO> refresh(List<String>checkArr) {
+		log.info("checkArr......" ); 
+		return mapper.read_refresh(checkArr);
+	}
+	
 
 	@Override
 	public List<TeacherVO> getList() {
 		log.info("getList..........");
 		return mapper.getList();
+	}
+	@Override
+	public List<TeacherVO> call_no(int lecture_no) {
+		log.info("call_no..........");
+		return mapper.call_no(lecture_no);
 	}
 
 	@Override

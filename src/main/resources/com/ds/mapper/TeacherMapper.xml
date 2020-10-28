@@ -44,7 +44,10 @@
 	</delete>
 		<select id="getList" resultType="com.ds.domain.TeacherVO">
 			select lecture_no,lecture_description,lecture_name from ds_lecture where lecture_no in( select lecture_no from ds_class_list where user_no= 2)
-		</select> 
+		</select>
+		<select id="call_no" resultType="com.ds.domain.TeacherVO">
+			select lecture_no from ds_lecture where lecture_no=1
+		</select>  
 	  <select id="read_cancel" resultType="com.ds.domain.TeacherVO">
       select st_no,user_name,mobile
 		from ds_class_list

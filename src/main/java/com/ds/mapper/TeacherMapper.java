@@ -13,12 +13,14 @@ public interface TeacherMapper {
 	public boolean registAuth(AuthVO auth);
 	public int updateAdmin(String id);
 	public List<TeacherVO> getList();
+	public List<TeacherVO> call_no(int lecture_no);
 	public TeacherVO getUser(int  lecture_no);
 	
 	public void insert(TeacherVO vo);
 	public void insertSelectKey(TeacherVO vo);
 	public List<TeacherVO> read_cancel(); 
 	public List<TeacherVO> read_sign_up();
+	public List<TeacherVO> read_refresh(List<String> checkArr);
 	public int delete(int lecture_no);
 	public int update(TeacherVO vo);
 	
