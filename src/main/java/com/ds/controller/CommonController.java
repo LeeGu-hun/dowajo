@@ -54,7 +54,7 @@ public class CommonController {
 		return service.twin_check(user_id);
 	}
 	
-	@GetMapping({"/myPage", "/myPageModify"})
+	@GetMapping({"/myPage", "/myPage_modify"})
 	public void getUser(@RequestParam("user_id") String user_id, Model model){
 		model.addAttribute("user", service.user_read(user_id));
 	}
