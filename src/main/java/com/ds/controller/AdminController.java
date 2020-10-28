@@ -72,5 +72,26 @@ public class AdminController {
 	public String duplicateId(String user_id) {
 		return service.duplicateId(user_id);
 	}
-
+	
+	@GetMapping("/admin_list")
+	public void admin_list(Criteria cri, Model model) {
+		int total = service.getlistTotal(cri);
+		model.addAttribute("admin_list", service.admin_list(cri));
+		model.addAttribute("pageMaker", new PageDTO(cri, total));
+	}
+	
+	@GetMapping("/teacher_list")
+	public void teacher_list(Criteria cri, Model model) {
+		int total = service.getlistTotal(cri);
+		model.addAttribute("teacher_list", service.teacher_list(cri));
+		model.addAttribute("pageMaker", new PageDTO(cri, total));
+	}
+	
+	@GetMapping("/student_list")
+	public void student_list(Criteria cri, Model model) {
+		int total = service.getlistTotal(cri);
+		model.addAttribute("student_list", service.student_list(cri));
+		model.addAttribute("pageMaker", new PageDTO(cri, total));
+	}
+	
 }

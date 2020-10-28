@@ -2,65 +2,70 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ds.mapper.AdminMapper">  	
-	
-  <resultMap type="com.ds.domain.UserVO" id="userMap">
-    <id property="user_no" column="user_no"/>
-    <result property="user_id" column="user_id"/>
-    <result property="user_pw" column="user_pw"/>
-    <result property="user_name" column="user_name"/>
-    <result property="user_depart" column="user_depart"/>
-    <result property="user_mobile" column="user_mobile"/>
-    <result property="user_email" column="user_email"/>
-    <result property="regdate" column="regdate"/>
-    <collection property="authList" resultMap="authMap">
-    </collection> 
-  </resultMap>
-  
-  <resultMap type="com.ds.domain.AuthVO" id="authMap">
-    <result property="user_no" column="user_no"/>
-    <result property="user_auth" column="user_auth"/>
-  </resultMap>
-  
-   <resultMap type="com.ds.domain.QuestionsVO" id="queMap">
-  		<id property="que_no" column="que_no"/>
-  		<result property="que_writer" column="que_writer"/>
-  		<result property="que_title" column="que_title"/>
-  		<result property="que_content" column="que_content"/>
-  		<result property="que_date" column="que_date"/>
-  	</resultMap>
-  		
-  	<select id="duplicateId" resultType="string">
+<mapper namespace="com.ds.mapper.AdminMapper">
+
+	<resultMap type="com.ds.domain.UserVO" id="userMap">
+		<id property="user_no" column="user_no" />
+		<result property="user_id" column="user_id" />
+		<result property="user_pw" column="user_pw" />
+		<result property="user_name" column="user_name" />
+		<result property="user_depart" column="user_depart" />
+		<result property="user_mobile" column="user_mobile" />
+		<result property="user_email" column="user_email" />
+		<result property="regdate" column="regdate" />
+		<collection property="authList" resultMap="authMap">
+		</collection>
+	</resultMap>
+
+	<resultMap type="com.ds.domain.AuthVO" id="authMap">
+		<result property="user_no" column="user_no" />
+		<result property="user_auth" column="user_auth" />
+	</resultMap>
+
+	<resultMap type="com.ds.domain.QuestionsVO" id="queMap">
+		<id property="que_no" column="que_no" />
+		<result property="que_writer" column="que_writer" />
+		<result property="que_title" column="que_title" />
+		<result property="que_content" column="que_content" />
+		<result property="que_date" column="que_date" />
+	</resultMap>
+
+	<select id="duplicateId" resultType="string">
 		SELECT user_id FROM ds_user
 		WHERE user_id = #{user_id}
 	</select>
-	
+
 	<insert id="admin_regist">
-		insert into ds_user (user_no,user_id,user_pw,user_name,user_depart,user_mobile,user_email,regdate)
-		values (ds_user_seq.nextval, #{user_id}, #{user_pw}, #{user_name}, '동성', #{user_mobile}, #{user_email}, sysdate)
+		insert into ds_user
+		(user_no,user_id,user_pw,user_name,user_depart,user_mobile,user_email,regdate)
+		values (ds_user_seq.nextval, #{user_id}, #{user_pw}, #{user_name},
+		'동성', #{user_mobile}, #{user_email}, sysdate)
 		<selectKey resultType="long" keyProperty="user_no"
 			order="AFTER">
 			SELECT ds_user_seq.currval from dual
 		</selectKey>
-	</insert>	
-	
+	</insert>
+
 	<insert id="admin_registAuth">
 		insert into ds_auth values (#{user_no},'ROLE_ADMIN')
 	</insert>
-	
+
 	<insert id="teacher_regist">
-		insert into ds_user (user_no,user_id,user_pw,user_name,user_depart,user_mobile,user_email,regdate)
-		values (ds_user_seq.nextval, #{user_id}, #{user_pw}, #{user_name}, #{user_depart}, #{user_mobile}, #{user_email}, sysdate)
+		insert into ds_user
+		(user_no,user_id,user_pw,user_name,user_depart,user_mobile,user_email,regdate)
+		values (ds_user_seq.nextval, #{user_id}, #{user_pw}, #{user_name},
+		#{user_depart}, #{user_mobile}, #{user_email}, sysdate)
 		<selectKey resultType="long" keyProperty="user_no"
 			order="AFTER">
 			SELECT ds_user_seq.currval from dual
 		</selectKey>
-	</insert>	
-	
-	<insert id="teacher_registAuth">
-		insert into ds_auth values (#{user_no},'ROLE_TEACHER')
 	</insert>
-	
+
+	<insert id="teacher_registAuth">
+		insert into ds_auth values
+		(#{user_no},'ROLE_TEACHER')
+	</insert>
+
 
 	<sql id="criteria">
 		<trim prefix="(" suffix=") AND " prefixOverrides="OR">
@@ -68,7 +73,7 @@
 			</foreach>
 		</trim>
 	</sql>
-	
+
 	<select id="getTotalCount" resultType="int">
 		<![CDATA[ 
 		select count(*) from ds_qa where 
@@ -78,20 +83,79 @@
 		qa_no > 0
 		]]>
 	</select>
-	
+
 	<select id="getQueList" resultType="com.ds.domain.QuestionsVO">
-	<![CDATA[
-	select qa_no, qa_writer, qa_title,qa_date 
-	from (select rownum rn, qa_no, qa_writer, qa_title,qa_date from ds_qa where
-	]]>	
+		<![CDATA[
+		select qa_no, qa_writer, qa_title,qa_date 
+		from (select rownum rn, qa_no, qa_writer, qa_title,qa_date from ds_qa where
+		]]>
+
+		<include refid="criteria"></include>
   
-  <include refid="criteria"></include>
+		<![CDATA[
+		rownum<= #{pageNum} * #{amount})
+		where rn>(#{pageNum}-1)*#{amount}  
+		order by qa_no
+		]]>
+	</select>
+
+	<select id="getlistTotal" resultType="int">
+		<![CDATA[ 
+		select count(*) from ds_user where 
+		]]>
+		<include refid="criteria"></include>
+		<![CDATA[ 
+		user_no > 0
+		]]>
+	</select>
+
+
+	<select id="admin_List" resultType="com.ds.domain.UserVO">
+		<![CDATA[
+		select rn, user_no, user_name,user_id,user_depart
+		from (select rownum rn, u.user_no, u.user_name,u.user_id,u.user_depart from ds_user u, ds_auth a 
+		where a.user_no=u.user_no and a.user_auth = 'ROLE_ADMIN' and
+		]]>
+		
+		<include refid="criteria"></include>
   
-  <![CDATA[
-  rownum<= #{pageNum} * #{amount})
-  where rn>(#{pageNum}-1)*#{amount}  
-  order by qa_no
-  ]]>
+		<![CDATA[
+		rownum<= #{pageNum} * #{amount}) 
+		where rn>(#{pageNum}-1)*#{amount} 
+		order by user_no 
+		]]>
+	</select>
+
+	<select id="teahcer_List" resultType="com.ds.domain.UserVO">
+		<![CDATA[
+		select rn, user_no, user_name,user_id,user_depart
+		from (select rownum rn, u.user_no, u.user_name,u.user_id,u.user_depart from ds_user u, ds_auth a 
+		where a.user_no=u.user_no and a.user_auth = 'ROLE_TEACHER' and
+		]]>
+
+		<include refid="criteria"></include>
+  
+		<![CDATA[
+		rownum<= #{pageNum} * #{amount})
+		where rn>(#{pageNum}-1)*#{amount}  
+		order by user_no
+		]]>
+	</select>
+	
+	<select id="student_List" resultType="com.ds.domain.UserVO">
+		<![CDATA[
+		select rn, user_no, user_name,user_id,user_depart
+		from (select rownum rn, u.user_no, u.user_name,u.user_id,u.user_depart from ds_user u, ds_auth a 
+		where a.user_no=u.user_no and a.user_auth = 'ROLE_STUDENT' and
+		]]>
+		
+		<include refid="criteria"></include>
+  
+		<![CDATA[
+		rownum<= #{pageNum} * #{amount}) 
+		where rn>(#{pageNum}-1)*#{amount} 
+		order by user_no 
+		]]>
 	</select>
 	
 </mapper>
