@@ -9,32 +9,30 @@
 <section class="content" >
     
     <h3>강의정보</h3><br>
+    
     <div id="container">        
-   <div id="gongzi" style="overflow:auto; width:300px; height:100%; border: 1px solid black;">
-   <c:forEach items="${leIn}" var="lein">
-    	<label>강의실 이름</label> : <label><c:out value="${lein.lecture_name}"/></label><br>
+   <div id="info" style="overflow:auto; width:300px; height:100%; border: 1px solid black;">
+    	<label>강의실 이름</label> : <label><c:out value="${leIn.lecture_name}"/></label><br>
     	<br>
     	<br>
-    	<label>강의소개</label> : <label><c:out value="${lein.lecture_description}"/></label><br>
+    	<label>강의소개</label> : <label><c:out value="${leIn.lecture_description}"/></label><br>
     	<br>
     	<br>
-    	<label>강 사 명</label> :  <label><c:out value="${lein.lecture_afreecaid}"/></label>
-	</c:forEach>
+    	<label>강 사 명</label> :  <label><c:out value="${leIn.lecture_afreecaid}"/></label>
     	<br>
     	<br>
     	<br>
     	<div>
     	<input type="button" data-toggle="modal" data-target="#defaultModal" value="신청"> <input type="button" id="backBtn" value="목록으로">
     	</div>    	
-   	</div>
+   	</div> 	
    </div>
 </section>
 
 <form id='actionForm' action="/student/lectureInfo" method='post'>
-<c:forEach items="${leIn}" var="lein">
-<input type='hidden' name='user_no' value='<sec:authentication property="principal.user.user_no"/>'> 
-<input type='hidden' name='lecture_no' value='<c:out value="${lein.lecture_no}"/>'>
-</c:forEach> 
+<input type='hidden' name='lecture_no' value='<c:out value="${leIn.lecture_no}"/>'>
+<input type='hidden' name='user_no' value='<sec:authentication property="principal.user.user_no"/>'>
+<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }"/>
 </form>
 
 <div class="modal fade" id="defaultModal" tabindex="-1" role="dialog">
@@ -81,12 +79,14 @@
     
 <script type="text/javascript">
 $(document).ready(function() {
+	var form = $("#actionForm");
+	
 	$('#backBtn').on("click", function() {
 		location.href = "./lectureSearch";
 	});		
 
-	$('#subBtn').on("click", function() {
-		$("#actionForm").submit();
+	$('#subBtn').on("click", function() {		
+		form.submit();
 	});		
 		
 	

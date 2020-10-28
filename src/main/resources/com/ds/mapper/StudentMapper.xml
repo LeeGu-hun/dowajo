@@ -2,107 +2,99 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ds.mapper.StudentMapper">  	
-	
-   <resultMap type="com.ds.domain.LectureVO" id="lectureMap">
-    <id property="lecture_no" column="lecture_no"/>    
-    <result property="lecture_name" column="lecture_name"/>
-    <result property="lecture_description" column="lecture_description"/>
-    <result property="lecture_afreecaid" column="lecture_afreecaid"/>    
-    <result property="regdate" column="regdate"/>
-    <collection property="classList" resultMap="classMap">
-    </collection> 
-  </resultMap>
-  
-  <resultMap type="com.ds.domain.ClassListVO" id="classMap">
-    <result property="lecture_no" column="lecture_no"/>
-    <result property="user_no" column="user_no"/>
-    <result property="class_status" column="class_status"/>
-  </resultMap>
-    	
-	<sql id="criteria">
-	<trim prefix="(" suffix=") AND " prefixOverrides="OR">
-	<foreach item='type' collection="typeArr">
-		<trim prefix="OR">
-			<choose>
-				<when test="type=='N'.toString()">
-					lecture_name like '%'||#{keyword}||'%'
-				</when>
-				<when test="type=='T'.toString()">
-					lecture_afreecaid like '%'||#{keyword}||'%'
-				</when>				
-			</choose>
-		</trim>
-	</foreach>
-</trim>
-	</sql>
-	<select id="lectureConfirmList" resultType="com.ds.domain.LectureVO">
-	select l.lecture_no lecture_no, l.lecture_name lecture_name, l.lecture_afreecaid lecture_afreecaid from ds_lecture l inner join ds_class_list c
-	on l.lecture_no=c.lecture_no
-	where c.user_no=#{user_no}
-	and c.class_status='true'
-	order by lecture_no
-	</select>
-	
-	<select id="lectureList" resultType="com.ds.domain.LectureVO">
-	select l.lecture_no lecture_no, l.lecture_name lecture_name, l.lecture_afreecaid lecture_afreecaid from ds_lecture l inner join ds_class_list c
-	on l.lecture_no=c.lecture_no
-	where c.user_no=#{user_no}
-	order by lecture_no
-	</select>
-	
-	<select id="lectureAllList" resultType="com.ds.domain.LectureVO">
-	<![CDATA[
-	select lecture_no, lecture_name, lecture_afreecaid 
-	from (select rownum rn, lecture_no, lecture_name, lecture_afreecaid from ds_lecture where
-	]]>	
-  
-  <include refid="criteria"></include>
-  
-  <![CDATA[
-  rownum<= #{pageNum} * #{amount})
-  where rn>(#{pageNum}-1)*#{amount}  
-  order by lecture_no
-  ]]>
-	</select>
-	
-		
-	<select id="lectureInfo" resultType="com.ds.domain.LectureVO">
-	select lecture_no, lecture_name, lecture_description, lecture_afreecaid from ds_lecture
-	where lecture_name=#{lecture_name}
-	</select>
-	
-	
-  <select id="getTotalCount" resultType="int">
-    <![CDATA[
-    select count(*) from ds_lecture where
-    ]]>
-    <include refid="criteria"></include>
-    <![CDATA[
-    lecture_no>0
-    ]]>
-    </select>
-    
-    <select id="getCoCount" resultType="int">
-    <![CDATA[
-    select count(*) from ds_lecture l inner join ds_class_list c
-	on l.lecture_no=c.lecture_no
-	where c.user_no=#{user_no} and c.class_status='true'
-    ]]>
-    </select>
+<mapper namespace="com.ds.mapper.StudentMapper">
 
-	<select id="getLeCount" resultType="int">
-    <![CDATA[
-    select count(*) from ds_lecture l inner join ds_class_list c
-	on l.lecture_no=c.lecture_no
-	where c.user_no=#{user_no}
-	]]>
-    </select>
-    
-    <insert id="applyClass">
-    insert into ds_class_list (lecture_no, user_no, class_status) 
-	VALUES (#{lecture_no}, #{user_no}, 'false')   
-    </insert>
-    
-    
+	<resultMap type="com.ds.domain.LectureVO" id="lectureMap">
+		<id property="lecture_no" column="lecture_no" />
+		<result property="lecture_name" column="lecture_name" />
+		<result property="lecture_description"
+			column="lecture_description" />
+		<result property="lecture_afreecaid" column="lecture_afreecaid" />
+		<result property="regdate" column="regdate" />
+		<collection property="classList" resultMap="classMap">
+		</collection>
+	</resultMap>
+
+	<resultMap type="com.ds.domain.ClassListVO" id="classMap">
+		<result property="lecture_no" column="lecture_no" />
+		<result property="user_no" column="user_no" />
+		<result property="class_status" column="class_status" />
+	</resultMap>
+
+	<sql id="criteria">
+		<trim prefix="(" suffix=") AND " prefixOverrides="OR">
+			<foreach item='type' collection="typeArr">
+				<trim prefix="OR">
+					<choose>
+						<when test="type=='N'.toString()">
+							lecture_name like '%'||#{keyword}||'%'
+						</when>
+						<when test="type=='T'.toString()">
+							lecture_afreecaid like '%'||#{keyword}||'%'
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+	</sql>
+	<select id="lectureConfirmList"
+		resultType="com.ds.domain.LectureVO">
+		select distinct l.lecture_no lecture_no, l.lecture_name lecture_name,
+		l.lecture_afreecaid lecture_afreecaid from ds_lecture l inner join
+		ds_class_list c
+		on l.lecture_no=c.lecture_no
+		where user_no=#{user_no}
+		and c.class_status='true'
+		order by lecture_no
+	</select>
+
+	<select id="lectureList" resultType="com.ds.domain.LectureVO">
+		select distinct l.lecture_no lecture_no, l.lecture_name lecture_name,
+		l.lecture_afreecaid lecture_afreecaid from ds_lecture l inner join
+		ds_class_list c
+		on l.lecture_no=c.lecture_no
+		where user_no=#{user_no}
+		order by lecture_no
+	</select>
+
+	<select id="lectureAllList" resultType="com.ds.domain.LectureVO">
+		<![CDATA[
+		select lecture_no, lecture_name, lecture_afreecaid 
+		from (select rownum rn, lecture_no, lecture_name, lecture_afreecaid from ds_lecture where
+		]]>
+
+		<include refid="criteria"></include>
+  
+		<![CDATA[
+		rownum<= #{pageNum} * #{amount})
+		where rn>(#{pageNum}-1)*#{amount}  
+		order by lecture_no
+		]]>
+	</select>
+
+
+	<select id="lectureInfo" resultType="com.ds.domain.LectureVO">
+		select lecture_no, lecture_name, lecture_description, lecture_afreecaid from
+		ds_lecture
+		where lecture_name=#{lecture_name}
+	</select>
+
+
+	<select id="getTotalCount" resultType="int">
+	    <![CDATA[
+	    select count(*) from ds_lecture where
+	    ]]>
+			<include refid="criteria"></include>
+	    <![CDATA[
+	    lecture_no>0
+	    ]]>
+	</select>
+
+
+	<insert id="applyClass">
+		insert into ds_class_list (lecture_no, user_no, class_status)
+		VALUES (#{lecture_no}, #{user_no}, 'false')
+	</insert>
+
+
 </mapper>
