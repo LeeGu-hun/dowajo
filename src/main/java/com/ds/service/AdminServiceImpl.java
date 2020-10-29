@@ -99,4 +99,9 @@ public class AdminServiceImpl implements AdminService{
 		return mapper.student_List(cri);
 	}
 
+	@Override
+	public UserVO get(int user_no) {
+		return mapper.read(user_no);
+	}
+
 }

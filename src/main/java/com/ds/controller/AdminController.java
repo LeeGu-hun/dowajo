@@ -7,8 +7,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -92,6 +94,10 @@ public class AdminController {
 		int total = service.getlistTotal(cri);
 		model.addAttribute("student_list", service.student_list(cri));
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
+	}
+	@GetMapping("/get")
+	public void get(@RequestParam("user_no") int user_no, Model model, @ModelAttribute("cri") Criteria cri) {
+		model.addAttribute("user", service.get(user_no));
 	}
 	
 }

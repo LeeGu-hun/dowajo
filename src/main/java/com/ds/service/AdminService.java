@@ -23,4 +23,6 @@ public interface AdminService {
 	public List<UserVO> student_list(Criteria cri);
 	public int getlistTotal(Criteria cri);
 	
+	public UserVO get(int user_no);
+	
 }

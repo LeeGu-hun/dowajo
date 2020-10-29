@@ -25,6 +25,8 @@ public interface AdminMapper {
 	
 	public String duplicateId(String user_id);
 	
+	public UserVO read(int user_no);
+	
 
 	
 }
