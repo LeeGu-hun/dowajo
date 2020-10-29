@@ -1,5 +1,6 @@
 package com.ds.controller;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,8 +8,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ds.domain.Criteria;
 import com.ds.domain.TeacherVO;
@@ -40,8 +43,7 @@ public class TeacherController {
 		
 	}
 	@GetMapping("/teacher_check")
-	@RequestMapping("/test")
-	public void teacher_check(@RequestParam(value="val[]")List<Integer>vals, Model model) {
+	public void teacher_check(@RequestParam("lecture_no") int lecture_no, Model model) {
 		List<TeacherVO> cancel = TeacherService.cancel();//cri넣기
 		System.out.println("cancel : "+cancel);
 		model.addAttribute("cancel",cancel);
@@ -50,7 +52,19 @@ public class TeacherController {
 		System.out.println("sign_up : "+sign_up);//get2 문자열에 써놓은게 mapper.xml에 
 		model.addAttribute("sign_up",sign_up);//<c:forEach items="${get2}" var="teacher">동일해야함
 		
-		List<TeacherVO> refresh = TeacherService.refresh();
+		model.addAttribute("lc_no",TeacherService.call_no(lecture_no));
+		//List<TeacherVO> refresh = TeacherService.refresh();
+	}
+	@PostMapping("/test")
+	@ResponseBody
+	public List<TeacherVO> teacher_test(@RequestParam("checkArr[]") List<String>checkArr, Model model) {
+		log.info("controller:::");	
+		//log.info("controller:::lecture_no"+lecture_no);
+		log.info("컨트롤러확인용"+checkArr);
+		//log.info("ajax model: " + model);
+		List<TeacherVO> refresh = TeacherService.refresh(checkArr);
+		return refresh;
+		
 	}
 	@GetMapping("/teacher_reg")
 	public void teacher_reg() {

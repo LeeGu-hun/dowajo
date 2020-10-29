@@ -42,8 +42,9 @@
         	</div>
         	<div id="pop" style="width:20%; height:100%; float:right;">
         		<div style="height:50%;">
-        			<div style="overflow:auto; height:100%; width:65%; float:left; background-color:#f8cb4f;">
-        				<span class="label label-default">접속 유저</span>
+        			<div style="overflow:auto; height:100%; width:60%; float:left;" class="card"> <!-- background-color:#f8cb4f; -->
+        			
+        				<%-- <span class="label label-default">접속 유저</span>
         				<ul id="attendance" style="margin-top:30px;">
 		        			<li id="<sec:authentication property='principal.user.user_id'/>"></li>
 		        			
@@ -51,18 +52,45 @@
 	       						<div id="${userList.user_no}"></div>
 		       				</c:forEach>
 	        				
-	        			</ul>
-        			</div>
-        			<div style="overflow:auto; height:100%; width:35%; float:right; background-color:gray;">
-	        			<span class="label label-default">미접속 유저</span>
+	        			</ul> --%>
+	        			
+	        			<table class="table">
+                                <thead><tr><th>접속 유저</th></tr></thead>
+                                <tbody id="attendance">
+                                	<tr><td id="<sec:authentication property='principal.user.user_id'/>"></td></tr>
+                                	<c:forEach items="${lectureUser}" var="userList">
+	                                    <tr id="${userList.user_no}"></tr>
+                                    </c:forEach>
+                                </tbody>
+                        </table>
+                        
+                        
+        			</div>   			
+        			<div style="overflow:auto; height:100%; width:39%; float:right; background-color:#EEE;" class="card">
+	        			<%-- <span class="label label-default">미접속 유저</span>
        					<ul id="nonAttendance" style="margin-top:30px;">
 		       				<c:forEach items="${lectureUser}" var="userList">
 	       						<li id="${userList.user_id}">${userList.user_name} </li>
 		       				</c:forEach>
-       					</ul>
+       					</ul> --%>
+       					
+       					
+       					
+                            <table class="table table-striped">
+                                <thead><tr><th>미접속유저</th></tr></thead>
+                                <tbody id="nonAttendance">
+                                	<c:forEach items="${lectureUser}" var="userList">
+	                                    <tr><td id="${userList.user_id}">${userList.user_name}</td></tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+                        
+                        
+                        
         			</div>
 				</div>
-        		<div style="height:50%; background-color:#FFEB3B; padding:0px 0px 10px 10px;">
+				<div style="height:1px;"></div>
+        		<div style="height:50%; background-color:#FFEB3B; padding:0px 0px 10px 10px; margin-bottom:0px;" class="card">
         			<div style="overflow:auto; height:90%;" id="messages"></div>
         			<input style="width:80%; margin-top:6px;" type="text" id="messageinput" />
         			<button style="margin-right:10px;"  type="button" class="btn btn-default btn-circle waves-effect waves-green waves-circle waves-float pull-right" >
@@ -81,7 +109,7 @@
     </form>
 </section>
 
-
+   
 
 
 <script type="text/javascript">
@@ -173,7 +201,8 @@
 					$("#"+id).html(name);
 				}
 				else if(role.includes("ROLE_STUDENT")){
-					$("#attendance #"+no).html('<li id="'+id+'" >' + name + '  <div style="display:inline; vertical-align: middle;" class="chkPg" id="chkPg'+id+'"></div> <div style="display:inline; vertical-align: middle;" class="chkHw" id="chkHw'+id+'"></div></li>');
+					//$("#attendance #"+no).html('<li id="'+id+'" >' + name + '  <div style="display:inline; vertical-align: middle;" class="chkPg" id="chkPg'+id+'"></div> <div style="display:inline; vertical-align: middle;" class="chkHw" id="chkHw'+id+'"></div></li>');
+					$("#attendance #"+no).html('<td id="'+id+'" style="height:60px; vertical-align: middle;">' + name + ' &nbsp;<div style="display:inline; vertical-align: middle;" class="chkPg" id="chkPg'+id+'"></div> &nbsp;&nbsp;<div style="display:inline; vertical-align: middle;" class="chkHw" id="chkHw'+id+'"></div></td>');
 				}
 				
        		}
@@ -181,7 +210,8 @@
                	var name=decodeEntities(myJsonData.name);
                	var id=decodeEntities(myJsonData.id);
                	$('#attendance #'+ id ).remove();
-				$("#nonAttendance").append('<li id="'+id+'" >' + name + '</li>');
+				//$("#nonAttendance").append('<li id="'+id+'" >' + name + '</li>');
+				$("#nonAttendance").append('<tr><td id="'+id+'">'+name+'</td></tr>');
 				
        		}
            	if(myJsonData.type=='progressChecked'){

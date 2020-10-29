@@ -13,6 +13,8 @@ public interface TeacherService {
 	public List<TeacherVO> cancel();
 	public List<TeacherVO> sign_up(); 
 	public List<TeacherVO> getList();
+	public List<TeacherVO> call_no(int lecture_no);
+	public List<TeacherVO> refresh(List<String>checkArr);
 	public int getTotal(Criteria cri);
 	public List<TeacherVO> getList(Criteria cri);
 }

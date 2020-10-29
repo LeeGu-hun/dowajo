@@ -101,6 +101,12 @@
 </div>
 </section>
 </body>
+<form id='actionForm' action="/teacher/teacher_main" method='get'>
+<%-- 	<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
+	<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
+	<input type='hidden' name='type' value='<c:out value="${ pageMaker.cri.type }"/>'>
+	<input type='hidden' name='keyword' value='<c:out value="${ pageMaker.cri.keyword }"/>'> --%>
+</form>
 <script>
 $(document).ready(function(){
 	function openModal(modalname) {
@@ -124,9 +130,9 @@ $(document).ready(function(){
 	$('.move').on("click", function(e){		
 		e.preventDefault();
 		console.log("move click");
-/* 		$('#actionForm').append("<input type='hidden' name='customer_id' value='"
-				+$(this).attr('href')+"' />"); */
-		$('#actionForm').attr("action","/cust/get");
+ 		$('#actionForm').append("<input type='hidden' name='lecture_no' value='"
+				+$(this).attr('href')+"' />"); //href에 적혀져있는 값의 속성을 변경,추가한다.
+		$('#actionForm').attr("action","/teacher/teacher_check");
 		$('#actionForm').submit();
 	});
 	$('.page_btn>a').on("click", function(e){

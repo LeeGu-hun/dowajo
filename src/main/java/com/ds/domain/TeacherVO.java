@@ -17,5 +17,6 @@ public class TeacherVO {
 	private String lecture_afreecaid;
 	private Date regdate;
 	private List<ClassListVO> classList;
+	private List<String> checkArr;
 	
 }
