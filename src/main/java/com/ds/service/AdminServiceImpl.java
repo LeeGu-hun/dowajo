@@ -104,4 +104,9 @@ public class AdminServiceImpl implements AdminService{
 		return mapper.read(user_no);
 	}
 
+	@Override
+	public boolean remove(int user_no) {
+		return mapper.delete(user_no) == 1;
+	}
+
 }

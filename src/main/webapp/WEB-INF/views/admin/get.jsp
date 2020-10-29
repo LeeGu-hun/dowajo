@@ -14,10 +14,24 @@
 			<br>
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<div class="card">
-					<div class="body">						
+					<div class="body">
+							<form role="form" action="/user/get" method="post">
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+							<input type='hidden' name='pageNum' value='<c:out value="${cri.pageNum }"/>'>
+							<input type='hidden' name='amount' value='<c:out value="${cri.amount }"/>'>
+	 						<input type='hidden' name='type' value='<c:out value="${cri.type }"/>'>
+							<input type='hidden' name='keyword' value='<c:out value="${cri.keyword }"/>'>						
 							<input type="hidden" name="_csrf" value="fc2ba2ba-9a81-4a14-914c-98f772bdd638">
 							<div class="msg">
 								<b>회원 정보</b>
+							</div>
+							<div class="input-group">
+								<span class="input-group-addon"> 
+									<i class="material-icons">person</i> USER_NO :  
+								</span>
+								<div class="form-line">
+									<input type="text" class="form-control" name="user_no" id="user_no" value="${user.user_no}" readonly>
+								</div>
 							</div>
 							<div class="input-group">
 								<span class="input-group-addon"> 
@@ -80,8 +94,8 @@ $(document).ready(function() {
 	$('#listbtn').on("click", function(){
 		history.back();
 	});
-	$('#removeBtn').on("click", function() {
-		formObj.attr("action", "/user/remove").submit();
+	$('#regBtn').on("click", function() {
+		formObj.attr("action", "/admin/remove").submit();
 	});	
 	
 });

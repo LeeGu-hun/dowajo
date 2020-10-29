@@ -163,4 +163,8 @@
 		select * from ds_user where user_no =
 		#{user_no}
 	</select>
+	
+	<delete id="delete">
+		delete ds_user where user_no = #{user_no}
+	</delete>
 </mapper>

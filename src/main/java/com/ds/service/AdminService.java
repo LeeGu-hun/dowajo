@@ -24,5 +24,6 @@ public interface AdminService {
 	public int getlistTotal(Criteria cri);
 	
 	public UserVO get(int user_no);
+	public boolean remove(int user_no);
 	
 }
