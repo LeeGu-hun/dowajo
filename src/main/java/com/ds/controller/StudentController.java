@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ds.domain.ClassListVO;
@@ -62,10 +63,9 @@ public class StudentController {
 	}
 
 	@GetMapping("/lectureInfo")
-	public void lectureInfo(@RequestParam("lecture_name")String lecture_name, Model model, @ModelAttribute("cri") Criteria cri) {
-		List<LectureVO> list = studentService.lectureInfo(lecture_name);
-		LectureVO vo = (LectureVO) list.get(0);
-		log.info(">>>>>"+vo.getLecture_name()+"///////////"+lecture_name);
+	public void lectureInfo(@RequestParam("lecture_no")Long lecture_no, Model model, @ModelAttribute("cri") Criteria cri) {
+		List<LectureVO> list = studentService.lectureInfo(lecture_no);
+		LectureVO vo = (LectureVO) list.get(0);		
 		model.addAttribute("leIn", vo);
 	}
 	
@@ -79,6 +79,7 @@ public class StudentController {
 		rttr.addAttribute("user_no", user_no);		
 		return "redirect:/student/lecturelist";
 		
-	}
+	}	
+	
 	
 }

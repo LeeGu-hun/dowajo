@@ -76,7 +76,7 @@
 	<select id="lectureInfo" resultType="com.ds.domain.LectureVO">
 		select lecture_no, lecture_name, lecture_description, lecture_afreecaid from
 		ds_lecture
-		where lecture_name=#{lecture_name}
+		where lecture_no=#{lecture_no}
 	</select>
 
 
@@ -90,11 +90,16 @@
 	    ]]>
 	</select>
 
-
 	<insert id="applyClass">
 		insert into ds_class_list (lecture_no, user_no, class_status)
 		VALUES (#{lecture_no}, #{user_no}, 'false')
 	</insert>
+	
+	
+	<select id="applyDuplicated" resultType="int">
+	SELECT count(*) FROM ds_class_list 
+	WHERE user_no=#{user_no} and lecture_no=#{lecture_no}
+	</select>
 
 
 </mapper>

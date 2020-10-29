@@ -2,7 +2,10 @@ package com.ds.service;
 
 import java.util.List;
 
+
+
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ds.domain.ClassListVO;
 import com.ds.domain.Criteria;
@@ -35,19 +38,38 @@ public class StudentServiceImpl implements StudentService{
 	}
 	
 	@Override
-	public List<LectureVO> lectureInfo(String lecture_name){
-		return mapper.lectureInfo(lecture_name);
+	public List<LectureVO> lectureInfo(Long lecture_no){
+		return mapper.lectureInfo(lecture_no);
 	}
 	
 	@Override
 	public List<LectureVO> lectureConfirmList(Long user_no){
 		return mapper.lectureConfirmList(user_no);
 	}
-		
+	
+	@Transactional	
 	@Override
 	public void applyClass(ClassListVO vo) {
-		log.info("applyClass ::" + vo);
-		mapper.applyClass(vo);
+		Long user_no = vo.getUser_no();
+		Long lecture_no = vo.getLecture_no();
+		log.info("유저넘버 확인....."+user_no);
+		log.info("렉쳐넘버 확인....."+lecture_no);
+		int result = mapper.applyDuplicated(user_no, lecture_no);
+		log.info("결과 확인......"+result);
+		if(result !=0) {
+			log.info("이미 신청한 강의입니다.");
+			return;					
+		} else { mapper.applyClass(vo);}
+		 
 	}
+
+
+	@Override
+	public int applyDuplicated(Long user_no, Long lecture_no) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	
 
 }
