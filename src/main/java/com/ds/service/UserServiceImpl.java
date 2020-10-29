@@ -11,7 +11,6 @@ import com.ds.domain.AuthVO;
 import com.ds.domain.UserVO;
 import com.ds.mapper.UserMapper;
 
-import lombok.AllArgsConstructor;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
@@ -52,18 +51,16 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public boolean user_modify(UserVO vo) {
-		System.out.println("서비스impl까지옴");
+	public boolean user_modify(UserVO vo) {		
 		//vo.setUser_pw(pwencoder.encode(vo.getUser_pw()));		//비밀번호 없으면 사용못함
-		boolean modifyResult = mapper.user_update(vo) == 1;
-		System.out.println("서비스impl끝");
+		boolean modifyResult = mapper.user_update(vo) == 1;		
 		return modifyResult;		
 	}
 
 	@Override
-	public boolean user_delete(String user_id) {
-		
-		return mapper.user_delete(user_id) == 1;
+	public boolean user_delete(Long user_no) {
+		System.out.println("서비스 impl_delete");
+		return mapper.user_delete(user_no) == 1;
 	}
 	
 	

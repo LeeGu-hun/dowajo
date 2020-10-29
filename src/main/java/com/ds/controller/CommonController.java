@@ -68,8 +68,8 @@ public class CommonController {
 	}
 	
 	@PostMapping("/user_delete")
-	public String user_delete(@RequestParam("user_id") String user_id, RedirectAttributes rttr) {
-		if(service.user_delete(user_id))
+	public String user_delete(@RequestParam("user_no") Long user_no, RedirectAttributes rttr) {		
+		if(service.user_delete(user_no))
 			rttr.addAttribute("result", "success");
 		return "redirect:/customLogin";
 	}

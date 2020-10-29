@@ -40,6 +40,7 @@
 							</div>
 							<form role="form" action="/myPage_modify" method="post">
 							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+							<input type="hidden" name="user_no" value="${user.user_no}"> 
 							<div class="table">
 							<table >
 								<tr>
@@ -131,7 +132,7 @@ $(document).ready(function(){
 		location.href="/myPage?user_id=<sec:authentication property='principal.user.user_id'/>";
     });
 
-    $('#btnLeave').on("click", function(){
+    $('#btnModal').on("click", function(){
     	formObj.attr("action", "/user_delete").submit();        
     });
 });

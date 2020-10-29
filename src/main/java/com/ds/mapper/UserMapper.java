@@ -11,5 +11,5 @@ public interface UserMapper {
 	public String twin_check(String user_id);	//아이디 중복검사	
 	public UserVO user_read(String user_id);	//사용자 정보보기
 	public int user_update(UserVO vo);			//회원정보 업데이트
-	public int user_delete(String user_id);		//사용자 삭제
+	public int user_delete(Long user_no);		//사용자 삭제
 }

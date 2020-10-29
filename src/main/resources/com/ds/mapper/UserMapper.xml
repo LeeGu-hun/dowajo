@@ -61,7 +61,6 @@
 	</update>
 	
 	<delete id="user_delete">
-		delete ds_auth where user_no = #{user_no};
-		delete ds_user where user_no = #{user_no}
+		delete ds_auth where user_no = #{user_no}		
 	</delete>	
 </mapper>
