@@ -55,7 +55,15 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public boolean user_modify(UserVO vo) {
 		vo.setUser_pw(pwencoder.encode(vo.getUser_pw()));
-		boolean modifyResult = mapper.update(vo) == 1;
+		boolean modifyResult = mapper.user_update(vo) == 1;
 		return modifyResult;		
 	}
+
+	@Override
+	public boolean user_delete(String user_id) {
+		
+		return mapper.user_delete(user_id) == 1;
+	}
+	
+	
 }
