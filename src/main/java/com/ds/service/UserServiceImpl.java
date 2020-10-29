@@ -17,7 +17,6 @@ import lombok.extern.log4j.Log4j;
 
 @Log4j
 @Service
-@AllArgsConstructor
 public class UserServiceImpl implements UserService{
 
 	@Setter(onMethod_ = {@Autowired})
@@ -54,8 +53,10 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public boolean user_modify(UserVO vo) {
-		vo.setUser_pw(pwencoder.encode(vo.getUser_pw()));
+		System.out.println("서비스impl까지옴");
+		//vo.setUser_pw(pwencoder.encode(vo.getUser_pw()));		//비밀번호 없으면 사용못함
 		boolean modifyResult = mapper.user_update(vo) == 1;
+		System.out.println("서비스impl끝");
 		return modifyResult;		
 	}
 

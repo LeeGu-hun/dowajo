@@ -38,9 +38,8 @@
 								<h3>회원 정보 수정</h3>
 								<hr>
 							</div>
-							<form role="form" action="/myPage_modify?user_id=<sec:authentication property='principal.user.user_id'/>" method="post">
+							<form role="form" action="/myPage_modify" method="post">
 							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-							<input type='hidden' name='user_id' value='<sec:authentication property='principal.user.user_id'/>'>
 							<div class="table">
 							<table >
 								<tr>
@@ -62,15 +61,7 @@
 								<tr>
 									<td><i class="material-icons">smartphone</i> Mobile : </td>
 									<td><input type="text" class="textBox2" name="user_mobile" value="<c:out value="${user.user_mobile}"/>" ></td>
-								</tr>
-								<!-- <tr>
-									<td><i class="material-icons">lock</i> PW : </td>
-									<td><input type="password" class="textBox2" name="user_mobile" ></td>
-								</tr>
-								<tr>
-									<td><i class="material-icons">lock</i> PW_Confirm : </td>
-									<td><input type="password" class="textBox2" name="user_mobile" ></td>
-								</tr> -->
+								</tr>						
 							</table>
 								
 							</div>
@@ -125,18 +116,24 @@
 <script>
 $(document).ready(function(){
 	var formObj = $("form");
+	
     $('#btnModify').on("click", function(e){
        e.preventDefault();
        if($('[name="user_depart"]').val()==''){
           alert("소속을 확인하세요.");$('#id').focus();
           return false;
-       }       
-       formObj.submit();
+       }
+       
+       formObj.submit();              
     });
     
     $('#btnCancel').on("click",function(){
 		location.href="/myPage?user_id=<sec:authentication property='principal.user.user_id'/>";
-    });    
+    });
+
+    $('#btnLeave').on("click", function(){
+    	formObj.attr("action", "/user_delete").submit();        
+    });
 });
 </script>
 

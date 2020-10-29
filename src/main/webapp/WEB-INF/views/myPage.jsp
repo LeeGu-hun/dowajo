@@ -19,7 +19,7 @@
 	text-align: center;
 	border : 0.5px solid #aaa;	
 	border-radius: 10px;
-	background-color: #e2e2e2;		
+	background-color: #b6f2b9;		
 }
 </style>
 <section class="content">
@@ -56,7 +56,7 @@
 								<tr>
 									<td><i class="material-icons">smartphone</i> Mobile : </td>
 									<td><input type="text" class="textBox" name="user_mobile" placeholder="${user.user_mobile}" readonly></td>
-								</tr>
+								</tr>	
 							</table>
 								
 							</div>
