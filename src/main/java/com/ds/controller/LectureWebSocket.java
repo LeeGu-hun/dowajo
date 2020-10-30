@@ -1,11 +1,14 @@
 package com.ds.controller;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
 import javax.websocket.OnMessage;
@@ -18,8 +21,6 @@ import javax.websocket.server.ServerEndpoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ds.domain.AttendanceVO;
 import com.ds.mapper.LectureMapper;
@@ -31,17 +32,15 @@ import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 
-@RequestMapping("/test/*")
+
 @PreAuthorize("isAuthenticated()")
 @Log4j
 @Controller("LectureWebSocketController")
 @ServerEndpoint(value="/echo/{lecture_no}/{user_name}/{user_no}")
 public class LectureWebSocket {
 	
-	@Setter(onMethod_ = { @Autowired })
-	private LectureService lectureService;
-	@Setter(onMethod_ = { @Autowired })
-	private LectureMapper lectureapper;
+//	@Setter(onMethod_ = { @Autowired })
+//	private LectureService lectureService;
 
     private static final java.util.Set<Session> sessions = java.util.Collections.synchronizedSet(new java.util.HashSet<Session>());
     private static final HashMap<String, Integer> lectureNoMap = new HashMap<>();
@@ -51,7 +50,7 @@ public class LectureWebSocket {
     @OnOpen
     public void onOpen(Session session, @PathParam("lecture_no") int lecture_no, @PathParam("user_name") String user_name,  @PathParam("user_no") Long user_no){
     	
-    	//UserVO userVo=lecureService.userInfo(user_no); // onOpen이나 onClose에서는 JsonParser도 그렇고 쓰레드 사용할만한 것들은 죄다 안되는듯
+    	//UserVO userVo=lecureService.userInfo(user_no); // service는 get이나 post같은 주소 이동때만 작동하는듯.
     	
     	Iterator<String> keys = userNoMap.keySet().iterator();
     	while( keys.hasNext() ){
@@ -129,16 +128,9 @@ public class LectureWebSocket {
     
 	@OnClose
     public void onClose(Session session){
-		
-//    	testss();
-//    	AttendanceVO vo=new AttendanceVO();
-//    	vo.setLecture_no(1l);
-//    	vo.setUser_no(3l);
-//    	vo.setAttendance_state("test");
-//    	System.out.println("vo는 제대로 찍힘"+vo);
-//    	lectureService.setAttend(vo);
+		setAbsent(Long.parseLong(lectureNoMap.get(session.getId()).toString()), Long.parseLong(userNoMap.get(session.getId()).toString()));
+//    	new SetAttend().start();
     	
-    	new SetAttend().start();
         System.out.println("Session " +session.getId()+" has ended");
         String str="{\"type\":\"nonAttendance\",\"id\":\""+session.getUserPrincipal().getName()+"\", \"name\":\""+userNameMap.get(session.getId())+"\" }";
         sendAllSessionToMessage( session, str );
@@ -148,33 +140,69 @@ public class LectureWebSocket {
         sessions.remove(session);
     }
     
-    class SetAttend extends Thread{
-    	
-    	public void run() {
-//    		testss();
-    		AttendController attend=new AttendController();
-    		AttendanceVO vo=new AttendanceVO();
-        	vo.setLecture_no(1l);
-        	vo.setUser_no(3l);
-        	vo.setAttendance_state("absent");
-        	System.out.println("클래스 불러오기");
-    		attend.putAbsent(vo);
-    		return;
-    	}
-    	
-    }
+//    class SetAttend extends Thread{
+//    	
+//    	public void run() {
+//    		
+//    		return;
+//    	}
+//    	
+//    }
     
-//    @GetMapping("testss")
-//	public void testss() {
-//    	
-//    	
-//		AttendanceVO vo=new AttendanceVO();
-//    	vo.setLecture_no(1l);
-//    	vo.setUser_no(3l);
-//    	vo.setAttendance_state("test");
-//    	System.out.println("testVO"+vo);
-//    	lectureService.setAttend(vo);
-//	}
+
+    
+    private Connection conn;
+	PreparedStatement pstmt;
+	ResultSet rs;
+	
+	public Connection conDB() throws SQLException{
+//		String Driver = "jdbc:oracle:thin:@localhost:1521:xe";
+		String Driver = "jdbc:log4jdbc:oracle:thin:@localhost:1521:xe";
+		String User = "db7";
+		String Pass = "1234";
+		conn = DriverManager.getConnection(Driver, User, Pass);
+		return conn;
+	}
+	
+	public void closeDB() {
+		try {
+			if(conn!=null) conn.close();
+			if(pstmt!=null) pstmt.close();
+			if(rs!=null) rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void setAbsent(Long lectureNo, Long userNo) {
+		String sql = "";
+		
+		try {
+			conn = conDB();
+			conn.setAutoCommit(false);
+			sql="insert into ds_attendance (LECTURE_NO, USER_NO, ATTENDANCE_STATE) values (?, ?, ?)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setLong(1, lectureNo);
+			pstmt.setLong(2, userNo);
+			pstmt.setString(3, "absent");
+			if(pstmt.executeUpdate()>0) {
+				System.out.println("렉쳐나간거완료");
+				conn.commit();
+				conn.setAutoCommit(true);
+			}
+			else {
+				System.out.println("렉쳐나간거 실패");
+				conn.rollback();
+				conn.setAutoCommit(true);
+				return;
+			}
+		} catch (SQLException e) {
+			
+		} finally {
+			closeDB();
+		}
+	}
 
 
     

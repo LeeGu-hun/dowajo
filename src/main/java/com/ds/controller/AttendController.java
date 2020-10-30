@@ -30,22 +30,11 @@ public class AttendController {
 	    log.info("getUser_no : " + vo.getUser_no());
 	    log.info("getAttendance_state : " + vo.getAttendance_state());
 	    
-//	    AttendanceVO vo2=new AttendanceVO();
-//    	vo2.setLecture_no(1l);
-//    	vo2.setUser_no(3l);
-//    	vo2.setAttendance_state("test");
-//	    lectureService.setAttend(vo2);
 	    lectureService.setAttend(vo);
 	    
 	    return "attend_success";
 	}
 	
-	public void putAbsent(AttendanceVO vo) {
-		log.info("세션나간거처리전");
-		lectureService.setAttend(vo);
-		log.info("세션나간거처리후");
-		
-	}
 	
 	
 	
