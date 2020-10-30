@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.ds.domain.AttendanceVO;
 import com.ds.domain.FileVO;
 import com.ds.domain.LectureVO;
 import com.ds.domain.UserVO;
@@ -61,6 +62,14 @@ public class LectureServiceImpl implements LectureService{
 		
 		return mapper.fileListAll(lecture_no);
 	}
+	@Override
+	public void setAttend(AttendanceVO vo) {
+		mapper.setAttend(vo);
+		
+	}
+	
+	
+	
 	
 	
 

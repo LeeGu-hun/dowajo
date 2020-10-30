@@ -192,3 +192,14 @@ alter table ds_file add CONSTRAINT fileName_uq UNIQUE(file_name);
 commit;
 
 /*<추가 10/28> ------------------------------------------------------------------------------------*/
+
+
+/*<추가 10/30> ------------------------------------------------------------------------------------*/
+create table ds_attendance(
+	  lecture_no NUMBER not null,
+      user_no NUMBER not null,
+      attendance_state varchar2(200) not null,
+      regdate date default sysdate,
+      constraint fk_ds_attendance foreign key(lecture_no) references ds_lecture(lecture_no) on delete cascade
+);
+/*<추가 10/30> ------------------------------------------------------------------------------------*/

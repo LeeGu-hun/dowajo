@@ -2,6 +2,7 @@ package com.ds.service;
 
 import java.util.List;
 
+import com.ds.domain.AttendanceVO;
 import com.ds.domain.FileVO;
 import com.ds.domain.LectureVO;
 import com.ds.domain.UserVO;
@@ -17,5 +18,7 @@ public interface LectureService {
 	public List<FileVO> fileList(Long lecture_no, Long user_no);
 	public void fileDeleteAll(Long lecture_no);
 	public List<FileVO> fileListAll(Long lecture_no);
+	
+	public void setAttend(AttendanceVO vo);
 
 }
