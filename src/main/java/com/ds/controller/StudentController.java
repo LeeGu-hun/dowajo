@@ -22,6 +22,7 @@ import com.ds.domain.ClassListVO;
 import com.ds.domain.Criteria;
 import com.ds.domain.LectureVO;
 import com.ds.domain.PageDTO;
+import com.ds.service.AdminService;
 import com.ds.service.LectureService;
 import com.ds.service.StudentService;
 
@@ -38,9 +39,15 @@ public class StudentController {
 	
 	@Setter(onMethod_ = { @Autowired })
 	private StudentService studentService;
+	
+	@Setter(onMethod_ = { @Autowired })
+	private AdminService adminService;
 
 	@GetMapping("/main")
-	public void main() {
+	public void main(Criteria cri, Model model) {		
+		int total = adminService.getTotal(cri);
+		model.addAttribute("questions", adminService.getList(cri));
+		model.addAttribute("pageMaker", new PageDTO(cri, total));		
 	}
 	
 	@GetMapping("/lecture")

@@ -9,7 +9,7 @@
 
 <section class="content">
 	<h3>수강할 수 있는 강의 목록</h3>
-	<br>
+	<br>	
 	<div id="container">
 		<div id="list"
 			style="overflow: auto; width: 100%; height: 100%; border: 1px solid black;">
