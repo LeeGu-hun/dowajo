@@ -1,7 +1,6 @@
 package com.ds.service;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ds.domain.Criteria;
 import com.ds.domain.SignupVO;
 import com.ds.domain.TeacherVO;
+import com.ds.domain.UserVO;
 import com.ds.mapper.TeacherMapper;
 
 import lombok.Setter;
@@ -106,6 +106,24 @@ public class TeacherServiceImpl implements TeacherService{
 		log.info("getList: "+cri);
 		
 		return mapper.getListWithPaging(cri);
+	}
+	
+	@Override
+	public UserVO user_read(String user_id) {
+		return mapper.user_read(user_id);				
+	}
+
+	@Override
+	public boolean user_modify(UserVO vo) {		
+		vo.setUser_pw(pwencoder.encode(vo.getUser_pw()));		//비밀번호 없으면 사용못함
+		boolean modifyResult = mapper.user_update(vo) == 1;		
+		return modifyResult;		
+	}
+
+	@Override
+	public boolean user_delete(Long user_no) {
+		System.out.println("서비스 impl_delete");
+		return mapper.user_delete(user_no) == 1;
 	}
 	
 }

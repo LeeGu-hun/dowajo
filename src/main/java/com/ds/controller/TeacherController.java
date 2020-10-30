@@ -14,11 +14,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.ds.domain.Criteria;
-import com.ds.domain.SignupVO;
 import com.ds.domain.TeacherVO;
+import com.ds.domain.UserVO;
 import com.ds.service.LectureService;
 import com.ds.service.TeacherService;
 
@@ -90,6 +89,25 @@ public class TeacherController {
 	public void lecture(Model model) {
 		model.addAttribute("lectureInfo", lecureService.lectureInfo(1l));
 		model.addAttribute("lectureUser", lecureService.lectureUser(1l));
+	}
+	
+	@GetMapping({"/myPage", "/myPage_modify"})
+	public void getUser(@RequestParam("user_id") String user_id, Model model){
+		model.addAttribute("user", teacherService.user_read(user_id));
+	}
+	
+	@PostMapping("/myPage_modify")
+	public String user_modify(UserVO vo, RedirectAttributes rttr) {		
+		if(teacherService.user_modify(vo))
+			rttr.addAttribute("result", "success");
+		return "redirect:/myPage_modify?user_id=" + vo.getUser_id();
+	}
+	
+	@PostMapping("/user_delete")
+	public String user_delete(@RequestParam("user_no") Long user_no, RedirectAttributes rttr) {		
+		if(teacherService.user_delete(user_no))
+			rttr.addAttribute("result", "success");
+		return "redirect:/customLogin";
 	}
 
 }
