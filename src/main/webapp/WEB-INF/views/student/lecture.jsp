@@ -326,6 +326,7 @@
 
         webSocket.onclose = function(event) {
             alert('세션접속종료됨');
+            
         };
     }
 
@@ -389,7 +390,65 @@
 		//webSocket.onopen = () =>webSocket.send(JSON.stringify(attendance)); //ie에선 람다식 안먹힘
 		webSocket.send(JSON.stringify(attendance));
     }
-    webSocket.onopen = function(){sendAttendence();}
+
+	function setAttendanceHistory() {
+		var userNo="<sec:authentication property='principal.user.user_no'/>";
+		var lectureNo="${lectureInfo.lecture_no}";
+		var attendState="attend";
+
+		$.ajax({
+			url: '/attend/putAttendance',
+			beforeSend: function(xhr){
+				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+			},
+			data: {lecture_no:lectureNo, user_no:userNo, attendance_state:attendState},
+			type: 'POST',             
+            dataType: "text",
+			success: function(result){
+				console.log(result);
+				
+			}
+		});
+		
+    }
+    
+	function setAbsentHistory() {
+		var userNo="<sec:authentication property='principal.user.user_no'/>";
+		var lectureNo="${lectureInfo.lecture_no}";
+		var attendState="absent";
+
+		$.ajax({
+			url: '/attend/putAttendance',
+			beforeSend: function(xhr){
+				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+			},
+			data: {lecture_no:lectureNo, user_no:userNo, attendance_state:attendState},
+			type: 'POST',             
+            dataType: "text",
+			success: function(result){
+				console.log(result);
+				
+			}
+		});
+		
+    }
+    webSocket.onopen = function(){sendAttendence(); setAttendanceHistory();}
+    //webSocket.onclose = function(){setAbsentHistory(); alert("접속종료2")}
+    
+    
+	$(document).ready(function(){
+
+		window.onbeforeunload = function(event) {
+		    event.returnValue = "Write something clever here..";
+		    console.log("exit");
+		};
+		
+
+
+	});
+
+
+	
 	
 </script>
 

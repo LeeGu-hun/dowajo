@@ -51,6 +51,12 @@
 		select LECTURE_NO, f.USER_NO, FILE_NAME, f.REGDATE, user_name 
 		from ds_file f, ds_user u where f.user_no=u.user_no and lecture_no = #{lecture_no}
 	</select>
+	
+	
+	<insert id="setAttend">
+		insert into ds_attendance (LECTURE_NO, USER_NO, ATTENDANCE_STATE)
+		values (#{lecture_no}, #{user_no}, #{attendance_state})
+	</insert>
 
 
 </mapper>
