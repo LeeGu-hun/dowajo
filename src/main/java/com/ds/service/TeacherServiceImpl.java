@@ -1,5 +1,7 @@
 package com.ds.service;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ds.domain.Criteria;
+import com.ds.domain.SignupVO;
 import com.ds.domain.TeacherVO;
 import com.ds.mapper.TeacherMapper;
 
@@ -52,21 +55,35 @@ public class TeacherServiceImpl implements TeacherService{
 	}
 
 	@Override
-	public List<TeacherVO> cancel() {
+	public List<TeacherVO> cancel(int lecture_no) {
 		log.info("cancel......" );
-		return mapper.read_cancel();
+		return mapper.read_cancel(lecture_no);
 	}
 	@Override
-	public List<TeacherVO> sign_up() {
+	public List<TeacherVO> sign_up(int lecture_no) {
 		log.info("sign_up......" ); 
-		return mapper.read_sign_up();
+		return mapper.read_sign_up(lecture_no);
 	}
 	@Override
-	public List<TeacherVO> refresh(List<String>checkArr) {
-		log.info("checkArr......" ); 
-		return mapper.read_refresh(checkArr);
+	public List<TeacherVO> refresh(String[] checkArr,int lecture_no) {
+		SignupVO vo = new SignupVO();
+		vo.setLecture_no(lecture_no);
+		vo.setCheckArr(checkArr); 
+		log.info("checkArr:::" + Arrays.toString(checkArr));
+		int result = mapper.read_refresh(vo);
+		log.info("refresh update::"+result);
+		return mapper.read_cancel(lecture_no); 
 	}
-	
+	@Override
+	public List<TeacherVO> cancelrefresh(String[] checkArr,int lecture_no) {
+		SignupVO vo = new SignupVO();
+		vo.setLecture_no(lecture_no);
+		vo.setCheckArr(checkArr); 
+		log.info("checkArr:::" + Arrays.toString(checkArr));
+		int result = mapper.cancelrefresh(vo);
+		log.info("refresh update::"+result);
+		return mapper.read_sign_up(lecture_no); 
+	}
 
 	@Override
 	public List<TeacherVO> getList() {
