@@ -1,10 +1,6 @@
 package com.ds.controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
-
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,6 +18,7 @@ import com.ds.domain.ClassListVO;
 import com.ds.domain.Criteria;
 import com.ds.domain.LectureVO;
 import com.ds.domain.PageDTO;
+import com.ds.domain.UserVO;
 import com.ds.service.AdminService;
 import com.ds.service.LectureService;
 import com.ds.service.StudentService;
@@ -99,5 +96,23 @@ public class StudentController {
 		}
 	}	
 	
+	@GetMapping({"/myPage", "/myPage_modify"})
+	public void getUser(@RequestParam("user_id") String user_id, Model model){
+		model.addAttribute("user", studentService.user_read(user_id));
+	}
+	
+	@PostMapping("/myPage_modify")
+	public String user_modify(UserVO vo, RedirectAttributes rttr) {		
+		if(studentService.user_modify(vo))
+			rttr.addAttribute("result", "success");
+		return "redirect:/student/myPage_modify?user_id=" + vo.getUser_id();
+	}
+	
+	@PostMapping("/user_delete")
+	public String user_delete(@RequestParam("user_no") Long user_no, RedirectAttributes rttr) {		
+		if(studentService.user_delete(user_no))
+			rttr.addAttribute("result", "success");
+		return "redirect:/customLogin";
+	}
 	
 }

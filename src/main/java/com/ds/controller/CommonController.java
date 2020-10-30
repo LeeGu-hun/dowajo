@@ -60,8 +60,7 @@ public class CommonController {
 	}
 	
 	@PostMapping("/myPage_modify")
-	public String user_modify(UserVO vo, RedirectAttributes rttr) {
-		System.out.println("컨트롤러까지옴");
+	public String user_modify(UserVO vo, RedirectAttributes rttr) {		
 		if(service.user_modify(vo))
 			rttr.addAttribute("result", "success");
 		return "redirect:/myPage_modify?user_id=" + vo.getUser_id();
