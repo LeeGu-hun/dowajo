@@ -23,11 +23,12 @@
 	</resultMap>
 
 	<resultMap type="com.ds.domain.QuestionsVO" id="queMap">
-		<id property="que_no" column="que_no" />
-		<result property="que_writer" column="que_writer" />
-		<result property="que_title" column="que_title" />
-		<result property="que_content" column="que_content" />
-		<result property="que_date" column="que_date" />
+		<id property="qa_no" column="qa_no" />
+		<result property="qa_writer" column="qa_writer" />
+		<result property="qa_title" column="qa_title" />
+		<result property="qa_title" column="qa_reply" />
+		<result property="qa_content" column="qa_content" />
+		<result property="qa_date" column="qa_date" />
 	</resultMap>
 
 	<select id="duplicateId" resultType="string">
@@ -158,4 +159,12 @@
 		]]>
 	</select>
 	
+	<select id="read" resultType="com.ds.domain.UserVO">
+		select * from ds_user where user_no =
+		#{user_no}
+	</select>
+	
+	<delete id="delete">
+		delete ds_user where user_no = #{user_no}
+	</delete>
 </mapper>

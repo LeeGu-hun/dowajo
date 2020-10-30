@@ -28,7 +28,7 @@ insert into ds_user (user_no, user_id, user_pw, user_name, user_depart) values (
 insert into ds_auth values(1, 'ROLE_ADMIN');
 insert into ds_auth values(2, 'ROLE_TEACHER');
 insert into ds_auth values(3, 'ROLE_STUDENT');
-COMMIT;
+COMMIT
 
 CREATE SEQUENCE  "DB7"."DS_USER_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 21 CACHE 20 NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
 

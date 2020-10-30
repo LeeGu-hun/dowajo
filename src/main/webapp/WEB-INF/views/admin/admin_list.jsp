@@ -51,7 +51,8 @@
 											<c:forEach items="${admin_list}" var="user">
 												<tr role="row" class="odd">
 												<td><c:out value="${user.user_no }" /></td>
-												<td><c:out value="${user.user_id }" /></td>
+												<td><a class="move" href="${user.user_no}"><c:out
+														value="${user.user_id }" /></a></td>
 												<td><c:out value="${user.user_name }" /></td>
 												<td><c:out value="${user.user_depart }" /></td>
 											</tr>
@@ -104,8 +105,16 @@ $(document).ready(function(){
 
 		actionForm.find("input[name='pageNum']").val($(this).attr("href"));
 		actionForm.submit();
-		});	
-	
+		});
+
+	$('.move').on("click", function(e){
+		e.preventDefault();
+		console.log("move click");
+		$('#actionForm').append("<input type='hidden' name='user_no' value='"
+				+$(this).attr('href')+"' />");
+		$('#actionForm').attr("action","/admin/get");
+		$('#actionForm').submit();
+	});	
 });
 </script>
 

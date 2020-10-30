@@ -58,5 +58,19 @@ public class CommonController {
 	public void getUser(@RequestParam("user_id") String user_id, Model model){
 		model.addAttribute("user", service.user_read(user_id));
 	}
-
+	
+	@PostMapping("/myPage_modify")
+	public String user_modify(UserVO vo, RedirectAttributes rttr) {
+		System.out.println("컨트롤러까지옴");
+		if(service.user_modify(vo))
+			rttr.addAttribute("result", "success");
+		return "redirect:/myPage_modify?user_id=" + vo.getUser_id();
+	}
+	
+	@PostMapping("/user_delete")
+	public String user_delete(@RequestParam("user_no") Long user_no, RedirectAttributes rttr) {		
+		if(service.user_delete(user_no))
+			rttr.addAttribute("result", "success");
+		return "redirect:/customLogin";
+	}
 }

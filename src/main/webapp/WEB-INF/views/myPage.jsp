@@ -18,7 +18,8 @@
 	width: 200px; height: 30px;
 	text-align: center;
 	border : 0.5px solid #aaa;	
-	border-radius: 10px;		
+	border-radius: 10px;
+	background-color: #b6f2b9;		
 }
 </style>
 <section class="content">
@@ -50,12 +51,12 @@
 								</tr>
 								<tr>
 									<td><i class="material-icons">email</i> Email : </td>
-									<td><input type="text" class="textBox" name="user_email" placeholder="${user.user_email}" ></td>
+									<td><input type="text" class="textBox" name="user_email" placeholder="${user.user_email}" readonly></td>
 								</tr>
 								<tr>
 									<td><i class="material-icons">smartphone</i> Mobile : </td>
-									<td><input type="text" class="textBox" name="user_mobile" placeholder="${user.user_mobile}" ></td>
-								</tr>
+									<td><input type="text" class="textBox" name="user_mobile" placeholder="${user.user_mobile}" readonly></td>
+								</tr>	
 							</table>
 								
 							</div>
