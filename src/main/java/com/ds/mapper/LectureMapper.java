@@ -15,7 +15,7 @@ public interface LectureMapper {
 	
 	public void fileState(@Param("file_status") boolean file_status, @Param("lecture_no") Long lecture_no);
 	public void fileSave(FileVO vo);
-	public void fileDelete(@Param("lecture_no") Long lecture_no, @Param("user_no") Long user_no);
+	public void fileDelete(String file_name);
 	public List<FileVO> fileList(@Param("lecture_no") Long lecture_no, @Param("user_no") Long user_no);
 	public void fileDeleteAll(Long lecture_no);
 	public List<FileVO> fileListAll(Long lecture_no);

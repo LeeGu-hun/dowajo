@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -20,6 +22,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -241,6 +244,55 @@ public class FileController {
 	    
 	    
 	    return "file_status changed successfully";
+	}
+	
+	
+	@PostMapping(value = "/viewFileList" , produces = {MediaType.APPLICATION_XML_VALUE,	MediaType.APPLICATION_JSON_UTF8_VALUE})
+	@ResponseBody
+	public List<String> viewFileList(@RequestParam("lectureNo") Long lectureNo, @RequestParam("userNo") Long userNo ) {
+		System.out.println("lectureNo : "+lectureNo);
+		System.out.println("userNo : "+userNo);
+		List<String> result=new ArrayList<String>();
+		List<FileVO> fileList=lectureService.fileList(lectureNo, userNo);
+		System.out.println("fileList : "+fileList);
+		if(fileList!=null) {
+			for(int i=0;i<fileList.size();i++) {
+				result.add(fileList.get(i).getFile_name());
+			}
+		}
+		
+		return result;
+	}
+	
+	@PostMapping(value="/deleteFile", produces = "application/text; charset=utf8")
+	@ResponseBody
+	public ResponseEntity<String> deleteFile(Long lectureNo, String fileName) {
+	    log.info("deleteFile: " + fileName);
+	    File file;
+	    
+	    try {
+	    	lectureService.fileDelete(fileName);
+	        file = new File("c:\\upload\\" +lectureNo+"\\"+ URLDecoder.decode(fileName, "UTF-8"));
+	        file.delete(); 
+	        
+	    } catch (UnsupportedEncodingException e) {
+	        e.printStackTrace();
+	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	    }
+	    
+	    return new ResponseEntity<String>(fileName, HttpStatus.OK);
+	}
+	
+	@PostMapping(value="/homeworkList", produces = {MediaType.APPLICATION_XML_VALUE,	MediaType.APPLICATION_JSON_UTF8_VALUE})
+	@ResponseBody
+	public List<FileVO> homeworkList(Long lectureNo) {
+		List<FileVO> result=new ArrayList<FileVO>();
+		result=lectureService.fileListAll(lectureNo);
+		
+		log.info("homeworkList: " + result);
+		
+		
+		return result;
 	}
 	
 

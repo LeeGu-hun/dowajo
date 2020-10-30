@@ -13,7 +13,7 @@ public interface LectureService {
 	
 	public void fileState(boolean file_status, Long lecture_no);	
 	public void fileSave(FileVO vo);
-	public void fileDelete(Long lecture_no, Long user_no);
+	public void fileDelete(String file_name);
 	public List<FileVO> fileList(Long lecture_no, Long user_no);
 	public void fileDeleteAll(Long lecture_no);
 	public List<FileVO> fileListAll(Long lecture_no);

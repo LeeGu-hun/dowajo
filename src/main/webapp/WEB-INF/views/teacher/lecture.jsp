@@ -34,6 +34,7 @@
         					</td>
         					<td style="width:500px;">
         						<button style="display:none;" type="button" class="btn btn-success waves-effect" id="clsHomework">학생 과제 받기</button>
+        						<button style="display:none;" type="button" class="btn btn-success waves-effect" id="chkHomeworkStudent" data-toggle="modal" data-target="#defaultModal">과제 제출 확인</button>
         					</td>
         				</tr>
         			</table>
@@ -42,7 +43,7 @@
         	</div>
         	<div id="pop" style="width:20%; height:100%; float:right;">
         		<div style="height:50%;">
-        			<div style="overflow:auto; height:100%; width:60%; float:left;" class="card"> <!-- background-color:#f8cb4f; -->
+        			<div style="overflow:auto; height:100%; width:60%; float:left; margin-bottom:0px;" class="card"> <!-- background-color:#f8cb4f; -->
         			
         				<%-- <span class="label label-default">접속 유저</span>
         				<ul id="attendance" style="margin-top:30px;">
@@ -66,7 +67,7 @@
                         
                         
         			</div>   			
-        			<div style="overflow:auto; height:100%; width:39%; float:right; background-color:#EEE;" class="card">
+        			<div style="overflow:auto; height:100%; width:39%; float:right; background-color:#EEE; margin-bottom:0px;" class="card">
 	        			<%-- <span class="label label-default">미접속 유저</span>
        					<ul id="nonAttendance" style="margin-top:30px;">
 		       				<c:forEach items="${lectureUser}" var="userList">
@@ -90,16 +91,45 @@
         			</div>
 				</div>
 				<div style="height:1px;"></div>
-        		<div style="height:50%; background-color:#FFEB3B; padding:0px 0px 10px 10px; margin-bottom:0px;" class="card">
-        			<div style="overflow:auto; height:90%;" id="messages"></div>
+        		<div style="height:50%; background-color:#FFEB3B; padding:10px 0px 10px 10px; margin-bottom:0px;" class="card">
+        			<div style="overflow:auto; height:90%; width:100%;" id="messages"></div>
         			<input style="width:80%; margin-top:6px;" type="text" id="messageinput" />
-        			<button style="margin-right:10px;"  type="button" class="btn btn-default btn-circle waves-effect waves-green waves-circle waves-float pull-right" >
+        			<button id="sendMsg" style="margin-right:10px;"  type="button" class="btn btn-default btn-circle waves-effect waves-green waves-circle waves-float pull-right" >
 						<i class="material-icons">forum</i>
 					</button>
 				</div>
 			</div>
         </div>
     </div>
+    
+    
+    
+    
+    
+    <div class="modal fade" id="defaultModal" tabindex="-1" role="dialog" style="display: none;">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="defaultModalLabel">제출학생 확인</h4>
+                        </div>
+                        <div class="modal-body">
+                        	<div class="form-group">
+                               <div class="form-line" id="findHomworkStudent">
+                               </div>
+                            </div>
+                        
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+    
+    
+    
+    
     <form id='receiveFile' action="/file/download" method='post'>
     	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
     	<input type='hidden' name="lectureNo" value="${lectureInfo.lecture_no}">
@@ -121,6 +151,7 @@
 
 	if(${lectureInfo.file_status}==true){
 		$("#clsHomework").fadeIn(300);
+		$("#chkHomeworkStudent").fadeIn(300);
 	}
 
 </script>
@@ -172,7 +203,7 @@
 			if(myJsonData.type=='overlap'){
             	
             	alert("강의창은 하나만 띄울 수 있습니다.");
-            	window.open('http://localhost:8080/teacher/main','_self').close();
+            	window.open('/teacher/main','_self').close();
             	
             	//self.opener=self;
             	//window.close();
@@ -272,6 +303,7 @@
         	  };
     	webSocket.send(JSON.stringify(chkHomework));
     	$("#clsHomework").fadeIn(300);
+    	$("#chkHomeworkStudent").fadeIn(300);
 
 
     	$.ajax({
@@ -302,6 +334,7 @@
         	// + "${product.filename}";
     	
     	$("#clsHomework").fadeOut(300);
+    	$("#chkHomeworkStudent").fadeOut(300);
 
 
     	$.ajax({
@@ -332,6 +365,45 @@
 				$("#messageinput").val("");
 			}
 		}
+    });
+    $("#sendMsg").on("click", function(e){
+		if($('#messageinput').val()!=""){
+			var message={
+	        	    type: "message",
+	        	    data: $('#messageinput').val(),
+	        	    name: "<sec:authentication property='principal.user.user_name'/>"
+	        	  };
+			webSocket.send(JSON.stringify(message));
+			$("#messageinput").val("");
+		}
+    });
+
+    $("#chkHomeworkStudent").on("click", function(e){
+
+		var lectureNo="${lectureInfo.lecture_no}";
+		
+    	$.ajax({
+			url: '/file/homeworkList',
+			beforeSend: function(xhr){
+				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+			},
+			data: {lectureNo:lectureNo},
+			type: 'POST',             
+            dataType: "json",
+			success: function(result){
+				$("#findHomworkStudent").html("");
+				var name=[];
+				$.each(result, function (index, item) {
+					if(!name.includes(item.user_no)){
+						$("#findHomworkStudent").append("<input type='text' class='form-control' value='"+item.user_name+"' readonly>");
+						name.push(item.user_no);
+					} 
+					
+				});
+				
+			}
+		});
+    	
     });
 
     

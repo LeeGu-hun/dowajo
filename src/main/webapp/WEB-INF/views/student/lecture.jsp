@@ -52,7 +52,7 @@
                         <div class="body">
                            <div class="form-group">
                                <div class="form-line" id="uplodedHomework">
-                                   <input type="file" name="uploadFile" class="form-control" multiple>
+                                   <input type="file" name="uploadFile" class="form-control"> <!--  multiple -->
                                </div>
                            </div>
                            <button type="button" class="btn btn-primary m-t-15 waves-effect" id="chkHomeworkPopCheck" data-toggle="modal" data-target="#defaultModal">제출</button>
@@ -61,23 +61,13 @@
                     
                     
                 
-        			
-        			
-        			
-        			
-	        		<!-- <div id="chkProgressPop" style="display:none; height:50%;">강사의 진도를 다 따라잡았나요? <br><button id="chkProgressPopCheck">확인</button></div>
-	        		<div id="chkHomeworkPop" style="display:none; height:50%;">파일을 제출하세요 <br>
-	        		
-	        		<input type="file" name="uploadFile">
-	        		<br><div id="uplodedHomework"></div>
-	        		<br><button id="chkHomeworkPopCheck">확인</button></div> -->
 	        		
 				</div>
 				<div style="height:1px"></div>
-        		<div style="height:50%; background-color:#FFEB3B; padding:0px 0px 10px 10px; margin-bottom:0px;" class="card">
+        		<div style="height:50%; background-color:#FFEB3B; padding:10px 0px 10px 10px; margin-bottom:0px;" class="card">
         			<div style="overflow:auto; height:90%;" id="messages"></div>
         			<input style="width:80%; margin-top:6px;" type="text" id="messageinput" />
-        			<button style="margin-right:10px;"  type="button" class="btn btn-default btn-circle waves-effect waves-green waves-circle waves-float pull-right" >
+        			<button id="sendMsg" style="margin-right:10px;"  type="button" class="btn btn-default btn-circle waves-effect waves-green waves-circle waves-float pull-right" >
 						<i class="material-icons">forum</i>
 					</button>
 				</div>
@@ -185,7 +175,8 @@
 				var mynum=userNo.length;
 				var mylecturenum=lectureNo.length;
 				var myfile=result.substring(mylecturenum+mynum+2);
-				$("#fileResult_modal").html("<input type='text' class='form-control' value='"+myfile+" 이/가 업로드되었습니다.' readonly>");
+				$("#fileResult_modal").html("<input type='text' class='form-control' value='"+myfile+"이/가 업로드되었습니다.' readonly><br><br>");
+				viewFile();
 				var message={
 	        		 type: "homeworkChecked",
 		        	 id: "<sec:authentication property='principal.user.user_id'/>",
@@ -196,6 +187,66 @@
 		});
 	}
 	/* -- 파일업로드 위한 추가 끝 ----------- */ 
+	
+	function viewFile(){
+		var userNo="<sec:authentication property='principal.user.user_no'/>";
+		var lectureNo="${lectureInfo.lecture_no}";
+		$("#fileResult_modal").append("<h4 class='modal-title' id='defaultModalLabel'>제출한 파일 목록</h4>");
+		$.ajax({
+			url: '/file/viewFileList',
+			beforeSend: function(xhr){
+				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+			},
+			data: {userNo:userNo, lectureNo:lectureNo},
+			type: 'POST',             
+            dataType: "json",
+			success: function(result){
+				var mynum=userNo.length;
+				var mylecturenum=lectureNo.length;
+				$.each(result, function(idx, val) {
+					var realName=val.substring(mylecturenum+mynum+2);
+					$("#fileResult_modal").append("<div id='div"+val+"' style='display:table;'><input style='display:table-cell; vertical-align:middle;' type='text' class='form-control' value='"+realName+"' readonly> <i style='display:table-cell; vertical-align:middle; cursor:pointer;' class='material-icons forFileDelete' id='"+val+"'>delete_forever</i></div>");
+				});
+			}
+		});
+		
+	}
+
+	$(document).on('click','.forFileDelete',function(){
+		var fileName=$(this).attr("id");
+		var userNo="<sec:authentication property='principal.user.user_no'/>";
+		var lectureNo="${lectureInfo.lecture_no}";
+		var fileDiv=$(this).closest("div");
+
+		$.ajax({
+			url: '/file/deleteFile',
+			beforeSend: function(xhr){
+				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+			},
+			data: {lectureNo:lectureNo, fileName:fileName},
+			type: 'POST',             
+            dataType: "text",
+			success: function(result){
+				var mynum=userNo.length;
+				var mylecturenum=lectureNo.length;
+				var realName=result.substring(mylecturenum+mynum+2);
+				alert(realName+"이/가 삭제되었습니다.");
+				console.log('#div'+result);
+				fileDiv.remove();
+			}
+		});
+	}) 
+
+	/* $(".forFileDelete").on("click", function(e){
+		alert("눌림"));
+        
+    }); */
+	/* $(".forFileDelete").on("click", function(e){
+		alert("눌림"));
+		var fileName=$(this).attr("id");
+		alert(fileName);
+	}); */
+	
 
 
 
@@ -229,7 +280,7 @@
             if(myJsonData.type=='overlap'){
             	
             	alert("강의창은 하나만 띄울 수 있습니다.");
-            	window.open('http://localhost:8080/student/main','_self').close();
+            	window.open('/student/main','_self').close();
             	
             	//self.opener=self;
             	//window.close();
@@ -312,6 +363,17 @@
 				webSocket.send(JSON.stringify(message));
 				$("#messageinput").val("");
 			}
+		}
+    });
+    $("#sendMsg").on("click", function(e){
+		if($('#messageinput').val()!=""){
+			var message={
+	        	    type: "message",
+	        	    data: $('#messageinput').val(),
+	        	    name: "<sec:authentication property='principal.user.user_name'/>"
+	        	  };
+			webSocket.send(JSON.stringify(message));
+			$("#messageinput").val("");
 		}
     });
 
