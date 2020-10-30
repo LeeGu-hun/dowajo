@@ -8,8 +8,8 @@
 	prefix="sec"%>
 
 <section class="content">
-	<a href='./lecture'>강의 화면으로</a><br>
-	<br>
+<a href='./lecture'>강의 화면으로</a><br>
+	<br>	
 	<h3>공지사항</h3>
 	<br>
 	<div id="container">
@@ -103,6 +103,6 @@ $(document).ready(function(){
 	
 });
         
+</script>
 
-
-<%@ include file="/WEB-INF/views/include/footer_student.jsp" %>
+<%@ include file="/WEB-INF/views/include/footer_student.jsp"%>
