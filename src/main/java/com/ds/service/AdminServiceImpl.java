@@ -109,4 +109,24 @@ public class AdminServiceImpl implements AdminService{
 		return mapper.delete(user_no) == 1;
 	}
 
+	@Override
+	public int getlistTotal2(Criteria cri) {
+		return mapper.getlistTotal2(cri);
+	}
+
+	@Override
+	public int getlistTotal3(Criteria cri) {
+		return mapper.getlistTotal3(cri);
+	}
+
+	@Override
+	public List<QuestionsVO> getList2(Criteria cri) {
+		return mapper.getQueList2(cri);
+	}
+
+	@Override
+	public int getTotal2(Criteria cri) {
+		return mapper.getTotalCount2(cri);
+	}
+
 }

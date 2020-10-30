@@ -22,14 +22,6 @@
 		<result property="user_auth" column="user_auth" />
 	</resultMap>
 
-	<resultMap type="com.ds.domain.QuestionsVO" id="queMap">
-		<id property="qa_no" column="qa_no" />
-		<result property="qa_writer" column="qa_writer" />
-		<result property="qa_title" column="qa_title" />
-		<result property="qa_title" column="qa_reply" />
-		<result property="qa_content" column="qa_content" />
-		<result property="qa_date" column="qa_date" />
-	</resultMap>
 
 	<select id="duplicateId" resultType="string">
 		SELECT user_id FROM ds_user
@@ -71,24 +63,44 @@
 	<sql id="criteria">
 		<trim prefix="(" suffix=") AND " prefixOverrides="OR">
 			<foreach item='type' collection="typeArr">
+				<trim prefix="OR">
+					<choose>
+						<when test="type=='N'.toString()">
+							user_id like '%'||#{keyword}||'%'
+						</when>
+						<when test="type=='T'.toString()">
+							user_name like '%'||#{keyword}||'%'
+						</when>
+						<when test="type=='D'.toString()">
+							user_depart like '%'||#{keyword}||'%'
+						</when>
+					</choose>
+				</trim>
 			</foreach>
 		</trim>
 	</sql>
 
 	<select id="getTotalCount" resultType="int">
 		<![CDATA[ 
-		select count(*) from ds_qa where 
+		select count(*) from (
+		select rownum rn, qa_no, qa_writer, qa_title, qa_date from ds_qa q  
+		join ds_user u on q.qa_writer=u.user_id
+		join ds_auth a on u.user_no=a.user_no
+		where user_auth ='ROLE_ADMIN' and    
 		]]>
 		<include refid="criteria"></include>
 		<![CDATA[ 
-		qa_no > 0
+		qa_no > 0)
 		]]>
 	</select>
 
 	<select id="getQueList" resultType="com.ds.domain.QuestionsVO">
 		<![CDATA[
-		select qa_no, qa_writer, qa_title,qa_date 
-		from (select rownum rn, qa_no, qa_writer, qa_title,qa_date from ds_qa where
+		select qa_no, qa_writer, qa_title, qa_date from (
+		select rownum rn, qa_no, qa_writer, qa_title, qa_date from ds_qa q  
+		join ds_user u on q.qa_writer=u.user_id
+		join ds_auth a on u.user_no=a.user_no
+		where user_auth!='ROLE_ADMIN' and 
 		]]>
 
 		<include refid="criteria"></include>
@@ -99,10 +111,42 @@
 		order by qa_no
 		]]>
 	</select>
+	
+	<select id="getTotalCount2" resultType="int">
+		<![CDATA[ 
+		select count(*) from (
+		select rownum rn, qa_no, qa_writer, qa_title, qa_date from ds_qa q  
+		join ds_user u on q.qa_writer=u.user_id
+		join ds_auth a on u.user_no=a.user_no
+		where user_auth ='ROLE_ADMIN' and   
+		]]>
+		<include refid="criteria"></include>
+		<![CDATA[ 
+		qa_no > 0)
+		]]>
+	</select>
 
+	<select id="getQueList2" resultType="com.ds.domain.QuestionsVO">
+		<![CDATA[
+		select qa_no, qa_writer, qa_title, qa_date from (
+		select rownum rn, qa_no, qa_writer, qa_title, qa_date from ds_qa q  
+		join ds_user u on q.qa_writer=u.user_id
+		join ds_auth a on u.user_no=a.user_no
+		where user_auth ='ROLE_ADMIN' and 
+		]]>
+
+		<include refid="criteria"></include>
+  
+		<![CDATA[
+		rownum<= #{pageNum} * #{amount})
+		where rn>(#{pageNum}-1)*#{amount}  
+		order by qa_no
+		]]>
+	</select>
+	
 	<select id="getlistTotal" resultType="int">
 		<![CDATA[ 
-		select count(*) from ds_user where 
+		select count(*) from ds_user NATURAL join ds_auth where user_auth='ROLE_ADMIN' and
 		]]>
 		<include refid="criteria"></include>
 		<![CDATA[ 
@@ -126,6 +170,16 @@
 		order by user_no 
 		]]>
 	</select>
+	
+	<select id="getlistTotal2" resultType="int">
+		<![CDATA[ 
+		select count(*) from ds_user NATURAL join ds_auth where user_auth='ROLE_TEACHER' and
+		]]>
+		<include refid="criteria"></include>
+		<![CDATA[ 
+		user_no > 0
+		]]>
+	</select>
 
 	<select id="teahcer_List" resultType="com.ds.domain.UserVO">
 		<![CDATA[
@@ -140,6 +194,16 @@
 		rownum<= #{pageNum} * #{amount})
 		where rn>(#{pageNum}-1)*#{amount}  
 		order by user_no
+		]]>
+	</select>
+	
+	<select id="getlistTotal3" resultType="int">
+		<![CDATA[ 
+		select count(*) from ds_user NATURAL join ds_auth where user_auth='ROLE_STUDENT' and
+		]]>
+		<include refid="criteria"></include>
+		<![CDATA[ 
+		user_no > 0
 		]]>
 	</select>
 	

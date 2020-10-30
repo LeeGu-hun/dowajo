@@ -34,8 +34,10 @@ public class AdminController {
 	
 	
 	@GetMapping("/main")
-	public void main() {
-		
+	public void main(Criteria cri, Model model) {
+		int total = service.getTotal2(cri);
+		model.addAttribute("questions", service.getList2(cri));
+		model.addAttribute("pageMaker", new PageDTO(cri, total));
 	}
 	
 	@GetMapping("/admin_regist")
@@ -84,14 +86,14 @@ public class AdminController {
 	
 	@GetMapping("/teacher_list")
 	public void teacher_list(Criteria cri, Model model) {
-		int total = service.getlistTotal(cri);
+		int total = service.getlistTotal2(cri);
 		model.addAttribute("teacher_list", service.teacher_list(cri));
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
 	}
 	
 	@GetMapping("/student_list")
 	public void student_list(Criteria cri, Model model) {
-		int total = service.getlistTotal(cri);
+		int total = service.getlistTotal3(cri);
 		model.addAttribute("student_list", service.student_list(cri));
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
 	}
@@ -132,5 +134,4 @@ public class AdminController {
 		}
 		return "redirect:/admin/admin_list"+cri.getListLink();
 	}
-	
 }

@@ -12,11 +12,15 @@ public interface AdminMapper {
 	
 	public List<QuestionsVO> getQueList(Criteria cri);
 	public int getTotalCount(Criteria cri);
+	public List<QuestionsVO> getQueList2(Criteria cri);
+	public int getTotalCount2(Criteria cri);
 	
 	public List<UserVO> admin_List(Criteria cri);
 	public List<UserVO> teahcer_List(Criteria cri);
 	public List<UserVO> student_List(Criteria cri);
 	public int getlistTotal(Criteria cri);
+	public int getlistTotal2(Criteria cri);
+	public int getlistTotal3(Criteria cri);
 	
 	public void admin_regist(UserVO vo);
 	public void admin_registAuth(AuthVO auth);
