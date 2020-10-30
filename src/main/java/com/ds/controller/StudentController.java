@@ -1,6 +1,5 @@
 package com.ds.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +18,8 @@ import com.ds.domain.ClassListVO;
 import com.ds.domain.Criteria;
 import com.ds.domain.LectureVO;
 import com.ds.domain.PageDTO;
+import com.ds.domain.UserVO;
+import com.ds.service.AdminService;
 import com.ds.service.LectureService;
 import com.ds.service.StudentService;
 
@@ -35,9 +36,15 @@ public class StudentController {
 	
 	@Setter(onMethod_ = { @Autowired })
 	private StudentService studentService;
+	
+	@Setter(onMethod_ = { @Autowired })
+	private AdminService adminService;
 
 	@GetMapping("/main")
-	public void main() {
+	public void main(Criteria cri, Model model) {		
+		int total = adminService.getTotal(cri);
+		model.addAttribute("questions", adminService.getList(cri));
+		model.addAttribute("pageMaker", new PageDTO(cri, total));		
 	}
 	
 	@GetMapping("/lecture")
@@ -62,23 +69,50 @@ public class StudentController {
 	}
 
 	@GetMapping("/lectureInfo")
-	public void lectureInfo(@RequestParam("lecture_name")String lecture_name, Model model, @ModelAttribute("cri") Criteria cri) {
-		List<LectureVO> list = studentService.lectureInfo(lecture_name);
-		LectureVO vo = (LectureVO) list.get(0);
-		log.info(">>>>>"+vo.getLecture_name()+"///////////"+lecture_name);
+	public void lectureInfo(@RequestParam("lecture_no")Long lecture_no, Model model, @ModelAttribute("cri") Criteria cri) {
+		List<LectureVO> list = studentService.lectureInfo(lecture_no);
+		LectureVO vo = (LectureVO) list.get(0);		
 		model.addAttribute("leIn", vo);
 	}
 	
 	@PostMapping("/lectureInfo")
+	@Transactional
 	public String lectureInfo(@RequestParam("lecture_no")Long lecture_no,
-			@RequestParam("user_no")Long user_no, RedirectAttributes rttr) {
+			@RequestParam("user_no")Long user_no, RedirectAttributes rttr) {		
 		ClassListVO vo = new ClassListVO();		
 		vo.setLecture_no(lecture_no);
-		vo.setUser_no(user_no);		
-		studentService.applyClass(vo);		
-		rttr.addAttribute("user_no", user_no);		
-		return "redirect:/student/lecturelist";
+		vo.setUser_no(user_no);
 		
+		int result = studentService.applyDuplicated(user_no, lecture_no);
+		if(result !=0) {
+			log.info("이미 신청한 강의입니다.");
+			rttr.addFlashAttribute("result", "fail");			
+			return "redirect:/student/lectureSearch";					
+		} else { 
+		studentService.applyClass(vo);		
+		rttr.addFlashAttribute("result", "success");
+		rttr.addAttribute("user_no", user_no);
+		return "redirect:/student/lecturelist";
+		}
+	}	
+	
+	@GetMapping({"/myPage", "/myPage_modify"})
+	public void getUser(@RequestParam("user_id") String user_id, Model model){
+		model.addAttribute("user", studentService.user_read(user_id));
+	}
+	
+	@PostMapping("/myPage_modify")
+	public String user_modify(UserVO vo, RedirectAttributes rttr) {		
+		if(studentService.user_modify(vo))
+			rttr.addAttribute("result", "success");
+		return "redirect:/student/myPage_modify?user_id=" + vo.getUser_id();
+	}
+	
+	@PostMapping("/user_delete")
+	public String user_delete(@RequestParam("user_no") Long user_no, RedirectAttributes rttr) {		
+		if(studentService.user_delete(user_no))
+			rttr.addAttribute("result", "success");
+		return "redirect:/customLogin";
 	}
 	
 }

@@ -12,4 +12,6 @@ public class FileVO {
 	private String file_name;
 	private Date regdate;
 	
+	private String user_name;
+	
 }

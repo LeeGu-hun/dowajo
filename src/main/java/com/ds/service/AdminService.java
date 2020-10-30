@@ -17,10 +17,22 @@ public interface AdminService {
 	
 	public List<QuestionsVO> getList(Criteria cri);
 	public int getTotal(Criteria cri);
+	public List<QuestionsVO> getList2(Criteria cri);
+	public int getTotal2(Criteria cri);
+	
 	
 	public List<UserVO> admin_list(Criteria cri);
 	public List<UserVO> teacher_list(Criteria cri);
 	public List<UserVO> student_list(Criteria cri);
 	public int getlistTotal(Criteria cri);
+	public int getlistTotal2(Criteria cri);
+	public int getlistTotal3(Criteria cri);
+	
+	public UserVO get(int user_no);
+	public boolean remove(int user_no);
+	
+	public UserVO user_read(String user_id);	//사용자 마이페이지
+	public boolean user_modify(UserVO vo);		//사용자 정보 수정
+	public boolean user_delete(Long user_no);	//사용자 삭제
 	
 }

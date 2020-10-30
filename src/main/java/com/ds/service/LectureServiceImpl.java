@@ -42,8 +42,8 @@ public class LectureServiceImpl implements LectureService{
 		
 	}
 	@Override
-	public void fileDelete(Long lecture_no, Long user_no) {
-		mapper.fileDelete(lecture_no, user_no);
+	public void fileDelete(String file_name) {
+		mapper.fileDelete(file_name);
 		
 	}
 	@Override

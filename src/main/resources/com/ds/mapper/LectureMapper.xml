@@ -39,7 +39,7 @@
 		values (#{lecture_no}, #{user_no}, #{file_name})
 	</insert>
 	<delete id="fileDelete">
-		delete ds_file where lecture_no = #{lecture_no} and user_no = #{user_no}
+		delete ds_file where file_name = #{file_name}
 	</delete>
 	<select id="fileList" resultType="com.ds.domain.FileVO">
 		select LECTURE_NO, USER_NO, FILE_NAME, REGDATE from ds_file where lecture_no = #{lecture_no} and user_no = #{user_no}
@@ -48,7 +48,8 @@
 		delete ds_file where lecture_no = #{lecture_no}
 	</delete>
 	<select id="fileListAll" resultType="com.ds.domain.FileVO">
-		select LECTURE_NO, USER_NO, FILE_NAME, REGDATE from ds_file where lecture_no = #{lecture_no}
+		select LECTURE_NO, f.USER_NO, FILE_NAME, f.REGDATE, user_name 
+		from ds_file f, ds_user u where f.user_no=u.user_no and lecture_no = #{lecture_no}
 	</select>
 
 

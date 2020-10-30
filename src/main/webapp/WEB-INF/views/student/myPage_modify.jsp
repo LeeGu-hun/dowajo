@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/views/include/header_admin.jsp"%>
+<%@ include file="/WEB-INF/views/include/header_student.jsp"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
@@ -38,7 +38,7 @@
 								<h3>회원 정보 수정</h3>
 								<hr>
 							</div>
-							<form role="form" action="/myPage_modify" method="post">
+							<form role="form" action="/student/myPage_modify" method="post">
 							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 							<input type="hidden" name="user_no" value="${user.user_no}"> 
 							<div class="table">
@@ -146,14 +146,14 @@ $(document).ready(function(){
     });
     
     $('#btnCancel').on("click",function(){
-		location.href="/myPage?user_id=<sec:authentication property='principal.user.user_id'/>";
+		location.href="/student/myPage?user_id=<sec:authentication property='principal.user.user_id'/>";
     });
 
     $('#btnModal').on("click", function(){
-    	formObj.attr("action", "/user_delete").submit();        
+    	formObj.attr("action", "/student/user_delete").submit();        
     });
 });
 </script>
 
 	
-<%@ include file="/WEB-INF/views/include/footer_admin.jsp"%>
+<%@ include file="/WEB-INF/views/include/footer_student.jsp"%>

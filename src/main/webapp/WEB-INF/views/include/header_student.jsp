@@ -183,7 +183,7 @@
                     <div class="btn-group user-helper-dropdown">
                         <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
                         <ul class="dropdown-menu pull-right">
-                            <li><a href="/myPage?user_id=<sec:authentication property='principal.user.user_id'/>"><i class="material-icons">person</i>내 정보</a></li>                            
+                            <li><a href="/student/myPage?user_id=<sec:authentication property='principal.user.user_id'/>"><i class="material-icons">person</i>내 정보</a></li>                            
                             <li role="seperator" class="divider"></li>
                             <li><a id='logout' href="javascript:void(0);"><i class="material-icons">input</i>로그아웃</a></li>
                         </ul>
@@ -214,6 +214,20 @@
                     	<a href="/student/lectureSearch">                    	
                     		<i class="material-icons">search</i>
                     		<span>강의실 찾기</span>
+                    	</a>                    
+                    </li>
+                    
+                    <li>
+                    	<a href="/student/myPage?user_id=<sec:authentication property='principal.user.user_id'/>">                    	
+                    		<i class="material-icons">face</i>
+                    		<span>회원 정보 </span>
+                    	</a>                    
+                    </li>
+                    
+                    <li>
+                    	<a href="#">                    	
+                    		<i class="material-icons">question_answer</i>
+                    		<span>1:1 Q&A </span>
                     	</a>                    
                     </li>
                        
