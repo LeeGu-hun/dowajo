@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public boolean user_modify(UserVO vo) {		
-		//vo.setUser_pw(pwencoder.encode(vo.getUser_pw()));		//비밀번호 없으면 사용못함
+		vo.setUser_pw(pwencoder.encode(vo.getUser_pw()));		//비밀번호 없으면 사용못함
 		boolean modifyResult = mapper.user_update(vo) == 1;		
 		return modifyResult;		
 	}

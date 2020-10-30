@@ -23,7 +23,7 @@
 					<form method="get" action="cancel">
 						<div class="header">
 							<h2>
-								등록된 학생 목록 <input type="button" id="regBtn"
+								등록된 학생 목록 <input type="button" id="cancelBtn"
 									class="btn bg-red waves-effect" value="수강해제"
 									style="float: right;"> <small>잘못 등록한 학생이있으면
 									체크박스에 체크한뒤 버튼을 눌러주세요. </small>
@@ -70,15 +70,16 @@
 										<tbody>
 											<c:forEach items="${cancel}" var="teacher">
 												<tr style="cursor: pointer;">
-													<td><c:out value="${teacher.st_no }" /></td>
+													<td><c:out value="${teacher.user_no }" /></td>
 													<td><c:out value="${teacher.user_name}" /></td>
-													<td><c:out value="${teacher.mobile }" /></td>
+													<td><c:out value="${teacher.user_mobile }" /></td>
 													<td>
 														<div class="demo-checkbox">
-															<input type="checkbox" class="cancel_lc"
-																id="<c:out value="${teacher.st_no}"/>"
-																class="chk-col-pink"> <label
-																for="<c:out value="${teacher.st_no}"/>">PINK</label>
+																<input type="checkbox" class="cancel_lc"
+																id="<c:out value="${teacher.user_no}"/>"
+																value="<c:out value="${teacher.user_no}"/>"
+																class="chk-col-pink"> 
+																<label for="<c:out value="${teacher.user_no}"/>">PINK</label>
 														</div>
 													</td>
 												</tr>
@@ -168,16 +169,16 @@
 										<tbody>
 											<c:forEach items="${sign_up}" var="teacher">
 												<tr style="cursor: pointer;">
-													<td><c:out value="${teacher.st_no }" /></td>
+													<td><c:out value="${teacher.user_no }" /></td>
 													<td><c:out value="${teacher.user_name}" /></td>
-													<td><c:out value="${teacher.mobile }" /></td>
+													<td><c:out value="${teacher.user_mobile }" /></td>
 													<td>
 														<div class="demo-checkbox">
 															<input type="checkbox" class="chk_not_reg"
-																id="<c:out value="${teacher.st_no}"/>"
-																value="<c:out value="${teacher.st_no}"/>"
-																class="chk-col-pink"> <label
-																for="<c:out value="${teacher.st_no}"/>">PINK</label>
+																id="<c:out value="${teacher.user_no}"/>"
+																value="<c:out value="${teacher.user_no}"/>"
+																class="chk-col-pink"> 
+																<label for="<c:out value="${teacher.user_no}"/>">PINK</label>
 														</div>
 													</td>
 												</tr>
@@ -233,43 +234,89 @@
 	var csrfHeaderName = "${_csrf.headerName}";
 	var csrfTokenValue = "${_csrf.token}";
 	
+	function joinajax(){
+	    // 강의 번호를 갖고 온다.
+	    var lecture_no = ${lecture_no };
+	 
+	    // 체크박스의 학생의 id를 배열에 담는다.
+	    var checkboxValues = [];
+	    $(".chk_not_reg:checked").each(function(i) {
+	        checkboxValues.push($(this).val());
+	    });
+	    console.log(checkboxValues);
+
+	    // 사용자 ID(문자열)와 체크박스 값들(배열)을 name/value 형태로 담는다.
+	    var allData = { "lecture_no": lecture_no, "checkArr": checkboxValues };
+	     
+	    $.ajax({
+	        url:"/teacher/joinup",
+	        type:'POST',
+			beforeSend : function(xhr){
+				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+			},
+	        data: allData,
+	        success:function(data){
+	            alert("완료!");
+	            //location.reload();
+	            console.log(data);
+	            //self.close();
+	            
+	            
+	        },
+	        error:function(jqXHR, textStatus, errorThrown){
+	            alert("에러 발생~~ \n" + textStatus + " : " + errorThrown);
+	            self.close();
+	        }
+	    });
+	}
+	    ///////////////////////////////////////////////////////////////////////////////////
+	    function cancelajax(){
+		    // 강의 번호를 갖고 온다.
+		    var lecture_no = ${lecture_no };
+		 
+		    // 체크박스의 학생의 id를 배열에 담는다.
+		    var checkboxValues = [];
+		    $(".cancel_lc:checked").each(function(i) {
+		        checkboxValues.push($(this).val());
+		    });
+		    console.log(checkboxValues);
+		    // 사용자 ID(문자열)와 체크박스 값들(배열)을 name/value 형태로 담는다.
+		    var allData = { "lecture_no": lecture_no, "checkArr": checkboxValues };
+		     
+		    $.ajax({
+		        url:"/teacher/cancel",
+		        type:'POST',
+				beforeSend : function(xhr){
+					xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+				},
+		        data: allData,
+		        success:function(data){
+		            alert("완료!");
+		            //location.reload();
+		            console.log(data);
+		            //self.close();
+		            
+		            
+		        },
+		        error:function(jqXHR, textStatus, errorThrown){
+		            alert("에러 발생~~ \n" + textStatus + " : " + errorThrown);
+		            self.close();
+		        }
+		    });
+	}
+	
 	$(document).ready(function() {
-
-
 		
+
 		$('#start_class').on("click", function() {
 			location.href = "/teacher/lecture/";
 		});
 		$('#signBtn').on("click", function() {
-			
-			 var checkArr = [];
-			$('.chk_not_reg:checked').each(function(i) {
-				checkArr.push($(this).val());
-			})
-			for (var i = 0; i < checkArr.length; i++) {
-				console.log("arr:"+checkArr[i]);
-			} 
-			var lecture_no = $('<c:out value="${teacher.lecture_no }" />');
-			console.log(lecture_no);
-			$.ajax({
-				type : 'post',
-				url : '/teacher/test',
-				dataType : 'text',//받을떄 타입
-				data : {"checkArr" : checkArr
-				},
-				beforeSend : function(xhr){
-					xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-				},
-
-				success : function(result, status, xhr) {
-					//result 값 return 해서 append추가해서 위에 값 구성
-				},
-				error : function(xhr, status, er) {
-					if (error) {
-						error(er);
-					}
-				}
-			});
+			console.log("signbtn!!!");
+			joinajax();
+		});
+		$('#cancelBtn').on("click", function() {
+			cancelajax();
 		});
 	});
 </script>

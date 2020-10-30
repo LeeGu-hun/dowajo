@@ -4,6 +4,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ds.domain.Criteria;
+import com.ds.domain.SignupVO;
 import com.ds.domain.TeacherVO;
 import com.ds.service.LectureService;
 import com.ds.service.TeacherService;
@@ -28,51 +32,60 @@ import lombok.extern.log4j.Log4j;
 public class TeacherController {
 	@Setter(onMethod_ = { @Autowired })
 	private LectureService lecureService;
-	
+
 	@Setter(onMethod_ = { @Autowired })
-	private TeacherService TeacherService;
+	private TeacherService teacherService;
 
 	@GetMapping("/teacher_main")
-	public void teacher_main(/*Criteria cri,*/Model model) {
+	public void teacher_main(/* Criteria cri, */Model model) {
 		log.info("teachergetList.....");
-		//int total = TeacherService.getTotal(cri);
-		List<TeacherVO> list = TeacherService.getList();//cri넣기
-		System.out.println("list : "+list);
-		model.addAttribute("list",list);
-		//model.addAttribute("pageMaker", new PageDTO(cri,total));
-		
+		// int total = TeacherService.getTotal(cri);
+		List<TeacherVO> list = teacherService.getList();// cri넣기
+		System.out.println("list : " + list);
+		model.addAttribute("list", list);
+		// model.addAttribute("pageMaker", new PageDTO(cri,total));
+
 	}
+
 	@GetMapping("/teacher_check")
 	public void teacher_check(@RequestParam("lecture_no") int lecture_no, Model model) {
-		List<TeacherVO> cancel = TeacherService.cancel();//cri넣기
-		System.out.println("cancel : "+cancel);
-		model.addAttribute("cancel",cancel);
-		
-		List<TeacherVO> sign_up = TeacherService.sign_up();//cri넣기
-		System.out.println("sign_up : "+sign_up);//get2 문자열에 써놓은게 mapper.xml에 
-		model.addAttribute("sign_up",sign_up);//<c:forEach items="${get2}" var="teacher">동일해야함
-		
-		model.addAttribute("lc_no",TeacherService.call_no(lecture_no));
-		//List<TeacherVO> refresh = TeacherService.refresh();
+		List<TeacherVO> cancel = teacherService.cancel(lecture_no);// cri넣기
+		System.out.println("cancel : " + cancel);
+		model.addAttribute("cancel", cancel);
+
+		List<TeacherVO> sign_up = teacherService.sign_up(lecture_no);// cri넣기
+		System.out.println("sign_up : " + sign_up);// get2 문자열에 써놓은게 mapper.xml에
+		model.addAttribute("sign_up", sign_up);// <c:forEach items="${get2}" var="teacher">동일해야함
+		model.addAttribute("lecture_no", lecture_no);
+		// List<TeacherVO> refresh = TeacherService.refresh();
 	}
-	@PostMapping("/test")
-	@ResponseBody
-	public List<TeacherVO> teacher_test(@RequestParam("checkArr[]") List<String>checkArr, Model model) {
-		log.info("controller:::");	
-		//log.info("controller:::lecture_no"+lecture_no);
-		log.info("컨트롤러확인용"+checkArr);
-		//log.info("ajax model: " + model);
-		List<TeacherVO> refresh = TeacherService.refresh(checkArr);
-		return refresh;
-		
+
+	@PostMapping(value = "/joinup", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
+	public ResponseEntity<List<TeacherVO>> teacher_joinup(@RequestParam("lecture_no") int lecture_no,
+			@RequestParam("checkArr[]") String[] checkArr, Model model) {
+		log.info("컨트롤러확인용:" + lecture_no);
+		log.info("컨트롤러확인용:" + Arrays.toString(checkArr));
+
+		return new ResponseEntity(teacherService.refresh(checkArr, lecture_no), HttpStatus.OK);
 	}
+	@PostMapping(value = "/cancel", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
+	public ResponseEntity<List<TeacherVO>> teacher_cancel(@RequestParam("lecture_no") int lecture_no,
+			@RequestParam("checkArr[]") String[] checkArr, Model model) {
+		log.info("컨트롤러확인용:" + lecture_no);
+		log.info("컨트롤러확인용:" + Arrays.toString(checkArr));
+
+		return new ResponseEntity(teacherService.cancelrefresh(checkArr, lecture_no), HttpStatus.OK);
+	}
+
 	@GetMapping("/teacher_reg")
 	public void teacher_reg() {
-		
+
 	}
+
 	@GetMapping("/main")
 	public void main() {
 	}
+
 	@GetMapping("/lecture")
 	public void lecture(Model model) {
 		model.addAttribute("lectureInfo", lecureService.lectureInfo(1l));

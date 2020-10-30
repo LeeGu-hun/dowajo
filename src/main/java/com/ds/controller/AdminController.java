@@ -1,7 +1,5 @@
 package com.ds.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -16,7 +14,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ds.domain.Criteria;
 import com.ds.domain.PageDTO;
-import com.ds.domain.QuestionsVO;
 import com.ds.domain.UserVO;
 import com.ds.service.AdminService;
 
@@ -34,8 +31,10 @@ public class AdminController {
 	
 	
 	@GetMapping("/main")
-	public void main() {
-		
+	public void main(Criteria cri, Model model) {
+		int total = service.getTotal2(cri);
+		model.addAttribute("questions", service.getList2(cri));
+		model.addAttribute("pageMaker", new PageDTO(cri, total));
 	}
 	
 	@GetMapping("/admin_regist")
@@ -84,14 +83,14 @@ public class AdminController {
 	
 	@GetMapping("/teacher_list")
 	public void teacher_list(Criteria cri, Model model) {
-		int total = service.getlistTotal(cri);
+		int total = service.getlistTotal2(cri);
 		model.addAttribute("teacher_list", service.teacher_list(cri));
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
 	}
 	
 	@GetMapping("/student_list")
 	public void student_list(Criteria cri, Model model) {
-		int total = service.getlistTotal(cri);
+		int total = service.getlistTotal3(cri);
 		model.addAttribute("student_list", service.student_list(cri));
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
 	}
@@ -133,4 +132,22 @@ public class AdminController {
 		return "redirect:/admin/admin_list"+cri.getListLink();
 	}
 	
+	@GetMapping({"/myPage", "/myPage_modify"})
+	public void getUser(@RequestParam("user_id") String user_id, Model model){
+		model.addAttribute("user", service.user_read(user_id));
+	}
+	
+	@PostMapping("/myPage_modify")
+	public String user_modify(UserVO vo, RedirectAttributes rttr) {		
+		if(service.user_modify(vo))
+			rttr.addAttribute("result", "success");
+		return "redirect:/admin/myPage_modify?user_id=" + vo.getUser_id();
+	}
+	
+	@PostMapping("/user_delete")
+	public String user_delete(@RequestParam("user_no") Long user_no, RedirectAttributes rttr) {		
+		if(service.user_delete(user_no))
+			rttr.addAttribute("result", "success");
+		return "redirect:/customLogin";
+	}
 }

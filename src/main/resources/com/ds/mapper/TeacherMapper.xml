@@ -4,84 +4,98 @@
   "http://mybatis.com/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ds.mapper.TeacherMapper">
 
-	<!-- <resultMap type="com.ds.domain.TeacherVO" id="teacherMap">
-      <id property="teacher_no" column="tc_no" />
-      <result property="teacher_no" column="tc_no" />   
-      <result property="teacher_name" column="tc_name" />      
-      <result property="teacher_lecture" column="tc_lecture" />
-      <result property="teacher_mobile" column="tc_mobile" />
-      <result property="teacher_email" column="tc_email" />
-                     
-   </resultMap> -->
+	<!-- <resultMap type="com.ds.domain.TeacherVO" id="teacherMap"> <id property="teacher_no" 
+		column="tc_no" /> <result property="teacher_no" column="tc_no" /> <result 
+		property="teacher_name" column="tc_name" /> <result property="teacher_lecture" 
+		column="tc_lecture" /> <result property="teacher_mobile" column="tc_mobile" 
+		/> <result property="teacher_email" column="tc_email" /> </resultMap> -->
 
 
 
 	<insert id="registUser">
-		<!-- <selectKey keyProperty="user_id" order="BEFORE"
-			resultType="int">
-			select app_users_seq.nextval from dual
-		</selectKey> -->
+		<!-- <selectKey keyProperty="user_id" order="BEFORE" resultType="int"> 
+			select app_users_seq.nextval from dual </selectKey> -->
 
 		insert into sale_users (
-			teacher_no,cust_first_name,cust_last_name,cust_street_address1,cust_street_address2,
-      cust_city,cust_state,cust_postal_code,phone_number1,phone_number2,
-      credit_limit,cust_email)
+		teacher_no,cust_first_name,cust_last_name,cust_street_address1,cust_street_address2,
+		cust_city,cust_state,cust_postal_code,phone_number1,phone_number2,
+		credit_limit,cust_email)
 		values (
-			sale_users_seq.nextval,#{cust_first_name},#{cust_last_name},
-			#{cust_street_address1},#{cust_street_address2},#{cust_city},#{cust_state},#{cust_postal_code},#{phone_number1},
-			#{phone_number2},#{credit_limit},#{cust_email})
-		<selectKey resultType="int" keyProperty="teacher_no" order="AFTER">
-        SELECT  sale_users_seq.currval from dual
-    </selectKey>
+		sale_users_seq.nextval,#{cust_first_name},#{cust_last_name},
+		#{cust_street_address1},#{cust_street_address2},#{cust_city},#{cust_state},#{cust_postal_code},#{phone_number1},
+		#{phone_number2},#{credit_limit},#{cust_email})
+		<selectKey resultType="int" keyProperty="teacher_no"
+			order="AFTER">
+			SELECT sale_users_seq.currval from dual
+		</selectKey>
 	</insert>
-	
+
 	<update id="update">
-      update sale_customers set id=#{id}, user_name = #{user_name}
-      where teacher_no = #{teacher_no}
-   </update>
-   	<delete id="delete">
-		delete sale_customers where teacher_no = #{teacher_no}
+		update sale_customers set id=#{id}, user_name = #{user_name}
+		where teacher_no = #{teacher_no}
+	</update>
+	<delete id="delete">
+		delete sale_customers where teacher_no =
+		#{teacher_no}
 	</delete>
-		<select id="getList" resultType="com.ds.domain.TeacherVO">
-			select lecture_no,lecture_description,lecture_name from ds_lecture where lecture_no in( select lecture_no from ds_class_list where user_no= 2)
-		</select>
-		<select id="call_no" resultType="com.ds.domain.TeacherVO">
-			select lecture_no from ds_lecture where lecture_no=1
-		</select>  
-	  <select id="read_cancel" resultType="com.ds.domain.TeacherVO">
-      select st_no,user_name,mobile
-		from ds_class_list
-		where lecture_no = 1 and class_status = 'true' and user_no != 2
-  	 </select>
-  	 
-  	 <select id="read_sign_up" resultType="com.ds.domain.TeacherVO">
-       select st_no,user_name,mobile
-		from ds_class_list 
-		where lecture_no = 1 and class_status = 'false' and user_no != 2
-  	 </select>
-  	 
-  	  <sql id="criteria">
-      <trim prefix="(" suffix=") AND " prefixOverrides="OR">
-         <foreach item='type' collection="typeArr">
-            <trim prefix="OR">
-               <choose>
-                  <when test="type == 'T'.toString()">
-                     title like '%'||#{keyword}||'%'
-                  </when>
-                  <when test="type == 'C'.toString()">
-                     content like '%'||#{keyword}||'%'
-                  </when>
-                  <when test="type == 'W'.toString()">
-                     writer like '%'||#{keyword}||'%'
-                  </when>
-               </choose>
-            </trim>
-         </foreach>
-      </trim>
-   </sql>
-   
-     <select id="getListWithPaging"
-      resultType="com.ds.domain.TeacherVO"> 
+	<select id="getList" resultType="com.ds.domain.TeacherVO">
+		select lecture_no,lecture_description,lecture_name from ds_lecture where
+		lecture_no in( select lecture_no from ds_class_list where user_no= 2)
+	</select>
+	<select id="call_no" resultType="com.ds.domain.TeacherVO">
+		select lecture_no from ds_lecture where lecture_no=#{lecture_no}
+	</select>
+	<select id="read_cancel" resultType="com.ds.domain.TeacherVO">
+		select u.user_no,u.user_name,u.user_mobile
+		from ds_user u
+		left outer join ds_class_list l on u.user_no = l.user_no
+		left outer join ds_auth a on u.user_no = a.user_no
+		left outer join ds_lecture d on l.lecture_no = d.lecture_no
+		where l.class_status='true' and a.user_auth = 'ROLE_STUDENT' and
+		d.lecture_no = #{lecture_no}
+	</select>
+	<update id="read_refresh" parameterType="com.ds.domain.SignupVO">
+		<foreach collection="checkArr" item="item" separator=";" open="DECLARE BEGIN" close="; END;">
+            update ds_class_list set class_status='true' where lecture_no=#{lecture_no} and user_no=#{item}
+        </foreach>
+	</update>
+	<update id="cancelrefresh" parameterType="com.ds.domain.SignupVO">
+		<foreach collection="checkArr" item="item" separator=";" open="DECLARE BEGIN" close="; END;">
+            update ds_class_list set class_status='false' where lecture_no=#{lecture_no} and user_no=#{item}
+        </foreach>
+	</update>
+	<select id="read_sign_up" resultType="com.ds.domain.TeacherVO">
+		select u.user_no,u.user_name,u.user_mobile,l.lecture_no
+		from ds_user u
+		left outer join ds_class_list l on u.user_no = l.user_no
+		left outer join ds_auth a on u.user_no = a.user_no
+		left outer join ds_lecture d on l.lecture_no = d.lecture_no
+		where l.class_status='false' and a.user_auth = 'ROLE_STUDENT' and
+		d.lecture_no = #{lecture_no}
+	</select>
+
+	<sql id="criteria">
+		<trim prefix="(" suffix=") AND " prefixOverrides="OR">
+			<foreach item='type' collection="typeArr">
+				<trim prefix="OR">
+					<choose>
+						<when test="type == 'T'.toString()">
+							title like '%'||#{keyword}||'%'
+						</when>
+						<when test="type == 'C'.toString()">
+							content like '%'||#{keyword}||'%'
+						</when>
+						<when test="type == 'W'.toString()">
+							writer like '%'||#{keyword}||'%'
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+	</sql>
+
+	<select id="getListWithPaging"
+		resultType="com.ds.domain.TeacherVO"> 
       <![CDATA[ 
       select teacher_no,cust_first_name,cust_last_name,cust_street_address1,cust_street_address2,
       cust_city,cust_state,cust_postal_code,phone_number1,phone_number2,
@@ -95,21 +109,21 @@
          where
       ]]>
 
-      <include refid="criteria"></include>      
+		<include refid="criteria"></include>      
          
       <![CDATA[ 
          rownum <= #{pageNum} * #{amount} 
       ) where rn > (#{pageNum} -1) * #{amount} 
       ]]>
-   </select>
-   <select id="getTotalCount" resultType="int">
+	</select>
+	<select id="getTotalCount" resultType="int">
       <![CDATA[ 
       select count(*) from sale_customers where 
       ]]>
-      <include refid="criteria"></include>
+		<include refid="criteria"></include>
       <![CDATA[ 
       teacher_no > 0
       ]]>
-   </select>
-   
+	</select>
+
 </mapper>

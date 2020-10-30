@@ -2,17 +2,18 @@ package com.ds.service;
 
 import java.util.List;
 
-
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.ds.domain.ClassListVO;
 import com.ds.domain.Criteria;
 import com.ds.domain.LectureVO;
+import com.ds.domain.UserVO;
 import com.ds.mapper.StudentMapper;
 
 import lombok.AllArgsConstructor;
+import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
@@ -21,6 +22,8 @@ import lombok.extern.log4j.Log4j;
 public class StudentServiceImpl implements StudentService{
 
 	private StudentMapper mapper;
+	@Setter(onMethod_ = {@Autowired})	
+	private PasswordEncoder pwencoder;
 
 	@Override
 	public List<LectureVO> lectureList(Long user_no) {		
@@ -47,29 +50,35 @@ public class StudentServiceImpl implements StudentService{
 		return mapper.lectureConfirmList(user_no);
 	}
 	
-	@Transactional	
+	
 	@Override
 	public void applyClass(ClassListVO vo) {
-		Long user_no = vo.getUser_no();
-		Long lecture_no = vo.getLecture_no();
-		log.info("유저넘버 확인....."+user_no);
-		log.info("렉쳐넘버 확인....."+lecture_no);
-		int result = mapper.applyDuplicated(user_no, lecture_no);
-		log.info("결과 확인......"+result);
-		if(result !=0) {
-			log.info("이미 신청한 강의입니다.");
-			return;					
-		} else { mapper.applyClass(vo);}
-		 
+		mapper.applyClass(vo);
 	}
 
 
 	@Override
 	public int applyDuplicated(Long user_no, Long lecture_no) {
-		// TODO Auto-generated method stub
-		return 0;
+		return mapper.applyDuplicated(user_no, lecture_no);
 	}
 	
+	@Override
+	public UserVO user_read(String user_id) {
+		return mapper.user_read(user_id);				
+	}
+
+	@Override
+	public boolean user_modify(UserVO vo) {		
+		vo.setUser_pw(pwencoder.encode(vo.getUser_pw()));		//비밀번호 없으면 사용못함
+		boolean modifyResult = mapper.user_update(vo) == 1;		
+		return modifyResult;		
+	}
+
+	@Override
+	public boolean user_delete(Long user_no) {
+		System.out.println("서비스 impl_delete");
+		return mapper.user_delete(user_no) == 1;
+	}
 	
 
 }

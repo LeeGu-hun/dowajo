@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@ include file="/WEB-INF/views/include/header_admin.jsp"%>
+<%@ include file="/WEB-INF/views/include/header_student.jsp"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
@@ -73,9 +73,9 @@
 <script>
 $(document).ready(function() {
 	$('#btnModify').on("click", function(){
-		location.href="/myPage_modify?user_id=<sec:authentication property='principal.user.user_id'/>";
+		location.href="/student/myPage_modify?user_id=<sec:authentication property='principal.user.user_id'/>";
 	});
 	
 });
 </script>
-<%@ include file="/WEB-INF/views/include/footer_admin.jsp"%>
+<%@ include file="/WEB-INF/views/include/footer_student.jsp"%>

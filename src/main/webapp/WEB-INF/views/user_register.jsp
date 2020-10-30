@@ -44,8 +44,7 @@
 		<div class="card">
 			<div class="body">
 				<form id="sign_up" method="POST" action="/user_register" role="form">
-					<input type="hidden" name="${_csrf.parameterName}"
-						value="${_csrf.token}" />
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 					<div class="msg">
 						<b>회원 가입</b>
 					</div>
