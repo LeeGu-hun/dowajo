@@ -82,6 +82,11 @@
 $(document).ready(function(){
 	var actionForm = $("#actionForm");
 	var searchForm = $("#searchForm");
+
+	var result = '<c:out value="${result}"/>';	
+	if (result) {
+		alert("이미 신청한 강의입니다.");
+	}
 	
 	$(".paginate_button a").on("click", function(e){
 		e.preventDefault();

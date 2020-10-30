@@ -72,7 +72,10 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-		
+	var result = '<c:out value="${result}"/>';	
+	if (result) {
+		alert("신청이 완료되었습니다.");
+	}
 });
 </script>
 

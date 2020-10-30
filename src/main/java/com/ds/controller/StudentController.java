@@ -1,7 +1,10 @@
 package com.ds.controller;
 
-import java.util.ArrayList;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -13,7 +16,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ds.domain.ClassListVO;
@@ -72,17 +74,20 @@ public class StudentController {
 	@PostMapping("/lectureInfo")
 	@Transactional
 	public String lectureInfo(@RequestParam("lecture_no")Long lecture_no,
-			@RequestParam("user_no")Long user_no, RedirectAttributes rttr) {
+			@RequestParam("user_no")Long user_no, RedirectAttributes rttr) {		
 		ClassListVO vo = new ClassListVO();		
 		vo.setLecture_no(lecture_no);
-		vo.setUser_no(user_no);			
+		vo.setUser_no(user_no);
+		
 		int result = studentService.applyDuplicated(user_no, lecture_no);
 		if(result !=0) {
-			log.info("이미 신청한 강의입니다.");			
+			log.info("이미 신청한 강의입니다.");
+			rttr.addFlashAttribute("result", "fail");			
 			return "redirect:/student/lectureSearch";					
 		} else { 
-		studentService.applyClass(vo);	
-		rttr.addAttribute("user_no", user_no);		
+		studentService.applyClass(vo);		
+		rttr.addFlashAttribute("result", "success");
+		rttr.addAttribute("user_no", user_no);
 		return "redirect:/student/lecturelist";
 		}
 	}	
