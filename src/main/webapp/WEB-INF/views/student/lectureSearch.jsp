@@ -41,7 +41,7 @@
 					<c:forEach items="${leAL}" var="leAL">
 						<tr>
 							<td><c:out value="${leAL.lecture_no }" /></td>							
-							<td><a class="move" href="${leAL.lecture_name }">
+							<td><a class="move" href="${leAL.lecture_no }">
 							<c:out value="${leAL.lecture_name }" /></a></td>
 							<td><c:out value="${leAL.lecture_afreecaid }" /></td>
 						</tr>
@@ -112,7 +112,7 @@ $(document).ready(function(){
 
 		e.preventDefault();
 		
-		$("#actionForm").append("<input type='hidden' name='lecture_name' value='"+$(this).attr("href")+"' />");
+		$("#actionForm").append("<input type='hidden' name='lecture_no' value='"+$(this).attr("href")+"' />");
 		$("#actionForm").attr("action", "/student/lectureInfo");
 		$("#actionForm").submit();
 		});

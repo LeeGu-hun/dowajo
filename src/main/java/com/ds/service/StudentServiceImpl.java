@@ -47,27 +47,16 @@ public class StudentServiceImpl implements StudentService{
 		return mapper.lectureConfirmList(user_no);
 	}
 	
-	@Transactional	
+	
 	@Override
 	public void applyClass(ClassListVO vo) {
-		Long user_no = vo.getUser_no();
-		Long lecture_no = vo.getLecture_no();
-		log.info("유저넘버 확인....."+user_no);
-		log.info("렉쳐넘버 확인....."+lecture_no);
-		int result = mapper.applyDuplicated(user_no, lecture_no);
-		log.info("결과 확인......"+result);
-		if(result !=0) {
-			log.info("이미 신청한 강의입니다.");
-			return;					
-		} else { mapper.applyClass(vo);}
-		 
+		mapper.applyClass(vo);
 	}
 
 
 	@Override
 	public int applyDuplicated(Long user_no, Long lecture_no) {
-		// TODO Auto-generated method stub
-		return 0;
+		return mapper.applyDuplicated(user_no, lecture_no);
 	}
 	
 	

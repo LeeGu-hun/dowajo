@@ -70,15 +70,21 @@ public class StudentController {
 	}
 	
 	@PostMapping("/lectureInfo")
+	@Transactional
 	public String lectureInfo(@RequestParam("lecture_no")Long lecture_no,
 			@RequestParam("user_no")Long user_no, RedirectAttributes rttr) {
 		ClassListVO vo = new ClassListVO();		
 		vo.setLecture_no(lecture_no);
-		vo.setUser_no(user_no);		
-		studentService.applyClass(vo);		
+		vo.setUser_no(user_no);			
+		int result = studentService.applyDuplicated(user_no, lecture_no);
+		if(result !=0) {
+			log.info("이미 신청한 강의입니다.");			
+			return "redirect:/student/lectureSearch";					
+		} else { 
+		studentService.applyClass(vo);	
 		rttr.addAttribute("user_no", user_no);		
 		return "redirect:/student/lecturelist";
-		
+		}
 	}	
 	
 	
