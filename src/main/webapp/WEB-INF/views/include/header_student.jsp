@@ -223,6 +223,13 @@
                     		<span>회원 정보 </span>
                     	</a>                    
                     </li>
+                    
+                    <li>
+                    	<a href="#">                    	
+                    		<i class="material-icons">question_answer</i>
+                    		<span>1:1 Q&A </span>
+                    	</a>                    
+                    </li>
                        
                    <li style="display:none">
                      <a href="javascript:void(0);" class="menu-toggle">

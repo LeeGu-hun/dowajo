@@ -31,4 +31,8 @@ public interface AdminService {
 	public UserVO get(int user_no);
 	public boolean remove(int user_no);
 	
+	public UserVO user_read(String user_id);	//사용자 마이페이지
+	public boolean user_modify(UserVO vo);		//사용자 정보 수정
+	public boolean user_delete(Long user_no);	//사용자 삭제
+	
 }

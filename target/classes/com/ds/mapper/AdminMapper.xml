@@ -231,4 +231,17 @@
 	<delete id="delete">
 		delete ds_user where user_no = #{user_no}
 	</delete>
+	
+	<select id="user_read" resultType="com.ds.domain.UserVO">
+		select * from ds_user where user_id = #{user_id} 
+	</select>
+	
+	<update id="user_update">
+		update ds_user set user_email = #{user_email}, user_mobile = #{user_mobile}, user_depart = #{user_depart}, user_pw = #{user_pw}
+		where user_id = #{user_id}
+	</update>
+	
+	<delete id="user_delete">
+		delete ds_user where user_no = #{user_no}		
+	</delete>
 </mapper>

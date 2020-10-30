@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.ds.domain.AuthVO;
 import com.ds.domain.Criteria;
-import com.ds.domain.LectureVO;
 import com.ds.domain.QuestionsVO;
 import com.ds.domain.UserVO;
 
@@ -32,6 +31,8 @@ public interface AdminMapper {
 	public UserVO read(int user_no);
 	public int delete(int user_id);
 	
-
+	public UserVO user_read(String user_id);	//사용자 정보보기
+	public int user_update(UserVO vo);			//회원정보 업데이트
+	public int user_delete(Long user_no);		//사용자 삭제
 	
 }
