@@ -42,8 +42,8 @@ public class StudentController {
 
 	@GetMapping("/main")
 	public void main(Criteria cri, Model model) {		
-		int total = adminService.getTotal(cri);
-		model.addAttribute("questions", adminService.getList(cri));
+		int total = adminService.getTotal2(cri);
+		model.addAttribute("questions", adminService.getList2(cri));
 		model.addAttribute("pageMaker", new PageDTO(cri, total));		
 	}
 	
