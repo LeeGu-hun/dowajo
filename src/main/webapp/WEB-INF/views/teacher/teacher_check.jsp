@@ -67,7 +67,7 @@
 													style="width: 150px;">수강신청</th>
 											</tr>
 										</thead>
-										<tbody>
+										<tbody id="signup_tbody">
 											<c:forEach items="${cancel}" var="teacher">
 												<tr style="cursor: pointer;">
 													<td><c:out value="${teacher.user_no }" /></td>
@@ -260,6 +260,29 @@
 	            //location.reload();
 	            console.log(data);
 	            //self.close();
+
+	            $.each(data, function (index, item) {
+		            console.log(item);
+		            console.log(item.user_name);
+		            console.log(item.user_no);
+					$("#signup_tbody").empty();
+					
+		           /*  var str="<tr style='+cursor: pointer;+'>"
+					+"<td><c:out value='+item.user_no+' /></td>"
+					+"<td><c:out value='+item.user_name+' /></td>"
+					+"<td><c:out value='"+item.user_mobile+"' /></td>"
+					+"<td><div class='demo-checkbox'>"
+					+"<input type='checkbox' class='cancel_lc' id=<c:out value='"+item.user_no+"'/>"
+					+"value=<c:out value='"+item.user_no+"'/>"
+					+"class='chk-col-pink'>" 
+					+"<label for=<c:out value='"+item.user_no+"'/>>PINK</label>"
+					+"</div>"
+					+"</td>"
+					+"</tr>"; */
+						
+		            $("#signup_tbody").append(str);
+					
+				});
 	            
 	            
 	        },

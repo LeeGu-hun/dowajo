@@ -30,7 +30,7 @@ import lombok.extern.log4j.Log4j;
 @PreAuthorize("hasRole('ROLE_TEACHER')")
 public class TeacherController {
 	@Setter(onMethod_ = { @Autowired })
-	private LectureService lecureService;
+	private LectureService lectureService;
 
 	@Setter(onMethod_ = { @Autowired })
 	private TeacherService teacherService;
@@ -87,8 +87,8 @@ public class TeacherController {
 
 	@GetMapping("/lecture")
 	public void lecture(Model model) {
-		model.addAttribute("lectureInfo", lecureService.lectureInfo(1l));
-		model.addAttribute("lectureUser", lecureService.lectureUser(1l));
+		model.addAttribute("lectureInfo", lectureService.lectureInfo(1l));
+		model.addAttribute("lectureUser", lectureService.lectureUser(1l));
 	}
 	
 	@GetMapping({"/myPage", "/myPage_modify"})
