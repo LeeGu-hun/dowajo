@@ -144,93 +144,40 @@
 		]]>
 	</select>
 	
-	<select id="getlistTotal" resultType="int">
-		<![CDATA[ 
-		select count(*) from ds_user NATURAL join ds_auth where user_auth='ROLE_ADMIN' and
-		]]>
-		<include refid="criteria"></include>
-		<![CDATA[ 
-		user_no > 0
-		]]>
-	</select>
-
-
-	<select id="admin_List" resultType="com.ds.domain.UserVO">
-		<![CDATA[
-		select rn, user_no, user_name,user_id,user_depart
-		from (select rownum rn, u.user_no, u.user_name,u.user_id,u.user_depart from ds_user u, ds_auth a 
-		where a.user_no=u.user_no and a.user_auth = 'ROLE_ADMIN' and
-		]]>
-		
-		<include refid="criteria"></include>
-  
-		<![CDATA[
-		rownum<= #{pageNum} * #{amount}) 
-		where rn>(#{pageNum}-1)*#{amount} 
-		order by user_no 
-		]]>
-	</select>
 	
-	<select id="getlistTotal2" resultType="int">
-		<![CDATA[ 
-		select count(*) from ds_user NATURAL join ds_auth where user_auth='ROLE_TEACHER' and
-		]]>
-		<include refid="criteria"></include>
-		<![CDATA[ 
-		user_no > 0
-		]]>
-	</select>
-
-	<select id="teahcer_List" resultType="com.ds.domain.UserVO">
-		<![CDATA[
-		select rn, user_no, user_name,user_id,user_depart
-		from (select rownum rn, u.user_no, u.user_name,u.user_id,u.user_depart from ds_user u, ds_auth a 
-		where a.user_no=u.user_no and a.user_auth = 'ROLE_TEACHER' and
-		]]>
-
-		<include refid="criteria"></include>
-  
-		<![CDATA[
-		rownum<= #{pageNum} * #{amount})
-		where rn>(#{pageNum}-1)*#{amount}  
-		order by user_no
-		]]>
-	</select>
-	
-	<select id="getlistTotal3" resultType="int">
-		<![CDATA[ 
-		select count(*) from ds_user NATURAL join ds_auth where user_auth='ROLE_STUDENT' and
-		]]>
-		<include refid="criteria"></include>
-		<![CDATA[ 
-		user_no > 0
-		]]>
-	</select>
-	
-	<select id="student_List" resultType="com.ds.domain.UserVO">
-		<![CDATA[
-		select rn, user_no, user_name,user_id,user_depart
-		from (select rownum rn, u.user_no, u.user_name,u.user_id,u.user_depart from ds_user u, ds_auth a 
-		where a.user_no=u.user_no and a.user_auth = 'ROLE_STUDENT' and
-		]]>
-		
-		<include refid="criteria"></include>
-  
-		<![CDATA[
-		rownum<= #{pageNum} * #{amount}) 
-		where rn>(#{pageNum}-1)*#{amount} 
-		order by user_no 
-		]]>
-	</select>
 	
 	<select id="read" resultType="com.ds.domain.UserVO">
-		select * from ds_user where user_no =
-		#{user_no}
+		select USER_NO, USER_ID, USER_NAME,
+		USER_DEPART, USER_MOBILE, USER_EMAIL, USER_AUTH
+		from ds_user NATURAL
+		join ds_auth where user_no=#{user_no}
 	</select>
 	
 	<delete id="delete">
 		delete ds_user where user_no = #{user_no}
 	</delete>
+	
+	<select id="getUserTypeTotal" resultType="int">
+		<![CDATA[ 
+		select count(*) from ds_user NATURAL join ds_auth where user_auth=#{user_auth}     
+		]]>
+	</select>
+	
+	<select id="getUserTypeList" resultType="com.ds.domain.UserVO">
+		<![CDATA[
+		select rn, user_no, user_name,user_id,user_depart
+		from (select rownum rn, u.user_no, u.user_name,u.user_id,u.user_depart from ds_user u, ds_auth a 
+		where a.user_no=u.user_no and a.user_auth = #{user_auth} and
+		]]>
+
+		<include refid="criteria"></include>
+  
+		<![CDATA[
+		rownum<= #{pageNum} * #{amount}) 
+		where rn>(#{pageNum}-1)*#{amount} 
+		order by user_no 
+		]]>
+	</select>
 	
 	<select id="user_read" resultType="com.ds.domain.UserVO">
 		select * from ds_user where user_id = #{user_id} 

@@ -17,11 +17,11 @@
 					<div class="body">
 							<form role="form" action="/user/get" method="post">
 							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+							<input type='hidden' name='user_auth' value='<c:out value="${cri.user_auth }"/>'>
 							<input type='hidden' name='pageNum' value='<c:out value="${cri.pageNum }"/>'>
 							<input type='hidden' name='amount' value='<c:out value="${cri.amount }"/>'>
 	 						<input type='hidden' name='type' value='<c:out value="${cri.type }"/>'>
 							<input type='hidden' name='keyword' value='<c:out value="${cri.keyword }"/>'>						
-							<input type="hidden" name="_csrf" value="fc2ba2ba-9a81-4a14-914c-98f772bdd638">
 							<div class="msg">
 								<b>회원 정보</b>
 							</div>

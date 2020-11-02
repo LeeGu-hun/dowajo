@@ -74,40 +74,27 @@ public class AdminController {
 		return service.duplicateId(user_id);
 	}
 	
-	@GetMapping("/admin_list")
-	public void admin_list(Criteria cri, Model model) {
-		int total = service.getlistTotal(cri);
-		model.addAttribute("admin_list", service.admin_list(cri));
+	@GetMapping("/userTypeList")
+	public void userList(Criteria cri, String user_auth, Model model) {
+		int total = service.getUserTypeTotal(cri);
+		model.addAttribute("userTypeList", service.getUserTypeList(cri));
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
-	}
-	
-	@GetMapping("/teacher_list")
-	public void teacher_list(Criteria cri, Model model) {
-		int total = service.getlistTotal2(cri);
-		model.addAttribute("teacher_list", service.teacher_list(cri));
-		model.addAttribute("pageMaker", new PageDTO(cri, total));
-	}
-	
-	@GetMapping("/student_list")
-	public void student_list(Criteria cri, Model model) {
-		int total = service.getlistTotal3(cri);
-		model.addAttribute("student_list", service.student_list(cri));
-		model.addAttribute("pageMaker", new PageDTO(cri, total));
+		model.addAttribute("user_auth", user_auth);
 	}
 	
 	@GetMapping("/get")
 	public void get(@RequestParam("user_no") int user_no, Model model, @ModelAttribute("cri") Criteria cri) {
+		System.out.println("UserVO : "+service.get(user_no));
 		model.addAttribute("user", service.get(user_no));
 	}
 	
 	@PostMapping("/get")
 	public String modify(RedirectAttributes rttr,UserVO vo, @ModelAttribute("cri") Criteria cri) {
-		
+		rttr.addAttribute("user_auth", cri.getUser_auth());
 		rttr.addAttribute("pageNum", cri.getPageNum());
 		rttr.addAttribute("amount", cri.getAmount());
 		rttr.addAttribute("type", cri.getType());
 		rttr.addAttribute("keyword", cri.getKeyword());
-
 		return "redirect:/admin/get?user_no="+vo.getUser_no() ;
 	}
 	
@@ -115,21 +102,13 @@ public class AdminController {
 	
 	@PostMapping("/remove")
 	public String remove(@RequestParam("user_no") int user_no, RedirectAttributes rttr,@ModelAttribute("cri") Criteria cri) {
-		log.info("remove..." + user_no);
+		log.info("remove...cri" + user_no+"/"+cri);
 		
-		if (service.remove(user_no)) {
-			rttr.addFlashAttribute("result", "success");
-		}
-
-		int total = service.getlistTotal(cri);
-		if (total % 10 == 0) {
-			cri.setPageNum(cri.getPageNum() - 1);
-		}
-		
-		if (total == 0) {
-			cri.setPageNum(1);
-		}
-		return "redirect:/admin/admin_list"+cri.getListLink();
+		if (service.remove(user_no)) rttr.addFlashAttribute("result", "success");
+		int total = service.getUserTypeTotal(cri);
+		if (total % 10 == 0) cri.setPageNum(cri.getPageNum() - 1);
+		if (total == 0) cri.setPageNum(1);
+		return "redirect:/admin/userTypeList"+cri.getListLink();
 	}
 	
 	@GetMapping({"/myPage", "/myPage_modify"})

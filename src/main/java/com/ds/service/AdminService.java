@@ -20,14 +20,9 @@ public interface AdminService {
 	public List<QuestionsVO> getList2(Criteria cri);
 	public int getTotal2(Criteria cri);
 	
-	
-	public List<UserVO> admin_list(Criteria cri);
-	public List<UserVO> teacher_list(Criteria cri);
-	public List<UserVO> student_list(Criteria cri);
-	public int getlistTotal(Criteria cri);
-	public int getlistTotal2(Criteria cri);
-	public int getlistTotal3(Criteria cri);
-	
+	public int getUserTypeTotal(Criteria cri);
+	public List<UserVO> getUserTypeList(Criteria cri);
+
 	public UserVO get(int user_no);
 	public boolean remove(int user_no);
 	
