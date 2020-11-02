@@ -89,15 +89,7 @@ span[data-type=file] + span[data-type=image] {cursor:pointer;}
 								<div class="space-margin"></div>
 							</div>
 						</div>
-						<div class="form-group">
-							<label class="col-sm-2 control-label text-right">관리자 체크</label>
-							<div class="col-sm-10">
-								<label for="admin_user">관리자
-								<input type="checkbox" class="form-control" name="admin_user" 
-								id="admin_user"></label>
-								<div class="space-margin"></div>
-							</div>
-						</div>
+						
 
 						<div class="form-group">
 							<label class="col-sm-2 control-label text-right"> </label>
