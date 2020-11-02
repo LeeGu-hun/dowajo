@@ -42,11 +42,30 @@
 		select lecture_no,lecture_description,lecture_name from ds_lecture where
 		lecture_no in( select lecture_no from ds_class_list where user_no= 2)
 	</select>
+	<select id="regetlist_canecl" resultType="com.ds.domain.TeacherVO">
+		select u.user_no,u.user_name,u.user_mobile,l.class_status
+		from ds_user u
+		left outer join ds_class_list l on u.user_no = l.user_no
+		left outer join ds_auth a on u.user_no = a.user_no
+		left outer join ds_lecture d on l.lecture_no = d.lecture_no
+		where l.class_status='false' and a.user_auth = 'ROLE_STUDENT' and
+		d.lecture_no = #{lecture_no}
+	</select>
+		<select id="regetlist_sign_up" resultType="com.ds.domain.TeacherVO">
+		select u.user_no,u.user_name,u.user_mobile,l.class_status
+		from ds_user u
+		left outer join ds_class_list l on u.user_no = l.user_no
+		left outer join ds_auth a on u.user_no = a.user_no
+		left outer join ds_lecture d on l.lecture_no = d.lecture_no
+		where l.class_status='true' and a.user_auth = 'ROLE_STUDENT' and
+		d.lecture_no = #{lecture_no}
+	</select>
+	
 	<select id="call_no" resultType="com.ds.domain.TeacherVO">
 		select lecture_no from ds_lecture where lecture_no=#{lecture_no}
 	</select>
 	<select id="read_cancel" resultType="com.ds.domain.TeacherVO">
-		select u.user_no,u.user_name,u.user_mobile
+		select u.user_no,u.user_name,u.user_mobile,l.class_status
 		from ds_user u
 		left outer join ds_class_list l on u.user_no = l.user_no
 		left outer join ds_auth a on u.user_no = a.user_no
@@ -65,7 +84,7 @@
         </foreach>
 	</update>
 	<select id="read_sign_up" resultType="com.ds.domain.TeacherVO">
-		select u.user_no,u.user_name,u.user_mobile,l.lecture_no
+		select u.user_no,u.user_name,u.user_mobile,l.lecture_no,l.class_status
 		from ds_user u
 		left outer join ds_class_list l on u.user_no = l.user_no
 		left outer join ds_auth a on u.user_no = a.user_no
@@ -74,19 +93,29 @@
 		d.lecture_no = #{lecture_no}
 	</select>
 
+
+
+	<select id="getUserTypeList" resultType="com.ds.domain.TeacherVO">
+			<![CDATA[
+			select user_no, user_name,user_mobile
+			from (select u.user_no, u.user_name,u.user_mobile from ds_user u, ds_auth a 
+			where a.user_no=u.user_no and a.user_auth = #{user_auth} 
+			]]>
+	
+			<include refid="criteria"></include>
+	  
+			
+	</select>
 	<sql id="criteria">
 		<trim prefix="(" suffix=") AND " prefixOverrides="OR">
 			<foreach item='type' collection="typeArr">
 				<trim prefix="OR">
 					<choose>
 						<when test="type == 'T'.toString()">
-							title like '%'||#{keyword}||'%'
+							user_name like '%'||#{keyword}||'%'
 						</when>
-						<when test="type == 'C'.toString()">
-							content like '%'||#{keyword}||'%'
-						</when>
-						<when test="type == 'W'.toString()">
-							writer like '%'||#{keyword}||'%'
+						<when test="type == 'N'.toString()">
+							user_no like '%'||#{keyword}||'%'
 						</when>
 					</choose>
 				</trim>

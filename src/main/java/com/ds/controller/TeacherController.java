@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.ds.domain.Criteria;
 import com.ds.domain.TeacherVO;
 import com.ds.domain.UserVO;
 import com.ds.service.LectureService;
@@ -47,18 +48,23 @@ public class TeacherController {
 	}
 
 	@GetMapping("/teacher_check")
-	public void teacher_check(@RequestParam("lecture_no") int lecture_no, Model model) {
+	public void teacher_check(@RequestParam("lecture_no") int lecture_no, Criteria cri, Model model) {
 		List<TeacherVO> cancel = teacherService.cancel(lecture_no);// cri넣기
 		System.out.println("cancel : " + cancel);
 		model.addAttribute("cancel", cancel);
-
+	
 		List<TeacherVO> sign_up = teacherService.sign_up(lecture_no);// cri넣기
 		System.out.println("sign_up : " + sign_up);// get2 문자열에 써놓은게 mapper.xml에
 		model.addAttribute("sign_up", sign_up);// <c:forEach items="${get2}" var="teacher">동일해야함
 		model.addAttribute("lecture_no", lecture_no);
-		// List<TeacherVO> refresh = TeacherService.refresh();
+		
+		
+		model.addAttribute("teacher_check", teacherService.getUserTypeList(cri));
 	}
 
+	
+
+	
 	@PostMapping(value = "/joinup", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
 	public ResponseEntity<List<TeacherVO>> teacher_joinup(@RequestParam("lecture_no") int lecture_no,
 			@RequestParam("checkArr[]") String[] checkArr, Model model) {
@@ -66,6 +72,16 @@ public class TeacherController {
 		log.info("컨트롤러확인용:" + Arrays.toString(checkArr));
 
 		return new ResponseEntity(teacherService.refresh(checkArr, lecture_no), HttpStatus.OK);
+	}
+	@PostMapping(value = "/cancelclean", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
+	public ResponseEntity<List<TeacherVO>> cancelclean(@RequestParam("lecture_no") int lecture_no, Model model) {
+		log.info("컨트롤러확인용:" + lecture_no);
+		return new ResponseEntity(teacherService.regetlist_canecl(lecture_no), HttpStatus.OK);
+	}
+	@PostMapping(value = "/sign_up_clean", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
+	public ResponseEntity<List<TeacherVO>> sign_up_clean(@RequestParam("lecture_no") int lecture_no, Model model) {
+		log.info("컨트롤러확인용:" + lecture_no);
+		return new ResponseEntity(teacherService.regetlist_sign_up(lecture_no), HttpStatus.OK);
 	}
 	@PostMapping(value = "/cancel", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
 	public ResponseEntity<List<TeacherVO>> teacher_cancel(@RequestParam("lecture_no") int lecture_no,
