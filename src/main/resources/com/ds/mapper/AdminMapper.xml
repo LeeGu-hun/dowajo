@@ -74,6 +74,9 @@
 						<when test="type=='D'.toString()">
 							user_depart like '%'||#{keyword}||'%'
 						</when>
+						<when test="type=='Q'.toString()">
+							qa_title like '%'||#{keyword}||'%'
+						</when>
 					</choose>
 				</trim>
 			</foreach>
@@ -143,8 +146,6 @@
 		order by qa_no
 		]]>
 	</select>
-	
-	
 	
 	<select id="read" resultType="com.ds.domain.UserVO">
 		select USER_NO, USER_ID, USER_NAME,

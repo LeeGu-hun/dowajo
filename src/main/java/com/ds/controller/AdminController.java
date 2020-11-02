@@ -98,8 +98,6 @@ public class AdminController {
 		return "redirect:/admin/get?user_no="+vo.getUser_no() ;
 	}
 	
-	
-	
 	@PostMapping("/remove")
 	public String remove(@RequestParam("user_no") int user_no, RedirectAttributes rttr,@ModelAttribute("cri") Criteria cri) {
 		log.info("remove...cri" + user_no+"/"+cri);

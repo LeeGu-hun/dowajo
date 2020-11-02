@@ -28,6 +28,21 @@
 								<div id="DataTables_Table_1_wrapper"
 									class="dataTables_wrapper form-inline dt-bootstrap">
 									<div id="DataTables_Table_1_filter" class="dataTables_filter">
+										<form id='searchForm' action="/admin/userTypeList" method='get'>
+											<ul class='pagination'>
+											<select name='type'>
+											<option value="" <c:out value="${pageMaker.cri.type==null?'selected':'' }"/>>목록</option>
+											<option value="N" <c:out value="${pageMaker.cri.type eq 'N'?'selected':'' }"/>>아이디</option>
+											<option value="T" <c:out value="${pageMaker.cri.type eq 'T'?'selected':'' }"/>>이름</option>
+											<option value="D" <c:out value="${pageMaker.cri.type eq 'D'?'selected':'' }"/>>소속</option>											
+											</select> 
+											<input type='hidden' name='user_auth' value='${user_auth}'>
+											<input type="search" id="keyword" name="keyword" value='<c:out value="${pageMaker.cri.keyword}" />'/>
+											<input type='hidden' name='pageNum' value='<c:out value="${pageMaker.cri.pageNum}"/>'/>
+											<input type='hidden' name='amount' value='<c:out value="${pageMaker.cri.amount}"/>'/>			
+											<button class='btn btn-default'>Search</button>
+											</ul>
+										</form>
 									</div>
 									<table
 										class="table table-bordered table-striped table-hover dataTable js-exportable"
@@ -114,6 +129,22 @@ $(document).ready(function(){
 
 		actionForm.find("input[name='pageNum']").val($(this).attr("href"));
 		actionForm.submit();
+		});
+
+	$("#searchForm>button").on("click", function(e){
+		if(!searchForm.find("option:selected").val()){
+			alert("검색 종류를 선택하세요");
+			return false;
+			}
+		if(!searchForm.find("input[name='keyword']").val()){
+			alert("키워드를 입력하세요");
+			return false;
+			}
+
+		searchForm.find("input[name='pageNum']").val('1');
+		e.preventDefault();
+
+		searchForm.submit();
 		});
 
 	$('.move').on("click", function(e){
