@@ -22,5 +22,6 @@ public interface LectureMapper {
 	public List<FileVO> fileListAll(Long lecture_no);
 	
 	public void setAttend(AttendanceVO vo);
+	public List<AttendanceVO> viewAttend(@Param("lecture_no") Long lecture_no, @Param("user_id") String user_id);
 	
 }

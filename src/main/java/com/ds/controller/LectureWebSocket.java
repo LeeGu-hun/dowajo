@@ -185,7 +185,7 @@ public class LectureWebSocket {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setLong(1, lectureNo);
 			pstmt.setLong(2, userNo);
-			pstmt.setString(3, "absent");
+			pstmt.setString(3, "퇴실");
 			if(pstmt.executeUpdate()>0) {
 				System.out.println("렉쳐나간거완료");
 				conn.commit();

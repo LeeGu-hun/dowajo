@@ -32,6 +32,7 @@ public class LectureServiceImpl implements LectureService{
 	}
 	
 	
+	
 	@Override
 	public void fileState(boolean file_status, Long lecture_no) {
 		mapper.fileState(file_status, lecture_no);
@@ -62,10 +63,18 @@ public class LectureServiceImpl implements LectureService{
 		
 		return mapper.fileListAll(lecture_no);
 	}
+	
+	
+	
 	@Override
 	public void setAttend(AttendanceVO vo) {
 		mapper.setAttend(vo);
 		
+	}
+	@Override
+	public List<AttendanceVO> viewAttend(Long lecture_no, String user_id) {
+		
+		return mapper.viewAttend(lecture_no, user_id);
 	}
 	
 	

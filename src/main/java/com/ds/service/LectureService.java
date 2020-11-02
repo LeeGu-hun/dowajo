@@ -2,6 +2,8 @@ package com.ds.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.ds.domain.AttendanceVO;
 import com.ds.domain.FileVO;
 import com.ds.domain.LectureVO;
@@ -20,5 +22,6 @@ public interface LectureService {
 	public List<FileVO> fileListAll(Long lecture_no);
 	
 	public void setAttend(AttendanceVO vo);
+	public List<AttendanceVO> viewAttend(Long lecture_no, String user_id);
 
 }
