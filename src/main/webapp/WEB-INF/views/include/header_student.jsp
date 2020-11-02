@@ -225,7 +225,7 @@
                     </li>
                     
                     <li>
-                    	<a href="#">                    	
+                    	<a href="/student/suggestion">                    	
                     		<i class="material-icons">question_answer</i>
                     		<span>1:1 Q&A </span>
                     	</a>                    
