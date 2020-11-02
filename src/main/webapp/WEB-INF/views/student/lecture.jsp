@@ -394,7 +394,7 @@
 	function setAttendanceHistory() {
 		var userNo="<sec:authentication property='principal.user.user_no'/>";
 		var lectureNo="${lectureInfo.lecture_no}";
-		var attendState="attend";
+		var attendState="입실";
 
 		$.ajax({
 			url: '/attend/putAttendance',
@@ -412,40 +412,10 @@
 		
     }
     
-	function setAbsentHistory() {
-		var userNo="<sec:authentication property='principal.user.user_no'/>";
-		var lectureNo="${lectureInfo.lecture_no}";
-		var attendState="absent";
-
-		$.ajax({
-			url: '/attend/putAttendance',
-			beforeSend: function(xhr){
-				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-			},
-			data: {lecture_no:lectureNo, user_no:userNo, attendance_state:attendState},
-			type: 'POST',             
-            dataType: "text",
-			success: function(result){
-				console.log(result);
-				
-			}
-		});
-		
-    }
+	
     webSocket.onopen = function(){sendAttendence(); setAttendanceHistory();}
-    //webSocket.onclose = function(){setAbsentHistory(); alert("접속종료2")}
     
     
-	$(document).ready(function(){
-
-		window.onbeforeunload = function(event) {
-		    event.returnValue = "Write something clever here..";
-		    console.log("exit");
-		};
-		
-
-
-	});
 
 
 	

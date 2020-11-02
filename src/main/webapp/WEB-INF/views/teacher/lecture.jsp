@@ -6,7 +6,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
-
+<script src="https://momentjs.com/downloads/moment-with-locales.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/ko.js"></script>
 <section class="content" >
     <div class="container-fluid">
         <div class="block-header" id="height" >
@@ -127,6 +128,27 @@
             </div>
     
     
+    <div class="modal fade" id="attendanceModal" tabindex="-1" role="dialog" style="display: none;">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="attendanceModalLabel">개별 출석 확인</h4>
+                        </div>
+                        <div class="modal-body">
+                        	<div class="form-group">
+                               <div class="form-line" id="attendanceList">
+                               </div>
+                            </div>
+                        
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+    
     
     
     
@@ -157,6 +179,7 @@
 </script>
 <style>
 	#lecture_button td {text-align: center;}
+	#pop td{cursor:pointer;}
 </style>
 
 
@@ -406,6 +429,39 @@
     	
     });
 
+
+    
+    $(document).on('click','#pop td',function(){
+        var id=$(this).attr('id');
+		var lectureNo=${lectureInfo.lecture_no};
+		$(this).attr('data-toggle', 'modal')
+		$(this).attr('data-target', '#attendanceModal')
+		
+
+		$.ajax({
+			url: '/attend/viewAttendance',
+			beforeSend: function(xhr){
+				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+			},
+			data: {lectureNo:lectureNo, id:id},
+			type: 'POST',             
+            dataType: "json",
+			success: function(result){
+				$("#attendanceList").html("");
+				$("#attendanceList").append("<table id='attendanceTable' style='width:100%;'><tr><th>날짜</th><th>입/퇴실</th><th>시간</th></tr>");
+				$.each(result, function (index, item) {
+					var regdate=item.regdate;
+					var attendance_state=item.attendance_state;
+					$("#attendanceTable").append("<tr><td>"+moment(regdate).format('LL')+"</td><td>"+attendance_state+"</td><td>"+moment(regdate).format('LTS')+"</td></tr>");
+				});
+				
+				$("#attendanceList").append("</table>");
+				
+			}
+		});
+		
+    });
+
     
     function sendAttendence() {
 		var attendance={
@@ -432,8 +488,29 @@
 		webSocket.send(JSON.stringify(chkAttendance));
     }
     //checkAttendence();
+    
+    function setAttendanceHistory() {
+		var userNo="<sec:authentication property='principal.user.user_no'/>";
+		var lectureNo="${lectureInfo.lecture_no}";
+		var attendState="입실";
 
-    webSocket.onopen = function(){sendAttendence(); checkAttendence();}
+		$.ajax({
+			url: '/attend/putAttendance',
+			beforeSend: function(xhr){
+				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+			},
+			data: {lecture_no:lectureNo, user_no:userNo, attendance_state:attendState},
+			type: 'POST',             
+            dataType: "text",
+			success: function(result){
+				console.log(result);
+				
+			}
+		});
+		
+    }
+
+    webSocket.onopen = function(){sendAttendence(); checkAttendence(); setAttendanceHistory();}
 
     
 

@@ -57,6 +57,10 @@
 		insert into ds_attendance (LECTURE_NO, USER_NO, ATTENDANCE_STATE)
 		values (#{lecture_no}, #{user_no}, #{attendance_state})
 	</insert>
+	<select id="viewAttend" resultType="com.ds.domain.AttendanceVO">
+		select a.lecture_no, a.user_no, attendance_state, a.regdate, u.user_id from ds_attendance a, ds_user u 
+		where a.user_no=u.user_no and a.lecture_no=#{lecture_no} and u.user_id=#{user_id} order by regdate
+	</select>
 
 
 </mapper>
