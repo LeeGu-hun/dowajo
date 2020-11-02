@@ -325,16 +325,16 @@
                         </a>
                         <ul class="ml-menu">
                             <li>
-                                <a href="/admin/admin_list">관리자계정</a>
+                                <a href="/admin/userTypeList?user_auth=ROLE_ADMIN">관리자계정</a>
                             </li>
                             <li>
-                                <a href="/admin/teacher_list">강사계정</a>
+                                <a href="/admin/userTypeList?user_auth=ROLE_TEACHER">강사계정</a>
                             </li>
                             <li>
-                                <a href="/admin/student_list">학생계정</a>
+                                <a href="/admin/userTypeList?user_auth=ROLE_STUDENT">학생계정</a>
                             </li>
                         </ul>
-                    </li>                            
+                    </li>                                 
                     <li>
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">person_add</i>

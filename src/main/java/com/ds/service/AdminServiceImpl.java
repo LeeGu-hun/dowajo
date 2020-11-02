@@ -78,25 +78,7 @@ public class AdminServiceImpl implements AdminService{
 		return mapper.getTotalCount(cri);
 	}
 
-	@Override
-	public List<UserVO> admin_list(Criteria cri) {
-		return mapper.admin_List(cri);
-	}
 
-	@Override
-	public int getlistTotal(Criteria cri) {
-		return mapper.getlistTotal(cri);
-	}
-
-	@Override
-	public List<UserVO> teacher_list(Criteria cri) {
-		return mapper.teahcer_List(cri);
-	}
-
-	@Override
-	public List<UserVO> student_list(Criteria cri) {
-		return mapper.student_List(cri);
-	}
 
 	@Override
 	public UserVO get(int user_no) {
@@ -107,15 +89,15 @@ public class AdminServiceImpl implements AdminService{
 	public boolean remove(int user_no) {
 		return mapper.delete(user_no) == 1;
 	}
-
+	
 	@Override
-	public int getlistTotal2(Criteria cri) {
-		return mapper.getlistTotal2(cri);
+	public int getUserTypeTotal(Criteria cri) {
+		return mapper.getUserTypeTotal(cri);
 	}
 
 	@Override
-	public int getlistTotal3(Criteria cri) {
-		return mapper.getlistTotal3(cri);
+	public List<UserVO> getUserTypeList(Criteria cri) {
+		return mapper.getUserTypeList(cri);
 	}
 
 	@Override

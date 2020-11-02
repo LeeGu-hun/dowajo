@@ -16,6 +16,8 @@ public class Criteria {
 	
 	private String type;
 	private String keyword;
+	private String user_auth;
+
 
 	public Criteria() {
 		this(1, 10);
@@ -32,6 +34,7 @@ public class Criteria {
 	
 	public String getListLink() {
 		UriComponentsBuilder builder = UriComponentsBuilder.fromPath("")
+		.queryParam("user_auth", this.user_auth)
 		.queryParam("pageNum", this.pageNum)
 		.queryParam("amount", this.amount)
 		.queryParam("type", this.type)

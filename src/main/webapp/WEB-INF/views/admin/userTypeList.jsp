@@ -13,7 +13,15 @@
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="card">
 						<div class="header">
+						<c:if test="${user_auth eq 'ROLE_ADMIN'}">
+							<h2>관리자 계정관리</h2>
+						</c:if>
+						<c:if test="${user_auth eq 'ROLE_TEACHER'}">
+							<h2>강사 계정관리</h2>
+						</c:if>
+						<c:if test="${user_auth eq 'ROLE_STUDENT'}">
 							<h2>학생 계정관리</h2>
+						</c:if>
 						</div>
 						<div class="body">
 							<div class="table-responsive">
@@ -48,7 +56,7 @@
 											</tr>
 										</thead>
 										<tbody>
-											<c:forEach items="${student_list}" var="user">
+											<c:forEach items="${userTypeList}" var="user">
 												<tr role="row" class="odd">
 												<td><c:out value="${user.user_no }" /></td>
 												<td><a class="move" href="${user.user_no}"><c:out
@@ -87,7 +95,8 @@
     </div>
 </section>
 
-<form id='actionForm' action="/admin/student_list" method='get'>
+<form id='actionForm' action="/admin/userTypeList" method='get'>
+	<input type='hidden' name='user_auth' value='${user_auth}'>
 	<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
 	<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
 	<input type='hidden' name='type' value='${pageMaker.cri.type}'>
@@ -105,8 +114,8 @@ $(document).ready(function(){
 
 		actionForm.find("input[name='pageNum']").val($(this).attr("href"));
 		actionForm.submit();
-		});	
-	
+		});
+
 	$('.move').on("click", function(e){
 		e.preventDefault();
 		console.log("move click");
@@ -115,7 +124,6 @@ $(document).ready(function(){
 		$('#actionForm').attr("action","/admin/get");
 		$('#actionForm').submit();
 	});	
-	
 });
 </script>
 
