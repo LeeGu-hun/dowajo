@@ -12,7 +12,7 @@ public interface StudentService {
 	
 	public List<LectureVO> lectureList(Long user_no);
 	public List<LectureVO> lectureConfirmList(Long user_no);
-	public List<LectureVO> lectureAllList(Criteria cri);
+	public List<LectureVO> lectureAllList(Criteria cri, Long user_no);
 	public List<LectureVO> lectureInfo(Long lecture_no);
 	
 	public int getTotal(Criteria cri);

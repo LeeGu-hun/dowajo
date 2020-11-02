@@ -220,7 +220,7 @@
                     </li>
                     
                     <li>
-                    	<a href="/student/lectureSearch">                    	
+                    	<a href="/student/lectureSearch" id="leSe">                    	
                     		<i class="material-icons">search</i>
                     		<span>강의실 찾기</span>
                     	</a>                    
@@ -420,7 +420,11 @@
 	<input type="hidden"name="${_csrf.parameterName}"value="${_csrf.token}"/>
 </form>
 	
-<form action="/student/lecturelist" method='get' id="shootuserNo">
+<form action="/student/lecturelist" method='get' id="shootuserNO">
+	<input type='hidden' name='user_no' value='<sec:authentication property="principal.user.user_no"/>'>	
+</form>
+
+<form action="/student/lectureSearch" method='get' id="shootUNCR">
 	<input type='hidden' name='user_no' value='<sec:authentication property="principal.user.user_no"/>'>
 </form>
 
@@ -433,7 +437,12 @@
 
 		$('#leLi').on("click", function(e){
 			e.preventDefault();
-			$('#shootuserNo').submit();
+			$('#shootuserNO').submit();
+		});
+
+		$('#leSe').on("click", function(e){
+			e.preventDefault();
+			$('#shootUNCR').submit();
 		});
 	});
 </script>

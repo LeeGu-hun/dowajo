@@ -12,7 +12,7 @@ import com.ds.domain.UserVO;
 public interface StudentMapper {
 	public List<LectureVO> lectureList(Long user_no);
 	public List<LectureVO> lectureConfirmList(Long user_no);
-	public List<LectureVO> lectureAllList(Criteria cri);
+	public List<LectureVO> lectureAllList(@Param("cri")Criteria cri, @Param("user_no")Long user_no);
 	public List<LectureVO> lectureInfo(Long lecture_no);
 	
 	public int getTotalCount(Criteria cri);	

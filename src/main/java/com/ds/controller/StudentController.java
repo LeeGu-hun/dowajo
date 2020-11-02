@@ -61,15 +61,15 @@ public class StudentController {
 	
 	
 	@GetMapping("/lectureSearch")
-	public void lectureSearch(Criteria cri, Model model) {
+	public void lectureSearch(Criteria cri, Model model, @RequestParam("user_no")Long user_no) {
 		int total=studentService.getTotal(cri);
-		List<LectureVO> list = studentService.lectureAllList(cri);		
+		List<LectureVO> list = studentService.lectureAllList(cri, user_no);		
 		model.addAttribute("leAL", list);
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
 	}
 
 	@GetMapping("/lectureInfo")
-	public void lectureInfo(@RequestParam("lecture_no")Long lecture_no, Model model, @ModelAttribute("cri") Criteria cri) {
+	public void lectureInfo(@RequestParam("lecture_no")Long lecture_no, Model model) {
 		List<LectureVO> list = studentService.lectureInfo(lecture_no);
 		LectureVO vo = (LectureVO) list.get(0);		
 		model.addAttribute("leIn", vo);
