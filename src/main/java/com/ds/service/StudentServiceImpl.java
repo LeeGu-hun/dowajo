@@ -31,10 +31,9 @@ public class StudentServiceImpl implements StudentService{
 	}
 	
 	@Override
-	public List<LectureVO> lectureAllList(Criteria cri, Long user_no){
+	public List<LectureVO> lectureAllList(Criteria cri){
 		log.info("impl크리체크.........."+cri);
-		log.info("impl유저넘버체크..............."+user_no);
-		return mapper.lectureAllList(cri, user_no);		
+		return mapper.lectureAllList(cri);		
 	}
 	
 	@Override

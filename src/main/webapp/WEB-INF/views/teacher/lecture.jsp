@@ -6,6 +6,18 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
+
+	<!-- Bootstrap Material Datetime Picker Css -->
+    <link href="/resources/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet" />
+
+    <!-- Wait Me Css -->
+    <link href="/resources/plugins/waitme/waitMe.css" rel="stylesheet" />
+
+    <!-- Bootstrap Select Css -->
+    <link href="/resources/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
+
+
+
 <script src="https://momentjs.com/downloads/moment-with-locales.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/ko.js"></script>
 <section class="content" >
@@ -149,8 +161,10 @@
             </div>
     
     
-    
-    
+<input type="text" class="datetimepicker form-control" placeholder="Please choose date & time...">
+
+<input id='mydate' type="date" >
+<input id='mytime' type="time">
     
     <form id='receiveFile' action="/file/download" method='post'>
     	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
@@ -462,6 +476,25 @@
 		
     });
 
+    $("#mydate").on("change", function(e){
+        console.log($("#mydate").val());
+
+        console.log("값 : "+$(".datetimepicker").val());
+        console.log("월 : "+$(".dtp-picker-month").html());
+        console.log("일 : "+$(".dtp-select-day.selected").html());
+        console.log("시간 : "+$(".dtp-actual-time").html());
+    });
+    $("#mytime").on("change", function(e){
+        console.log($("#mytime").val());
+    });
+    
+    $(document).on('change','.datetimepicker',function(){
+        console.log("test");
+        console.log("값 : "+$(".datetimepicker").val());
+        console.log("월 : "+$(".dtp-picker-month").html());
+        console.log("일 : "+$(".dtp-select-day selected").html());
+        console.log("시간 : "+$(".dtp-actual-time").html());
+    });
     
     function sendAttendence() {
 		var attendance={
@@ -516,5 +549,7 @@
 
     
 </script>
+
+
 
 <%@ include file="/WEB-INF/views/include/footer_teacher.jsp" %>

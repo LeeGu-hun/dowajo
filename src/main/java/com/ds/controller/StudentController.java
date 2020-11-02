@@ -63,7 +63,8 @@ public class StudentController {
 	@GetMapping("/lectureSearch")
 	public void lectureSearch(Criteria cri, Model model, @RequestParam("user_no")Long user_no) {
 		int total=studentService.getTotal(cri);
-		List<LectureVO> list = studentService.lectureAllList(cri, user_no);		
+		cri.setUser_no(user_no);
+		List<LectureVO> list = studentService.lectureAllList(cri);		
 		model.addAttribute("leAL", list);
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
 	}

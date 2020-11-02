@@ -20,8 +20,18 @@
     <!-- Waves Effect Plugin Js -->
     <script src="/resources/plugins/node-waves/waves.js"></script>
 
+    <!-- Autosize Plugin Js -->
+    <script src="/resources/plugins/autosize/autosize.js"></script>
+
+    <!-- Moment Plugin Js -->
+    <script src="/resources/plugins/momentjs/moment.js"></script>
+
+    <!-- Bootstrap Material Datetime Picker Plugin Js -->
+    <script src="/resources/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+
     <!-- Custom Js -->
     <script src="/resources/js/admin.js"></script>
+    <script src="/resources/js/pages/forms/basic-form-elements.js"></script>
 
     <!-- Demo Js -->
     <script src="/resources/js/demo.js"></script>

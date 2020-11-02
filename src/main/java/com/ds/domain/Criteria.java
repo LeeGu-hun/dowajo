@@ -17,7 +17,7 @@ public class Criteria {
 	private String type;
 	private String keyword;
 	private String user_auth;
-
+	private Long user_no;
 
 	public Criteria() {
 		this(1, 10);
@@ -29,7 +29,7 @@ public class Criteria {
 	}
 	
 	public String[] getTypeArr() {
-		return type == null?new String[] {}:type.split("");
+		return type == null? new String[] {}:type.split("");
 	}
 	
 	public String getListLink() {

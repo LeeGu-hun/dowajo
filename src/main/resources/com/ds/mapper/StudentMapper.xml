@@ -60,7 +60,7 @@
 
 	<select id="lectureAllList" resultType="com.ds.domain.LectureVO">
 		<![CDATA[
-		select lecture_no, lecture_name, lecture_afreecaid 
+		select lecture_no, lecture_name, lecture_afreecaid from
 		(select rownum rn, l.lecture_no, l.lecture_name, l.lecture_afreecaid
 		from ds_lecture l join ds_class_list c
 		on l.lecture_no=c.lecture_no where
