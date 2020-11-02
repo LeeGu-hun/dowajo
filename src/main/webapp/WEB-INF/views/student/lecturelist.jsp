@@ -8,6 +8,7 @@
 	prefix="sec"%>
 
 <section class="content">
+<a href='./lecture'>강의 화면으로</a><br>
 	<h3>수강할 수 있는 강의 목록</h3>
 	<br>	
 	<div id="container">
@@ -25,7 +26,8 @@
 					<c:forEach items="${leCo}" var="leco">
 						<tr>
 							<td><c:out value="${leco.lecture_no }" /></td>
-							<td><c:out value="${leco.lecture_name }" /></td>
+							<td><a class="move" href="${leco.lecture_no }">
+							<c:out value="${leco.lecture_name }" /></a></td>
 							<td><c:out value="${leco.lecture_afreecaid }" /></td>
 						</tr>
 					</c:forEach>
@@ -64,9 +66,7 @@
 	
 </section>
 
-<form id='actionForm' action="/student/lecturelist" method='get'>
-	<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
-	<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>	
+<form id='actionForm' action="/student/lecturelist" method='get'>	
 	<input type='hidden' name='user_no' value='<sec:authentication property="principal.user.user_no"/>'> 
 </form>
 
@@ -76,6 +76,16 @@ $(document).ready(function(){
 	if (result) {
 		alert("신청이 완료되었습니다.");
 	}
+
+	$('.move').on("click", function(e){
+
+		e.preventDefault();
+		
+		$("#actionForm").append("<input type='hidden' name='lecture_no' value='"+$(this).attr("href")+"' />");
+		$("#actionForm").attr("action", "/student/lecture");
+		$("#actionForm").submit();
+		});
+	
 });
 </script>
 

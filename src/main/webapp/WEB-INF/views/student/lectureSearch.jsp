@@ -24,7 +24,8 @@
     </div>				       
 		<input type="search" id="keyword" name="keyword" value='<c:out value="${pageMaker.cri.keyword}" />'/>
 		<input type='hidden' name='pageNum' value='<c:out value="${pageMaker.cri.pageNum}"/>'/>
-		<input type='hidden' name='amount' value='<c:out value="${pageMaker.cri.amount}"/>'/>			
+		<input type='hidden' name='amount' value='<c:out value="${pageMaker.cri.amount}"/>'/>	
+		<input type='hidden' name='user_no' value='<sec:authentication property="principal.user.user_no"/>'>		
 		<button class='btn btn-default'>Search</button>
 	</form>
 	</div>
@@ -79,7 +80,7 @@
 	<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
 	<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
 	<input type='hidden' name='type' value='${pageMaker.cri.type}'>
-	<input type='hidden' name='keyword' value='${pageMaker.cri.keyword}'>
+	<input type='hidden' name='keyword' value='${pageMaker.cri.keyword}'>		
 </form>
 
 <script type="text/javascript">
@@ -87,10 +88,6 @@ $(document).ready(function(){
 	var actionForm = $("#actionForm");
 	var searchForm = $("#searchForm");
 
-	var result = '<c:out value="${result}"/>';	
-	if (result) {
-		alert("이미 신청한 강의입니다.");
-	}
 	
 	$(".paginate_button a").on("click", function(e){
 		e.preventDefault();

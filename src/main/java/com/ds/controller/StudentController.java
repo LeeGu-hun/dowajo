@@ -48,8 +48,8 @@ public class StudentController {
 	}
 	
 	@GetMapping("/lecture")
-	public void lecture(Model model) {
-		model.addAttribute("lectureInfo", lecureService.lectureInfo(1l));
+	public void lecture(@RequestParam("lecture_no")Long lecture_no, Model model) {
+		model.addAttribute("lectureInfo", lecureService.lectureInfo(lecture_no));
 	}
 	
 	@GetMapping("/lecturelist")	
@@ -87,7 +87,8 @@ public class StudentController {
 		int result = studentService.applyDuplicated(user_no, lecture_no);
 		if(result !=0) {
 			log.info("이미 신청한 강의입니다.");
-			rttr.addFlashAttribute("result", "fail");			
+			rttr.addFlashAttribute("result", "fail");
+			rttr.addAttribute("user_no", user_no);
 			return "redirect:/student/lectureSearch";					
 		} else { 
 		studentService.applyClass(vo);		

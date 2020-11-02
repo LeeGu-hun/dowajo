@@ -424,7 +424,7 @@
 	<input type='hidden' name='user_no' value='<sec:authentication property="principal.user.user_no"/>'>	
 </form>
 
-<form action="/student/lectureSearch" method='get' id="shootUNCR">
+<form action="/student/lectureSearch" method='get' id="shootUN">
 	<input type='hidden' name='user_no' value='<sec:authentication property="principal.user.user_no"/>'>
 </form>
 
@@ -442,7 +442,7 @@
 
 		$('#leSe').on("click", function(e){
 			e.preventDefault();
-			$('#shootUNCR').submit();
+			$('#shootUN').submit();
 		});
 	});
 </script>
