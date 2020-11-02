@@ -16,8 +16,8 @@
 			<table class="table table-condensed">
 				<thead>
 					<tr>
-						<th>#</th>
-						<th>강의실명</th>
+						<th>강의실 번호</th>
+						<th>강의실 제목</th>
 						<th>선생님 이름</th>
 					</tr>
 				</thead>
@@ -35,7 +35,7 @@
 	</div>
 
 
-	<h3>수강신청한 강의 목록</h3>
+	<h3>수강신청중인 강의 목록</h3>
 	<br>
 	<div id="container">
 		<div id="list"
@@ -43,8 +43,8 @@
 			<table class="table table-condensed">
 				<thead>
 					<tr>
-						<th>#</th>
-						<th>강의실명</th>
+						<th>강의실 번호</th>
+						<th>강의실 제목</th>
 						<th>선생님 이름</th>
 					</tr>
 				</thead>

@@ -7,24 +7,28 @@
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
 
+
+
+
 <section class="content">
 	<label><h3>강의실 찾기</h3></label><br>
-	<div id="container">
-	<div class="row">
+	<div id="container">	                                
 	<form id='searchForm' action="/student/lectureSearch" method='get'>
-		<select name='type'>
-		<option value="" <c:out value="${pageMaker.cri.type==null?'selected':'' }"/>>검색항목</option>
-		<option value="N" <c:out value="${pageMaker.cri.type eq 'N'?'selected':'' }"/>>강의제목</option>
-		<option value="T" <c:out value="${pageMaker.cri.type eq 'T'?'selected':'' }"/>>선생님 아이디</option>										
-		<option value="NT" <c:out value="${pageMaker.cri.type eq 'NT'?'selected':'' }"/>>강의 제목  or 선생님 아이디</option>
-		</select> 
+	 <div class="col-sm-6">
+          <select class="form-control show-tick" name='type'>
+             <option value="" <c:out value="${pageMaker.cri.type==null?'selected':'' }"/>>검색항목</option>
+					<option value="N" <c:out value="${pageMaker.cri.type eq 'N'?'selected':'' }"/>>강의제목</option>
+					<option value="T" <c:out value="${pageMaker.cri.type eq 'T'?'selected':'' }"/>>선생님 아이디</option>										
+					<option value="NT" <c:out value="${pageMaker.cri.type eq 'NT'?'selected':'' }"/>>강의 제목  or 선생님 아이디</option>
+          </select>
+    </div>				       
 		<input type="search" id="keyword" name="keyword" value='<c:out value="${pageMaker.cri.keyword}" />'/>
 		<input type='hidden' name='pageNum' value='<c:out value="${pageMaker.cri.pageNum}"/>'/>
 		<input type='hidden' name='amount' value='<c:out value="${pageMaker.cri.amount}"/>'/>			
 		<button class='btn btn-default'>Search</button>
 	</form>
 	</div>
-	</div>
+	
 	<h3>강의실 목록</h3>
 	<br>
 	<div id="container">
@@ -32,8 +36,8 @@
 			<table class="table table-condensed">
 				<thead>
 					<tr>
-						<th>#</th>
-						<th>강의실명</th>
+						<th>강의실 번호</th>
+						<th>강의실 제목</th>
 						<th>선생님 이름</th>
 					</tr>
 				</thead>

@@ -25,6 +25,15 @@
 
     <!-- Animation Css -->
     <link href="/resources/plugins/animate-css/animate.css" rel="stylesheet" />
+    
+     <!-- Bootstrap Material Datetime Picker Css -->
+    <link href="/resources/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet" />
+
+    <!-- Wait Me Css -->
+    <link href="/resources/plugins/waitme/waitMe.css" rel="stylesheet" />
+
+    <!-- Bootstrap Select Css -->
+    <link href="/resources/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
 
     <!-- Custom Css -->
     <link href="/resources/css/style.css" rel="stylesheet">

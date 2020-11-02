@@ -39,7 +39,7 @@
 	</sql>
 	<select id="lectureConfirmList"
 		resultType="com.ds.domain.LectureVO">
-		select distinct l.lecture_no lecture_no, l.lecture_name lecture_name,
+		select l.lecture_no lecture_no, l.lecture_name lecture_name,
 		l.lecture_afreecaid lecture_afreecaid from ds_lecture l inner join
 		ds_class_list c
 		on l.lecture_no=c.lecture_no
@@ -49,11 +49,12 @@
 	</select>
 
 	<select id="lectureList" resultType="com.ds.domain.LectureVO">
-		select distinct l.lecture_no lecture_no, l.lecture_name lecture_name,
+		select l.lecture_no lecture_no, l.lecture_name lecture_name,
 		l.lecture_afreecaid lecture_afreecaid from ds_lecture l inner join
 		ds_class_list c
 		on l.lecture_no=c.lecture_no
 		where user_no=#{user_no}
+		and c.class_status='false'
 		order by lecture_no
 	</select>
 
@@ -67,7 +68,8 @@
   
 		<![CDATA[
 		rownum<= #{pageNum} * #{amount})
-		where rn>(#{pageNum}-1)*#{amount}  
+		where rn>(#{pageNum}-1)*#{amount}
+		and   
 		order by lecture_no
 		]]>
 	</select>
