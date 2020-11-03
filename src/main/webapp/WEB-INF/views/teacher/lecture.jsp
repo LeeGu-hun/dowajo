@@ -38,6 +38,7 @@
         					</td>
         					<td style="width:500px;">
         						<button type="button" class="btn btn-primary waves-effect" id="chkHomework">과제제출 보내기</button>
+        						<button style="display:none;" type="button" class="btn btn-primary waves-effect" id="setDeadline" data-toggle="modal" data-target="#file_deadline">과제마감일 등록</button>
         					</td>
         				</tr>
         				<tr style="height:10px;"></tr>
@@ -46,7 +47,7 @@
         						<button style="display:none;" type="button" class="btn btn-success waves-effect" id="clsProgress">수행여부 확인종료</button>
         					</td>
         					<td style="width:500px;">
-        						<button style="display:none;" type="button" class="btn btn-success waves-effect" id="clsHomework">학생 과제 받기</button>
+        						<button style="display:none;" type="button" class="btn btn-success waves-effect" id="clsHomework">학생 과제 받기(과제마감됨)</button>
         						<button style="display:none;" type="button" class="btn btn-success waves-effect" id="chkHomeworkStudent" data-toggle="modal" data-target="#defaultModal">과제 제출 확인</button>
         					</td>
         				</tr>
@@ -128,9 +129,9 @@
                         <div class="modal-body">
                         	<div class="form-group">
                                <div class="form-line" id="findHomworkStudent">
+                               		
                                </div>
                             </div>
-                        
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
@@ -149,9 +150,9 @@
                         <div class="modal-body">
                         	<div class="form-group">
                                <div class="form-line" id="attendanceList">
+                               		
                                </div>
                             </div>
-                        
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
@@ -159,12 +160,30 @@
                     </div>
                 </div>
             </div>
+            
+            
+    <div class="modal fade" id="file_deadline" tabindex="-1" role="dialog" style="display: none;">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="attendanceModalLabel">과제 제출 마감일 설정</h4>
+                        </div>
+                        <div class="modal-body">
+                        	<div class="form-group">
+                               <div class="form-line">
+                               		<input type="text" class="datetimepicker form-control" placeholder="Please choose date & time...">
+                               </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                       		<button type="button" class="btn btn-link waves-effect" id="btn_setDeadline">마감일 설정</button>
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
     
     
-<input type="text" class="datetimepicker form-control" placeholder="Please choose date & time...">
-
-<input id='mydate' type="date" >
-<input id='mytime' type="time">
     
     <form id='receiveFile' action="/file/download" method='post'>
     	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
@@ -188,6 +207,7 @@
 	if(${lectureInfo.file_status}==true){
 		$("#clsHomework").fadeIn(300);
 		$("#chkHomeworkStudent").fadeIn(300);
+		$("#setDeadline").fadeIn(300);
 	}
 
 </script>
@@ -341,6 +361,7 @@
     	webSocket.send(JSON.stringify(chkHomework));
     	$("#clsHomework").fadeIn(300);
     	$("#chkHomeworkStudent").fadeIn(300);
+    	$("#setDeadline").fadeIn(300);
 
 
     	$.ajax({
@@ -372,6 +393,7 @@
     	
     	$("#clsHomework").fadeOut(300);
     	$("#chkHomeworkStudent").fadeOut(300);
+    	$("#setDeadline").fadeOut(300);
 
 
     	$.ajax({
@@ -476,25 +498,49 @@
 		
     });
 
-    $("#mydate").on("change", function(e){
-        console.log($("#mydate").val());
+    $("#btn_setDeadline").on("click", function(e){
+        if($(".datetimepicker").val()==""){
+            alert("날짜를 입력하세요");
+        }
+        else{
+            var month_year=$(".dtp-picker-month").html();
+            var time=$(".dtp-actual-time").html();
+            
+            var year=month_year.substring(3);
+            var month=month_year.substring(0, month_year.length-5);
+            var day=$(".dtp-select-day.selected").html();
+            var hour=time.substring(0, 2);
+            var min=time.substring(3);
 
-        console.log("값 : "+$(".datetimepicker").val());
-        console.log("월 : "+$(".dtp-picker-month").html());
-        console.log("일 : "+$(".dtp-select-day.selected").html());
-        console.log("시간 : "+$(".dtp-actual-time").html());
-    });
-    $("#mytime").on("change", function(e){
-        console.log($("#mytime").val());
+            var date = year+"-"+month+"-"+day+" "+time+":00.0";
+
+            var lectureNo=${lectureInfo.lecture_no};
+
+        	console.log("값 : "+$(".datetimepicker").val());
+        	console.log("date : "+date);
+
+
+        	$.ajax({
+    			url: '/file/setDeadline',
+    			beforeSend: function(xhr){
+    				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+    			},
+    			data: {date:date, lectureNo:lectureNo},
+    			type: 'POST',             
+                dataType: "text",
+    			success: function(result){
+        			alert(result+"로 과제마감기간이 설정되었습니다.")
+    				
+    				
+    			}
+    		});
+
+        	
+        }
+
+        
     });
     
-    $(document).on('change','.datetimepicker',function(){
-        console.log("test");
-        console.log("값 : "+$(".datetimepicker").val());
-        console.log("월 : "+$(".dtp-picker-month").html());
-        console.log("일 : "+$(".dtp-select-day selected").html());
-        console.log("시간 : "+$(".dtp-actual-time").html());
-    });
     
     function sendAttendence() {
 		var attendance={

@@ -1,5 +1,6 @@
 package com.ds.mapper;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -23,5 +24,7 @@ public interface LectureMapper {
 	
 	public void setAttend(AttendanceVO vo);
 	public List<AttendanceVO> viewAttend(@Param("lecture_no") Long lecture_no, @Param("user_id") String user_id);
+	
+	public void setFileDeadline(@Param("file_deadline") Date file_deadline, @Param("lecture_no") Long lecture_no);
 	
 }

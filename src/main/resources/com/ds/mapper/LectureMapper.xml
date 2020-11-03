@@ -61,6 +61,11 @@
 		select a.lecture_no, a.user_no, attendance_state, a.regdate, u.user_id from ds_attendance a, ds_user u 
 		where a.user_no=u.user_no and a.lecture_no=#{lecture_no} and u.user_id=#{user_id} order by regdate
 	</select>
+	
+	
+	<update id="setFileDeadline">
+		update ds_lecture set file_deadline = #{file_deadline} where lecture_no = #{lecture_no}
+	</update>
 
 
 </mapper>

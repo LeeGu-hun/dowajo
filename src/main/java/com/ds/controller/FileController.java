@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
@@ -12,6 +13,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
@@ -108,7 +111,7 @@ public class FileController {
 	
 	@PostMapping(value = "/download", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
 	@ResponseBody
-	public ResponseEntity<Resource> downloadFile(@RequestParam("fileName") String[] fileName, @RequestParam("lectureNo") String lectureNo) throws IOException {
+	public ResponseEntity<Resource> downloadFile(@RequestParam("fileName") String[] fileName, @RequestParam("lectureNo") String lectureNo, HttpServletResponse response) throws IOException {
 		
 		/////////////////////////////////////////////////파일삭제 시작
 		
@@ -186,7 +189,13 @@ public class FileController {
 		//sourceFiles.add("C:/upload/1/dream02.png");
 		FileOutputStream fout = new FileOutputStream(zipFile);
 	    ZipOutputStream zout = new ZipOutputStream(fout);
-
+	    if (sourceFiles.size() == 0) {
+	    	response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('과제 제출학생이 없습니다.'); location.href='/teacher/lecture?lecture_no="+lectureNo+"';</script>");
+			out.flush();
+			return null;
+		}
 	    for(int i=0; i < sourceFiles.size(); i++){
 	    	String sourceName=new File(sourceFiles.get(i)).getName();
 	    	int idx = sourceName.indexOf("_");
@@ -293,6 +302,19 @@ public class FileController {
 		
 		
 		return result;
+	}
+	
+	@PostMapping(value="/setDeadline", produces = "application/text; charset=utf8")
+	@ResponseBody
+	public String setDeadline(String date, Long lectureNo) {
+		
+		log.info("date: " + date);
+		
+		java.sql.Timestamp t = java.sql.Timestamp.valueOf(date);
+		System.out.println("sqldate타입 : "+t);
+		lectureService.setFileDeadline(t, lectureNo);
+		
+		return t.toString();
 	}
 	
 

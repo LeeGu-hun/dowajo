@@ -52,6 +52,7 @@
 		
 		
 		<task:annotation-driven/>
+		<context:component-scan base-package="com.ds.controller"></context:component-scan>
 		<context:component-scan base-package="com.ds.task"></context:component-scan>
 		
 		

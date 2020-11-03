@@ -1,5 +1,6 @@
 package com.ds.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -23,5 +24,7 @@ public interface LectureService {
 	
 	public void setAttend(AttendanceVO vo);
 	public List<AttendanceVO> viewAttend(Long lecture_no, String user_id);
+	
+	public void setFileDeadline(Date file_deadline, Long lecture_no);
 
 }

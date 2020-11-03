@@ -1,5 +1,6 @@
 package com.ds.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -78,6 +79,12 @@ public class LectureServiceImpl implements LectureService{
 	}
 	
 	
+	
+	@Override
+	public void setFileDeadline(Date file_deadline, Long lecture_no) {
+		mapper.setFileDeadline(file_deadline, lecture_no);
+		
+	}
 	
 	
 	
