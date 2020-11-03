@@ -15,5 +15,6 @@ public class LectureVO {
 	private Date regdate;
 	private List<ClassListVO> classList;
 	private boolean file_status;
+	private String user_name;
 	
 }

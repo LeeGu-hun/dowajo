@@ -76,27 +76,18 @@ public class StudentController {
 		model.addAttribute("leIn", vo);
 	}
 	
-	@PostMapping("/lectureInfo")
-	@Transactional
+	@PostMapping("/lectureInfo")	
 	public String lectureInfo(@RequestParam("lecture_no")Long lecture_no,
 			@RequestParam("user_no")Long user_no, RedirectAttributes rttr) {		
 		ClassListVO vo = new ClassListVO();		
 		vo.setLecture_no(lecture_no);
-		vo.setUser_no(user_no);
-		
-		int result = studentService.applyDuplicated(user_no, lecture_no);
-		if(result !=0) {
-			log.info("이미 신청한 강의입니다.");
-			rttr.addFlashAttribute("result", "fail");
-			rttr.addAttribute("user_no", user_no);
-			return "redirect:/student/lectureSearch";					
-		} else { 
+		vo.setUser_no(user_no);		 
 		studentService.applyClass(vo);		
 		rttr.addFlashAttribute("result", "success");
 		rttr.addAttribute("user_no", user_no);
 		return "redirect:/student/lecturelist";
 		}
-	}	
+		
 	
 	@GetMapping({"/myPage", "/myPage_modify"})
 	public void getUser(@RequestParam("user_id") String user_id, Model model){
