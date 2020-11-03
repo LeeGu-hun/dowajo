@@ -234,7 +234,7 @@
                     </li>
                     
                     <li>
-                    	<a href="/student/suggestion">                    	
+                    	<a href="/student/QnA_list" id="QnA">                    	
                     		<i class="material-icons">question_answer</i>
                     		<span>1:1 Q&A </span>
                     	</a>                    
@@ -428,6 +428,10 @@
 	<input type='hidden' name='user_no' value='<sec:authentication property="principal.user.user_no"/>'>
 </form>
 
+<form action="/student/QnA_list" method='get' id="shootUNo">
+	<input type='hidden' name='user_no' value='<sec:authentication property="principal.user.user_no"/>'>
+</form>
+
 <script>
 	$(document).ready(function(){
 		$('#logout').on("click", function(e){
@@ -443,6 +447,11 @@
 		$('#leSe').on("click", function(e){
 			e.preventDefault();
 			$('#shootUN').submit();
+		});
+
+		$('#QnA').on("click", function(e){
+			e.preventDefault();
+			$('#shootUNo').submit();
 		});
 	});
 </script>
