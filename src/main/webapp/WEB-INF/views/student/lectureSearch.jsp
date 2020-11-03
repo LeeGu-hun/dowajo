@@ -48,7 +48,7 @@
 							<td><c:out value="${leAL.lecture_no }" /></td>							
 							<td><a class="move" href="${leAL.lecture_no }">
 							<c:out value="${leAL.lecture_name }" /></a></td>
-							<td><c:out value="${leAL.lecture_afreecaid }" /></td>
+							<td><c:out value="${leAL.user_name }" /></td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -80,7 +80,8 @@
 	<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
 	<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
 	<input type='hidden' name='type' value='${pageMaker.cri.type}'>
-	<input type='hidden' name='keyword' value='${pageMaker.cri.keyword}'>		
+	<input type='hidden' name='keyword' value='${pageMaker.cri.keyword}'>	
+	<input type='hidden' name='user_no' value='<sec:authentication property="principal.user.user_no"/>'>	
 </form>
 
 <script type="text/javascript">
