@@ -39,39 +39,44 @@
 	</sql>
 	
 	<select id="lectureConfirmList"	resultType="com.ds.domain.LectureVO">
-		select l.lecture_no lecture_no, l.lecture_name lecture_name,
-		l.lecture_afreecaid lecture_afreecaid from ds_lecture l inner join
-		ds_class_list c
-		on l.lecture_no=c.lecture_no
-		where user_no=#{user_no}
-		and c.class_status='true'
+		select l.lecture_no, l.lecture_name, u.user_name from 
+		(select l2.lecture_no, l2.lecture_name, c2.user_no 
+		from ds_lecture l2, ds_class_list c2 
+		where l2.lecture_no=c2.lecture_no 
+		and user_no=#{user_no} and c2.class_status='true') l , 
+		ds_class_list c, ds_auth a, ds_user u 
+		where l.lecture_no=c.lecture_no and
+		c.user_no=a.user_no and a.user_auth='ROLE_TEACHER' and a.user_no=u.user_no
 		order by lecture_no
 	</select>
 
 	<select id="lectureList" resultType="com.ds.domain.LectureVO">
-		select l.lecture_no lecture_no, l.lecture_name lecture_name,
-		l.lecture_afreecaid lecture_afreecaid from ds_lecture l inner join
-		ds_class_list c
-		on l.lecture_no=c.lecture_no
-		where user_no=#{user_no}
-		and c.class_status='false'
+		select l.lecture_no, l.lecture_name, u.user_name from 
+		(select l2.lecture_no, l2.lecture_name, c2.user_no 
+		from ds_lecture l2, ds_class_list c2 
+		where l2.lecture_no=c2.lecture_no 
+		and user_no=#{user_no} and c2.class_status='false') l , 
+		ds_class_list c, ds_auth a, ds_user u 
+		where l.lecture_no=c.lecture_no and
+		c.user_no=a.user_no and a.user_auth='ROLE_TEACHER' and a.user_no=u.user_no
 		order by lecture_no
 	</select>
 
 	<select id="lectureAllList" resultType="com.ds.domain.LectureVO">
 		<![CDATA[
-		select lecture_no, lecture_name, lecture_afreecaid from
-		(select rownum rn, l.lecture_no, l.lecture_name, l.lecture_afreecaid
-		from ds_lecture l join ds_class_list c
-		on l.lecture_no=c.lecture_no where
+		select l.lecture_no, l.lecture_name, u.user_name from 
+		(select rownum rn, lecture_no, lecture_name, lecture_afreecaid from ds_lecture
+        where lecture_no not in (select lecture_no from ds_class_list where user_no=#{user_no}) and
 		]]>
 
 		<include refid="criteria"></include>
   
 		<![CDATA[
-		rownum<= #{pageNum} * #{amount})
-		where rn>(#{pageNum}-1)*#{amount}
-		and lecture_no not in (select lecture_no from ds_class_list where user_no=#{user_no})
+		rownum<= #{pageNum} * #{amount}) l,
+		ds_class_list c, ds_auth a, ds_user u 
+		where l.lecture_no=c.lecture_no and
+		c.user_no=a.user_no and a.user_auth='ROLE_TEACHER' and a.user_no=u.user_no
+        and rn>(#{pageNum}-1)*#{amount}
 		order by lecture_no
 		]]>
 	</select>
@@ -90,7 +95,7 @@
 	    ]]>
 			<include refid="criteria"></include>
 	    <![CDATA[
-	    lecture_no>0
+	    lecture_no>0 and lecture_no not in (select lecture_no from ds_class_list where user_no=#{user_no})
 	    ]]>
 	</select>
 

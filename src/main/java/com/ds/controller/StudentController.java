@@ -48,8 +48,8 @@ public class StudentController {
 	}
 	
 	@GetMapping("/lecture")
-	public void lecture(Model model) {
-		model.addAttribute("lectureInfo", lecureService.lectureInfo(1l));
+	public void lecture(@RequestParam("lecture_no")Long lecture_no, Model model) {
+		model.addAttribute("lectureInfo", lecureService.lectureInfo(lecture_no));
 	}
 	
 	@GetMapping("/lecturelist")	
@@ -62,8 +62,8 @@ public class StudentController {
 	
 	@GetMapping("/lectureSearch")
 	public void lectureSearch(Criteria cri, Model model, @RequestParam("user_no")Long user_no) {
-		int total=studentService.getTotal(cri);
 		cri.setUser_no(user_no);
+		int total=studentService.getTotal(cri);		
 		List<LectureVO> list = studentService.lectureAllList(cri);		
 		model.addAttribute("leAL", list);
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
@@ -76,26 +76,18 @@ public class StudentController {
 		model.addAttribute("leIn", vo);
 	}
 	
-	@PostMapping("/lectureInfo")
-	@Transactional
+	@PostMapping("/lectureInfo")	
 	public String lectureInfo(@RequestParam("lecture_no")Long lecture_no,
 			@RequestParam("user_no")Long user_no, RedirectAttributes rttr) {		
 		ClassListVO vo = new ClassListVO();		
 		vo.setLecture_no(lecture_no);
-		vo.setUser_no(user_no);
-		
-		int result = studentService.applyDuplicated(user_no, lecture_no);
-		if(result !=0) {
-			log.info("이미 신청한 강의입니다.");
-			rttr.addFlashAttribute("result", "fail");			
-			return "redirect:/student/lectureSearch";					
-		} else { 
+		vo.setUser_no(user_no);		 
 		studentService.applyClass(vo);		
 		rttr.addFlashAttribute("result", "success");
 		rttr.addAttribute("user_no", user_no);
 		return "redirect:/student/lecturelist";
 		}
-	}	
+		
 	
 	@GetMapping({"/myPage", "/myPage_modify"})
 	public void getUser(@RequestParam("user_id") String user_id, Model model){

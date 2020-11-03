@@ -33,7 +33,13 @@
 <input type='hidden' name='lecture_no' value='<c:out value="${leIn.lecture_no}"/>'>
 <input type='hidden' name='user_no' value='<sec:authentication property="principal.user.user_no"/>'>
 <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }"/>
+<input type='hidden' name='user_no' value='<sec:authentication property="principal.user.user_no"/>'>
 </form>
+
+<form id='backForm' action="/student/lectureSearch" method='get'>
+<input type='hidden' name='user_no' value='<sec:authentication property="principal.user.user_no"/>'>
+</form>
+
 
 <div class="modal fade" id="defaultModal" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
@@ -80,9 +86,10 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	var form = $("#actionForm");
+	var form2 = $("#backForm");
 	
 	$('#backBtn').on("click", function() {
-		location.href = "./lectureSearch";
+		form2.submit();
 	});		
 
 	$('#subBtn').on("click", function() {		

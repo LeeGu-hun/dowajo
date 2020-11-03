@@ -18,8 +18,11 @@ public interface TeacherMapper {
 	public boolean registAuth(AuthVO auth);
 	public int updateAdmin(String id);
 	public List<TeacherVO> getList();
+	public List<TeacherVO> regetlist_canecl(int lecture_no);
+	public List<TeacherVO> regetlist_sign_up(int lecture_no);
 	public List<TeacherVO> call_no(int lecture_no);
 	public TeacherVO getUser(int  lecture_no);
+	public List<TeacherVO> getUserTypeList(Criteria cri);
 	
 	public void insert(TeacherVO vo);
 	public void insertSelectKey(TeacherVO vo);

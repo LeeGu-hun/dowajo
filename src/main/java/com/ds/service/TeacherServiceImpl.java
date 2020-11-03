@@ -84,11 +84,24 @@ public class TeacherServiceImpl implements TeacherService{
 		log.info("refresh update::"+result);
 		return mapper.read_sign_up(lecture_no); 
 	}
-
+	@Override
+	public List<TeacherVO> regetlist_canecl(int lecture_no) {
+		log.info("getList..........");
+		return mapper.regetlist_canecl(lecture_no);
+	}
+	@Override
+	public List<TeacherVO> regetlist_sign_up(int lecture_no) {
+		log.info("getList..........");
+		return mapper.regetlist_sign_up(lecture_no);
+	}
 	@Override
 	public List<TeacherVO> getList() {
 		log.info("getList..........");
 		return mapper.getList();
+	}
+	@Override
+	public List<TeacherVO> getUserTypeList(Criteria cri) {
+		return mapper.getUserTypeList(cri);
 	}
 	@Override
 	public List<TeacherVO> call_no(int lecture_no) {
