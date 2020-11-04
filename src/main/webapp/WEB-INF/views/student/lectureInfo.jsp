@@ -10,23 +10,29 @@
     
     <h3>강의정보</h3><br>
     
-    <div id="container">        
-   <div id="info" style="overflow:auto; width:300px; height:100%; border: 1px solid black;">
-    	<label>강의실 이름</label> : <label><c:out value="${leIn.lecture_name}"/></label><br>
-    	<br>
-    	<br>
-    	<label>강의소개</label> : <label><c:out value="${leIn.lecture_description}"/></label><br>
-    	<br>
-    	<br>
-    	<label>강사이름</label> :  <label><c:out value="${leIn.user_name}"/></label>
-    	<br>
-    	<br>
-    	<br>
-    	<div>
-    	<input type="button" data-toggle="modal" data-target="#defaultModal" value="신청"> <input type="button" id="backBtn" value="목록으로">
-    	</div>    	
-   	</div> 	
-   </div>
+   <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="card">
+                        <div class="header bg-blue-grey">
+                            <h2>
+                                <label>강의실 이름</label> : <label><c:out value="${leIn.lecture_name}"/></label><br>
+                            </h2>
+                            
+                        </div>
+                        <div class="body">
+                            <label>강의소개</label> : <label><c:out value="${leIn.lecture_description}"/></label><br>
+                            <br>
+                            <br>
+						 <label>강사이름</label> :  <label><c:out value="${leIn.user_name}"/></label>
+						 <br>
+						 <br>
+						 <br>
+						 <div align="right">
+						 <button type="button" class="btn bg-indigo waves-effect" data-toggle="modal" data-target="#defaultModal">신청</button>
+						 <button type="button" class="btn bg-indigo waves-effect" id="backBtn">목록으로</button>
+						 </div>
+                        </div>
+                    </div>
+                </div>
 </section>
 
 <form id='actionForm' action="/student/lectureInfo" method='post'>
@@ -55,32 +61,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            
-             <!-- Jquery Core Js -->
-    <script src="/resources/plugins/jquery/jquery.min.js"></script>
-
-    <!-- Bootstrap Core Js -->
-    <script src="/resources/plugins/bootstrap/js/bootstrap.js"></script>
-
-    <!-- Select Plugin Js -->
-    <script src="/resources/plugins/bootstrap-select/js/bootstrap-select.js"></script>
-
-    <!-- Slimscroll Plugin Js -->
-    <script src="/resources/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
-
-    <!-- Bootstrap Notify Plugin Js -->
-    <script src="/resources/plugins/bootstrap-notify/bootstrap-notify.js"></script>
-
-    <!-- Waves Effect Plugin Js -->
-    <script src="/resources/plugins/node-waves/waves.js"></script>
-
-    <!-- Custom Js -->
-    <script src="/resources/js/admin.js"></script>
-    <script src="/resources/js/pages/ui/modals.js"></script>
-
-    <!-- Demo Js -->
-    <script src="/resources/js/demo.js"></script>
+            </div>            
+          
     
 <script type="text/javascript">
 $(document).ready(function() {
