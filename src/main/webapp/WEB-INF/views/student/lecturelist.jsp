@@ -8,7 +8,6 @@
 	prefix="sec"%>
 
 <section class="content">
-
 	<h3>수강할 수 있는 강의 목록</h3>
 	<br>	
 	<div id="container">
