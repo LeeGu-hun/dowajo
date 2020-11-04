@@ -11,6 +11,7 @@
 			column="lecture_description" />
 		<result property="lecture_afreecaid" column="lecture_afreecaid" />
 		<result property="regdate" column="regdate" />
+		<result property="user_name" column="user_name" />
 		<collection property="classList" resultMap="classMap">
 		</collection>
 	</resultMap>
@@ -30,7 +31,7 @@
 							lecture_name like '%'||#{keyword}||'%'
 						</when>
 						<when test="type=='T'.toString()">
-							lecture_afreecaid like '%'||#{keyword}||'%'
+							user_name like '%'||#{keyword}||'%'
 						</when>
 					</choose>
 				</trim>
@@ -66,36 +67,42 @@
 		<![CDATA[
 		select l.lecture_no, l.lecture_name, u.user_name from 
 		(select rownum rn, lecture_no, lecture_name, lecture_afreecaid from ds_lecture
-        where lecture_no not in (select lecture_no from ds_class_list where user_no=#{user_no}) and
-		]]>
+        where lecture_no not in (select lecture_no from ds_class_list where user_no=#{user_no}) 
+        and rownum<= #{pageNum} * #{amount}) l,
+		ds_class_list c, ds_auth a, ds_user u 
+		where l.lecture_no=c.lecture_no and
+		c.user_no=a.user_no and a.user_auth='ROLE_TEACHER' and a.user_no=u.user_no
+        and 
+        ]]>
 
 		<include refid="criteria"></include>
   
 		<![CDATA[
-		rownum<= #{pageNum} * #{amount}) l,
-		ds_class_list c, ds_auth a, ds_user u 
-		where l.lecture_no=c.lecture_no and
-		c.user_no=a.user_no and a.user_auth='ROLE_TEACHER' and a.user_no=u.user_no
-        and rn>(#{pageNum}-1)*#{amount}
+		rn>(#{pageNum}-1)*#{amount}        
 		order by lecture_no
 		]]>
 	</select>
 
 
 	<select id="lectureInfo" resultType="com.ds.domain.LectureVO">
-		select lecture_no, lecture_name, lecture_description, lecture_afreecaid from
-		ds_lecture
-		where lecture_no=#{lecture_no}
+		select l.lecture_no, l.lecture_name, l.lecture_description, u.user_name from  
+		ds_lecture l , ds_class_list c, ds_auth a, ds_user u 
+		where l.lecture_no=c.lecture_no and
+		c.user_no=a.user_no and a.user_auth='ROLE_TEACHER' and a.user_no=u.user_no
+		and l.lecture_no=#{lecture_no}
 	</select>
 
 
 	<select id="getTotalCount" resultType="int">
 	    <![CDATA[
-	    select count(*) from ds_lecture where
+	    select count(*) from (select lecture_no, lecture_name, lecture_afreecaid from ds_lecture
+        where lecture_no not in (select lecture_no from ds_class_list where user_no=#{user_no})) l,
+		ds_class_list c, ds_auth a, ds_user u  where
 	    ]]>
 			<include refid="criteria"></include>
 	    <![CDATA[
-	    lecture_no>0 and lecture_no not in (select lecture_no from ds_class_list where user_no=#{user_no})
+	   l.lecture_no=c.lecture_no and
+		c.user_no=a.user_no and a.user_auth='ROLE_TEACHER' and a.user_no=u.user_no
 	    ]]>
 	</select>
 

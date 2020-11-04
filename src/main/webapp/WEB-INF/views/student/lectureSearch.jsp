@@ -18,8 +18,8 @@
           <select class="form-control show-tick" name='type'>
              <option value="" <c:out value="${pageMaker.cri.type==null?'selected':'' }"/>>검색항목</option>
 					<option value="N" <c:out value="${pageMaker.cri.type eq 'N'?'selected':'' }"/>>강의제목</option>
-					<option value="T" <c:out value="${pageMaker.cri.type eq 'T'?'selected':'' }"/>>선생님 아이디</option>										
-					<option value="NT" <c:out value="${pageMaker.cri.type eq 'NT'?'selected':'' }"/>>강의 제목  or 선생님 아이디</option>
+					<option value="T" <c:out value="${pageMaker.cri.type eq 'T'?'selected':'' }"/>>선생님 이름</option>										
+					<option value="NT" <c:out value="${pageMaker.cri.type eq 'NT'?'selected':'' }"/>>강의 제목  or 선생님 이름</option>
           </select>
     </div>				       
 		<input type="search" id="keyword" name="keyword" value='<c:out value="${pageMaker.cri.keyword}" />'/>
