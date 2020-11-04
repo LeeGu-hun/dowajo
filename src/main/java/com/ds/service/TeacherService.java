@@ -3,24 +3,26 @@ package com.ds.service;
 import java.util.List;
 
 import com.ds.domain.Criteria;
+import com.ds.domain.LectureVO;
 import com.ds.domain.TeacherVO;
 import com.ds.domain.UserVO;
 
 public interface TeacherService {
 	public String duplicateId(String id);
-	public void regist(TeacherVO vo);
-	public boolean remove(int lecture_no);
+	public void register(LectureVO lecture);
+	public void register_class_list(LectureVO lecture,Long user_no);
+	public boolean remove(Long lecture_no);
 	public boolean modify(TeacherVO cust);
-	public List<TeacherVO> cancel(int lecture_no);
-	public List<TeacherVO> sign_up(int lecture_no); 
-	public List<TeacherVO> getList();
-	public List<TeacherVO> regetlist_canecl(int lecture_no);
-	public List<TeacherVO> regetlist_sign_up(int lecture_no);
-	public List<TeacherVO> call_no(int lecture_no);
-	public List<TeacherVO> refresh(String[] checkArr,int lecture_no);
-	public List<TeacherVO> cancelrefresh(String[] checkArr,int lecture_no);
+	public List<TeacherVO> cancel(Long lecture_no);
+	public List<TeacherVO> sign_up(Long lecture_no); 
+	public List<TeacherVO> getList(Long user_no);
+	public List<TeacherVO> regetlist_canecl(Long lecture_no);
+	public List<TeacherVO> regetlist_sign_up(Long lecture_no);
+	public List<TeacherVO> call_no(Long lecture_no);
+	public List<TeacherVO> refresh(String[] checkArr,Long lecture_no);
+	public List<TeacherVO> cancelrefresh(String[] checkArr,Long lecture_no);
 	public int getTotal(Criteria cri);
-	public List<TeacherVO> getList(Criteria cri);
+//	public List<TeacherVO> getList(Criteria cri);
 	
 	public List<TeacherVO> getUserTypeList(Criteria cri);
 	

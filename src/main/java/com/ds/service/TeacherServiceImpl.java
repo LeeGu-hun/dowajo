@@ -8,7 +8,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ds.domain.AuthVO;
 import com.ds.domain.Criteria;
+import com.ds.domain.LectureVO;
 import com.ds.domain.SignupVO;
 import com.ds.domain.TeacherVO;
 import com.ds.domain.UserVO;
@@ -37,12 +39,17 @@ public class TeacherServiceImpl implements TeacherService{
 
 	@Transactional
 	@Override
-	public void regist(TeacherVO vo) {
-		log.info("registerPost.......");
+	public void register(LectureVO lecture) {
+		log.info("regist.......");
+		mapper.registlecture(lecture);
+	}
+	public void register_class_list(LectureVO lecture,Long user_no) {
+		log.info("regist.......");
+		mapper.register_class_list(lecture,user_no);
 	}
 
 	@Override
-	public boolean remove(int teacher_no) {
+	public boolean remove(Long teacher_no) {
 		log.info("remove...." + teacher_no);
 		return mapper.delete(teacher_no) == 1;
 	}
@@ -55,17 +62,17 @@ public class TeacherServiceImpl implements TeacherService{
 	}
 
 	@Override
-	public List<TeacherVO> cancel(int lecture_no) {
+	public List<TeacherVO> cancel(Long lecture_no) {
 		log.info("cancel......" );
 		return mapper.read_cancel(lecture_no);
 	}
 	@Override
-	public List<TeacherVO> sign_up(int lecture_no) {
+	public List<TeacherVO> sign_up(Long lecture_no) {
 		log.info("sign_up......" ); 
 		return mapper.read_sign_up(lecture_no);
 	}
 	@Override
-	public List<TeacherVO> refresh(String[] checkArr,int lecture_no) {
+	public List<TeacherVO> refresh(String[] checkArr,Long lecture_no) {
 		SignupVO vo = new SignupVO();
 		vo.setLecture_no(lecture_no);
 		vo.setCheckArr(checkArr); 
@@ -75,7 +82,7 @@ public class TeacherServiceImpl implements TeacherService{
 		return mapper.read_cancel(lecture_no); 
 	}
 	@Override
-	public List<TeacherVO> cancelrefresh(String[] checkArr,int lecture_no) {
+	public List<TeacherVO> cancelrefresh(String[] checkArr,Long lecture_no) {
 		SignupVO vo = new SignupVO();
 		vo.setLecture_no(lecture_no);
 		vo.setCheckArr(checkArr); 
@@ -85,26 +92,26 @@ public class TeacherServiceImpl implements TeacherService{
 		return mapper.read_sign_up(lecture_no); 
 	}
 	@Override
-	public List<TeacherVO> regetlist_canecl(int lecture_no) {
+	public List<TeacherVO> regetlist_canecl(Long lecture_no) {
 		log.info("getList..........");
 		return mapper.regetlist_canecl(lecture_no);
 	}
 	@Override
-	public List<TeacherVO> regetlist_sign_up(int lecture_no) {
+	public List<TeacherVO> regetlist_sign_up(Long lecture_no) {
 		log.info("getList..........");
 		return mapper.regetlist_sign_up(lecture_no);
 	}
 	@Override
-	public List<TeacherVO> getList() {
+	public List<TeacherVO> getList(Long user_no) {
 		log.info("getList..........");
-		return mapper.getList();
+		return mapper.getList(user_no);
 	}
 	@Override
 	public List<TeacherVO> getUserTypeList(Criteria cri) {
 		return mapper.getUserTypeList(cri);
 	}
 	@Override
-	public List<TeacherVO> call_no(int lecture_no) {
+	public List<TeacherVO> call_no(Long lecture_no) {
 		log.info("call_no..........");
 		return mapper.call_no(lecture_no);
 	}
@@ -114,12 +121,6 @@ public class TeacherServiceImpl implements TeacherService{
 		return mapper.getTotalCount(cri);
 	}
 
-	@Override
-	public List<TeacherVO> getList(Criteria cri) {
-		log.info("getList: "+cri);
-		
-		return mapper.getListWithPaging(cri);
-	}
 	
 	@Override
 	public UserVO user_read(String user_id) {

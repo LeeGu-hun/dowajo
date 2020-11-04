@@ -19,20 +19,8 @@
 			<!-- Default Example -->
 			<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 				<div class="card">
-					<form method="get" action="cancel">
 						<div class="header">
 							<h2>
-								<form id='searchForm' action="/teacher/teacher_check" method='get'>
-									<select name='type'>
-									<option value="" <c:out value="${pageMaker.cri.type==null?'selected':'' }"/>>검색항목</option>
-									<option value="N" <c:out value="${pageMaker.cri.type eq 'N'?'selected':'' }"/>>학번</option>
-									<option value="T" <c:out value="${pageMaker.cri.type eq 'T'?'selected':'' }"/>>이름</option>
-									</select> 
-									<input type="search" id="keyword" name="keyword" value='<c:out value="${pageMaker.cri.keyword}" />'/>
-									<input type='hidden' name='pageNum' value='<c:out value="${pageMaker.cri.pageNum}"/>'/>
-									<input type='hidden' name='amount' value='<c:out value="${pageMaker.cri.amount}"/>'/>			
-									<button class='btn btn-default'>Search</button>
-								</form>
 								등록된 학생 목록 <input type="button" id="cancelBtn"class="btn bg-red waves-effect"
 								 value="수강해제"style="float: right;">
 								 <input type="button" id="all_cancel_select_Btn"class="btn bg-red waves-effect"
@@ -103,7 +91,6 @@
 								</div>
 							</div>
 						</div>
-					</form>
 				</div>
 			</div>
 			<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -193,7 +180,7 @@
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<div class="card">
 					<button type="button" id="start_class"
-						class="btn btn-primary waves-effect" style="float: right;">수업시작</button>
+						class="btn btn-primary waves-effect" value="${lecture_no}"style="float: right;">수업시작</button>
 				</div>
 			</div>
 		</div>
@@ -250,9 +237,9 @@
 					str+="<td>"+item.user_name+"</td>";
 					str+="<td>"+item.user_mobile+"</td>";
 					str+="<td><div class='demo-checkbox'>"
-						+"<input type='checkbox' class='cancel_lc' id="+item.user_no+""
-						+"value="+item.user_no+""
-						+"class='chk-col-pink'>";
+						+"<input type='checkbox' class='cancel_lc' id='"+item.user_no+"'"
+						+" value='"+item.user_no+"'"
+						+" class='chk-col-pink'>";
 					str+="<label for="+item.user_no+">신청</label>";
 					str+="</div>";
 					str+="</td>";
@@ -284,9 +271,9 @@
 	    					str+="<td>"+item.user_name+"</td>";
 	    					str+="<td>"+item.user_mobile+"</td>";
 	    					str+="<td><div class='demo-checkbox'>"
-	    						+"<input type='checkbox' class='cancel_lc' id="+item.user_no+""
-	    						+"value="+item.user_no+""
-	    						+"class='chk-col-pink'>";
+	    						+"<input type='checkbox' class='cancel_lc' id='"+item.user_no+"'"
+								+" value='"+item.user_no+"'"
+	    						+" class='chk-col-pink'>";
 	    					str+="<label for="+item.user_no+">신청</label>";
 	    					str+="</div>";
 	    					str+="</td>";
@@ -347,9 +334,9 @@
 						str+="<td>"+item.user_name+"</td>";
 						str+="<td>"+item.user_mobile+"</td>";
 						str+="<td><div class='demo-checkbox'>"
-							+"<input type='checkbox' class='chk_not_reg' id="+item.user_no+""
-							+"value="+item.user_no+""
-							+"class='chk-col-pink'>";
+							+"<input type='checkbox' class='chk_not_reg' id='"+item.user_no+"'"
+							+" value='"+item.user_no+"'"
+							+" class='chk-col-pink'>";
 						str+="<label for="+item.user_no+">신청</label>";
 						str+="</div>";
 						str+="</td>";
@@ -382,9 +369,9 @@
 		    					str+="<td>"+item.user_name+"</td>";
 		    					str+="<td>"+item.user_mobile+"</td>";
 		    					str+="<td><div class='demo-checkbox'>"
-		    						+"<input type='checkbox' class='cancel_lc' id="+item.user_no+""
-		    						+"value="+item.user_no+""
-		    						+"class='chk-col-pink'>";
+		    						+"<input type='checkbox' class='cancel_lc'id='"+item.user_no+"'"
+									+" value='"+item.user_no+"'"
+		    						+" class='chk-col-pink'>";
 		    					str+="<label for="+item.user_no+">신청</label>";
 		    					str+="</div>";
 		    					str+="</td>";
@@ -429,7 +416,12 @@
 
 		
 		$('#start_class').on("click", function() {
-			location.href = "/teacher/lecture/";
+			/* location.href = "/teacher/lecture/"; */
+			console.log("start_class click");
+	 		$('#actionForm').append("<input type='hidden' name='lecture_no' value='"
+					+$(this).val()+"' />"); //href에 적혀져있는 값의 속성을 변경,추가한다.
+			$('#actionForm').attr("action","/teacher/lecture");
+			$('#actionForm').submit();
 		});
 		
 		$('#signBtn').on("click", function() {
@@ -457,5 +449,6 @@
 	    
 	});
 </script>
-
+<form id='actionForm' action="/teacher/lecture" method='get'>
+</form>
 <%@ include file="/WEB-INF/views/include/footer_teacher.jsp"%>

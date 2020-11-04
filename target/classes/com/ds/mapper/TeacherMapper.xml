@@ -12,22 +12,16 @@
 
 
 
-	<insert id="registUser">
-		<!-- <selectKey keyProperty="user_id" order="BEFORE" resultType="int"> 
-			select app_users_seq.nextval from dual </selectKey> -->
-
-		insert into sale_users (
-		teacher_no,cust_first_name,cust_last_name,cust_street_address1,cust_street_address2,
-		cust_city,cust_state,cust_postal_code,phone_number1,phone_number2,
-		credit_limit,cust_email)
-		values (
-		sale_users_seq.nextval,#{cust_first_name},#{cust_last_name},
-		#{cust_street_address1},#{cust_street_address2},#{cust_city},#{cust_state},#{cust_postal_code},#{phone_number1},
-		#{phone_number2},#{credit_limit},#{cust_email})
-		<selectKey resultType="int" keyProperty="teacher_no"
-			order="AFTER">
-			SELECT sale_users_seq.currval from dual
+	<insert id="registlecture">
+		insert into ds_lecture (lecture_no, lecture_name, lecture_description, lecture_afreecaid) values (ds_lecture_seq.nextval, #{lecture_name},
+		 #{lecture_description}, #{lecture_afreecaid})
+		 <selectKey resultType="long" keyProperty="lecture_no" order="AFTER">
+			SELECT ds_lecture_seq.currval from dual
 		</selectKey>
+	</insert>
+	
+	<insert id="register_class_list">
+		insert into ds_class_list (lecture_no, user_no, class_status) values (#{lecture.lecture_no}, #{user_no}, 'true')
 	</insert>
 
 	<update id="update">
@@ -39,8 +33,11 @@
 		#{teacher_no}
 	</delete>
 	<select id="getList" resultType="com.ds.domain.TeacherVO">
-		select lecture_no,lecture_description,lecture_name from ds_lecture where
-		lecture_no in( select lecture_no from ds_class_list where user_no= 2)
+		select DISTINCT l.lecture_no,l.lecture_name,l.lecture_description 
+		from ds_class_list c
+		left OUTER JOIN ds_lecture l on c.lecture_no = l.lecture_no
+		left OUTER JOIN ds_auth a on c.user_no = a.user_no
+		where c.user_no=2 and a.user_auth=	'ROLE_TEACHER' order by l.lecture_no
 	</select>
 	<select id="regetlist_canecl" resultType="com.ds.domain.TeacherVO">
 		select u.user_no,u.user_name,u.user_mobile,l.class_status
@@ -103,7 +100,12 @@
 			]]>
 	
 			<include refid="criteria"></include>
-	  
+	  <![CDATA[
+		rownum<= #{pageNum} * #{amount})
+		where rn>(#{pageNum}-1)*#{amount}
+		and lecture_no not in (select lecture_no from ds_class_list where user_no=#{user_no})
+		order by lecture_no
+		]]>
 			
 	</select>
 	<sql id="criteria">

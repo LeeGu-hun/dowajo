@@ -10,6 +10,7 @@ public class TeacherVO {
 	
 	private Long lecture_no;
 	private Long user_no;
+	private String user_auth;
 	private String user_name;
 	private String user_mobile;
 	private String lecture_name;
@@ -19,5 +20,6 @@ public class TeacherVO {
 	private Date regdate;
 	private List<ClassListVO> classList;
 	private List<String> checkArr;
+	
 	
 }

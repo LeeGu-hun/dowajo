@@ -1,5 +1,6 @@
 package com.ds.controller;
 
+import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
 
@@ -8,6 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.ds.domain.AuthVO;
 import com.ds.domain.Criteria;
+import com.ds.domain.LectureVO;
 import com.ds.domain.TeacherVO;
 import com.ds.domain.UserVO;
 import com.ds.service.LectureService;
@@ -37,10 +43,12 @@ public class TeacherController {
 	private TeacherService teacherService;
 
 	@GetMapping("/teacher_main")
-	public void teacher_main(/* Criteria cri, */Model model) {
+	public void teacher_main(@RequestParam("user_no")Long user_no, Model model) {
 		log.info("teachergetList.....");
+		
+		
 		// int total = TeacherService.getTotal(cri);
-		List<TeacherVO> list = teacherService.getList();// cri넣기
+		List<TeacherVO> list = teacherService.getList(user_no);// cri넣기
 		System.out.println("list : " + list);
 		model.addAttribute("list", list);
 		// model.addAttribute("pageMaker", new PageDTO(cri,total));
@@ -48,7 +56,7 @@ public class TeacherController {
 	}
 
 	@GetMapping("/teacher_check")
-	public void teacher_check(@RequestParam("lecture_no") int lecture_no, Criteria cri, Model model) {
+	public void teacher_check(@RequestParam("lecture_no") Long lecture_no, Model model) {
 		List<TeacherVO> cancel = teacherService.cancel(lecture_no);// cri넣기
 		System.out.println("cancel : " + cancel);
 		model.addAttribute("cancel", cancel);
@@ -57,16 +65,11 @@ public class TeacherController {
 		System.out.println("sign_up : " + sign_up);// get2 문자열에 써놓은게 mapper.xml에
 		model.addAttribute("sign_up", sign_up);// <c:forEach items="${get2}" var="teacher">동일해야함
 		model.addAttribute("lecture_no", lecture_no);
-		
-		
-		model.addAttribute("teacher_check", teacherService.getUserTypeList(cri));
 	}
-
 	
-
 	
 	@PostMapping(value = "/joinup", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
-	public ResponseEntity<List<TeacherVO>> teacher_joinup(@RequestParam("lecture_no") int lecture_no,
+	public ResponseEntity<List<TeacherVO>> teacher_joinup(@RequestParam("lecture_no") Long lecture_no,
 			@RequestParam("checkArr[]") String[] checkArr, Model model) {
 		log.info("컨트롤러확인용:" + lecture_no);
 		log.info("컨트롤러확인용:" + Arrays.toString(checkArr));
@@ -74,17 +77,17 @@ public class TeacherController {
 		return new ResponseEntity(teacherService.refresh(checkArr, lecture_no), HttpStatus.OK);
 	}
 	@PostMapping(value = "/cancelclean", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
-	public ResponseEntity<List<TeacherVO>> cancelclean(@RequestParam("lecture_no") int lecture_no, Model model) {
+	public ResponseEntity<List<TeacherVO>> cancelclean(@RequestParam("lecture_no") Long lecture_no, Model model) {
 		log.info("컨트롤러확인용:" + lecture_no);
 		return new ResponseEntity(teacherService.regetlist_canecl(lecture_no), HttpStatus.OK);
 	}
 	@PostMapping(value = "/sign_up_clean", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
-	public ResponseEntity<List<TeacherVO>> sign_up_clean(@RequestParam("lecture_no") int lecture_no, Model model) {
+	public ResponseEntity<List<TeacherVO>> sign_up_clean(@RequestParam("lecture_no") Long lecture_no, Model model) {
 		log.info("컨트롤러확인용:" + lecture_no);
 		return new ResponseEntity(teacherService.regetlist_sign_up(lecture_no), HttpStatus.OK);
 	}
 	@PostMapping(value = "/cancel", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
-	public ResponseEntity<List<TeacherVO>> teacher_cancel(@RequestParam("lecture_no") int lecture_no,
+	public ResponseEntity<List<TeacherVO>> teacher_cancel(@RequestParam("lecture_no") Long lecture_no,
 			@RequestParam("checkArr[]") String[] checkArr, Model model) {
 		log.info("컨트롤러확인용:" + lecture_no);
 		log.info("컨트롤러확인용:" + Arrays.toString(checkArr));
@@ -93,8 +96,25 @@ public class TeacherController {
 	}
 
 	@GetMapping("/teacher_reg")
-	public void teacher_reg() {
+	@PreAuthorize("isAuthenticated()")
+	public void teacher_reg(@RequestParam("user_no")Long user_no) {
+		log.info("get register");
+	}
+	
+	@PostMapping("/teacher_reg")
+	@PreAuthorize("isAuthenticated()")
+	public String teacher_reg(LectureVO lecture,@RequestParam("user_no")Long user_no, Model model) {
+		log.info("================");
+		log.info("post register: " + lecture);
+		log.info("post register user_no: " + user_no);
+		log.info("================");
 
+		teacherService.register(lecture);
+		System.out.println("after 렉쳐번호 : "+lecture.getLecture_no());
+		//Long get_no = lecture.getLecture_no();
+		//log.info("get_no는?? "+get_no);
+		teacherService.register_class_list(lecture,user_no);
+		return "redirect:/teacher/teacher_main?user_no="+user_no;
 	}
 
 	@GetMapping("/main")
@@ -102,9 +122,9 @@ public class TeacherController {
 	}
 
 	@GetMapping("/lecture")
-	public void lecture(Model model) {
-		model.addAttribute("lectureInfo", lectureService.lectureInfo(1l));
-		model.addAttribute("lectureUser", lectureService.lectureUser(1l));
+	public void lecture(@RequestParam("lecture_no") Long lecture_no, Model model) {
+		model.addAttribute("lectureInfo", lectureService.lectureInfo(lecture_no));
+		model.addAttribute("lectureUser", lectureService.lectureUser(lecture_no));
 	}
 	
 	@GetMapping({"/myPage", "/myPage_modify"})

@@ -56,7 +56,7 @@
 										<th class="sorting" tabindex="0"
 											aria-controls="datatables-example" rowspan="1" colspan="1"
 											aria-label="Office: activate to sort column ascending"
-											style="width: 167px;">강사님 명</th>
+											style="width: 167px;">강의 설명</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -64,8 +64,8 @@
 										<tr style="cursor: pointer;">
 											<td><c:out value="${teacher.lecture_no }" /></td>
 											<td><a class="move" href="${teacher.lecture_no}"><b>[<c:out
-														value="${teacher.lecture_description }" />]</b></a></td>
-											<td><c:out value="${teacher.lecture_name }" /></td>
+														value="${teacher.lecture_name }" />]</b></a></td>
+											<td><c:out value="${teacher.lecture_description }" /></td>
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -109,24 +109,7 @@
 </form>
 <script>
 $(document).ready(function(){
-	function openModal(modalname) {
-		document.get
-		$("#modal").fadeIn(300);
-		$("." + modalname).fadeIn(300);
-	}
-	var result = '<c:out value="${result}"/>';
-	checkModal(result);
-
-	history.replaceState({}, null, null);
-
-	function checkModal(result) {
-		if (result === '' || history.state)
-			return;
-		if (parseInt(result) > 0) {
-			$("#modal-body").html("게시글 " + parseInt(result) + "번이 등록되었습니다.");
-		}
-		openModal('reg-modal');
-	}
+	
 	$('.move').on("click", function(e){		
 		e.preventDefault();
 		console.log("move click");

@@ -315,13 +315,13 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/teacher/teacher_main.html">
+                        <a href="/teacher/teacher_main.html" id="gohome">
                             <i class="material-icons">home</i>
                             <span>강사홈으로</span>
                         </a>
                     </li>
                     <li>
-                        <a href="/teacher/teacher_reg.html">
+                        <a href="/teacher/teacher_reg.html" id = "gocreate">
                             <i class="material-icons">create</i>
                             <span>강의실만들기</span>
                         </a>
@@ -815,6 +815,13 @@
 <form action="/customLogout" method='post' id="logoutForm">
 	<input type="hidden"name="${_csrf.parameterName}"value="${_csrf.token}"/>
 </form>
+<form action="/teacher/teacher_main" method='get' id="gouser_no">
+	<input type='hidden' name='user_no' value='<sec:authentication property="principal.user.user_no"/>'>
+</form>
+<form action="/teacher/teacher_reg" method='get' id="gouser_no_reg">
+	<input type='hidden' name='user_no' value='<sec:authentication property="principal.user.user_no"/>'>
+</form>
+
 <script>
 	$(document).ready(function(){
 		$('#logout').on("click", function(e){
@@ -822,4 +829,13 @@
 			$('#logoutForm').submit();
 		});
 	});
+	$('#gohome').on("click", function(e){
+		e.preventDefault();
+		$('#gouser_no').submit();
+	});
+	$('#gocreate').on("click", function(e){
+		e.preventDefault();
+		$('#gouser_no_reg').submit();
+	});
+	
 </script>
