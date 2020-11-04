@@ -85,5 +85,15 @@ public class StudentServiceImpl implements StudentService{
 	@Override
 	public List<QuestionsVO> qa_list(Long user_no) {		
 		return mapper.qa_list(user_no);
-	}	
+	}
+	
+	@Override
+	public void qa_register(QuestionsVO vo) {
+		mapper.qa_register(vo);
+	}
+
+	@Override
+	public QuestionsVO qa_get(Long qa_no) {
+		return mapper.qa_get(qa_no);
+	}
 }

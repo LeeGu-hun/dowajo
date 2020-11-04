@@ -114,4 +114,21 @@ public class StudentController {
 		List<QuestionsVO> list = studentService.qa_list(user_no);
 		model.addAttribute("list", list);
 	}
+	
+	@GetMapping("/QnA_register")
+	public void QnA_register() {		
+	}
+	
+	@PostMapping("/QnA_register")	
+	public String QnA_register(QuestionsVO vo, RedirectAttributes rttr) {		
+		log.info("QnA_reg_post : " + vo);
+		studentService.qa_register(vo);
+		rttr.addFlashAttribute("result", vo.getQa_writer());		
+		return "redirect:/student/main";
+	}
+	
+	@GetMapping("/QnA_get")
+	public void QnA_get(@RequestParam("qa_no") Long qa_no, Model model) {
+		model.addAttribute("qa", studentService.qa_get(qa_no));
+	}
 }

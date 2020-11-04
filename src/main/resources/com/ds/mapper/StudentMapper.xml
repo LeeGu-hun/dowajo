@@ -136,6 +136,20 @@
 		LEFT OUTER JOIN DS_USER U
 		ON q.qa_writer = u.user_id
 		WHERE USER_NO = #{USER_NO}
+		ORDER BY QA_DATE
 	</select>
 	
+	<insert id="qa_register">
+		INSERT INTO 
+			ds_qa (qa_no, qa_writer, qa_title, qa_content, qa_date)
+		VALUES 
+			(ds_qa_seq.nextval, #{qa_writer}, #{qa_title}, #{qa_content}, sysdate)
+		<selectKey resultType="long" keyProperty="qa_no" order="AFTER">
+			SELECT ds_qa_seq.currval from dual
+		</selectKey>		
+	</insert>
+	
+	<select id="qa_get" resultType="com.ds.domain.QuestionsVO">
+		SELECT * FROM DS_QA WHERE QA_NO = #{QA_NO}
+	</select>
 </mapper>

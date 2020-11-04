@@ -12,24 +12,33 @@
 .menu{
 	padding: 20px;
 }
-#txtTitle{
-	height: 50px; width: 500px;
-	border : 1px solid black;
-	border-radius: 10px;
-	padding-left: 20px;
+.labelTxt{
+	margin-right: 10px;
 }
-#txtContent{
+.txtTitle{
 	height: 70px; width: 500px;
 	border : 1px solid black;
 	border-radius: 10px;
 	padding-left: 20px;
+	background-color: #eee;
+	text-align: center;
 }
-#txtWriter{
+.txtContent{
+	height: 70px; width: 500px;
+	border : 1px solid black;
+	border-radius: 10px;
+	padding-left: 20px;
+	background-color: #eee;
+}
+.txtWriter{
 	height: 50px; width: 500px;
 	border : 1px solid black;
 	border-radius: 10px;
-	background-color: #e2e2e2;	
+	background-color: #eee;	
 	text-align: center;
+}
+table, tr, td{
+	border: 1px solid black;
 }
 </style>
 <body>
@@ -56,25 +65,35 @@
 										</div>
 										<div class="body table-responsive">
 											<div class="menu">
-												<label>글제목&nbsp
-												<input type="text" name="qa_title" id="txtTitle" placeholder="제목 입력" >
-												</label>												
+												<label class="labelTxt">번 호</label>
+												<input type="text" name="qa_title" class="txtWriter" placeholder="제목 입력" value='<c:out value="${qa.qa_no }"/>' readonly>																								
 											</div>
 											<div class="menu">
-												<label >글내용&nbsp
-												<input type="text" name="qa_content" id="txtContent" maxlength="100" placeholder="내용 입력">
-												</label>
+												<label class="labelTxt">제 목</label>
+												<input type="text" name="qa_title" class="txtTitle" value='<c:out value="${qa.qa_title }"/>' readonly>												
 											</div>
 											<div class="menu">
-												<label>작성자&nbsp
-												<input type="text" name="qa_writer" id="txtWriter" value="<sec:authentication property='principal.user.user_id'/>" readonly>
-												</label>
+												<label class="labelTxt">내 용</label>
+												<input type="text" name="qa_reply" class="txtContent" value='<c:out value="${qa.qa_content }"/>' readonly>
 											</div>
+											<div class="menu">
+												<label class="labelTxt">작성자</label>
+												<input type="text" name="qa_writer" class="txtWriter" value="<sec:authentication property='principal.user.user_id'/>" readonly>
+											</div>
+											<div class="menu">
+												<label class="labelTxt">일 자</label>												
+												<input type="text" name="qa_writer" class="txtWriter"  value='<fmt:formatDate pattern="yyyy/MM/dd" value="${qa.qa_date}" />' readonly>
+											</div>
+											<div class="menu">
+												<label class="labelTxt">답 변</label>
+												<input type="text" name="qa_reply" class="txtWriter" value='<c:out value="${qa.qa_reply }"/>' readonly>												
+											</div>																						
 											<hr>
-											<div class="divBtn">
-												<button type="button" id="btnRegister" class="btn bg-blue-grey waves-effect">등록</button>&nbsp											
-												<button type="button" id="btnCancel" class="btn bg-blue-grey waves-effect">취소</button>
+											
+											<div class="divBtn">																							
+												<button type="button" id="btn" class="btn bg-blue-grey waves-effect">돌아가기</button>
 											</div>
+											
 										</div>
 									</div>
 								</div>
@@ -87,21 +106,9 @@
 		</div>
 	</section>
 </body>
-
- 
-
 <script>
-$(document).ready(function(){
-	var formObj = $("#actionForm");
-	$('#btnRegister').on("click", function(){
-		if($('#txtTitle').val() == ""){
-			alert("제목을 입력해주세요.");
-			$('#txtTitle').focus();			
-		}
-		formObj.submit();
-	});
-
-	$('#btnCancel').on("click", function(){
+$(document).ready(function(){		
+	$('#btn').on("click", function(){
 		history.back();
 	});
 	

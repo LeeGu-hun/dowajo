@@ -15,21 +15,19 @@ public interface StudentMapper {
 	public List<LectureVO> lectureConfirmList(Long user_no);
 	public List<LectureVO> lectureAllList(Criteria cri);
 	public List<LectureVO> lectureInfo(Long lecture_no);
-	
-	public int getTotalCount(Criteria cri);	
-	
+	public int getTotalCount(Criteria cri);
 	public void applyClass(ClassListVO vo);
-	
-	public int applyDuplicated(@Param("user_no")Long user_no, @Param("lecture_no")Long lecture_no);
-	
-	//사용자 정보보기
+	public int applyDuplicated(@Param("user_no") Long user_no, @Param("lecture_no") Long lecture_no);
+	// 사용자 정보보기
 	public UserVO user_read(String user_id);
-	//회원정보 업데이트
+	// 회원정보 업데이트
 	public int user_update(UserVO vo);
-	//사용자 삭제
+	// 사용자 삭제
 	public int user_delete(Long user_no);
-	//내 질문 리스트
-	public List<QuestionsVO> qa_list(Long user_no);	
-	
-
+	// 내 질문 리스트
+	public List<QuestionsVO> qa_list(Long user_no);
+	// 질문 등록
+	public void qa_register(QuestionsVO vo);
+	// 질문 상세보기
+	public QuestionsVO qa_get(Long qa_no);
 }

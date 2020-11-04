@@ -46,10 +46,10 @@ table, tr, th{
 												</thead>
 												<tbody>
 													<c:forEach items="${list}" var="list">
-														<tr>
+														<tr style="cursor: pointer;">
 															<td><c:out value="${list.qa_no }" /></td>
 															<td><c:out value="${list.qa_writer}" /></td>																															
-															<td><c:out value="${list.qa_title}" /></td>
+															<td><a class="move" href="${list.qa_no}"><c:out value="${list.qa_title}" /></a></td>
 															<td><fmt:formatDate pattern="yyyy-MM-dd" value="${list.qa_date}" /></td>															
 														</tr>
 													</c:forEach>
@@ -77,6 +77,15 @@ table, tr, th{
 $(document).ready(function(){
 	$('#btn').on("click", function(){
 		location.href="/student/QnA_register";		
+	});
+
+	$('.move').on("click", function(e){
+		e.preventDefault();
+		console.log("move click");
+		$('#actionForm').append("<input type='hidden' name='qa_no' value='"
+				+$(this).attr('href')+"' />");
+		$('#actionForm').attr("action","/student/QnA_get");
+		$('#actionForm').submit();
 	});
 	
 });
