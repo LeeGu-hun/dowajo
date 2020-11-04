@@ -14,7 +14,6 @@ public interface AdminService {
 	public void teacher_regist(UserVO vo);
 	public void main_regist(QuestionsVO vo);
 	
-	
 	public String duplicateId(String user_id);
 	
 	public List<QuestionsVO> getList(Criteria cri);
@@ -27,6 +26,10 @@ public interface AdminService {
 	
 	public UserVO get(int user_no);
 	public boolean remove(int user_no);
+	
+	public QuestionsVO main_get(int qa_no);
+	public boolean main_remove(int qa_no);
+
 	
 	public UserVO user_read(String user_id);	//사용자 마이페이지
 	public boolean user_modify(UserVO vo);		//사용자 정보 수정

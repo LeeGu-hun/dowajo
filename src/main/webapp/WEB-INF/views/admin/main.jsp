@@ -39,8 +39,7 @@
 												<input type="button" id="regBtn" class="btn bg-red waves-effect" value="공지등록">
 											</div>
 											</ul>
-										</form>
-										
+										</form>										
 									</div>
 									<table
 										class="table table-bordered table-striped table-hover dataTable js-exportable"
@@ -72,7 +71,7 @@
 											<c:forEach items="${questions}" var="user">
 												<tr role="row" class="odd">
 												<td><c:out value="${user.qa_no }" /></td>
-												<td><c:out value="${user.qa_title }" /></td>
+												<td><a class="move" href="${user.qa_no}"><c:out value="${user.qa_title }" /></a></td>
 												<td><c:out value="${user.qa_writer }" /></td>
 												<td><fmt:formatDate pattern="yyyy-MM-dd"
 													value="${user.qa_date }" /></td>
@@ -147,9 +146,9 @@ $(document).ready(function(){
 	$('.move').on("click", function(e){
 		e.preventDefault();
 		console.log("move click");
-		$('#actionForm').append("<input type='hidden' name='user_no' value='"
+		$('#actionForm').append("<input type='hidden' name='qa_no' value='"
 				+$(this).attr('href')+"' />");
-		$('#actionForm').attr("action","/admin/get");
+		$('#actionForm').attr("action","/admin/main_get");
 		$('#actionForm').submit();
 	});	
 

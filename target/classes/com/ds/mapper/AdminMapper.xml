@@ -164,6 +164,8 @@
 		join ds_auth where user_no=#{user_no}
 	</select>
 	
+	
+	
 	<delete id="delete">
 		delete ds_user where user_no = #{user_no}
 	</delete>
@@ -202,4 +204,15 @@
 	<delete id="user_delete">
 		delete ds_user where user_no = #{user_no}		
 	</delete>
+	
+	<select id="main_read" resultType="com.ds.domain.QuestionsVO">
+		select qa_no, qa_writer, qa_title,
+		qa_content
+		from ds_qa where qa_no=#{qa_no}
+	</select>
+	
+	<delete id="main_delete">
+		delete ds_qa where qa_no = #{qa_no}
+	</delete>
+	
 </mapper>

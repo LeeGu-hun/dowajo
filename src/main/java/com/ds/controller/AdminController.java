@@ -101,13 +101,28 @@ public class AdminController {
 	}
 	
 	@PostMapping("/get")
-	public String modify(RedirectAttributes rttr,UserVO vo, @ModelAttribute("cri") Criteria cri) {
+	public String get(RedirectAttributes rttr,UserVO vo, @ModelAttribute("cri") Criteria cri) {
 		rttr.addAttribute("user_auth", cri.getUser_auth());
 		rttr.addAttribute("pageNum", cri.getPageNum());
 		rttr.addAttribute("amount", cri.getAmount());
 		rttr.addAttribute("type", cri.getType());
 		rttr.addAttribute("keyword", cri.getKeyword());
 		return "redirect:/admin/get?user_no="+vo.getUser_no() ;
+	}
+	
+	@GetMapping("/main_get")
+	public void main_get(@RequestParam("qa_no") int qa_no, Model model, @ModelAttribute("cri") Criteria cri) {
+		System.out.println("QuestionsVO : "+service.get(qa_no));
+		model.addAttribute("user", service.main_get(qa_no));
+	}
+	
+	@PostMapping("/main_get")
+	public String main_get(RedirectAttributes rttr, QuestionsVO vo, @ModelAttribute("cri") Criteria cri) {
+		rttr.addAttribute("pageNum", cri.getPageNum());
+		rttr.addAttribute("amount", cri.getAmount());
+		rttr.addAttribute("type", cri.getType());
+		rttr.addAttribute("keyword", cri.getKeyword());
+		return "redirect:/admin/main_get?qa_no="+vo.getQa_no() ;
 	}
 	
 	@PostMapping("/remove")
@@ -119,6 +134,12 @@ public class AdminController {
 		if (total % 10 == 0) cri.setPageNum(cri.getPageNum() - 1);
 		if (total == 0) cri.setPageNum(1);
 		return "redirect:/admin/userTypeList"+cri.getListLink();
+	}
+	@PostMapping("/main_remove")
+	public String main_remove(@RequestParam("qa_no") int qa_no, RedirectAttributes rttr,@ModelAttribute("cri") Criteria cri) {
+		log.info("remove...cri" + qa_no+"/"+cri);
+		if (service.main_remove(qa_no)) rttr.addFlashAttribute("result", "success");
+		return "redirect:/admin/main"+cri.getListLink();
 	}
 	
 	@GetMapping({"/myPage", "/myPage_modify"})

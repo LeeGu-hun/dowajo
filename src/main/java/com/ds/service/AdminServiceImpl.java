@@ -130,4 +130,14 @@ public class AdminServiceImpl implements AdminService{
 		
 	}
 
+	@Override
+	public QuestionsVO main_get(int qa_no) {
+		return mapper.main_read(qa_no);
+	}
+
+	@Override
+	public boolean main_remove(int qa_no) {
+		return mapper.main_delete(qa_no) == 1;
+	}
+
 }

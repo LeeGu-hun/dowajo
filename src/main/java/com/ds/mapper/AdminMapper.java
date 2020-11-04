@@ -31,9 +31,11 @@ public interface AdminMapper {
 
 	//상세 보기
 	public UserVO read(int user_no);
+	public QuestionsVO main_read(int qa_no);
 
 	//삭제
 	public int delete(int user_id);
+	public int main_delete(int qa_no);
 
 	//학생, 교사, 관리자 전체 수
 	public int getUserTypeTotal(Criteria cri);
