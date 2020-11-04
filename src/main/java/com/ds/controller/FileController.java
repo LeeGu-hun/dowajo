@@ -142,8 +142,8 @@ public class FileController {
 		    int diffDay = (int)(diffMil/oneDayMil) ;
 		 
 		     
-		    // 3일이 지난 파일 삭제
-		    if(diffDay > 3 && list[j].exists()){
+		    // 30일이 지난 파일 삭제
+		    if(diffDay > 30 && list[j].exists()){
 		        list[j].delete() ;
 		        System.out.println(list[j].getName() + " 파일을 삭제했습니다.");
 		    }

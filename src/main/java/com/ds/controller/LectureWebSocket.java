@@ -1,5 +1,6 @@
 package com.ds.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -129,8 +131,8 @@ public class LectureWebSocket {
     
 	@OnClose
     public void onClose(Session session){
-		setAbsent(Long.parseLong(lectureNoMap.get(session.getId()).toString()), Long.parseLong(userNoMap.get(session.getId()).toString()));
-//    	new SetAttend().start();
+		//setAbsent(Long.parseLong(lectureNoMap.get(session.getId()).toString()), Long.parseLong(userNoMap.get(session.getId()).toString()));
+    	new SetAttend(Long.parseLong(lectureNoMap.get(session.getId()).toString()), Long.parseLong(userNoMap.get(session.getId()).toString())).start();
     	
         System.out.println("Session " +session.getId()+" has ended");
         String str="{\"type\":\"nonAttendance\",\"id\":\""+session.getUserPrincipal().getName()+"\", \"name\":\""+userNameMap.get(session.getId())+"\" }";
@@ -141,14 +143,22 @@ public class LectureWebSocket {
         sessions.remove(session);
     }
     
-//    class SetAttend extends Thread{
-//    	
-//    	public void run() {
-//    		
-//    		return;
-//    	}
-//    	
-//    }
+    class SetAttend extends Thread{
+    	private Long lectureNo;
+    	private Long userNo;
+
+        public SetAttend(Long lectureNo, Long userNo) {
+            this.lectureNo = lectureNo;
+            this.userNo = userNo;
+        }
+        
+        @Override
+    	public void run() {
+    		setAbsent(lectureNo, userNo);
+    		return;
+    	}
+    	
+    }
     
 
     
@@ -205,18 +215,22 @@ public class LectureWebSocket {
 		}
 	}
 	
-	@Scheduled(cron="0 * * * * *")  
+	@Scheduled(cron="1 * * * * *")  
 	public void getDeadline() throws Exception{
 		log.info("스케쥴1분마다실행");
+		System.out.println("스케쥴1분마다실행 syso");
 		String str="{\"type\":\"clsHomework\"}";
+		String str2="{\"type\":\"clsHomeworkForTeacher\"}";
 		List<LectureVO> list = getDeadlineList();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		for(int i=0;i<list.size();i++) {
 			if(list.get(i).getFile_deadline()!=null) {
-				String listdate=dateFormat.format(list.get(i).getFile_deadline());
-				String nowdate=dateFormat.format(new Date());
-				System.out.println("listdate : "+listdate);
-				System.out.println("nowdate : "+nowdate);
+				Date listdate=list.get(i).getFile_deadline();
+				Date nowdate=new Date();
+				String listdateString=dateFormat.format(list.get(i).getFile_deadline());
+				String nowdateString=dateFormat.format(new Date());
+				System.out.println("listdate : "+listdateString);
+				System.out.println("nowdate : "+nowdateString);
 				System.out.println("compare : "+listdate.compareTo(nowdate));
 				if(listdate.compareTo(nowdate)<0) {
 					System.out.println("getDeadlineList : "+list.get(i));
@@ -226,9 +240,13 @@ public class LectureWebSocket {
 						if(list.get(i).getLecture_no() == lectureNoMap.get(nowSession.getId())) {
 							System.out.println("nowSession's lectureNo : "+lectureNoMap.get(nowSession.getId()));
 							nowSession.getBasicRemote().sendText(str);
+							nowSession.getBasicRemote().sendText(str2);
 						}
 						
 					}
+					System.out.println("getDeadlineLectureNo : "+list.get(i).getLecture_no());
+					setFileState(list.get(i).getLecture_no());
+					
 				}
 			}
 			
@@ -239,8 +257,6 @@ public class LectureWebSocket {
 		
 		
 		
-		
-		//sendAllSessionToMessage( session, msg );
 		
 	}
 	
@@ -267,6 +283,99 @@ public class LectureWebSocket {
 			closeDB();
 		}
 		return list;
+	}
+	
+	
+	public void setFileState(Long lectureNo) {
+		String sql = "";
+		
+		try {
+			conn = conDB();
+			conn.setAutoCommit(false);
+			sql="update ds_lecture set file_status = 0, file_deadline =null where lecture_no = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setLong(1, lectureNo);
+			if(pstmt.executeUpdate()>0) {
+				System.out.println("과제마감상태로 변경");
+				conn.commit();
+				conn.setAutoCommit(true);
+			}
+			else {
+				System.out.println("과제마감상태로 변경 실패");
+				conn.rollback();
+				conn.setAutoCommit(true);
+				return;
+			}
+		} catch (SQLException e) {
+			
+		} finally {
+			closeDB();
+		}
+	}
+	
+	
+	@Scheduled(cron="0 0 2 * * *")  
+	public void deleteFileAll() throws Exception{
+		
+
+		/////////////////////////////////////////////////파일삭제 시작
+				
+		// Calendar 객체 생성
+		Calendar cal = Calendar.getInstance() ;
+		long todayMil = cal.getTimeInMillis() ;     // 현재 시간(밀리 세컨드)
+		long oneDayMil = 24*60*60*1000 ;            // 일 단위
+		
+		Calendar fileCal = Calendar.getInstance() ;
+		Date fileDate = null ;
+		
+		
+		File path = new File("c:\\upload") ;
+		File[] flist = path.listFiles() ;            // 파일 리스트 가져오기
+		
+		
+		for(int j=0 ; j < flist.length; j++){
+			// 파일의 마지막 수정시간 가져오기
+			fileDate = new Date(flist[j].lastModified()) ;
+			
+			// 현재시간과 파일 수정시간 시간차 계산(단위 : 밀리 세컨드)
+			fileCal.setTime(fileDate);
+			long diffMil = todayMil - fileCal.getTimeInMillis() ;
+			
+			//날짜로 계산
+			int diffDay = (int)(diffMil/oneDayMil) ;
+			
+			
+			
+			
+			
+			
+			
+			// 30일이 지난 파일 삭제
+			if(diffDay > 30 && flist[j].exists()){
+				
+				
+				try {
+					File path2 = new File(flist[j].toString());
+					File[] flist2;
+					flist2 = path2.listFiles();
+					for(int k=0 ; k < flist2.length; k++){
+						flist2[k].delete() ;
+						System.out.println(flist2[k].getName() + " 파일(폴더안)을 삭제했습니다.");
+					}
+				} catch (Exception e) {
+					//e.printStackTrace();
+					//System.out.println("폴더가 아니라 파일임");
+				}
+				
+				
+				flist[j].delete() ;
+				System.out.println(flist[j].getName() + " 파일을 삭제했습니다.");
+			}
+		
+		}
+		
+		/////////////////////////////////////////////////파일삭제 끝
+		
 	}
 
 

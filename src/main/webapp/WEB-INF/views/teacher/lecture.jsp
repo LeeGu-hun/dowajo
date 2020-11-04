@@ -47,7 +47,8 @@
         						<button style="display:none;" type="button" class="btn btn-success waves-effect" id="clsProgress">수행여부 확인종료</button>
         					</td>
         					<td style="width:500px;">
-        						<button style="display:none;" type="button" class="btn btn-success waves-effect" id="clsHomework">학생 과제 받기(과제마감됨)</button>
+        						<button style="display:none;" type="button" class="btn btn-success waves-effect" id="clsHomework">과제마감하기</button>
+        						<button type="button" class="btn btn-success waves-effect" id="getHomework">학생 과제 받기</button>
         						<button style="display:none;" type="button" class="btn btn-success waves-effect" id="chkHomeworkStudent" data-toggle="modal" data-target="#defaultModal">과제 제출 확인</button>
         					</td>
         				</tr>
@@ -314,6 +315,11 @@
                	$('#file'+ id ).val(file);
 				
        		}
+           	if(myJsonData.type=='clsHomeworkForTeacher'){
+               	
+               	$('#clsHomework' ).trigger("click");
+				
+       		}
             
         	
         };
@@ -387,9 +393,8 @@
         	  };
     	webSocket.send(JSON.stringify(clsHomework));
     	
-		$("#receiveFile").submit();
-    	//self.location = "/file/download?fileName=dream01.png";
-        	// + "${product.filename}";
+		
+    	
     	
     	$("#clsHomework").fadeOut(300);
     	$("#chkHomeworkStudent").fadeOut(300);
@@ -411,6 +416,14 @@
 
 	    
     });
+    $("#getHomework").on("click", function(e){
+    	
+		$("#receiveFile").submit();
+		//self.location = "/file/download?fileName=dream01.png";
+    	// + "${product.filename}";
+	    
+    });
+    
 
     $("#messageinput").on("keypress", function(e){
 		if(e.keyCode==13){
