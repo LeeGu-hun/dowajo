@@ -18,6 +18,8 @@ public interface StudentMapper {
 	public int getTotalCount(Criteria cri);
 	public void applyClass(ClassListVO vo);
 	public int applyDuplicated(@Param("user_no") Long user_no, @Param("lecture_no") Long lecture_no);
+	public QuestionsVO main_read(int qa_no);
+	
 	// 사용자 정보보기
 	public UserVO user_read(String user_id);
 	// 회원정보 업데이트

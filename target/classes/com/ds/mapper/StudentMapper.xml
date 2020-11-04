@@ -152,4 +152,12 @@
 	<select id="qa_get" resultType="com.ds.domain.QuestionsVO">
 		SELECT * FROM DS_QA WHERE QA_NO = #{QA_NO}
 	</select>
+	
+	<select id="main_read" resultType="com.ds.domain.QuestionsVO">
+		select qa_no, qa_writer, qa_title,
+		qa_content
+		from ds_qa where qa_no=#{qa_no}
+	</select>
+	
+	
 </mapper>

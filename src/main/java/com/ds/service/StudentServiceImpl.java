@@ -96,4 +96,9 @@ public class StudentServiceImpl implements StudentService{
 	public QuestionsVO qa_get(Long qa_no) {
 		return mapper.qa_get(qa_no);
 	}
+	
+	@Override
+	public QuestionsVO main_read(int qa_no) {
+		return mapper.main_read(qa_no);
+	}
 }

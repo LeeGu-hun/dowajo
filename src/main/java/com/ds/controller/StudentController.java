@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -45,6 +46,11 @@ public class StudentController {
 		int total = adminService.getTotal2(cri);
 		model.addAttribute("questions", adminService.getList2(cri));
 		model.addAttribute("pageMaker", new PageDTO(cri, total));		
+	}
+	
+	@GetMapping("/main_get")
+	public void main_get(@RequestParam("qa_no") int qa_no, Model model, @ModelAttribute("cri") Criteria cri) {		
+		model.addAttribute("user", studentService.main_read(qa_no));
 	}
 	
 	@GetMapping("/lecture")
