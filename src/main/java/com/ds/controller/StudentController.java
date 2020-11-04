@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,6 +17,7 @@ import com.ds.domain.ClassListVO;
 import com.ds.domain.Criteria;
 import com.ds.domain.LectureVO;
 import com.ds.domain.PageDTO;
+import com.ds.domain.QuestionsVO;
 import com.ds.domain.UserVO;
 import com.ds.service.AdminService;
 import com.ds.service.LectureService;
@@ -108,8 +108,10 @@ public class StudentController {
 		return "redirect:/customLogin";
 	}
 	
-	@GetMapping("/suggestion")
-	public void getsuggestion() {
-		
+	@GetMapping("/QnA_list")
+	public void QnA_list(@RequestParam("user_no") Long user_no ,Model model) {
+		log.info("QnA_list...");
+		List<QuestionsVO> list = studentService.qa_list(user_no);
+		model.addAttribute("list", list);
 	}
 }

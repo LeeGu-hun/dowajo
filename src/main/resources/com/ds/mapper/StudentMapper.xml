@@ -122,5 +122,13 @@
 	<delete id="user_delete">
 		delete ds_user where user_no = #{user_no}		
 	</delete>	
-
+	
+	<select id="qa_list" resultType="com.ds.domain.QuestionsVO">
+		SELECT Q.QA_NO, Q.QA_WRITER, Q.QA_TITLE, Q.QA_DATE
+		FROM DS_QA Q
+		LEFT OUTER JOIN DS_USER U
+		ON q.qa_writer = u.user_id
+		WHERE USER_NO = #{USER_NO}
+	</select>
+	
 </mapper>
