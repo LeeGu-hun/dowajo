@@ -21,6 +21,8 @@ public interface StudentService {
 	public void applyClass(ClassListVO vo);
 
 	public int applyDuplicated(Long user_no, Long lecture_no);	
+	
+	public QuestionsVO main_read(int qa_no);
 
 	public UserVO user_read(String user_id);	//사용자 마이페이지
 	public boolean user_modify(UserVO vo);		//사용자 정보 수정
