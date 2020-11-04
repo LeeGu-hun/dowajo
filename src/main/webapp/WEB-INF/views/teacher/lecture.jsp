@@ -53,6 +53,10 @@
         					</td>
         				</tr>
         			</table>
+        			<br>
+        			<input id="youtubeAddress" style="width:90%;" type="text" class="form-control" placeholder="유튜브 주소를 입력하세요  (ex : https://youtu.be/23LJkiM_hlE)">
+        			<button type="button" class="btn btn-danger waves-effect" id="goYoutube">유튜브 연결하기</button>
+        			<button type="button" class="btn btn-danger waves-effect" id="goAfreeca">기존강의화면으로 돌아오기</button>
         			
         		</div>
         	</div>
@@ -551,6 +555,39 @@
         	
         }
 
+        
+    });
+
+
+
+    
+    $("#goYoutube").on("click", function(e){
+        var adr=$('#youtubeAddress').val().substring(17)
+        var youtube=$('#youtubeAddress').val().substring(8, 16)
+        console.log(adr);
+        console.log(youtube);
+
+    	if($('#youtubeAddress').val()==""){
+			alert("유튜브 주소를 입력하세요");
+			return;
+		}
+    	else if(youtube!="youtu.be"){
+    		alert("유튜브 형식에 맞추세요. (ex : https://youtu.be/23LJkiM_hlE)");
+			return;
+       	}
+    	else{
+    		var youtube={
+	        	    type: "youtube",
+	        	    data: adr
+	        	  };
+			webSocket.send(JSON.stringify(youtube));
+			$('#lecture').html('<iframe width="100%" height="100%" src="https://www.youtube.com/embed/'+adr+'?autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>');
+    	}
+        
+    });
+    $("#goAfreeca").on("click", function(e){
+    	sendAttendence();
+		$('#lecture').html('<iframe src="http://play.afreecatv.com/${lectureInfo.lecture_afreecaid}/embed?autoplay=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>');
         
     });
     

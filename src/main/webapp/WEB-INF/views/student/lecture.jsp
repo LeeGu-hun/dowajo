@@ -320,6 +320,12 @@
            	if(myJsonData.type=='chkAttendance'){
            		sendAttendence();
            	}
+
+           	if(myJsonData.type=='youtube'){
+               	var adr=decodeEntities(myJsonData.data);
+				$('#lecture').html('<iframe width="100%" height="100%" src="https://www.youtube.com/embed/'+adr+'?autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>');
+				
+       		}
            	
 			
         };
