@@ -30,7 +30,6 @@ public class AdminController {
 	@Setter(onMethod_ = {@Autowired})
 	private AdminService service;
 	
-	
 	@GetMapping("/main")
 	public void main(Criteria cri, Model model) {
 		int total = service.getTotal2(cri);

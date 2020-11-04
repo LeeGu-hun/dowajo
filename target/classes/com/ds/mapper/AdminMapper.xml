@@ -121,7 +121,7 @@
 		<![CDATA[
 		rownum<= #{pageNum} * #{amount})
 		where rn>(#{pageNum}-1)*#{amount}  
-		order by qa_no
+		order by qa_no desc
 		]]>
 	</select>
 	
@@ -153,7 +153,7 @@
 		<![CDATA[
 		rownum<= #{pageNum} * #{amount})
 		where rn>(#{pageNum}-1)*#{amount}  
-		order by qa_no
+		order by qa_no desc
 		]]>
 	</select>
 	
