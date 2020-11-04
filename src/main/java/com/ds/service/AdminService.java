@@ -12,6 +12,8 @@ public interface AdminService {
 	//admin
 	public void admin_regist(UserVO vo);
 	public void teacher_regist(UserVO vo);
+	public void main_regist(QuestionsVO vo);
+	
 	
 	public String duplicateId(String user_id);
 	
@@ -22,7 +24,7 @@ public interface AdminService {
 	
 	public int getUserTypeTotal(Criteria cri);
 	public List<UserVO> getUserTypeList(Criteria cri);
-
+	
 	public UserVO get(int user_no);
 	public boolean remove(int user_no);
 	

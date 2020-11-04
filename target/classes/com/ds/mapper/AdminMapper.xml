@@ -21,6 +21,7 @@
 		<result property="user_no" column="user_no" />
 		<result property="user_auth" column="user_auth" />
 	</resultMap>
+	
 
 
 	<select id="duplicateId" resultType="string">
@@ -58,8 +59,17 @@
 		insert into ds_auth values
 		(#{user_no},'ROLE_TEACHER')
 	</insert>
-
-
+	
+	<insert id="main_regist">
+		insert into 
+		ds_qa (qa_no,qa_writer,qa_title,qa_content,qa_date) VALUES 
+		(ds_qa_seq.nextval,#{qa_writer}, #{qa_title}, #{qa_content}, sysdate)
+		<selectKey resultType="long" keyProperty="qa_no"
+			order="AFTER">
+			SELECT ds_qa_seq.currval from dual
+		</selectKey>
+		
+	</insert>
 	<sql id="criteria">
 		<trim prefix="(" suffix=") AND " prefixOverrides="OR">
 			<foreach item='type' collection="typeArr">
@@ -89,7 +99,7 @@
 		select rownum rn, qa_no, qa_writer, qa_title, qa_date from ds_qa q  
 		join ds_user u on q.qa_writer=u.user_id
 		join ds_auth a on u.user_no=a.user_no
-		where user_auth ='ROLE_ADMIN' and    
+		where user_auth! ='ROLE_ADMIN' and    
 		]]>
 		<include refid="criteria"></include>
 		<![CDATA[ 

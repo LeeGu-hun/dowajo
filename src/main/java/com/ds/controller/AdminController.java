@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ds.domain.Criteria;
 import com.ds.domain.PageDTO;
+import com.ds.domain.QuestionsVO;
 import com.ds.domain.UserVO;
 import com.ds.service.AdminService;
 
@@ -35,6 +36,17 @@ public class AdminController {
 		int total = service.getTotal2(cri);
 		model.addAttribute("questions", service.getList2(cri));
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
+	}
+	@GetMapping("/main_regist")
+	public void main_registGet() {
+		
+	}
+	
+	@PostMapping("/main_regist")
+	public String main_registPost(QuestionsVO vo, RedirectAttributes rttr) {
+		service.main_regist(vo);
+		rttr.addFlashAttribute("result", vo.getQa_writer());	
+		return "redirect:/admin/main";
 	}
 	
 	@GetMapping("/admin_regist")

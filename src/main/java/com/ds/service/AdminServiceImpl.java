@@ -51,13 +51,9 @@ public class AdminServiceImpl implements AdminService{
 		List<AuthVO> list = new ArrayList<AuthVO>();
 		list.add(new AuthVO("ROLE_TEACHER"));
 		vo.setAuthList(list);
-		
 		mapper.teacher_regist(vo);
-		
 		vo.getAuthList().forEach(auth ->{
-			
 			auth.setUser_no(String.valueOf(vo.getUser_no()));
-			
 			mapper.teacher_registAuth(auth);
 		});
 		
@@ -126,6 +122,12 @@ public class AdminServiceImpl implements AdminService{
 	public boolean user_delete(Long user_no) {
 		System.out.println("서비스 impl_delete");
 		return mapper.user_delete(user_no) == 1;
+	}
+
+	@Override
+	public void main_regist(QuestionsVO vo) {
+		mapper.main_regist(vo);
+		
 	}
 
 }

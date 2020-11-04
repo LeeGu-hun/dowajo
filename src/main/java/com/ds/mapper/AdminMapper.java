@@ -12,6 +12,7 @@ public interface AdminMapper {
 	//학생, 선생님 문의 사항
 	public List<QuestionsVO> getQueList(Criteria cri);
 	public int getTotalCount(Criteria cri);
+	public void main_regist(QuestionsVO vo);
 		
 	//관리자 문의 사항
 	public List<QuestionsVO> getQueList2(Criteria cri);

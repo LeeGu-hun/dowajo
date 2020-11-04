@@ -32,7 +32,7 @@
 											<input type="search" id="keyword" name="keyword" value='<c:out value="${pageMaker.cri.keyword}" />'/>
 											<input type='hidden' name='pageNum' value='<c:out value="${pageMaker.cri.pageNum}"/>'/>
 											<input type='hidden' name='amount' value='<c:out value="${pageMaker.cri.amount}"/>'/>			
-											<button class='btn btn-default'>Search</button>
+											<button class="btn bg-red waves-effect">Search</button>
 											</ul>
 										</form>
 									</div>
@@ -47,15 +47,15 @@
 													aria-sort="ascending"
 													aria-label="Name: activate to sort column descending"
 													style="width: 150px;">번호</th>
-												<th class="sorting_asc" tabindex="0"
-													aria-controls="DataTables_Table_1" rowspan="1" colspan="1"
-													aria-sort="ascending"
-													aria-label="Name: activate to sort column descending"
-													style="width: 250px;">아이디</th>
 												<th class="sorting" tabindex="0"
 													aria-controls="DataTables_Table_1" rowspan="1" colspan="1"
 													aria-label="Position: activate to sort column ascending"
 													style="width: 397px;">제목</th>
+												<th class="sorting_asc" tabindex="0"
+													aria-controls="DataTables_Table_1" rowspan="1" colspan="1"
+													aria-sort="ascending"
+													aria-label="Name: activate to sort column descending"
+													style="width: 250px;">아이디</th>	
 												<th class="sorting" tabindex="0"
 													aria-controls="DataTables_Table_1" rowspan="1" colspan="1"
 													aria-label="Office: activate to sort column ascending"
@@ -66,8 +66,8 @@
 											<c:forEach items="${questions}" var="user">
 												<tr role="row" class="odd">
 												<td><c:out value="${user.qa_no }" /></td>
-												<td><c:out value="${user.qa_writer }" /></td>
 												<td><c:out value="${user.qa_title }" /></td>
+												<td><c:out value="${user.qa_writer }" /></td>
 												<td><fmt:formatDate pattern="yyyy-MM-dd"
 													value="${user.qa_date }" /></td>
 											</tr>
