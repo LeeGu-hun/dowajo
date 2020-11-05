@@ -155,6 +155,62 @@ public class TeacherController {
 		return "redirect:/teacher/teacher_main?user_no="+user_no;
 	}
 
+	@GetMapping("/teacher_modify")
+	@PreAuthorize("isAuthenticated()")
+	public void teacher_modify(@RequestParam("lecture_no") Long lecture_no, Model model) {
+		log.info("teacher_modify::"+lecture_no);
+		TeacherVO vo =  teacherService.lecture_get(lecture_no);
+		log.info("list? "+vo);
+		model.addAttribute("teacherVO", vo);
+		model.addAttribute("lecture_no", lecture_no);
+	}
+	@PostMapping("/teacher_modify")
+	@PreAuthorize("isAuthenticated()")
+	public String teacher_modify(TeacherVO vo,@RequestParam("user_no")Long user_no,HttpServletRequest req, HttpServletRequest resp,
+			Model model) {
+		log.info("Post teacher_modify::"+vo);
+		
+		MultipartHttpServletRequest multi = (MultipartHttpServletRequest) req;
+		MultipartFile mf = multi.getFile("uploadFile");
+		
+		String uploadFolder= "c:\\upload";
+		String uploadPathFilename="";
+		//make folder start
+		File uploadPath = new File(uploadFolder);
+		if(uploadPath.exists()==false) uploadPath.mkdirs();
+		//make folder end
+		if(mf.isEmpty()) {
+			//파일 업로드 하지 않은 경우 처리			
+			teacherService.lecture_modify(vo);		
+		} else {			
+			log.info("파일 이름 확인.......:"+mf.getOriginalFilename());
+			log.info("파일 사이즈 확인............:"+mf.getSize());
+			String fileName = mf.getOriginalFilename();
+			
+			uploadPathFilename = mf.getOriginalFilename().trim();
+			log.info("uploadTempFileName.........:"+uploadPathFilename);
+			vo.setUploadLecImage(uploadPathFilename.substring(uploadPathFilename.lastIndexOf("\\")+1));
+			
+			UUID uuid = UUID.randomUUID();
+			vo.setSavedLecImage(uuid.toString()+"_"+vo.getUploadLecImage());
+			
+			try {
+				File saveFile = new File(uploadFolder, vo.getSavedLecImage());
+				mf.transferTo(saveFile);
+				teacherService.lecture_modify(vo);
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}	
+		
+		
+		return "redirect:/teacher/teacher_main?user_no="+user_no;
+	}
+	
+	
+	
+	
+	
 	@GetMapping("/main")
 	public void main() {
 	}

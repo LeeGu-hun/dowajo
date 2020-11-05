@@ -24,14 +24,22 @@
 		insert into ds_class_list (lecture_no, user_no, class_status) values (#{lecture.lecture_no}, #{user_no}, 'true')
 	</insert>
 
-	<update id="update">
-		update sale_customers set id=#{id}, user_name = #{user_name}
-		where teacher_no = #{teacher_no}
-	</update>
 	<delete id="delete">
 		delete sale_customers where teacher_no =
 		#{teacher_no}
 	</delete>
+	
+	<select id="lecture_get" resultType="com.ds.domain.TeacherVO">
+		select lecture_no, lecture_name, lecture_description, lecture_afreecaid, savedLecImage
+		from ds_lecture
+		where lecture_no = #{lecture_no}
+	</select>
+	
+	<update id="lecture_modify" parameterType="com.ds.domain.TeacherVO">
+		update ds_lecture set lecture_name = #{lecture_name}, lecture_description = #{lecture_description}, 
+		lecture_afreecaid = #{lecture_afreecaid}, savedLecImage = #{savedLecImage} where lecture_no = #{lecture_no}
+	</update>
+	
 	<select id="getList" resultType="com.ds.domain.TeacherVO">
 		select DISTINCT l.lecture_no,l.lecture_name,l.lecture_description 
 		from ds_class_list c

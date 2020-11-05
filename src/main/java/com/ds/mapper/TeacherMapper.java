@@ -21,6 +21,8 @@ public interface TeacherMapper {
 	public void register_class_list(@Param("lecture")LectureVO lecture,@Param("user_no")Long user_no);
 	public boolean registAuth(AuthVO auth);
 	public int updateAdmin(String id);
+	public TeacherVO lecture_modify(TeacherVO vo);
+	public TeacherVO lecture_get(Long lecture_no);
 	public List<TeacherVO> getList(Long user_no);
 	public List<TeacherVO> regetlist_canecl(Long lecture_no);
 	public List<TeacherVO> regetlist_sign_up(Long lecture_no);

@@ -12,8 +12,11 @@
 	<div class="container-fluid">
 		<div class="block-header">
 			<h2>
-				강의 신청 및 수업시작  (오류발생이 뜬다면 F5를 눌러 새로고침해주세요)
+				강의 신청 및 수업시작(강의내용 수정할려면 '수정하기'를 눌러주세요)
+				<button type="button" class="btn bg-teal waves-effect" style="float:right" id="delete_Btn">삭제하기</button>
+				<button type="button" class="btn bg-teal waves-effect" style="float:right" id="modify_Btn">강의수정</button>
 			</h2>
+			<br>
 		</div>
 		<div class="row clearfix">
 			<!-- Default Example -->
@@ -187,10 +190,12 @@
 		<!-- #END# Draggable Handles -->
 	</div>
 </section>
+<form id='operForm' action="/teacher/teacher_modify" method="get">
+  <input type='hidden' name='lecture_no' value='<c:out value="${lecture_no}"/>'>
+</form>
 <script>
 	var csrfHeaderName = "${_csrf.headerName}";
 	var csrfTokenValue = "${_csrf.token}";
-	
 	function joinajax(){
 	    // 강의 번호를 갖고 온다.
 	    var lecture_no = ${lecture_no };
@@ -396,24 +401,13 @@
 	}
 	
 	$(document).ready(function() {
-		var searchForm = $("#searchForm");
 		
-		$("#searchForm>button").on("click", function(e){
-			if(!searchForm.find("option:selected").val()){
-				alert("검색 종류를 선택하세요");
-				return false;
-				}
-			if(!searchForm.find("input[name='keyword']").val()){
-				alert("키워드를 입력하세요");
-				return false;
-				}
-	
-			searchForm.find("input[name='pageNum']").val('1');
-			e.preventDefault();
-	
-			searchForm.submit();
+		var operForm = $("#operForm");
+		
+		$('#modify_Btn').on("click",function(e){
+			console.log("move modify");
+			operForm.submit();
 		});
-
 		
 		$('#start_class').on("click", function() {
 			/* location.href = "/teacher/lecture/"; */

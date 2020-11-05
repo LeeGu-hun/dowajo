@@ -20,6 +20,7 @@ public class TeacherVO {
 	private Date regdate;
 	private List<ClassListVO> classList;
 	private List<String> checkArr;
+	private String savedLecImage, uploadLecImage;
 	
 	
 }

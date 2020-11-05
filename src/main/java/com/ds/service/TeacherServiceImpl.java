@@ -47,7 +47,15 @@ public class TeacherServiceImpl implements TeacherService{
 		log.info("regist.......");
 		mapper.register_class_list(lecture,user_no);
 	}
-
+	@Override
+	public TeacherVO lecture_get(Long lecture_no) {
+		log.info("lecture_modify......" );
+		return mapper.lecture_get(lecture_no);
+	}
+	public TeacherVO lecture_modify(TeacherVO vo) {
+		log.info("lecture_modify......" );
+		return mapper.lecture_modify(vo);
+	}
 	@Override
 	public boolean remove(Long teacher_no) {
 		log.info("remove...." + teacher_no);
