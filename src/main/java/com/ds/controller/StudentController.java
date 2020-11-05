@@ -72,7 +72,7 @@ public class StudentController {
 		int total=studentService.getTotal(cri);		
 		List<LectureVO> list = studentService.lectureAllList(cri);		
 		model.addAttribute("leAL", list);
-		model.addAttribute("pageMaker", new PageDTO(cri, total));
+		model.addAttribute("pageMaker", new PageDTO(cri, total));		
 	}
 
 	@GetMapping("/lectureInfo")

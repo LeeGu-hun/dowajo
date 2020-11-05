@@ -4,10 +4,9 @@
 <%@ include file="/WEB-INF/views/include/header_student.jsp"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ taglib uri="http://www.springframework.org/security/tags"
-	prefix="sec"%>
-
-
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 
 <section class="content">
@@ -38,14 +37,23 @@
 				<thead>
 					<tr>
 						<th>강의실 번호</th>
-						<th>강의실 제목</th>
+						<th>강의실 이미지</th>
+						<th>강의실 제목</th>						
 						<th>선생님 이름</th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach items="${leAL}" var="leAL">
 						<tr>
-							<td><c:out value="${leAL.lecture_no }" /></td>							
+							<td><c:out value="${leAL.lecture_no }" /></td>						
+							<td>
+							<c:if test="${leAL.savedLecImage==null}">
+							<img src='<spring:url value="/lec_img/defaultImage.jpg"/>' height ="100dp">
+							</c:if>
+							<c:if test="${leAL.savedLecImage!=null}">
+							<img src='<spring:url value="/lec_img/${leAL.savedLecImage}"/>' height ="100dp">
+							</c:if>							
+							</td>
 							<td><a class="move" href="${leAL.lecture_no }">
 							<c:out value="${leAL.lecture_name }" /></a></td>
 							<td><c:out value="${leAL.user_name }" /></td>
