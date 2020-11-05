@@ -39,7 +39,6 @@
 									<input type="text" class="form-control" name="qa_title" id="qa_title" value="${user.qa_title}" readonly>
 								</div>
 							</div>
-						
 							<div class="input-group">
 								<span class="input-group-addon" > 
 									<i class="material-icons">content_paste</i> 내용 : 

@@ -64,35 +64,63 @@ table, tr, td{
 											</h2>
 										</div>
 										<div class="body table-responsive">
-											<div class="menu">
-												<label class="labelTxt">번 호</label>
-												<input type="text" name="qa_no" class="txtWriter" placeholder="제목 입력" value='<c:out value="${user.qa_no }"/>' readonly>																								
+											<div class="input-group">
+												<span class="input-group-addon"> 
+													<i class="material-icons">format_list_numbered</i> 문의번호 :  
+												</span>
+												<div class="form-line">
+													<input type="text" class="form-control" name="qa_no" id="qa_no" value="${user.qa_no}" readonly>
+												</div>
 											</div>
-											<div class="menu">
-												<label class="labelTxt">제 목</label>
-												<input type="text" name="qa_title" class="txtTitle" value='<c:out value="${user.qa_title }"/>' readonly>												
+											<div class="input-group">
+												<span class="input-group-addon"> 
+													<i class="material-icons">title</i> 제목 :  
+												</span>
+												<div class="form-line">
+													<input type="text" class="form-control" name="qa_title" id="qa_title" value="${user.qa_title}" readonly>
+												</div>
 											</div>
-											<div class="menu">
-												<label class="labelTxt">내 용</label>
-												<input type="text" name="qa_content" class="txtContent" value='<c:out value="${user.qa_content }"/>' readonly>
+											<div class="input-group">
+												<span class="input-group-addon"> 
+													<i class="material-icons">chat</i> 문의내용 : 
+												</span>
+												<div class="form-line">
+													<input type="text" class="form-control" name="qa_content" id="qa_content" value="${user.qa_content}" readonly>
+												</div>
 											</div>
-											<div class="menu">
-												<label class="labelTxt">작성자</label>
-												<input type="text" name="qa_writer" class="txtWriter" value='<c:out value="${user.qa_writer }"/>' readonly>
-											</div>
-											<div class="menu">
-												<label class="labelTxt">일 자</label>												
-												<input type="text" name="qa_date" class="txtWriter"  value='<fmt:formatDate pattern="yyyy/MM/dd" value="${user.qa_date}" />' readonly>
-											</div>
-											<div class="menu">
-												<label class="labelTxt">답 변</label>
-												<input type="text" name="qa_reply" class="txtWriter" value='<c:out value="${user.qa_reply }"/>'>												
+											<div class="input-group">
+												<span class="input-group-addon"> 
+													<i class="material-icons">person</i> 작성자 :  
+												</span>
+												<div class="form-line">
+													<input type="text" class="form-control" name="qa_writer" id="qa_writer" value="${user.qa_writer}" readonly>
+												</div>
 											</div>			
-											<div class="menu">
-												<label class="labelTxt">답변자</label>
-												<input type="text" name="qa_replyer" class="txtWriter" value="<sec:authentication property='principal.user.user_id'/>" readonly>
+											<div class="input-group">
+												<span class="input-group-addon"> 
+													<i class="material-icons">today</i> 일 자 :  
+												</span>
+												<div class="form-line">
+													<input type="text" class="form-control" name="qa_date" id="qa_date" value='<fmt:formatDate pattern="yyyy/MM/dd" value="${user.qa_date}" />' readonly>
+												</div>
+											</div>
+											<div class="input-group">
+												<span class="input-group-addon"> 
+													<i class="material-icons">comment</i> 답 변 :  
+												</span>
+												<div class="form-line">
+													<input type="text" class="form-control" name="qa_reply" id="qa_reply" value='<c:out value="${user.qa_reply }"/>'> 
+												</div>
 											</div>	
-																							
+											
+											<div class="input-group">
+												<span class="input-group-addon"> 
+													<i class="material-icons">person</i> 답 변자 :  
+												</span>
+												<div class="form-line">
+													<input type="text" class="form-control" name="qa_replyer" id="qa_replyer" value="<sec:authentication property='principal.user.user_id'/>" readonly> 
+												</div>
+											</div>													
 											<hr>
 											<div class="divBtn">
 												<button id="btnModify"class="btn bg-red waves-effect">저장하기</button>																							
