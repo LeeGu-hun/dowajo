@@ -39,7 +39,7 @@
 									<i class="material-icons">content_paste</i> 내용 : 
 								</span>
 								<div class="form-line">
-									<textarea rows="4" class="form-control no-resize" id="qa_content" name="qa_content" value="<c:out value="${user.qa_content}"/>"></textarea>
+									<textarea rows="10" class="form-control no-resize" id="qa_content" name="qa_content" value="<c:out value="${user.qa_content}"/>"></textarea>
 									<span><em>500</em> / 500</span>  
 								</div>
 							</div>

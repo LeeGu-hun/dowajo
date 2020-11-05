@@ -45,7 +45,7 @@
 									<i class="material-icons">content_paste</i> 내용 : 
 								</span>
 								<div class="form-line">
-									<textarea rows="4" class="form-control no-resize" id="qa_content" name="qa_content" />${user.qa_content}</textarea>
+									<textarea rows="10" class="form-control no-resize" readonly id="qa_content" name="qa_content" />${user.qa_content}</textarea>
 									<span id="idcheck" style="color:red;"></span>
 								</div>
 							</div>
