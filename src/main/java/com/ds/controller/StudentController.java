@@ -127,11 +127,11 @@ public class StudentController {
 	}
 	
 	@PostMapping("/QnA_register")	
-	public String QnA_register(QuestionsVO vo, RedirectAttributes rttr) {		
+	public String QnA_register(QuestionsVO vo, RedirectAttributes rttr, @RequestParam("user_no") Long user_no) {		
 		log.info("QnA_reg_post : " + vo);
 		studentService.qa_register(vo);
 		rttr.addFlashAttribute("result", vo.getQa_writer());		
-		return "redirect:/student/main";
+		return "redirect:/student/QnA_list?user_no=" + user_no;
 	}
 	
 	@GetMapping("/QnA_get")

@@ -31,7 +31,7 @@ table, tr, th{
 									<div class="card">
 										<div class="header">
 											<h2>
-												<b>문의하기</b><small>목록</small>
+												<b>문의하기</b><i class="material-icons">question_answer </i><small>목록</small>
 											</h2>
 										</div>
 										<div class="body table-responsive">
@@ -52,7 +52,10 @@ table, tr, th{
 															<td><c:out value="${list.qa_writer}" /></td>																															
 															<td><a class="move" href="${list.qa_no}"><c:out value="${list.qa_title}" /></a></td>
 															<td><fmt:formatDate pattern="yyyy-MM-dd" value="${list.qa_date}" /></td>
-															<td><c:out value="${list.qa_status}"/></td>															
+															<td>
+															<c:if test="${list.qa_status eq 0}">대기</c:if>
+															<c:if test="${list.qa_status eq 1}">완료</c:if>
+															</td>															
 														</tr>
 													</c:forEach>
 												</tbody>

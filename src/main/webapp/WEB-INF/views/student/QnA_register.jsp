@@ -9,11 +9,8 @@
 .divBtn{
 	margin-left: 20px;
 }
-.menu{
-	padding: 20px;
-}
 #txtTitle{
-	height: 50px; width: 500px;
+	height: 30px; width: 500px;
 	border : 1px solid black;
 	border-radius: 10px;
 	padding-left: 20px;
@@ -25,11 +22,14 @@
 	padding-left: 20px;
 }
 #txtWriter{
-	height: 50px; width: 500px;
+	height: 30px; width: 500px;
 	border : 1px solid black;
 	border-radius: 10px;
-	background-color: #ffc1b8;	
+	background-color: #d4f0ff;	
 	text-align: center;
+}
+table, tr, td{
+	padding: 5px 0;
 }
 </style>
 <body>
@@ -55,21 +55,26 @@
 											</h2>
 										</div>
 										<div class="body table-responsive">
-											<div class="menu">
-												<label>글제목&nbsp
-												<input type="text" name="qa_title" id="txtTitle" placeholder="제목 입력" >
-												</label>												
-											</div>
-											<div class="menu">
-												<label style="">글내용&nbsp
-												<textarea name="qa_content" id="txtContent" maxlength="100" placeholder="내용 입력"></textarea>
-												</label>
-											</div>
-											<div class="menu">
-												<label>작성자&nbsp
-												<input type="text" name="qa_writer" id="txtWriter" value="<sec:authentication property='principal.user.user_id'/>" readonly>
-												</label>
-											</div>
+											<table>
+												<tr>													
+													<td>														
+														제 목<br>
+														<input type="text" name="qa_title" id="txtTitle" placeholder="제목 입력" >
+													</td>													
+												</tr>
+												<tr>
+													<td>
+														문의 내용<br>
+														<textarea name="qa_content" id="txtContent" maxlength="100" placeholder="내용 입력"></textarea>
+													</td>													
+												</tr>
+												<tr>
+													<td>
+														작성자<br>
+														<input type="text" name="qa_writer" id="txtWriter" value="<sec:authentication property='principal.user.user_id'/>" readonly>
+													</td>
+												</tr>											
+											</table>											
 											<hr>
 											<div class="divBtn">
 												<button type="button" id="btnRegister" class="btn bg-blue-grey waves-effect">등록</button>&nbsp											

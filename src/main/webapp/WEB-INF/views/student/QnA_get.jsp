@@ -24,7 +24,7 @@
 	height: 30px; width: 500px;
 	border : 1px solid black;
 	border-radius: 10px;
-	background-color: #d3fcc5;	
+	background-color: #d4f0ff;	
 	text-align: center;
 }
 .txtReply{
@@ -97,11 +97,11 @@ table, tr, td{
 												<tr>
 													<td>
 														작성 시간<br>
-														<input type="text" name="qa_writer" class="txtTitle"  value='<fmt:formatDate pattern="yyyy/MM/dd" value="${qa.qa_date}" />' readonly>
+														<input type="text" name="qa_writer" class="txtTitle"  value='<fmt:formatDate pattern="yyyy/MM/dd HH:mm" value="${qa.qa_date}" />' readonly>
 													</td>
 													<td>
 														답변 시간<br>
-														<input type="text" name="qa_replydate" class="txtTitle"  value='<fmt:formatDate pattern="yyyy/MM/dd" value="${qa.qa_replydate}" />' readonly>
+														<input type="text" name="qa_replydate" class="txtTitle"  value='<fmt:formatDate pattern="yyyy/MM/dd HH:mm" value="${qa.qa_replydate}" />' readonly>
 													</td>
 												</tr>												
 											</table>																																	
