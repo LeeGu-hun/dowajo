@@ -13,6 +13,8 @@ public interface AdminMapper {
 	public List<QuestionsVO> getQueList(Criteria cri);
 	public int getTotalCount(Criteria cri);
 	public void main_regist(QuestionsVO vo);
+	//QnA 답글 
+	public int QnA_update(QuestionsVO vo);
 		
 	//관리자 문의 사항
 	public List<QuestionsVO> getQueList2(Criteria cri);
@@ -42,6 +44,8 @@ public interface AdminMapper {
 
 	//학생, 교사, 관리자 전체 목록
 	public List<UserVO> getUserTypeList(Criteria cri);
+	
+	
 	
 	public UserVO user_read(String user_id);	//사용자 정보보기
 	public int user_update(UserVO vo);			//회원정보 업데이트

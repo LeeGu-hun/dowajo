@@ -40,7 +40,7 @@
 								</span>
 								<div class="form-line">
 									<textarea rows="4" class="form-control no-resize" id="qa_content" name="qa_content" value="<c:out value="${user.qa_content}"/>"></textarea>
-									<span id="idcheck" style="color:red;"></span>
+									<span><em>500</em> / 500</span>  
 								</div>
 							</div>
 							<button id="submitBtn" class="btn bg-green waves-effect" type="submit" ">공지등록</button>
@@ -56,9 +56,11 @@
 $(document).ready(function() {
 	
 	var formObj = $("form");
+	var idObj = $('#qa_content');
 	$('#listbtn').on("click", function(){
 		history.back();
 	});
+	
 	$('#submitBtn').on("click", function(e){
 		e.preventDefault();
 		if($('#qa_title').val()==''){
@@ -69,19 +71,18 @@ $(document).ready(function() {
 		}
 		formObj.submit();
 	});
-	function checkId(){
-		$('#idcheck').html('');
-		var id = $("#qa_content");
-		var idReg = /^[a-z0-9_]{10,30}$/g;
-  if( !idReg.test(id.val())) {
-	  $('#idcheck').html('(조건이 만족되지 않습니다.)');
-	  $("#qa_content").focus();
-    return false;
-  } else {
-    return true;
-  }
-	}	
-	
+	 $("textarea").keydown(function(){
+		    var numChar = $(this).val().length;
+		    var maxNum = 500;
+		    var charRemain = maxNum - numChar;
+		    $("span > em").text(charRemain);
+		    if(charRemain < 0){
+		      $("span > em").addClass("warning");
+		      $("#submitBtn").prop("disabled", true);
+		    } else {
+		      $("#submitBtn").prop("disabled", false);
+		    }
+		  });
 });
 
 </script>

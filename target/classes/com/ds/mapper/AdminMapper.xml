@@ -207,12 +207,17 @@
 	
 	<select id="main_read" resultType="com.ds.domain.QuestionsVO">
 		select qa_no, qa_writer, qa_title,
-		qa_content
+		qa_content,qa_date,qa_reply
 		from ds_qa where qa_no=#{qa_no}
 	</select>
 	
 	<delete id="main_delete">
 		delete ds_qa where qa_no = #{qa_no}
 	</delete>
+	
+	<update id="QnA_update">
+		update ds_qa set qa_reply = #{qa_reply}
+		where qa_no = #{qa_no}
+	</update>
 	
 </mapper>

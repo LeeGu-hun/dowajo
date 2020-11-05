@@ -140,4 +140,10 @@ public class AdminServiceImpl implements AdminService{
 		return mapper.main_delete(qa_no) == 1;
 	}
 
+	@Override
+	public boolean QnA_modify(QuestionsVO vo) {
+		boolean modifyResult = mapper.QnA_update(vo) == 1;		
+		return modifyResult;
+	}
+
 }

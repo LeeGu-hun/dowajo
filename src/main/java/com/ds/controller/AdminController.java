@@ -124,6 +124,18 @@ public class AdminController {
 		return "redirect:/admin/main_get?qa_no="+vo.getQa_no() ;
 	}
 	
+	@GetMapping("/QnA_get")
+	public void QnA_get(@RequestParam("qa_no") int qa_no, Model model, @ModelAttribute("cri") Criteria cri) {
+		model.addAttribute("user", service.main_get(qa_no));
+	}
+	
+	@PostMapping("/QnA_get")
+	public String QnA_get(RedirectAttributes rttr, QuestionsVO vo, @ModelAttribute("cri") Criteria cri) {
+		if(service.QnA_modify(vo))
+			rttr.addAttribute("result", "success");
+		return "redirect:/admin/QnA_get?qa_no="+vo.getQa_no() ;
+	}
+	
 	@PostMapping("/remove")
 	public String remove(@RequestParam("user_no") int user_no, RedirectAttributes rttr,@ModelAttribute("cri") Criteria cri) {
 		log.info("remove...cri" + user_no+"/"+cri);

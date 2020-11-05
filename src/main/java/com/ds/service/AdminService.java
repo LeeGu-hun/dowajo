@@ -29,6 +29,7 @@ public interface AdminService {
 	
 	public QuestionsVO main_get(int qa_no);
 	public boolean main_remove(int qa_no);
+	public boolean QnA_modify(QuestionsVO vo);
 
 	
 	public UserVO user_read(String user_id);	//사용자 마이페이지
