@@ -7,6 +7,7 @@ import com.ds.domain.Criteria;
 
 import com.ds.domain.LectureVO;
 import com.ds.domain.QuestionsVO;
+import com.ds.domain.TeacherQuestionsVO;
 import com.ds.domain.UserVO;
 	
 public interface StudentService {
@@ -29,5 +30,9 @@ public interface StudentService {
 	public boolean user_delete(Long user_no);	//사용자 삭제
 	public List<QuestionsVO> qa_list(Long user_no);		//문의사항 리스트		
 	public void qa_register(QuestionsVO vo);			//문의사항 등록
-	public QuestionsVO qa_get(Long qa_no);				//문의사항 상세보기		
+	public QuestionsVO qa_get(Long qa_no);				//문의사항 상세보기
+	
+	public List<TeacherQuestionsVO> tqa_list(Long user_no);
+	public TeacherQuestionsVO tqa_get(Long tqa_no);
+	public void tqa_register(TeacherQuestionsVO vo);
 }

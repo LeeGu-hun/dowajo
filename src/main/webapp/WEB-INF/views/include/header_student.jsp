@@ -227,9 +227,9 @@
                     </li>
                     
                     <li>
-                    	<a href="/student/myPage?user_id=<sec:authentication property='principal.user.user_id'/>">                    	
-                    		<i class="material-icons">face</i>
-                    		<span>회원 정보 </span>
+                    	<a href="/student/TQnA_list" id="TQnA">                    	
+                    		<i class="material-icons">live_help</i>
+                    		<span>선생님께 질문하기 </span>
                     	</a>                    
                     </li>
                     
@@ -432,6 +432,10 @@
 	<input type='hidden' name='user_no' value='<sec:authentication property="principal.user.user_no"/>'>
 </form>
 
+<form action="/student/TQnA_list" method='get' id="shootUNo2">
+	<input type='hidden' name='user_no' value='<sec:authentication property="principal.user.user_no"/>'>
+</form>
+
 <script>
 	$(document).ready(function(){
 		$('#logout').on("click", function(e){
@@ -452,6 +456,11 @@
 		$('#QnA').on("click", function(e){
 			e.preventDefault();
 			$('#shootUNo').submit();
+		});
+
+		$('#TQnA').on("click", function(e){
+			e.preventDefault();
+			$('#shootUNo2').submit();
 		});
 	});
 </script>

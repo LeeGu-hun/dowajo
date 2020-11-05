@@ -10,6 +10,7 @@ import com.ds.domain.ClassListVO;
 import com.ds.domain.Criteria;
 import com.ds.domain.LectureVO;
 import com.ds.domain.QuestionsVO;
+import com.ds.domain.TeacherQuestionsVO;
 import com.ds.domain.UserVO;
 import com.ds.mapper.StudentMapper;
 
@@ -100,5 +101,20 @@ public class StudentServiceImpl implements StudentService{
 	@Override
 	public QuestionsVO main_read(int qa_no) {
 		return mapper.main_read(qa_no);
+	}
+	
+	@Override
+	public List<TeacherQuestionsVO> tqa_list(Long user_no) {		
+		return mapper.tqa_list(user_no);
+	}
+	
+	@Override
+	public TeacherQuestionsVO tqa_get(Long tqa_no) {
+		return mapper.tqa_get(tqa_no);
+	}
+	
+	@Override
+	public void tqa_register(TeacherQuestionsVO vo) {
+		mapper.tqa_register(vo);
 	}
 }

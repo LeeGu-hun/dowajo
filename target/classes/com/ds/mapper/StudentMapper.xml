@@ -160,5 +160,27 @@
 		from ds_qa where qa_no=#{qa_no}
 	</select>
 	
+	<select id="tqa_list" resultType="com.ds.domain.TeacherQuestionsVO">
+		SELECT Q.TQA_NO, Q.TQA_WRITER, Q.TQA_TITLE, Q.TQA_DATE, Q.TQA_TEACHER
+		FROM DS_TQA Q
+		LEFT OUTER JOIN DS_USER U
+		ON q.tqa_writer = u.user_name
+		WHERE USER_NO = #{USER_NO}
+		ORDER BY tqa_no
+	</select>
+	
+	<select id="tqa_get" resultType="com.ds.domain.TeacherQuestionsVO">
+		SELECT * FROM DS_TQA WHERE TQA_NO = #{TQA_NO}
+	</select>
+	
+	<insert id="tqa_register">
+		INSERT INTO 
+			ds_tqa (tqa_no, tqa_writer, tqa_title, tqa_content, tqa_date, tqa_teacher)
+		VALUES 
+			(ds_tqa_seq.nextval, #{tqa_writer}, #{tqa_title}, #{tqa_content}, sysdate, #{tqa_teacher})
+		<selectKey resultType="long" keyProperty="tqa_no" order="AFTER">
+			SELECT ds_tqa_seq.currval from dual
+		</selectKey>		
+	</insert>
 	
 </mapper>

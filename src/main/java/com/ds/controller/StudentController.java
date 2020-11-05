@@ -19,6 +19,7 @@ import com.ds.domain.Criteria;
 import com.ds.domain.LectureVO;
 import com.ds.domain.PageDTO;
 import com.ds.domain.QuestionsVO;
+import com.ds.domain.TeacherQuestionsVO;
 import com.ds.domain.UserVO;
 import com.ds.service.AdminService;
 import com.ds.service.LectureService;
@@ -136,5 +137,29 @@ public class StudentController {
 	@GetMapping("/QnA_get")
 	public void QnA_get(@RequestParam("qa_no") Long qa_no, Model model) {
 		model.addAttribute("qa", studentService.qa_get(qa_no));
+	}
+	
+	@GetMapping("/TQnA_list")
+	public void TQnA_list(@RequestParam("user_no") Long user_no ,Model model) {
+		log.info("TQnA_list...");
+		List<TeacherQuestionsVO> list = studentService.tqa_list(user_no);
+		model.addAttribute("list", list);
+	}
+	
+	@GetMapping("/TQnA_get")
+	public void TQnA_get(@RequestParam("tqa_no") Long tqa_no, Model model) {
+		model.addAttribute("tqa", studentService.tqa_get(tqa_no));
+	}
+	
+	@GetMapping("/TQnA_register")
+	public void TQnA_register() {		
+	}
+	
+	@PostMapping("/TQnA_register")	
+	public String TQnA_register(TeacherQuestionsVO vo, RedirectAttributes rttr) {		
+		log.info("TQnA_reg_post : " + vo);
+		studentService.tqa_register(vo);
+		rttr.addFlashAttribute("result", vo.getTqa_writer());		
+		return "redirect:/student/main";
 	}
 }

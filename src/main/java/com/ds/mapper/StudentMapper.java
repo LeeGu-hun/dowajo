@@ -8,6 +8,7 @@ import com.ds.domain.ClassListVO;
 import com.ds.domain.Criteria;
 import com.ds.domain.LectureVO;
 import com.ds.domain.QuestionsVO;
+import com.ds.domain.TeacherQuestionsVO;
 import com.ds.domain.UserVO;
 
 public interface StudentMapper {
@@ -32,4 +33,8 @@ public interface StudentMapper {
 	public void qa_register(QuestionsVO vo);
 	// 질문 상세보기
 	public QuestionsVO qa_get(Long qa_no);
+	
+	public List<TeacherQuestionsVO> tqa_list(Long user_no);
+	public TeacherQuestionsVO tqa_get(Long tqa_no);
+	public void tqa_register(TeacherQuestionsVO vo);
 }
