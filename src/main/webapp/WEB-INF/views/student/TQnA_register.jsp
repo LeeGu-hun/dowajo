@@ -70,10 +70,15 @@
 												<input type="text" name="tqa_writer" id="txtWriter" value="<sec:authentication property='principal.user.user_name'/>" readonly>
 												</label>
 											</div>
-											<div class="menu">
-												<label>질문드릴 선생님&nbsp
-												<textarea name="tqa_teacher" id="txtContent" maxlength="100" placeholder="선생님 이름을 적어주세요"></textarea>
-												</label>
+											<div class="menu">												
+												<div class="col-sm-6">
+                                    				<select class="form-control show-tick" name="tqa_teacher" id="tqa_teacher">
+                                        				<option value="">질문드릴 선생님</option>
+                                        				<option value="강사">강사</option>
+                                        				<option value="강사2">강사2</option>
+                                        				<option value="강사3">강사3</option>                                        				
+                                    				</select>
+                                				</div>												
 											</div>
 											<hr>
 											<div class="divBtn">
@@ -103,6 +108,10 @@ $(document).ready(function(){
 			alert("제목을 입력해주세요.");
 			$('#txtTitle').focus();	
 			return false;		
+		}
+		if($('#tqa_teacher').val()==""){
+			alert("질문할 교사를 선택해주세요.");
+			return false;
 		}
 		formObj.submit();
 	});

@@ -58,7 +58,7 @@ table, tr, th{
 												</tbody>
 											</table>
 											<div class="divBtn">
-											<button type="button" id = "btn" class="btn bg-blue-grey waves-effect">글 등록</button>
+											<button type="button" id = "btn" class="btn bg-blue-grey waves-effect">질문하기</button>
 											</div>
 										</div>
 									</div>
