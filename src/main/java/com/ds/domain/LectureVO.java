@@ -16,6 +16,7 @@ public class LectureVO {
 	private List<ClassListVO> classList;
 	private boolean file_status;
 	private String user_name;
+	private String savedLecImage, uploadLecImage;
 	private Date file_deadline;
 	
 }

@@ -265,4 +265,41 @@ INSERT INTO "DB7"."DS_QA" (QA_NO, QA_WRITER, QA_TITLE, QA_CONTENT) VALUES ('14',
 INSERT INTO "DB7"."DS_QA" (QA_NO, QA_WRITER, QA_TITLE, QA_CONTENT) VALUES ('15', 'teacher', '제목15', '내용15');
 INSERT INTO "DB7"."DS_QA" (QA_NO, QA_WRITER, QA_TITLE, QA_CONTENT) VALUES ('16', 'teacher', '제목16', '내용16');
 INSERT INTO "DB7"."DS_QA" (QA_NO, QA_WRITER, QA_TITLE, QA_CONTENT) VALUES ('17', 'teacher', '제목17', '내용17');    
-/*<추가 11/05 by 장재영> ------------------------------------------------------------------------------------*/    
+/*<추가 11/05 by 장재영> ------------------------------------------------------------------------------------*/
+
+/*<추가 11/04> ------------------------------------------------------------------------------------*/
+
+CREATE TABLE DS_TQA (
+    TQA_NO NUMBER NOT NULL PRIMARY KEY, 
+    TQA_WRITER VARCHAR2(20),
+    TQA_TEACHER VARCHAR2(20),
+    TQA_STUDENT VARCHAR2(20),
+    TQA_TITLE VARCHAR2(20),
+    TQA_CONTENT VARCHAR2(200),
+    TQA_DATE DATE);
+    
+    
+CREATE SEQUENCE  "DB7"."DS_TQA_SEQ"  MINVALUE 1 MAXVALUE 99999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL;
+
+INSERT INTO "DB7"."DS_TQA" (TQA_NO, TQA_WRITER, TQA_TEACHER, TQA_TITLE, TQA_CONTENT) VALUES ('1', '학생', '강사', '질문1', '내용1');
+INSERT INTO "DB7"."DS_TQA" (TQA_NO, TQA_WRITER, TQA_TEACHER, TQA_TITLE, TQA_CONTENT) VALUES ('2', '학생', '강사', '질문2', '내용2');
+INSERT INTO "DB7"."DS_TQA" (TQA_NO, TQA_WRITER, TQA_TEACHER, TQA_TITLE, TQA_CONTENT) VALUES ('3', '학생', '강사', '질문3', '내용3');
+INSERT INTO "DB7"."DS_TQA" (TQA_NO, TQA_WRITER, TQA_TEACHER, TQA_TITLE, TQA_CONTENT) VALUES ('4', '학생', '강사', '질문4', '내용4');
+INSERT INTO "DB7"."DS_TQA" (TQA_NO, TQA_WRITER, TQA_TEACHER, TQA_TITLE, TQA_CONTENT) VALUES ('5', '학생', '강사2', '질문5', '내용5');
+INSERT INTO "DB7"."DS_TQA" (TQA_NO, TQA_WRITER, TQA_TEACHER, TQA_TITLE, TQA_CONTENT) VALUES ('6', '학생', '강사2', '질문6', '내용6');
+INSERT INTO "DB7"."DS_TQA" (TQA_NO, TQA_WRITER, TQA_TEACHER, TQA_TITLE, TQA_CONTENT) VALUES ('7', '학생', '강사2', '질문7', '내용7');
+INSERT INTO "DB7"."DS_TQA" (TQA_NO, TQA_WRITER, TQA_TEACHER, TQA_TITLE, TQA_CONTENT) VALUES ('8', '학생', '강사2', '질문8', '내용8');
+INSERT INTO "DB7"."DS_TQA" (TQA_NO, TQA_WRITER, TQA_TEACHER, TQA_TITLE, TQA_CONTENT) VALUES ('9', '학생', '강사3', '질문9', '내용9');
+INSERT INTO "DB7"."DS_TQA" (TQA_NO, TQA_WRITER, TQA_TEACHER, TQA_TITLE, TQA_CONTENT) VALUES ('10', '학생', '강사3', '질문10', '내용10');
+INSERT INTO "DB7"."DS_TQA" (TQA_NO, TQA_WRITER, TQA_TEACHER, TQA_TITLE, TQA_CONTENT) VALUES ('11', '학생', '강사3', '질문11', '내용11');
+INSERT INTO "DB7"."DS_TQA" (TQA_NO, TQA_WRITER, TQA_TEACHER, TQA_TITLE, TQA_CONTENT) VALUES ('12', '학생', '강사3', '질문12', '내용12');
+
+commit;
+
+/*<추가 11/04> ------------------------------------------------------------------------------------*/
+
+/*<추가 11/05> ------------------------------------------------------------------------------------*/
+alter table ds_lecture add savedLecImage varchar2(200);
+
+commit;
+/*<추가 11/05> ------------------------------------------------------------------------------------*/

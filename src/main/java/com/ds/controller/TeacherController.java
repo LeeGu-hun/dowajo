@@ -1,8 +1,12 @@
 package com.ds.controller;
 
+import java.io.File;
 import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +22,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ds.domain.AuthVO;
@@ -103,13 +109,45 @@ public class TeacherController {
 	
 	@PostMapping("/teacher_reg")
 	@PreAuthorize("isAuthenticated()")
-	public String teacher_reg(LectureVO lecture,@RequestParam("user_no")Long user_no, Model model) {
+	public String teacher_reg(LectureVO lecture,HttpServletRequest req, HttpServletRequest resp,
+			@RequestParam("user_no")Long user_no, Model model) {		
 		log.info("================");
 		log.info("post register: " + lecture);
 		log.info("post register user_no: " + user_no);
 		log.info("================");
-
-		teacherService.register(lecture);
+		
+		MultipartHttpServletRequest multi = (MultipartHttpServletRequest) req;
+		MultipartFile mf = multi.getFile("uploadFile");
+		
+		String uploadFolder= "c:\\upload";
+		String uploadPathFilename="";
+		//make folder start
+		File uploadPath = new File(uploadFolder);
+		if(uploadPath.exists()==false) uploadPath.mkdirs();
+		//make folder end
+		if(mf.isEmpty()) {
+			//파일 업로드 하지 않은 경우 처리			
+			teacherService.register(lecture);			
+		} else {			
+			log.info("파일 이름 확인.......:"+mf.getOriginalFilename());
+			log.info("파일 사이즈 확인............:"+mf.getSize());
+			String fileName = mf.getOriginalFilename();
+			
+			uploadPathFilename = mf.getOriginalFilename().trim();
+			log.info("uploadTempFileName.........:"+uploadPathFilename);
+			lecture.setUploadLecImage(uploadPathFilename.substring(uploadPathFilename.lastIndexOf("\\")+1));
+			
+			UUID uuid = UUID.randomUUID();
+			lecture.setSavedLecImage(uuid.toString()+"_"+lecture.getUploadLecImage());
+			
+			try {
+				File saveFile = new File(uploadFolder, lecture.getSavedLecImage());
+				mf.transferTo(saveFile);
+				teacherService.register(lecture);
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}		
 		System.out.println("after 렉쳐번호 : "+lecture.getLecture_no());
 		//Long get_no = lecture.getLecture_no();
 		//log.info("get_no는?? "+get_no);

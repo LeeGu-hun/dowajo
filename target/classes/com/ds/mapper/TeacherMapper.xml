@@ -13,8 +13,8 @@
 
 
 	<insert id="registlecture">
-		insert into ds_lecture (lecture_no, lecture_name, lecture_description, lecture_afreecaid) values (ds_lecture_seq.nextval, #{lecture_name},
-		 #{lecture_description}, #{lecture_afreecaid})
+		insert into ds_lecture (lecture_no, lecture_name, lecture_description, lecture_afreecaid, savedLecImage) values (ds_lecture_seq.nextval, #{lecture_name},
+		 #{lecture_description}, #{lecture_afreecaid},#{savedLecImage})
 		 <selectKey resultType="long" keyProperty="lecture_no" order="AFTER">
 			SELECT ds_lecture_seq.currval from dual
 		</selectKey>
