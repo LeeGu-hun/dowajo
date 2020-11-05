@@ -6,21 +6,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>​
 
 <style>
-.divBtn{
-	margin-left: 20px;
-}
-.menu{
-	padding: 20px;
-}
-.labelTxt{
-	margin-right: 10px;
-}
 .txtTitle{
-	height: 70px; width: 500px;
+	height: 30px; width: 500px;
 	border : 1px solid black;
 	border-radius: 10px;
-	padding-left: 20px;
-	background-color: #eee;
+	padding-left: 20px;	
 	text-align: center;
 }
 .txtContent{
@@ -28,17 +18,29 @@
 	border : 1px solid black;
 	border-radius: 10px;
 	padding-left: 20px;
-	background-color: #eee;
+	
 }
 .txtWriter{
-	height: 50px; width: 500px;
+	height: 30px; width: 500px;
 	border : 1px solid black;
 	border-radius: 10px;
-	background-color: #eee;	
+	background-color: #d3fcc5;	
 	text-align: center;
 }
-table, tr, td{
-	border: 1px solid black;
+.txtReply{
+	height: 130px; width: 500px;
+	border : 1px solid black;
+	border-radius: 10px;
+	padding-left: 20px;
+}
+table{
+	margin-left: 200px;
+}
+table, tr, td{	
+	padding: 5px 5px;
+}
+.divBtn{
+	margin-left: 650px;
 }
 </style>
 <body>
@@ -60,40 +62,53 @@ table, tr, td{
 									<div class="card">
 										<div class="header">
 											<h2>
-												<b>문의하기</b><small>글 등록</small>
+												<b>문의하기</b><small>내용 보기</small>
 											</h2>
 										</div>
 										<div class="body table-responsive">
-											<div class="menu">
-												<label class="labelTxt">번 호</label>
-												<input type="text" name="qa_title" class="txtWriter" placeholder="제목 입력" value='<c:out value="${qa.qa_no }"/>' readonly>																								
-											</div>
-											<div class="menu">
-												<label class="labelTxt">제 목</label>
-												<input type="text" name="qa_title" class="txtTitle" value='<c:out value="${qa.qa_title }"/>' readonly>												
-											</div>
-											<div class="menu">
-												<label class="labelTxt">내 용</label>
-												<input type="text" name="qa_reply" class="txtContent" value='<c:out value="${qa.qa_content }"/>' readonly>
-											</div>
-											<div class="menu">
-												<label class="labelTxt">작성자</label>
-												<input type="text" name="qa_writer" class="txtWriter" value="<sec:authentication property='principal.user.user_id'/>" readonly>
-											</div>
-											<div class="menu">
-												<label class="labelTxt">일 자</label>												
-												<input type="text" name="qa_writer" class="txtWriter"  value='<fmt:formatDate pattern="yyyy/MM/dd" value="${qa.qa_date}" />' readonly>
-											</div>
-											<div class="menu">
-												<label class="labelTxt">답 변</label>
-												<input type="text" name="qa_reply" class="txtWriter" value='<c:out value="${qa.qa_reply }"/>' readonly>												
-											</div>																						
-											<hr>
-											
+											<table>
+												<tr>													
+													<td>														
+														제 목<br>
+														<input type="text" name="qa_title" class="txtWriter" value='<c:out value="${qa.qa_title }"/>' readonly>
+													</td>
+													<td rowspan="2">
+														답변 내용<br>
+														<textarea name="qa_reply" class="txtReply" readonly>${qa.qa_reply }</textarea>
+													</td>
+												</tr>
+												<tr>
+													<td>
+														문의 내용<br>
+														<textarea name="qa_content" class="txtContent" readonly>${qa.qa_content}</textarea>
+													</td>													
+												</tr>
+												<tr>
+													<td>
+														작성자<br>
+														<input type="text" name="qa_writer" class="txtWriter" value="<sec:authentication property='principal.user.user_id'/>" readonly>
+													</td>
+													<td>
+														답변자<br>
+														<input type="text" name="qa_replyer" class="txtWriter" value="<c:out value="${qa.qa_replyer }"/>" readonly>
+													</td>
+													
+												</tr>													
+												<tr>
+													<td>
+														작성 시간<br>
+														<input type="text" name="qa_writer" class="txtTitle"  value='<fmt:formatDate pattern="yyyy/MM/dd" value="${qa.qa_date}" />' readonly>
+													</td>
+													<td>
+														답변 시간<br>
+														<input type="text" name="qa_replydate" class="txtTitle"  value='<fmt:formatDate pattern="yyyy/MM/dd" value="${qa.qa_replydate}" />' readonly>
+													</td>
+												</tr>												
+											</table>																																	
+											<hr>											
 											<div class="divBtn">																							
 												<button type="button" id="btn" class="btn bg-blue-grey waves-effect">돌아가기</button>
-											</div>
-											
+											</div>											
 										</div>
 									</div>
 								</div>

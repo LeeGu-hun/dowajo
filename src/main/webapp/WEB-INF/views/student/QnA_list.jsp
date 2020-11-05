@@ -42,6 +42,7 @@ table, tr, th{
 														<th>작성자</th>
 														<th>제목</th>
 														<th>작성 일자</th>
+														<th>답변 여부</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -50,7 +51,8 @@ table, tr, th{
 															<td><c:out value="${list.qa_no }" /></td>
 															<td><c:out value="${list.qa_writer}" /></td>																															
 															<td><a class="move" href="${list.qa_no}"><c:out value="${list.qa_title}" /></a></td>
-															<td><fmt:formatDate pattern="yyyy-MM-dd" value="${list.qa_date}" /></td>															
+															<td><fmt:formatDate pattern="yyyy-MM-dd" value="${list.qa_date}" /></td>
+															<td><c:out value="${list.qa_status}"/></td>															
 														</tr>
 													</c:forEach>
 												</tbody>
@@ -87,6 +89,10 @@ $(document).ready(function(){
 		$('#actionForm').attr("action","/student/QnA_get");
 		$('#actionForm').submit();
 	});
+
+	if($('#qa_status').val() == 0){
+		
+	}
 	
 });
 </script>

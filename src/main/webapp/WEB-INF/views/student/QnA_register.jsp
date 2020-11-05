@@ -28,7 +28,7 @@
 	height: 50px; width: 500px;
 	border : 1px solid black;
 	border-radius: 10px;
-	background-color: #e2e2e2;	
+	background-color: #ffc1b8;	
 	text-align: center;
 }
 </style>
@@ -61,8 +61,8 @@
 												</label>												
 											</div>
 											<div class="menu">
-												<label >글내용&nbsp
-												<input type="text" name="qa_content" id="txtContent" maxlength="100" placeholder="내용 입력">
+												<label style="">글내용&nbsp
+												<textarea name="qa_content" id="txtContent" maxlength="100" placeholder="내용 입력"></textarea>
 												</label>
 											</div>
 											<div class="menu">
@@ -96,7 +96,8 @@ $(document).ready(function(){
 	$('#btnRegister').on("click", function(){
 		if($('#txtTitle').val() == ""){
 			alert("제목을 입력해주세요.");
-			$('#txtTitle').focus();			
+			$('#txtTitle').focus();	
+			return false;		
 		}
 		formObj.submit();
 	});
