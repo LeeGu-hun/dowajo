@@ -233,3 +233,36 @@ alter table ds_lecture add file_deadline date;
 
 
 /*<추가 11/02> ------------------------------------------------------------------------------------*/
+
+/*<추가 11/05 by 장재영> ------------------------------------------------------------------------------------*/
+drop table ds_qa;
+create table ds_qa(
+    qa_no number primary key,
+    qa_writer varchar2(20) not null,
+    qa_title varchar2(50) not null,
+    qa_content varchar2(2000),
+    qa_date date,
+    qa_replyer varchar2(20),
+    qa_reply varchar2(2000),
+    qa_replydate date,
+    qa_status number
+    default 0 not null constraint QA_STATUS_CHK check(QA_STATUS=0 or QA_STATUS=1));
+    
+INSERT INTO "DB7"."DS_QA" (QA_NO, QA_WRITER, QA_TITLE, QA_CONTENT) VALUES ('1', 'admin', '제목1', '내용1');
+INSERT INTO "DB7"."DS_QA" (QA_NO, QA_WRITER, QA_TITLE, QA_CONTENT) VALUES ('2', 'admin', '제목2', '내용2');
+INSERT INTO "DB7"."DS_QA" (QA_NO, QA_WRITER, QA_TITLE, QA_CONTENT) VALUES ('3', 'admin', '제목3', '내용3');
+INSERT INTO "DB7"."DS_QA" (QA_NO, QA_WRITER, QA_TITLE, QA_CONTENT) VALUES ('4', 'admin', '제목4', '내용4');
+INSERT INTO "DB7"."DS_QA" (QA_NO, QA_WRITER, QA_TITLE, QA_CONTENT) VALUES ('5', 'admin', '제목5', '내용5');
+INSERT INTO "DB7"."DS_QA" (QA_NO, QA_WRITER, QA_TITLE, QA_CONTENT) VALUES ('6', 'admin', '제목6', '내용6');
+INSERT INTO "DB7"."DS_QA" (QA_NO, QA_WRITER, QA_TITLE, QA_CONTENT) VALUES ('7', 'admin', '제목7', '내용7');
+INSERT INTO "DB7"."DS_QA" (QA_NO, QA_WRITER, QA_TITLE, QA_CONTENT) VALUES ('8', 'admin', '제목8', '내용8');
+INSERT INTO "DB7"."DS_QA" (QA_NO, QA_WRITER, QA_TITLE, QA_CONTENT) VALUES ('9', 'admin', '제목9', '내용9');
+INSERT INTO "DB7"."DS_QA" (QA_NO, QA_WRITER, QA_TITLE, QA_CONTENT) VALUES ('10', 'admin', '제목10', '내용10');
+INSERT INTO "DB7"."DS_QA" (QA_NO, QA_WRITER, QA_TITLE, QA_CONTENT) VALUES ('11', 'admin', '제목11', '내용11');
+INSERT INTO "DB7"."DS_QA" (QA_NO, QA_WRITER, QA_TITLE, QA_CONTENT) VALUES ('12', 'student', '제목12', '내용12');
+INSERT INTO "DB7"."DS_QA" (QA_NO, QA_WRITER, QA_TITLE, QA_CONTENT) VALUES ('13', 'student', '제목13', '내용13');
+INSERT INTO "DB7"."DS_QA" (QA_NO, QA_WRITER, QA_TITLE, QA_CONTENT) VALUES ('14', 'student', '제목14', '내용14');
+INSERT INTO "DB7"."DS_QA" (QA_NO, QA_WRITER, QA_TITLE, QA_CONTENT) VALUES ('15', 'teacher', '제목15', '내용15');
+INSERT INTO "DB7"."DS_QA" (QA_NO, QA_WRITER, QA_TITLE, QA_CONTENT) VALUES ('16', 'teacher', '제목16', '내용16');
+INSERT INTO "DB7"."DS_QA" (QA_NO, QA_WRITER, QA_TITLE, QA_CONTENT) VALUES ('17', 'teacher', '제목17', '내용17');    
+/*<추가 11/05 by 장재영> ------------------------------------------------------------------------------------*/    
