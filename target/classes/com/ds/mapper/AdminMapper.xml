@@ -216,7 +216,7 @@
 	</delete>
 	
 	<update id="QnA_update">
-		update ds_qa set qa_reply = #{qa_reply},qa_replyer = #{qa_replyer}, qa_replydate=sysdate
+		update ds_qa set qa_reply = #{qa_reply},qa_replyer = #{qa_replyer}, qa_replydate=sysdate, qa_status=1
 		where qa_no = #{qa_no}
 	</update>
 	
