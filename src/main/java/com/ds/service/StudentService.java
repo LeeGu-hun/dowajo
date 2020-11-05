@@ -35,4 +35,5 @@ public interface StudentService {
 	public List<TeacherQuestionsVO> tqa_list(Long user_no);
 	public TeacherQuestionsVO tqa_get(Long tqa_no);
 	public void tqa_register(TeacherQuestionsVO vo);
+	public List<String> getTeacherName(Long user_no);
 }

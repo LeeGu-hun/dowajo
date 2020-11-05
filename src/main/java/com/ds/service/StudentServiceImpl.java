@@ -117,4 +117,9 @@ public class StudentServiceImpl implements StudentService{
 	public void tqa_register(TeacherQuestionsVO vo) {
 		mapper.tqa_register(vo);
 	}
+	
+	@Override
+	public List<String> getTeacherName(Long user_no){
+		return mapper.getTeacherName(user_no);
+	}
 }

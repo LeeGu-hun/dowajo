@@ -78,7 +78,8 @@ table, tr, th{
 <script>
 $(document).ready(function(){
 	$('#btn').on("click", function(){
-		location.href="/student/TQnA_register";		
+		location.href="/student/TQnA_register?user_no=<sec:authentication property='principal.user.user_no'/>";
+		
 	});
 
 	$('.move').on("click", function(e){

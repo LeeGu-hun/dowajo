@@ -72,12 +72,12 @@
 											</div>
 											<div class="menu">												
 												<div class="col-sm-6">
-                                    				<select class="form-control show-tick" name="tqa_teacher" id="tqa_teacher">
-                                        				<option value="">질문드릴 선생님</option>
-                                        				<option value="강사">강사</option>
-                                        				<option value="강사2">강사2</option>
-                                        				<option value="강사3">강사3</option>                                        				
-                                    				</select>
+												   <select class="form-control show-tick" name="tqa_teacher" id="tqa_teacher">
+                                    				<option value="">질문드릴 선생님</option>
+                                    				<c:forEach items="${list}" var="list">                                        				
+                                        				<option value="${list}">${list}</option>                                        				                                        				
+                                    				</c:forEach>
+                                    				</select>                                    			  
                                 				</div>												
 											</div>
 											<hr>

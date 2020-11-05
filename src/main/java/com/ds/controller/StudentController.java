@@ -152,7 +152,10 @@ public class StudentController {
 	}
 	
 	@GetMapping("/TQnA_register")
-	public void TQnA_register() {		
+	public void TQnA_register(@RequestParam("user_no") Long user_no ,Model model) {
+		List<String> list = studentService.getTeacherName(user_no);
+		
+		model.addAttribute("list", list);
 	}
 	
 	@PostMapping("/TQnA_register")	
