@@ -49,7 +49,7 @@
         					<td style="width:500px;">
         						<button style="display:none;" type="button" class="btn btn-success waves-effect" id="clsHomework">과제마감하기</button>
         						<button type="button" class="btn btn-success waves-effect" id="getHomework">학생 과제 받기</button>
-        						<button style="display:none;" type="button" class="btn btn-success waves-effect" id="chkHomeworkStudent" data-toggle="modal" data-target="#defaultModal">과제 제출 확인</button>
+        						<button style="display:none;" type="button" class="btn btn-success waves-effect" id="chkHomeworkStudent" data-toggle="modal" data-target="#defaultModal">과제 제출 학생 확인</button>
         					</td>
         				</tr>
         			</table>
@@ -471,7 +471,8 @@
 				var name=[];
 				$.each(result, function (index, item) {
 					if(!name.includes(item.user_no)){
-						$("#findHomworkStudent").append("<input type='text' class='form-control' value='"+item.user_name+"' readonly>");
+						console.log(new Date().toJSON());
+						$("#findHomworkStudent").append("<input type='text' class='form-control' value='"+item.user_name+" - ("+moment(item.regdate).format('L')+" "+moment(item.regdate).format('LTS')+")' readonly> ");/* <fmt:formatDate pattern='yyyy-MM-dd kk:mm:ss' value='' /> */
 						name.push(item.user_no);
 					} 
 					
@@ -505,7 +506,7 @@
 				$.each(result, function (index, item) {
 					var regdate=item.regdate;
 					var attendance_state=item.attendance_state;
-					$("#attendanceTable").append("<tr><td>"+moment(regdate).format('LL')+"</td><td>"+attendance_state+"</td><td>"+moment(regdate).format('LTS')+"</td></tr>");
+					$("#attendanceTable").append("<tr><td>"+moment(regdate).format('L')+"</td><td>"+attendance_state+"</td><td>"+moment(regdate).format('LTS')+"</td></tr>");
 				});
 				
 				$("#attendanceList").append("</table>");
