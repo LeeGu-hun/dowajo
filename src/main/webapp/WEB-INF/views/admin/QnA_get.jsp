@@ -87,9 +87,13 @@ table, tr, td{
 											<div class="menu">
 												<label class="labelTxt">답 변</label>
 												<input type="text" name="qa_reply" class="txtWriter" value='<c:out value="${user.qa_reply }"/>'>												
-											</div>																						
+											</div>			
+											<div class="menu">
+												<label class="labelTxt">답변자</label>
+												<input type="text" name="qa_replyer" class="txtWriter" value="<sec:authentication property='principal.user.user_id'/>" readonly>
+											</div>	
+																							
 											<hr>
-											
 											<div class="divBtn">
 												<button id="btnModify"class="btn bg-red waves-effect">저장하기</button>																							
 												<button type="button" id="btn" class="btn bg-blue-grey waves-effect">돌아가기</button>
