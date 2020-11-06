@@ -21,6 +21,7 @@
 	border-radius: 10px;
 	padding-left: 20px;
 }
+
 #txtWriter{
 	height: 30px; width: 500px;
 	border : 1px solid black;
@@ -71,7 +72,7 @@ table, tr, td{
 												<tr>
 													<td>
 														작성자<br>
-														<input type="text" name="qa_writer" id="txtWriter" value="<sec:authentication property='principal.user.user_id'/>" readonly>
+														<input type="text" name="qa_writer" id="txtWriter" value="<sec:authentication property='principal.user.user_name'/>" readonly>
 													</td>
 												</tr>											
 											</table>											

@@ -153,16 +153,15 @@ public class StudentController {
 	
 	@GetMapping("/TQnA_register")
 	public void TQnA_register(@RequestParam("user_no") Long user_no ,Model model) {
-		List<String> list = studentService.getTeacherName(user_no);
-		
+		List<String> list = studentService.getTeacherName(user_no);		
 		model.addAttribute("list", list);
 	}
 	
 	@PostMapping("/TQnA_register")	
-	public String TQnA_register(TeacherQuestionsVO vo, RedirectAttributes rttr) {		
+	public String TQnA_register(TeacherQuestionsVO vo, RedirectAttributes rttr, @RequestParam("user_no") Long user_no) {		
 		log.info("TQnA_reg_post : " + vo);
 		studentService.tqa_register(vo);
 		rttr.addFlashAttribute("result", vo.getTqa_writer());		
-		return "redirect:/student/main";
+		return "redirect:/student/TQnA_list?user_no=" + user_no;
 	}
 }

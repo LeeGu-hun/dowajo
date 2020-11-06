@@ -9,11 +9,8 @@
 .divBtn{
 	margin-left: 20px;
 }
-.menu{
-	padding: 20px;
-}
 #txtTitle{
-	height: 50px; width: 500px;
+	height: 30px; width: 500px;
 	border : 1px solid black;
 	border-radius: 10px;
 	padding-left: 20px;
@@ -25,11 +22,14 @@
 	padding-left: 20px;
 }
 #txtWriter{
-	height: 50px; width: 500px;
+	height: 30px; width: 500px;
 	border : 1px solid black;
 	border-radius: 10px;
-	background-color: #ffc1b8;	
+	background-color: #d4f0ff;	
 	text-align: center;
+}
+table, tr, td{
+	padding: 5px 0;
 }
 </style>
 <body>
@@ -55,30 +55,38 @@
 											</h2>
 										</div>
 										<div class="body table-responsive">
-											<div class="menu">
-												<label>글제목&nbsp
-												<input type="text" name="tqa_title" id="txtTitle" placeholder="제목 입력" >
-												</label>												
-											</div>
-											<div class="menu">
-												<label style="">글내용&nbsp
-												<textarea name="tqa_content" id="txtContent" maxlength="100" placeholder="내용 입력"></textarea>
-												</label>
-											</div>
-											<div class="menu">
-												<label>작성자&nbsp
-												<input type="text" name="tqa_writer" id="txtWriter" value="<sec:authentication property='principal.user.user_name'/>" readonly>
-												</label>
-											</div>
+											<table>
+												<tr>
+													<td>
+													   <select class="form-control show-tick" name="tqa_teacher" id="tqa_teacher" >
+	                                    				<option value="">강사 선택</option>
+	                                    				<c:forEach items="${list}" var="list">                                        				
+	                                        				<option value="${list}">${list}</option>                                        				                                        				
+	                                    				</c:forEach>
+	                                    				</select>                                    			  
+	                                				</td>
+                                				</tr>
+												<tr>													
+													<td>														
+														제 목<br>
+														<input type="text" name="tqa_title" id="txtTitle" placeholder="제목 입력" >
+													</td>													
+												</tr>
+												<tr>
+													<td>
+														문의 내용<br>
+														<textarea name="tqa_content" id="txtContent" maxlength="100" placeholder="내용 입력"></textarea>
+													</td>													
+												</tr>
+												<tr>
+													<td>
+														작성자<br>
+														<input type="text" name="tqa_writer" id="txtWriter" value="<sec:authentication property='principal.user.user_name'/>" readonly>
+													</td>
+												</tr>											
+											</table>											
 											<div class="menu">												
-												<div class="col-sm-6">
-												   <select class="form-control show-tick" name="tqa_teacher" id="tqa_teacher">
-                                    				<option value="">질문드릴 선생님</option>
-                                    				<c:forEach items="${list}" var="list">                                        				
-                                        				<option value="${list}">${list}</option>                                        				                                        				
-                                    				</c:forEach>
-                                    				</select>                                    			  
-                                				</div>												
+																								
 											</div>
 											<hr>
 											<div class="divBtn">
@@ -110,7 +118,7 @@ $(document).ready(function(){
 			return false;		
 		}
 		if($('#tqa_teacher').val()==""){
-			alert("질문할 교사를 선택해주세요.");
+			alert("질문할 강사를 선택해주세요.");
 			return false;
 		}
 		formObj.submit();

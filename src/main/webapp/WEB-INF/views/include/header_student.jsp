@@ -229,14 +229,14 @@
                     <li>
                     	<a href="/student/TQnA_list" id="TQnA">                    	
                     		<i class="material-icons">live_help</i>
-                    		<span>선생님께 질문하기 </span>
+                    		<span>강사 Q&A </span>
                     	</a>                    
                     </li>
                     
                     <li>
                     	<a href="/student/QnA_list" id="QnA">                    	
                     		<i class="material-icons">question_answer</i>
-                    		<span>1:1 Q&A </span>
+                    		<span>Q&A </span>
                     	</a>                    
                     </li>
                        
