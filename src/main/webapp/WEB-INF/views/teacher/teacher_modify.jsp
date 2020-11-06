@@ -5,6 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%> <!-- 사진관련 업로드할떄 꼭필요 -->
 <style>
 </style>
 <section class="content">
@@ -14,9 +15,9 @@
 			<br>
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<div class="card">
-					<div class="body">
-							<form role="form" action="/teacher/teacher_modify" method="post">
-							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+					<div class="body">  <%-- 사진업로드에 필요함 action="/teacher/teacher_modify?${_csrf.parameterName}=${_csrf.token}" encType="multipart/form-data" --%>
+							<form role="form" action="/teacher/teacher_modify?${_csrf.parameterName}=${_csrf.token}" method="post" 
+								encType="multipart/form-data">
 							<input type='hidden' name='user_no' value='<sec:authentication property="principal.user.user_no"/>'>
 							<input type='hidden' name='lecture_no' value='<c:out value="${lecture_no}"/>'>			
 							<div class="msg">
@@ -52,9 +53,15 @@
 							
 							<div class="input-group">
 								<span class="input-group-addon" > 
-									<i class="material-icons" >dashboard</i> 강의 이미지 : 
+									<i class="material-icons" >dashboard</i>강의 이미지 : 
 								</span>
 								<div class="form-line">
+									<c:if test="${teacherVO.savedLecImage==null}">
+										<img src='<spring:url value="/lec_img/defaultImage.jpg"/>' height="100dp">
+									</c:if>
+									<c:if test="${teacherVO.savedLecImage!=null}">
+										<img src='<spring:url value="/lec_img/${teacherVO.savedLecImage}"/>' height="100dp">
+									</c:if>	
 									<input type="file" class="form-control" name="uploadFile" id="uploadFile"
 										value='<c:out value="${teacherVO.savedLecImage}"/>'>
 								</div>
@@ -95,13 +102,7 @@ $(document).ready(function() {
 			alert("간단하게 강의소개해주세요.");
 			$('#lecture_description').focus();
 			return false;
-		}
-		if($('#uploadFile').val()==""){
-			alert("사진을 첨부해주세요.");
-			$('#uploadFile').focus();
-			return false;
-		}
-		
+		}		
 		formObj.submit();
 	});	
 	

@@ -40,15 +40,20 @@
 		lecture_afreecaid = #{lecture_afreecaid}, savedLecImage = #{savedLecImage} where lecture_no = #{lecture_no}
 	</update>
 	
+	<update id="lecture_modify_nochange_picture" parameterType="com.ds.domain.TeacherVO">
+		update ds_lecture set lecture_name = #{lecture_name}, lecture_description = #{lecture_description}, 
+		lecture_afreecaid = #{lecture_afreecaid} where lecture_no = #{lecture_no}
+	</update>
+	
 	<select id="getList" resultType="com.ds.domain.TeacherVO">
-		select DISTINCT l.lecture_no,l.lecture_name,l.lecture_description 
+		select DISTINCT l.lecture_no,l.savedLecImage,l.lecture_name,l.lecture_description 
 		from ds_class_list c
 		left OUTER JOIN ds_lecture l on c.lecture_no = l.lecture_no
 		left OUTER JOIN ds_auth a on c.user_no = a.user_no
 		where c.user_no=#{user_no} and a.user_auth=	'ROLE_TEACHER' order by l.lecture_no
 	</select>
 	<select id="regetlist_canecl" resultType="com.ds.domain.TeacherVO">
-		select u.user_no,u.user_name,u.user_mobile,l.class_status
+		select DISTINCT u.user_no,u.user_name,u.user_mobile,l.class_status
 		from ds_user u
 		left outer join ds_class_list l on u.user_no = l.user_no
 		left outer join ds_auth a on u.user_no = a.user_no
@@ -57,7 +62,7 @@
 		d.lecture_no = #{lecture_no}
 	</select>
 		<select id="regetlist_sign_up" resultType="com.ds.domain.TeacherVO">
-		select u.user_no,u.user_name,u.user_mobile,l.class_status
+		select DISTINCT u.user_no,u.user_name,u.user_mobile,l.class_status
 		from ds_user u
 		left outer join ds_class_list l on u.user_no = l.user_no
 		left outer join ds_auth a on u.user_no = a.user_no
@@ -70,7 +75,7 @@
 		select lecture_no from ds_lecture where lecture_no=#{lecture_no}
 	</select>
 	<select id="read_cancel" resultType="com.ds.domain.TeacherVO">
-		select u.user_no,u.user_name,u.user_mobile,l.class_status
+		select DISTINCT u.user_no,u.user_name,u.user_mobile,l.class_status
 		from ds_user u
 		left outer join ds_class_list l on u.user_no = l.user_no
 		left outer join ds_auth a on u.user_no = a.user_no
@@ -89,7 +94,7 @@
         </foreach>
 	</update>
 	<select id="read_sign_up" resultType="com.ds.domain.TeacherVO">
-		select u.user_no,u.user_name,u.user_mobile,l.lecture_no,l.class_status
+		select DISTINCT u.user_no,u.user_name,u.user_mobile,l.lecture_no,l.class_status
 		from ds_user u
 		left outer join ds_class_list l on u.user_no = l.user_no
 		left outer join ds_auth a on u.user_no = a.user_no

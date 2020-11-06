@@ -23,6 +23,7 @@ public interface TeacherMapper {
 	public boolean registAuth(AuthVO auth);
 	public int updateAdmin(String id);
 	public TeacherVO lecture_modify(TeacherVO vo);
+	public void lecture_modify_nochange_picture(TeacherVO vo);
 	public TeacherVO lecture_get(Long lecture_no);
 	public List<TeacherVO> getList(Long user_no);
 	public List<TeacherVO> regetlist_canecl(Long lecture_no);

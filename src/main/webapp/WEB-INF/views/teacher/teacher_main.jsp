@@ -5,6 +5,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 
 <%-- <section class="content">
@@ -48,11 +50,16 @@
 											aria-controls="datatables-example" rowspan="1" colspan="1"
 											aria-sort="ascending"
 											aria-label="Name: activate to sort column descending"
-											style="width: 215px;">강의 번호</th>
+											style="width: 170px;">강의 번호</th>
+										<th class="sorting_asc" tabindex="0"
+											aria-controls="datatables-example" rowspan="1" colspan="1"
+											aria-sort="ascending"
+											aria-label="Name: activate to sort column descending"
+											style="width: 250px;">강의 번호</th>
 										<th class="sorting" tabindex="0"
 											aria-controls="datatables-example" rowspan="1" colspan="1"
 											aria-label="Position: activate to sort column ascending"
-											style="width: 329px;">강의명</th>
+											style="width: 215px;">강의명</th>
 										<th class="sorting" tabindex="0"
 											aria-controls="datatables-example" rowspan="1" colspan="1"
 											aria-label="Office: activate to sort column ascending"
@@ -63,6 +70,14 @@
 									<c:forEach items="${list}" var="teacher">
 										<tr style="cursor: pointer;">
 											<td><c:out value="${teacher.lecture_no }" /></td>
+											<td>
+											<c:if test="${teacher.savedLecImage==null}">
+												<img src='<spring:url value="/lec_img/defaultImage.jpg"/>' height ="100dp">
+											</c:if>
+											<c:if test="${teacher.savedLecImage!=null}">
+												<img src='<spring:url value="/lec_img/${teacher.savedLecImage}"/>' height ="100dp">
+											</c:if>							
+											</td>
 											<td><a class="move" href="${teacher.lecture_no}"><b>[<c:out
 														value="${teacher.lecture_name }" />]</b></a></td>
 											<td><c:out value="${teacher.lecture_description }" /></td>

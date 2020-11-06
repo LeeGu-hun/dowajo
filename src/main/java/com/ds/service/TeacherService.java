@@ -12,6 +12,7 @@ public interface TeacherService {
 	public String duplicateId(String id);
 	public void register(LectureVO lecture);
 	public void register_class_list(LectureVO lecture,Long user_no);
+	public void lecture_modify_nochange_picture(TeacherVO vo);
 	public TeacherVO lecture_modify(TeacherVO vo);
 	public TeacherVO lecture_get(Long lecture_no);
 	public boolean remove(Long lecture_no);

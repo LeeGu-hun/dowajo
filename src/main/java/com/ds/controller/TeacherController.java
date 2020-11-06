@@ -182,7 +182,7 @@ public class TeacherController {
 		//make folder end
 		if(mf.isEmpty()) {
 			//파일 업로드 하지 않은 경우 처리			
-			teacherService.lecture_modify(vo);		
+			teacherService.lecture_modify_nochange_picture(vo);	
 		} else {			
 			log.info("파일 이름 확인.......:"+mf.getOriginalFilename());
 			log.info("파일 사이즈 확인............:"+mf.getSize());
@@ -202,9 +202,7 @@ public class TeacherController {
 			} catch(Exception e) {
 				e.printStackTrace();
 			}
-		}	
-		
-		
+		}
 		return "redirect:/teacher/teacher_main?user_no="+user_no;
 	}
 	

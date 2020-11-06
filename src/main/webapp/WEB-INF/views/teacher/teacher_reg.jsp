@@ -97,6 +97,11 @@ $(document).ready(function() {
 			$('#lecture_description').focus();
 			return false;
 		}
+		if($('#uploadFile').val()==""){
+			alert("강의실 개설할때 사진은 필수입니다.");
+			$('#uploadFile').focus();
+			return false;
+		}
 		formObj.submit();
 	});	
 	
