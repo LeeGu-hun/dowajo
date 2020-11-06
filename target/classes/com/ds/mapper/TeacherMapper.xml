@@ -187,7 +187,7 @@
 		SELECT Q.TQA_NO, Q.TQA_WRITER, Q.TQA_TITLE, Q.TQA_DATE 
 		FROM DS_TQA Q
 		LEFT OUTER JOIN DS_USER U
-		ON q.tqa_teacher = u.user_name
+		ON q.tqa_replyer = u.user_name
 		WHERE USER_NO = #{USER_NO}
 		ORDER BY tqa_no
 	</select>

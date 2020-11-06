@@ -51,7 +51,7 @@ table, tr, th{
 															<td><c:out value="${list.tqa_no }" /></td>
 															<td><c:out value="${list.tqa_writer}" /></td>																															
 															<td><a class="move" href="${list.tqa_no}"><c:out value="${list.tqa_title}" /></a></td>
-															<td><c:out value="${list.tqa_teacher}"/></td>
+															<td><c:out value="${list.tqa_replyer}"/></td>
 															<td><fmt:formatDate pattern="yyyy-MM-dd" value="${list.tqa_date}" /></td>																														
 														</tr>
 													</c:forEach>
