@@ -303,3 +303,27 @@ alter table ds_lecture add savedLecImage varchar2(200);
 
 commit;
 /*<추가 11/05> ------------------------------------------------------------------------------------*/
+
+/*<추가 11/06 김광호> ------------------------------------------------------------------------------------*/
+
+drop table ds_tqa;
+
+create table ds_tqa(
+    tqa_no number primary key,
+    tqa_writer varchar2(20) not null,
+    tqa_title varchar2(50) not null,
+    tqa_content varchar2(2000),
+    tqa_date date,
+    tqa_replyer varchar2(20),
+    tqa_reply varchar2(2000),
+    tqa_replydate date,
+    tqa_status number
+    default 0 not null constraint TQA_STATUS_CHK check(TQA_STATUS=0 or TQA_STATUS=1));
+
+INSERT INTO "DB7"."DS_TQA" (TQA_NO, TQA_WRITER, TQA_TITLE, TQA_CONTENT, tqa_replyer) VALUES ('1', '학생', '제목1', '내용1', '강사');
+INSERT INTO "DB7"."DS_TQA" (TQA_NO, TQA_WRITER, TQA_TITLE, TQA_CONTENT, tqa_replyer) VALUES ('2', '학생', '제목2', '내용2', '강사2');
+INSERT INTO "DB7"."DS_TQA" (TQA_NO, TQA_WRITER, TQA_TITLE, TQA_CONTENT, tqa_replyer) VALUES ('3', '학생', '제목3', '내용3', '강사3');
+INSERT INTO "DB7"."DS_TQA" (TQA_NO, TQA_WRITER, TQA_TITLE, TQA_CONTENT, tqa_replyer) VALUES ('4', '학생', '제목4', '내용4', '강사');
+INSERT INTO "DB7"."DS_TQA" (TQA_NO, TQA_WRITER, TQA_TITLE, TQA_CONTENT, tqa_replyer) VALUES ('5', '학생', '제목5', '내용5', '강사');
+
+/*<추가 11/06 김광호> ------------------------------------------------------------------------------------*/
