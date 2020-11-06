@@ -146,4 +146,9 @@ public class AdminServiceImpl implements AdminService{
 		return modifyResult;
 	}
 
+	@Override
+	public boolean upHit(int qa_no) {
+		 return mapper.upHit(qa_no);
+	}
+
 }

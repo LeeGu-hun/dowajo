@@ -122,4 +122,9 @@ public class StudentServiceImpl implements StudentService{
 	public List<String> getTeacherName(Long user_no){
 		return mapper.getTeacherName(user_no);
 	}
+
+	@Override
+	public boolean upHit(int qa_no) {
+		 return mapper.upHit(qa_no);
+	}
 }

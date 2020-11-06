@@ -17,4 +17,5 @@ public class QuestionsVO {
 	private String qa_reply;
 	private Date qa_replydate;
 	private int qa_status;
+	private int qa_hit;
 }

@@ -35,6 +35,7 @@ public class AdminController {
 		int total = service.getTotal2(cri);
 		model.addAttribute("questions", service.getList2(cri));
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
+		
 	}
 	@GetMapping("/main_regist")
 	public void main_registGet() {
@@ -113,6 +114,7 @@ public class AdminController {
 	public void main_get(@RequestParam("qa_no") int qa_no, Model model, @ModelAttribute("cri") Criteria cri) {
 		System.out.println("QuestionsVO : "+service.get(qa_no));
 		model.addAttribute("user", service.main_get(qa_no));
+		service.upHit(qa_no);
 	}
 	
 	@PostMapping("/main_get")

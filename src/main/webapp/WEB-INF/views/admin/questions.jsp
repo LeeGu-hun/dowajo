@@ -60,6 +60,10 @@
 													aria-controls="DataTables_Table_1" rowspan="1" colspan="1"
 													aria-label="Office: activate to sort column ascending"
 													style="width: 187px;">날짜</th>
+												<th class="sorting" tabindex="0"
+													aria-controls="DataTables_Table_1" rowspan="1" colspan="1"
+													aria-label="Office: activate to sort column ascending"
+													style="width: 50px;">확인</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -70,6 +74,10 @@
 												<td><c:out value="${user.qa_writer }" /></td>
 												<td><fmt:formatDate pattern="yyyy-MM-dd"
 													value="${user.qa_date }" /></td>
+												<td>
+													<c:if test="${user.qa_status eq 0}">대기</c:if>
+													<c:if test="${user.qa_status eq 1}">완료</c:if>
+												</td>
 											</tr>
 											</c:forEach>
 										</tbody>	

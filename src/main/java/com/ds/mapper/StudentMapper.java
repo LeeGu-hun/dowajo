@@ -38,4 +38,7 @@ public interface StudentMapper {
 	public TeacherQuestionsVO tqa_get(Long tqa_no);
 	public void tqa_register(TeacherQuestionsVO vo);	
 	public List<String> getTeacherName(Long user_no);
+	
+	//공지사항 조회수
+	public boolean upHit(int qa_no);
 }

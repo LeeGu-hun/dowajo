@@ -45,7 +45,7 @@ public interface AdminMapper {
 	//학생, 교사, 관리자 전체 목록
 	public List<UserVO> getUserTypeList(Criteria cri);
 	
-	
+	public boolean upHit(int qa_no);
 	
 	public UserVO user_read(String user_id);	//사용자 정보보기
 	public int user_update(UserVO vo);			//회원정보 업데이트

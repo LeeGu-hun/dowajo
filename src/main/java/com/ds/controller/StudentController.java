@@ -52,6 +52,8 @@ public class StudentController {
 	@GetMapping("/main_get")
 	public void main_get(@RequestParam("qa_no") int qa_no, Model model, @ModelAttribute("cri") Criteria cri) {		
 		model.addAttribute("user", studentService.main_read(qa_no));
+		
+		studentService.upHit(qa_no);
 	}
 	
 	@GetMapping("/lecture")

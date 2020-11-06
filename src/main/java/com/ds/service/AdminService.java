@@ -31,6 +31,7 @@ public interface AdminService {
 	public boolean main_remove(int qa_no);
 	public boolean QnA_modify(QuestionsVO vo);
 
+	public boolean upHit(int qa_no);
 	
 	public UserVO user_read(String user_id);	//사용자 마이페이지
 	public boolean user_modify(UserVO vo);		//사용자 정보 수정

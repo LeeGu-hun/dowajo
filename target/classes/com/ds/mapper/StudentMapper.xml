@@ -156,7 +156,7 @@
 	
 	<select id="main_read" resultType="com.ds.domain.QuestionsVO">
 		select qa_no, qa_writer, qa_title,
-		qa_content
+		qa_content,qa_hit
 		from ds_qa where qa_no=#{qa_no}
 	</select>
 	
@@ -191,5 +191,11 @@
 	where l.lecture_no=c.lecture_no 
 	and c.user_no=a.user_no and a.user_auth='ROLE_TEACHER' and a.user_no=u.user_no	
 	</select>
+	
+	<update id="upHit" parameterType="int">
+    	UPDATE ds_qa SET
+    	qa_hit = qa_hit+1
+    	WHERE qa_no = #{qa_no}
+    </update>
 	
 </mapper>

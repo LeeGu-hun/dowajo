@@ -62,6 +62,10 @@
 													aria-controls="DataTables_Table_1" rowspan="1" colspan="1"
 													aria-label="Office: activate to sort column ascending"
 													style="width: 187px;">날짜</th>
+												<th class="sorting" tabindex="0"
+													aria-controls="DataTables_Table_1" rowspan="1" colspan="1"
+													aria-label="Office: activate to sort column ascending"
+													style="width: 50px;">조회수</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -72,6 +76,7 @@
 												<td><c:out value="${user.qa_writer }" /></td>
 												<td><fmt:formatDate pattern="yyyy-MM-dd"
 													value="${user.qa_date }" /></td>
+												<td><c:out value="${user.qa_hit }" /></td>
 											</tr>
 											</c:forEach>
 										</tbody>	
