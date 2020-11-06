@@ -6,11 +6,21 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>​
 
 <style>
+.divBtn{
+	margin-left: 20px;
+}
+.menu{
+	padding: 20px;
+}
+.labelTxt{
+	margin-right: 10px;
+}
 .txtTitle{
-	height: 30px; width: 500px;
+	height: 70px; width: 500px;
 	border : 1px solid black;
 	border-radius: 10px;
-	padding-left: 20px;	
+	padding-left: 20px;
+	background-color: #eee;
 	text-align: center;
 }
 .txtContent{
@@ -18,29 +28,17 @@
 	border : 1px solid black;
 	border-radius: 10px;
 	padding-left: 20px;
-	
+	background-color: #eee;
 }
 .txtWriter{
-	height: 30px; width: 500px;
+	height: 50px; width: 500px;
 	border : 1px solid black;
 	border-radius: 10px;
-	background-color: #d3fcc5;	
+	background-color: #eee;	
 	text-align: center;
 }
-.txtReply{
-	height: 130px; width: 500px;
-	border : 1px solid black;
-	border-radius: 10px;
-	padding-left: 20px;
-}
-table{
-	margin-left: 200px;
-}
-table, tr, td{	
-	padding: 5px 5px;
-}
-.divBtn{
-	margin-left: 650px;
+table, tr, td{
+	border: 1px solid black;
 }
 </style>
 <body>
@@ -53,57 +51,87 @@ table, tr, td{
 						<div class="panel-heading">
 							<h4></h4>
 						</div>
-						<div class="panel-body" style="padding-bottom: 30px;">							
+						<div class="panel-body" style="padding-bottom: 30px;">
+							<form id='actionForm' action="/teacher/TQnA_get" method="POST">
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+							<input type='hidden' name='user_no' value='<sec:authentication property="principal.user.user_no"/>'>
 							<div class="row clearfix">
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 									<div class="card">
 										<div class="header">
 											<h2>
-												<b>질문확인</b><small>내용 보기</small>
+												<b>질문확인</b><small>답변하기</small>
 											</h2>
 										</div>
 										<div class="body table-responsive">
-											<table>
-												<tr>													
-													<td>														
-														제 목<br>
-														<input type="text" name="tqa_title" class="txtWriter" value='<c:out value="${tqa.tqa_title }"/>' readonly>
-													</td>
-													
-												</tr>
-												<tr>
-													<td>
-														질문 내용<br>
-														<textarea name="tqa_content" class="txtContent" readonly>${tqa.tqa_content}</textarea>
-													</td>													
-												</tr>
-												<tr>
-													<td>
-														작성자<br>
-														<input type="text" name="tqa_writer" class="txtWriter" value="<sec:authentication property='principal.user.user_name'/>" readonly>
-													</td>
-													<td>
-														답변자<br>
-														<input type="text" name="tqa_teacher" class="txtWriter" value="<c:out value="${tqa.tqa_teacher }"/>" readonly>
-													</td>
-													
-												</tr>													
-												<tr>
-													<td>
-														작성 시간<br>
-														<input type="text" name="tqa_date" class="txtTitle"  value='<fmt:formatDate pattern="yyyy/MM/dd" value="${tqa.tqa_date}" />' readonly>
-													</td>
-													
-												</tr>												
-											</table>																																	
-											<hr>											
-											<div class="divBtn">																							
+											<div class="input-group">
+												<span class="input-group-addon"> 
+													<i class="material-icons">format_list_numbered</i> 문의번호 :  
+												</span>
+												<div class="form-line">
+													<input type="text" class="form-control" name="tqa_no" id="tqa_no" value="${tqa.tqa_no}" readonly>
+												</div>
+											</div>
+											<div class="input-group">
+												<span class="input-group-addon"> 
+													<i class="material-icons">title</i> 제목 :  
+												</span>
+												<div class="form-line">
+													<input type="text" class="form-control" name="tqa_title" id="tqa_title" value="${tqa.tqa_title}" readonly>
+												</div>
+											</div>
+											<div class="input-group">
+												<span class="input-group-addon"> 
+													<i class="material-icons">chat</i> 문의내용 : 
+												</span>
+												<div class="form-line">
+													<input type="text" class="form-control" name="tqa_content" id="tqa_content" value="${tqa.tqa_content}" readonly>
+												</div>
+											</div>
+											<div class="input-group">
+												<span class="input-group-addon"> 
+													<i class="material-icons">person</i> 작성자 :  
+												</span>
+												<div class="form-line">
+													<input type="text" class="form-control" name="tqa_writer" id="tqa_writer" value="${tqa.tqa_writer}" readonly>
+												</div>
+											</div>			
+											<div class="input-group">
+												<span class="input-group-addon"> 
+													<i class="material-icons">today</i> 일 자 :  
+												</span>
+												<div class="form-line">
+													<input type="text" class="form-control" name="tqa_date" id="tqa_date" value='<fmt:formatDate pattern="yyyy/MM/dd" value="${tqa.tqa_date}" />' readonly>
+												</div>
+											</div>
+											<div class="input-group">
+												<span class="input-group-addon"> 
+													<i class="material-icons">comment</i> 답 변 :  
+												</span>
+												<div class="form-line">
+													<input type="text" class="form-control" name="tqa_reply" id="tqa_reply" value='<c:out value="${tqa.tqa_reply }"/>'> 
+												</div>
+											</div>	
+											
+											<div class="input-group">
+												<span class="input-group-addon"> 
+													<i class="material-icons">person</i> 답 변자 :  
+												</span>
+												<div class="form-line">
+													<input type="text" class="form-control" name="tqa_replyer" id="tqa_replyer" value="<sec:authentication property='principal.user.user_name'/>" readonly> 
+												</div>
+											</div>													
+											<hr>
+											<div class="divBtn">
+												<button id="btnModify"class="btn bg-red waves-effect">답변하기</button>																							
 												<button type="button" id="btn" class="btn bg-blue-grey waves-effect">돌아가기</button>
-											</div>											
+											</div>
+											
 										</div>
 									</div>
 								</div>
-							</div>							
+							</div>
+							</form>
 						</div>
 					</div>
 				</div>
@@ -112,7 +140,14 @@ table, tr, td{
 	</section>
 </body>
 <script>
-$(document).ready(function(){		
+$(document).ready(function(){
+var formObj = $("form");
+	
+    $('#btnModify').on("click", function(e){
+       e.preventDefault();       
+       formObj.submit();              
+    });
+    
 	$('#btn').on("click", function(){
 		history.back();
 	});

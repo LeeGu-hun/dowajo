@@ -39,7 +39,7 @@ table, tr, th{
 												<thead>
 													<tr>
 														<th>번호</th>
-														<th>작성자</th>
+														<th>질문자</th>
 														<th>제목</th>														
 														<th>작성 일자</th>														
 													</tr>
@@ -54,9 +54,7 @@ table, tr, th{
 														</tr>
 													</c:forEach>
 												</tbody>
-											</table>
-											<div class="divBtn">
-											<button type="button" id = "btn" class="btn bg-blue-grey waves-effect">질문에 답하기</button>
+											</table>											
 											</div>
 										</div>
 									</div>
@@ -69,16 +67,15 @@ table, tr, th{
 		</div>
 	</section>
 <form id='actionForm' action="/teacher/TQnA_list" method='get'>	
-	<input type='hidden' name='user_no' value='<sec:authentication property="principal.user.user_no"/>'>
-	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
+	 
 </form>
 </body>
 <script>
 $(document).ready(function(){
-	$('#btn').on("click", function(){
-		location.href="/teacher/TQnA_register?user_no=<sec:authentication property='principal.user.user_no'/>";
-		
-	});
+	var result = '<c:out value="${result}"/>';	
+	if (result) {
+		alert("답변이 완료되었습니다.");
+	}
 
 	$('.move').on("click", function(e){
 		e.preventDefault();

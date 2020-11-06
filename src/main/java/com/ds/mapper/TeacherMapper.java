@@ -46,4 +46,5 @@ public interface TeacherMapper {
 	
 	public List<TeacherQuestionsVO> tqa_list(Long user_no);
 	public TeacherQuestionsVO tqa_get(Long tqa_no);
+	public int tQnA_update(TeacherQuestionsVO vo);
 }

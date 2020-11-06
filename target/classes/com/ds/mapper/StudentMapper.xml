@@ -161,7 +161,7 @@
 	</select>
 	
 	<select id="tqa_list" resultType="com.ds.domain.TeacherQuestionsVO">
-		SELECT Q.TQA_NO, Q.TQA_WRITER, Q.TQA_TITLE, Q.TQA_DATE, Q.TQA_replyer
+		SELECT Q.TQA_NO, Q.TQA_WRITER, Q.TQA_TITLE, Q.TQA_DATE, Q.TQA_replyer, Q.TQA_STATUS
 		FROM DS_TQA Q
 		LEFT OUTER JOIN DS_USER U
 		ON q.tqa_WRITER = u.user_name

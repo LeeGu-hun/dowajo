@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ds.domain.AuthVO;
 import com.ds.domain.Criteria;
 import com.ds.domain.LectureVO;
+import com.ds.domain.QuestionsVO;
 import com.ds.domain.SignupVO;
 import com.ds.domain.TeacherQuestionsVO;
 import com.ds.domain.TeacherVO;
@@ -164,6 +165,12 @@ public class TeacherServiceImpl implements TeacherService{
 	@Override
 	public TeacherQuestionsVO tqa_get(Long tqa_no) {
 		return mapper.tqa_get(tqa_no);
+	}
+	
+	@Override
+	public boolean tQnA_modify(TeacherQuestionsVO vo) {
+		boolean modifyResult = mapper.tQnA_update(vo) == 1;		
+		return modifyResult;
 	}
 	
 }

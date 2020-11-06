@@ -19,6 +19,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,6 +30,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.ds.domain.AuthVO;
 import com.ds.domain.Criteria;
 import com.ds.domain.LectureVO;
+import com.ds.domain.QuestionsVO;
 import com.ds.domain.TeacherQuestionsVO;
 import com.ds.domain.TeacherVO;
 import com.ds.domain.UserVO;
@@ -249,6 +251,13 @@ public class TeacherController {
 	@GetMapping("/TQnA_get")
 	public void TQnA_get(@RequestParam("tqa_no") Long tqa_no, Model model) {
 		model.addAttribute("tqa", teacherService.tqa_get(tqa_no));
+	}
+	
+	@PostMapping("/TQnA_get")
+	public String TQnA_get(RedirectAttributes rttr, TeacherQuestionsVO vo, @RequestParam("user_no")Long user_no) {
+		if(teacherService.tQnA_modify(vo))
+			rttr.addFlashAttribute("result", "success");
+		return "redirect:/teacher/TQnA_list?user_no="+user_no;
 	}
 
 }

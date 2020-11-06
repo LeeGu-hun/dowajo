@@ -36,4 +36,5 @@ public interface TeacherService {
 	
 	public List<TeacherQuestionsVO> tqa_list(Long user_no);
 	public TeacherQuestionsVO tqa_get(Long tqa_no);
+	public boolean tQnA_modify(TeacherQuestionsVO vo);
 }

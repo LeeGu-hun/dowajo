@@ -189,10 +189,16 @@
 		LEFT OUTER JOIN DS_USER U
 		ON q.tqa_replyer = u.user_name
 		WHERE USER_NO = #{USER_NO}
-		ORDER BY tqa_no
+		and tqa_status=0
+		ORDER BY tqa_no desc 
 	</select>
 	
 	<select id="tqa_get" resultType="com.ds.domain.TeacherQuestionsVO">
 		SELECT * FROM DS_TQA WHERE TQA_NO = #{TQA_NO}
 	</select>
+	
+	<update id="tQnA_update">
+		update ds_tqa set tqa_reply = #{tqa_reply},tqa_replyer = #{tqa_replyer}, tqa_replydate=sysdate, tqa_status=1
+		where tqa_no = #{tqa_no}
+	</update>
 </mapper>
