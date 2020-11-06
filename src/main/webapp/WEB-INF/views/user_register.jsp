@@ -138,9 +138,9 @@ $(document).ready(function() {
 			var csrfHeaderName = "${_csrf.headerName}";
 			var csrfTokenValue = "${_csrf.token}";
 		$.ajax({
-		type : 'GET',
+		type : 'POST',
 		url : '/twin_check',
-		data : "user_id=" + idObj.val(),
+		data : {user_id: idObj.val()},
 		beforeSend : function(xhr) {
 		xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
 		},

@@ -113,48 +113,6 @@ public class FileController {
 	@ResponseBody
 	public ResponseEntity<Resource> downloadFile(@RequestParam("fileName") String[] fileName, @RequestParam("lectureNo") String lectureNo, HttpServletResponse response) throws IOException {
 		
-		/////////////////////////////////////////////////파일삭제 시작
-		
-		// Calendar 객체 생성
-		Calendar cal = Calendar.getInstance() ;
-		long todayMil = cal.getTimeInMillis() ;     // 현재 시간(밀리 세컨드)
-		long oneDayMil = 24*60*60*1000 ;            // 일 단위
-		 
-		Calendar fileCal = Calendar.getInstance() ;
-		Date fileDate = null ;
-		 
-		 
-		File path = new File("c:\\upload\\"+lectureNo) ;
-		File[] list = path.listFiles() ;            // 파일 리스트 가져오기
-		 
-		 
-		for(int j=0 ; j < list.length; j++){
-		                     
-		                     
-		    // 파일의 마지막 수정시간 가져오기
-		    fileDate = new Date(list[j].lastModified()) ;
-		     
-		    // 현재시간과 파일 수정시간 시간차 계산(단위 : 밀리 세컨드)
-		    fileCal.setTime(fileDate);
-		    long diffMil = todayMil - fileCal.getTimeInMillis() ;
-		     
-		    //날짜로 계산
-		    int diffDay = (int)(diffMil/oneDayMil) ;
-		 
-		     
-		    // 30일이 지난 파일 삭제
-		    if(diffDay > 30 && list[j].exists()){
-		        list[j].delete() ;
-		        System.out.println(list[j].getName() + " 파일을 삭제했습니다.");
-		    }
-		     
-		}
-		
-		/////////////////////////////////////////////////파일삭제 끝
-		
-		
-		
-		
 		
 		//log.info("download file: " + fileName);
 		//Resource resource = new FileSystemResource("c:\\upload\\1\\" + fileName);
@@ -176,7 +134,7 @@ public class FileController {
 			log.info("fileName : " + voFileName);
 			sourceFiles.add("C:/upload/"+lectureNo+"/"+voFileName);
 		}
-		lectureService.fileDeleteAll(Long.parseLong(lectureNo));
+		lectureService.fileDeleteAll(Long.parseLong(lectureNo));//DB에서 경로삭제
 		
 		
 		
@@ -222,9 +180,20 @@ public class FileController {
 
 	        zout.closeEntry();
 	        fin.close();
+	        
+	        
+	        
+	        File file = new File(sourceFiles.get(i));
+	        file.delete(); //실제파일삭제
+	        
+	        
+	        
 	    }
 
 	    zout.close();
+	    
+	    
+	    
 	    Resource resource = new FileSystemResource("c:\\upload\\"+lectureNo+"\\assignment.zip");
 	    
 		log.info("resource: " + resource);

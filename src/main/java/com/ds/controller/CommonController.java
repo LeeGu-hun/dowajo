@@ -48,7 +48,7 @@ public class CommonController {
 		}
 	}
 
-	@GetMapping(value="/twin_check", produces = "text/plain;charset=UTF-8")
+	@PostMapping(value="/twin_check", produces = "text/plain;charset=UTF-8")
 	@ResponseBody
 	public String twin_chk(String user_id) {
 		return service.twin_check(user_id);
