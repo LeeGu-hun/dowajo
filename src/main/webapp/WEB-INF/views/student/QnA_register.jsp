@@ -72,7 +72,7 @@ table, tr, td{
 												<tr>
 													<td>
 														작성자<br>
-														<input type="text" name="qa_writer" id="txtWriter" value="<sec:authentication property='principal.user.user_name'/>" readonly>
+														<input type="text" name="qa_writer" id="txtWriter" value="<sec:authentication property='principal.user.user_id'/>" readonly>
 													</td>
 												</tr>											
 											</table>											
