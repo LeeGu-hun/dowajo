@@ -74,7 +74,7 @@ table, tr, th{
 $(document).ready(function(){
 	var result = '<c:out value="${result}"/>';	
 	if (result) {
-		alert("답변이 완료되었습니다.");
+		alert("답변을 완료했습니다.");
 	}
 
 	$('.move').on("click", function(e){

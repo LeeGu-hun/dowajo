@@ -343,7 +343,7 @@
                     
                   
                    
-                    <li class="active">
+                    <li class="active" style="display:none">
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">content_copy</i>
                             <span>Example Pages</span>
