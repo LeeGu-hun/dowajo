@@ -31,6 +31,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.ds.domain.AuthVO;
 import com.ds.domain.Criteria;
 import com.ds.domain.LectureVO;
+import com.ds.domain.PageDTO;
 import com.ds.domain.QuestionsVO;
 import com.ds.domain.SignupVO;
 import com.ds.domain.TeacherQuestionsVO;
@@ -56,7 +57,6 @@ public class TeacherController {
 	@GetMapping("/teacher_main")
 	public void teacher_main(@RequestParam("user_no")Long user_no, Model model) {
 		log.info("teachergetList.....");
-		
 		
 		// int total = TeacherService.getTotal(cri);
 		List<TeacherVO> list = teacherService.getList(user_no);// cri넣기
@@ -220,11 +220,18 @@ public class TeacherController {
 	}
 	
 	
-	
-	
-	
 	@GetMapping("/main")
-	public void main() {
+	public void main(Criteria cri, Model model) {
+		int total = teacherService.mainTotal(cri);
+		model.addAttribute("questions", teacherService.mainList(cri));
+		model.addAttribute("pageMaker", new PageDTO(cri, total));
+	}
+	
+	@GetMapping("/main_get")
+	public void main_get(@RequestParam("qa_no") int qa_no, Model model, @ModelAttribute("cri") Criteria cri) {
+
+		model.addAttribute("user", teacherService.main_get(qa_no));
+		teacherService.upHit(qa_no);
 	}
 
 	@GetMapping("/lecture")

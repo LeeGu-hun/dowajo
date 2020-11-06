@@ -137,6 +137,9 @@
 						<when test="type == 'N'.toString()">
 							user_no like '%'||#{keyword}||'%'
 						</when>
+						<when test="type=='Q'.toString()">
+							qa_title like '%'||#{keyword}||'%'
+						</when>
 					</choose>
 				</trim>
 			</foreach>
@@ -206,4 +209,49 @@
 		update ds_tqa set tqa_reply = #{tqa_reply},tqa_replyer = #{tqa_replyer}, tqa_replydate=sysdate, tqa_status=1
 		where tqa_no = #{tqa_no}
 	</update>
+	
+	
+	<select id="mainTotal" resultType="int">
+		<![CDATA[ 
+		select count(*) from (
+		select rownum rn, qa_no, qa_writer, qa_title, qa_date from ds_qa q  
+		join ds_user u on q.qa_writer=u.user_id
+		join ds_auth a on u.user_no=a.user_no
+		where user_auth ='ROLE_ADMIN' and   
+		]]>
+		<include refid="criteria"></include>
+		<![CDATA[ 
+		qa_no > 0)
+		]]>
+	</select>
+
+	<select id="mainList" resultType="com.ds.domain.QuestionsVO">
+		<![CDATA[
+		select qa_no, qa_writer, qa_title, qa_date, qa_hit from (
+		select rownum rn, qa_no, qa_writer, qa_title, qa_date, qa_hit from ds_qa q  
+		join ds_user u on q.qa_writer=u.user_id
+		join ds_auth a on u.user_no=a.user_no
+		where user_auth ='ROLE_ADMIN' and 
+		]]>
+
+		<include refid="criteria"></include>
+  
+		<![CDATA[
+		rownum<= #{pageNum} * #{amount})
+		where rn>(#{pageNum}-1)*#{amount}  
+		order by qa_no desc
+		]]>
+	</select>
+	
+	<select id="main_read" resultType="com.ds.domain.QuestionsVO">
+		select qa_no, qa_writer, qa_title,
+		qa_content,qa_date,qa_reply, qa_hit
+		from ds_qa where qa_no=#{qa_no}
+	</select>
+	
+	<update id="upHit" parameterType="int">
+    	UPDATE ds_qa SET
+    	qa_hit = qa_hit+1
+    	WHERE qa_no = #{qa_no}
+    </update>
 </mapper>

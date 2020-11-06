@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ds.domain.Criteria;
 import com.ds.domain.LectureVO;
+import com.ds.domain.QuestionsVO;
 import com.ds.domain.SignupVO;
 import com.ds.domain.TeacherQuestionsVO;
 import com.ds.domain.TeacherVO;
@@ -39,4 +40,11 @@ public interface TeacherService {
 	public List<TeacherQuestionsVO> tqa_list(Long user_no);
 	public TeacherQuestionsVO tqa_get(Long tqa_no);
 	public boolean tQnA_modify(TeacherQuestionsVO vo);
+	
+	//공지사항
+	public List<QuestionsVO> mainList(Criteria cri);
+	public int mainTotal(Criteria cri);
+	
+	public QuestionsVO main_get(int qa_no);
+	public boolean upHit(int qa_no);
 }

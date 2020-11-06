@@ -180,5 +180,25 @@ public class TeacherServiceImpl implements TeacherService{
 		boolean modifyResult = mapper.tQnA_update(vo) == 1;		
 		return modifyResult;
 	}
+
+	@Override
+	public List<QuestionsVO> mainList(Criteria cri) {
+		return mapper.mainList(cri);
+	}
+
+	@Override
+	public int mainTotal(Criteria cri) {
+		return mapper.mainTotal(cri);
+	}
+
+	@Override
+	public QuestionsVO main_get(int qa_no) {
+		return mapper.main_read(qa_no);
+	}
+
+	@Override
+	public boolean upHit(int qa_no) {
+		 return mapper.upHit(qa_no);
+	}
 	
 }

@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import com.ds.domain.AuthVO;
 import com.ds.domain.Criteria;
 import com.ds.domain.LectureVO;
+import com.ds.domain.QuestionsVO;
 import com.ds.domain.SignupVO;
 import com.ds.domain.TeacherQuestionsVO;
 import com.ds.domain.TeacherVO;
@@ -49,4 +50,10 @@ public interface TeacherMapper {
 	public List<TeacherQuestionsVO> tqa_list(Long user_no);
 	public TeacherQuestionsVO tqa_get(Long tqa_no);
 	public int tQnA_update(TeacherQuestionsVO vo);
+	//공지사항
+	public List<QuestionsVO> mainList(Criteria cri);
+	public int mainTotal(Criteria cri);
+	
+	public QuestionsVO main_read(int qa_no);
+	public boolean upHit(int qa_no);
 }
