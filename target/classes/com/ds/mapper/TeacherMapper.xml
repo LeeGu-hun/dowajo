@@ -177,4 +177,13 @@
 	<delete id="user_delete">
 		delete ds_user where user_no = #{user_no}		
 	</delete>
+	
+	<select id="tqa_list" resultType="com.ds.domain.TeacherQuestionsVO">
+		SELECT Q.TQA_NO, Q.TQA_WRITER, Q.TQA_TITLE, Q.TQA_DATE 
+		FROM DS_TQA Q
+		LEFT OUTER JOIN DS_USER U
+		ON q.tqa_teacher = u.user_name
+		WHERE USER_NO = #{USER_NO}
+		ORDER BY tqa_no
+	</select>
 </mapper>

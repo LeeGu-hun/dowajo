@@ -12,6 +12,7 @@ import com.ds.domain.AuthVO;
 import com.ds.domain.Criteria;
 import com.ds.domain.LectureVO;
 import com.ds.domain.SignupVO;
+import com.ds.domain.TeacherQuestionsVO;
 import com.ds.domain.TeacherVO;
 import com.ds.domain.UserVO;
 import com.ds.mapper.TeacherMapper;
@@ -146,6 +147,11 @@ public class TeacherServiceImpl implements TeacherService{
 	public boolean user_delete(Long user_no) {
 		System.out.println("서비스 impl_delete");
 		return mapper.user_delete(user_no) == 1;
+	}
+
+	@Override
+	public List<TeacherQuestionsVO> tqa_list(Long user_no) {
+		return mapper.tqa_list(user_no);
 	}
 	
 }

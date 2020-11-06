@@ -8,6 +8,7 @@ import com.ds.domain.AuthVO;
 import com.ds.domain.Criteria;
 import com.ds.domain.LectureVO;
 import com.ds.domain.SignupVO;
+import com.ds.domain.TeacherQuestionsVO;
 import com.ds.domain.TeacherVO;
 import com.ds.domain.UserVO;
 
@@ -41,4 +42,6 @@ public interface TeacherMapper {
 	
 	public List<TeacherVO> getListWithPaging(Criteria cri);
 	public int getTotalCount(Criteria cri);
+	
+	public List<TeacherQuestionsVO> tqa_list(Long user_no);
 }

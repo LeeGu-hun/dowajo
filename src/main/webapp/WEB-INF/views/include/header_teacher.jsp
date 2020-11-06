@@ -10,8 +10,8 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <title>Blank Page | Bootstrap Based Admin Template - Material Design</title>
-    <!-- Favicon-->
-    <link rel="icon" href="/resources/favicon.ico" type="image/x-icon"> 
+   <!-- Favicon-->
+    <link rel="icon" href="/resources/favicon.ico" type="image/x-icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
@@ -25,13 +25,21 @@
 
     <!-- Animation Css -->
     <link href="/resources/plugins/animate-css/animate.css" rel="stylesheet" />
+    
+     <!-- Bootstrap Material Datetime Picker Css -->
+    <link href="/resources/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet" />
+
+    <!-- Wait Me Css -->
+    <link href="/resources/plugins/waitme/waitMe.css" rel="stylesheet" />
+
+    <!-- Bootstrap Select Css -->
+    <link href="/resources/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
 
     <!-- Custom Css -->
     <link href="/resources/css/style.css" rel="stylesheet">
 
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
     <link href="/resources/css/themes/all-themes.css" rel="stylesheet" />
-    
     
     <script
   src="https://code.jquery.com/jquery-3.5.1.min.js"
@@ -326,6 +334,13 @@
                             <span>강의실만들기</span>
                         </a>
                     </li>
+                    <li>
+                    	<a href="/teacher/TQnA_list" id="TQnA">                    	
+                    		<i class="material-icons">live_help</i>
+                    		<span>내가 받은 질문 확인하기 </span>
+                    	</a>                    
+                    </li>
+                    
                     <li>
                         <a href="/resources/pages/typography.html">
                             <i class="material-icons">text_fields</i>
@@ -822,6 +837,10 @@
 	<input type='hidden' name='user_no' value='<sec:authentication property="principal.user.user_no"/>'>
 </form>
 
+<form action="/teacher/TQnA_list" method='get' id="shootUNo2">
+	<input type='hidden' name='user_no' value='<sec:authentication property="principal.user.user_no"/>'>
+</form>
+
 <script>
 	$(document).ready(function(){
 		$('#logout').on("click", function(e){
@@ -833,9 +852,15 @@
 		e.preventDefault();
 		$('#gouser_no').submit();
 	});
+
 	$('#gocreate').on("click", function(e){
 		e.preventDefault();
 		$('#gouser_no_reg').submit();
+	});
+
+	$('#TQnA').on("click", function(e){
+		e.preventDefault();
+		$('#shootUNo2').submit();
 	});
 	
 </script>

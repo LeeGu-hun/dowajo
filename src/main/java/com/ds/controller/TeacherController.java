@@ -29,6 +29,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.ds.domain.AuthVO;
 import com.ds.domain.Criteria;
 import com.ds.domain.LectureVO;
+import com.ds.domain.TeacherQuestionsVO;
 import com.ds.domain.TeacherVO;
 import com.ds.domain.UserVO;
 import com.ds.service.LectureService;
@@ -238,6 +239,13 @@ public class TeacherController {
 		if(teacherService.user_delete(user_no))
 			rttr.addAttribute("result", "success");
 		return "redirect:/customLogin";
+	}
+	
+	@GetMapping("/TQnA_list")
+	public void TQnA_list(@RequestParam("user_no") Long user_no ,Model model) {
+		log.info("TQnA_list...");
+		List<TeacherQuestionsVO> list = teacherService.tqa_list(user_no);
+		model.addAttribute("list", list);
 	}
 
 }
