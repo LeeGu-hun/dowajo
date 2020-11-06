@@ -164,7 +164,7 @@ public class AdminController {
 	public String user_modify(UserVO vo, RedirectAttributes rttr) {		
 		if(service.user_modify(vo))
 			rttr.addAttribute("result", "success");
-		return "redirect:/admin/myPage_modify?user_id=" + vo.getUser_id();
+		return "redirect:/admin/myPage?user_id=" + vo.getUser_id();
 	}
 	
 	@PostMapping("/user_delete")

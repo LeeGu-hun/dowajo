@@ -107,7 +107,7 @@ public class StudentController {
 	public String user_modify(UserVO vo, RedirectAttributes rttr) {		
 		if(studentService.user_modify(vo))
 			rttr.addAttribute("result", "success");
-		return "redirect:/student/myPage_modify?user_id=" + vo.getUser_id();
+		return "redirect:/student/myPage?user_id=" + vo.getUser_id();
 	}
 	
 	@PostMapping("/user_delete")
