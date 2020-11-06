@@ -117,7 +117,7 @@ $(document).ready(function(){
 			$('#txtTitle').focus();	
 			return false;		
 		}
-		if($('#tqa_teacher').val()==""){
+		if($('#tqa_replyer').val()==""){
 			alert("질문할 강사를 선택해주세요.");
 			return false;
 		}
