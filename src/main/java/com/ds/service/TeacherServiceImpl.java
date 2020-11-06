@@ -151,7 +151,12 @@ public class TeacherServiceImpl implements TeacherService{
 
 	@Override
 	public List<TeacherQuestionsVO> tqa_list(Long user_no) {
-		return mapper.tqa_list(user_no);
+		return mapper.tqa_list(user_no);		
+	}
+	
+	@Override
+	public TeacherQuestionsVO tqa_get(Long tqa_no) {
+		return mapper.tqa_get(tqa_no);
 	}
 	
 }

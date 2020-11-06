@@ -186,4 +186,8 @@
 		WHERE USER_NO = #{USER_NO}
 		ORDER BY tqa_no
 	</select>
+	
+	<select id="tqa_get" resultType="com.ds.domain.TeacherQuestionsVO">
+		SELECT * FROM DS_TQA WHERE TQA_NO = #{TQA_NO}
+	</select>
 </mapper>

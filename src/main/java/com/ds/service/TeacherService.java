@@ -34,4 +34,5 @@ public interface TeacherService {
 	public boolean user_delete(Long user_no);	//사용자 삭제
 	
 	public List<TeacherQuestionsVO> tqa_list(Long user_no);
+	public TeacherQuestionsVO tqa_get(Long tqa_no);
 }

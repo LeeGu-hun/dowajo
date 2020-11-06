@@ -247,5 +247,10 @@ public class TeacherController {
 		List<TeacherQuestionsVO> list = teacherService.tqa_list(user_no);
 		model.addAttribute("list", list);
 	}
+	
+	@GetMapping("/TQnA_get")
+	public void TQnA_get(@RequestParam("tqa_no") Long tqa_no, Model model) {
+		model.addAttribute("tqa", teacherService.tqa_get(tqa_no));
+	}
 
 }
