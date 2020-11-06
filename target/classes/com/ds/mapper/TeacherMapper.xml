@@ -74,6 +74,11 @@
 	<select id="call_no" resultType="com.ds.domain.TeacherVO">
 		select lecture_no from ds_lecture where lecture_no=#{lecture_no}
 	</select>
+	<delete id="reject" parameterType="com.ds.domain.SignupVO">
+		<foreach collection="checkArr" item="item" separator=";" open="DECLARE BEGIN" close="; END;">
+            delete from ds_class_list where lecture_no = #{lecture_no} and user_no = #{item}  
+        </foreach>
+	</delete>
 	<select id="read_cancel" resultType="com.ds.domain.TeacherVO">
 		select DISTINCT u.user_no,u.user_name,u.user_mobile,l.class_status
 		from ds_user u

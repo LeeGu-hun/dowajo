@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -31,6 +32,7 @@ import com.ds.domain.AuthVO;
 import com.ds.domain.Criteria;
 import com.ds.domain.LectureVO;
 import com.ds.domain.QuestionsVO;
+import com.ds.domain.SignupVO;
 import com.ds.domain.TeacherQuestionsVO;
 import com.ds.domain.TeacherVO;
 import com.ds.domain.UserVO;
@@ -103,7 +105,16 @@ public class TeacherController {
 
 		return new ResponseEntity(teacherService.cancelrefresh(checkArr, lecture_no), HttpStatus.OK);
 	}
-
+	@ResponseBody
+	@PostMapping(value = "/reject", produces="application/text;charset=utf-8")
+	public String reject(@RequestParam("lecture_no") Long lecture_no,
+			@RequestParam("checkArr[]") String[] checkArr, Model model) {
+		log.info("컨트롤러확인용:" + lecture_no);
+		log.info("컨트롤러확인용:" + Arrays.toString(checkArr));
+		log.info("reject 들어와쓔");
+		teacherService.reject(checkArr, lecture_no);
+		return "success";
+	}
 	@GetMapping("/teacher_reg")
 	@PreAuthorize("isAuthenticated()")
 	public void teacher_reg(@RequestParam("user_no")Long user_no) {

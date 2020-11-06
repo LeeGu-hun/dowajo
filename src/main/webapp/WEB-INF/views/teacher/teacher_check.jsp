@@ -13,7 +13,6 @@
 		<div class="block-header">
 			<h2>
 				강의 신청 및 수업시작(강의내용 수정할려면 '수정하기'를 눌러주세요)
-				<button type="button" class="btn bg-teal waves-effect" style="float:right" id="delete_Btn">삭제하기</button>
 				<button type="button" class="btn bg-teal waves-effect" style="float:right" id="modify_Btn">강의수정</button>
 			</h2>
 			<br>
@@ -107,6 +106,8 @@
 								 value="전체선택"style="float: right;">
 								 <input type="button" id="all_joinup_cancel_Btn"class="btn bg-red waves-effect"
 								 value="전체해제"style="float: right;">
+								 <input type="button" id="reject_Btn"class="btn bg-red waves-effect"
+								 value="신청반려"style="float: right;">
 									 <small>등록하고자 하는 학생이있으면
 									체크박스에 체크한뒤 버튼을 눌러주세요.</small>
 							</h2>
@@ -399,7 +400,88 @@
 		        }
 		    });
 	}
+////////////////////////////////////////////////////
+	    function rejectajax(){
+		    // 강의 번호를 갖고 온다.
+		    var lecture_no = ${lecture_no };
+		    // 체크박스의 학생의 id를 배열에 담는다.
+		    var checkboxValues = [];
+		    $(".chk_not_reg:checked").each(function(i) {
+		        checkboxValues.push($(this).val());
+		    });
+		    console.log(checkboxValues);
+		    
+	/* 	    var uncheck = [];
+		    $(".chk_not_reg:not(:checked)").each(function(i){
+		    	uncheck.push($(this).val());
+			});
+		    console.log(uncheck); 체크안된 사람들 값포함시킬의도*/
+		   
+		    // 사용자 ID(문자열)와 체크박스 값들(배열)을 name/value 형태로 담는다.
+		    var allData = { "lecture_no": lecture_no, "checkArr": checkboxValues };
+		    var allData2 = { "lecture_no": lecture_no};
+
+		    $.ajax({
+		        url:"/teacher/reject",
+		        type:'POST',
+				beforeSend : function(xhr){
+					xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+				},
+		        data: allData,
+		        success:function(data){
+		            alert("완료!");
+		            //location.reload();
+		            console.log(data);
+		            //self.close();
+		    	    $.ajax({
+		    	        url:"/teacher/cancelclean",
+		    	        type:'POST',
+		    			beforeSend : function(xhr){
+		    				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+		    			},
+		    	        data: allData2,
+		    	        success:function(data){
+		    	            
+		    	            //location.reload();
+		    	            console.log(data);
+		    	            //self.close();
+		    				$("#cancel_tbody").empty();
+		    	            $.each(data, function (index, item) {
+		    		            console.log(item);
+		    		            console.log(item.user_name);
+		    		           
+		    					var str = "";
+		    		            str += "<tr style='cursor: pointer;'>";//c:out태그를 쓸떄는 굳이 다쓰지말고 밑에 +item.user_no+만 쓰면 가능
+		    					str+="<td>"+item.user_no+"</td>";
+		    					str+="<td>"+item.user_name+"</td>";
+		    					str+="<td>"+item.user_mobile+"</td>";
+		    					str+="<td><div class='demo-checkbox'>"
+		    						+"<input type='checkbox' class='cancel_lc' id='"+item.user_no+"'"
+									+" value='"+item.user_no+"'"
+		    						+" class='chk-col-pink'>";
+		    					str+="<label for="+item.user_no+">신청</label>";
+		    					str+="</div>";
+		    					str+="</td>";
+		    					str+="</tr>";
+		    						
+		    		            $("#cancel_tbody").append(str);
+
+		    				});           
+		    	        },
+		    	        error:function(jqXHR, textStatus, errorThrown){
+		    	            alert("에러 발생~~ \n" + textStatus + " : " + errorThrown);
+		    	            self.close();
+		    	        }
+		    	    });           
+		        },
+		        error:function(jqXHR, textStatus, errorThrown){
+		            alert("에러 발생~~s \n" + textStatus + " : " + errorThrown);
+		            self.close();
+		        }
+		    });
+		}
 	
+	/////////////////////////////////////////////////////////////////   
 	$(document).ready(function() {
 		
 		var operForm = $("#operForm");
@@ -425,6 +507,10 @@
 		
 		$('#cancelBtn').on("click", function() {
 			cancelajax();
+		});
+		
+		$('#reject_Btn').on("click", function() {
+			rejectajax();
 		});
 		
 		$("#all_cancel_select_Btn").click(function(){

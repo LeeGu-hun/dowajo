@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ds.domain.Criteria;
 import com.ds.domain.LectureVO;
+import com.ds.domain.SignupVO;
 import com.ds.domain.TeacherQuestionsVO;
 import com.ds.domain.TeacherVO;
 import com.ds.domain.UserVO;
@@ -24,6 +25,7 @@ public interface TeacherService {
 	public List<TeacherVO> regetlist_sign_up(Long lecture_no);
 	public List<TeacherVO> call_no(Long lecture_no);
 	public List<TeacherVO> refresh(String[] checkArr,Long lecture_no);
+	public void reject(String[] checkArr,Long lecture_no);
 	public List<TeacherVO> cancelrefresh(String[] checkArr,Long lecture_no);
 	public int getTotal(Criteria cri);
 //	public List<TeacherVO> getList(Criteria cri);

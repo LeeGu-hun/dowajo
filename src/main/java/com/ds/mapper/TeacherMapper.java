@@ -34,8 +34,10 @@ public interface TeacherMapper {
 	
 	public void insert(TeacherVO vo);
 	public void insertSelectKey(TeacherVO vo);
-	public List<TeacherVO> read_cancel(Long lecture_no); 
+	public List<TeacherVO> read_cancel(Long lecture_no);
+	public List<TeacherVO> go_reject(Long lecture_no);
 	public List<TeacherVO> read_sign_up(Long lecture_no);
+	public void reject(SignupVO vo);
 	public int read_refresh(SignupVO vo);
 	public int cancelrefresh(SignupVO vo);
 	public int delete(Long lecture_no);

@@ -320,6 +320,12 @@
                 <ul class="list">
                     <li class="header">MAIN NAVIGATION</li>
                     <li>
+                        <a href="/teacher/main.html" id="home">
+                            <i class="material-icons">home</i>
+                            <span>공지사항</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="/teacher/teacher_main.html" id="gohome">
                             <i class="material-icons">home</i>
                             <span>강사홈으로</span>

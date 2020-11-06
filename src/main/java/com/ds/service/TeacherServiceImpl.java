@@ -99,6 +99,14 @@ public class TeacherServiceImpl implements TeacherService{
 		return mapper.read_cancel(lecture_no); 
 	}
 	@Override
+	public void reject(String[] checkArr,Long lecture_no) {
+		SignupVO vo = new SignupVO();
+		vo.setLecture_no(lecture_no);
+		vo.setCheckArr(checkArr); 
+		log.info("checkArr:::" + Arrays.toString(checkArr));
+		mapper.reject(vo);
+	}
+	@Override
 	public List<TeacherVO> cancelrefresh(String[] checkArr,Long lecture_no) {
 		SignupVO vo = new SignupVO();
 		vo.setLecture_no(lecture_no);
