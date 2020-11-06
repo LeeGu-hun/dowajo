@@ -330,4 +330,4 @@ INSERT INTO "DB7"."DS_TQA" (TQA_NO, TQA_WRITER, TQA_TITLE, TQA_CONTENT, tqa_repl
 
 
 /*<추가 11/06 서명훈> ------------------------------------------------------------------------------------*/
-alter table ds_qa add(qa_his number default 0);
+alter table ds_qa add(qa_hit number default 0);
