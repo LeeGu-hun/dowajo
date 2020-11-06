@@ -175,9 +175,9 @@
 	
 	<insert id="tqa_register">
 		INSERT INTO 
-			ds_tqa (tqa_no, tqa_writer, tqa_title, tqa_content, tqa_date, tqa_teacher)
+			ds_tqa (tqa_no, tqa_writer, tqa_title, tqa_content, tqa_date, tqa_replyer)
 		VALUES 
-			(ds_tqa_seq.nextval, #{tqa_writer}, #{tqa_title}, #{tqa_content}, sysdate, #{tqa_teacher})
+			(ds_tqa_seq.nextval, #{tqa_writer}, #{tqa_title}, #{tqa_content}, sysdate, #{tqa_replyer})
 		<selectKey resultType="long" keyProperty="tqa_no" order="AFTER">
 			SELECT ds_tqa_seq.currval from dual
 		</selectKey>		

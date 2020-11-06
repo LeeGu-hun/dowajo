@@ -41,8 +41,9 @@ table, tr, th{
 														<th>번호</th>
 														<th>작성자</th>
 														<th>제목</th>
-														<th>질문드린 선생님</th>
-														<th>작성 일자</th>														
+														<th>답변 강사명</th>
+														<th>작성 일자</th>
+														<th>답변 상태</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -52,7 +53,11 @@ table, tr, th{
 															<td><c:out value="${list.tqa_writer}" /></td>																															
 															<td><a class="move" href="${list.tqa_no}"><c:out value="${list.tqa_title}" /></a></td>
 															<td><c:out value="${list.tqa_replyer}"/></td>
-															<td><fmt:formatDate pattern="yyyy-MM-dd" value="${list.tqa_date}" /></td>																														
+															<td><fmt:formatDate pattern="yyyy-MM-dd" value="${list.tqa_date}" /></td>
+															<td>
+															<c:if test="${list.tqa_status eq 0}">대기</c:if>
+															<c:if test="${list.tqa_status eq 1}">완료</c:if>
+															</td>
 														</tr>
 													</c:forEach>
 												</tbody>

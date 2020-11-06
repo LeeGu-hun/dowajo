@@ -31,7 +31,7 @@ table, tr, th{
 									<div class="card">
 										<div class="header">
 											<h2>
-												<b>문의하기</b><i class="material-icons">question_answer </i><small>목록</small>
+												<b>질문하기</b><i class="material-icons">question_answer </i><small>목록</small>
 											</h2>
 										</div>
 										<div class="body table-responsive">
@@ -42,7 +42,7 @@ table, tr, th{
 														<th>작성자</th>
 														<th>제목</th>
 														<th>작성 일자</th>
-														<th>답변 여부</th>
+														<th>답변 상태</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -61,7 +61,7 @@ table, tr, th{
 												</tbody>
 											</table>
 											<div class="divBtn">
-											<button type="button" id = "btn" class="btn bg-blue-grey waves-effect">글 등록</button>
+											<button type="button" id = "btn" class="btn bg-blue-grey waves-effect">질문하기</button>
 											</div>
 										</div>
 									</div>

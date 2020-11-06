@@ -58,7 +58,7 @@ table, tr, td{
 											<table>
 												<tr>
 													<td>
-													   <select class="form-control show-tick" name="tqa_teacher" id="tqa_teacher" >
+													   <select class="form-control show-tick" name="tqa_replyer" id="tqa_replyer" >
 	                                    				<option value="">강사 선택</option>
 	                                    				<c:forEach items="${list}" var="list">                                        				
 	                                        				<option value="${list}">${list}</option>                                        				                                        				
