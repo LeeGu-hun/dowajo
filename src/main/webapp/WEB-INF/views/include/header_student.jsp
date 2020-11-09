@@ -81,18 +81,15 @@
     </div>
     <!-- #END# Search Bar -->
     <!-- Top Bar -->
-    <nav class="navbar">
-        <div class="container-fluid">
+    <nav class="navbar" >
+        <div class="container-fluid" >
             <div class="navbar-header">
                 <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
                 <a href="javascript:void(0);" class="bars"></a>
-                <a class="navbar-brand" href="/student/main">수업을 도와줘</a>
+                <a class="navbar-brand" href="/student/main" ><h1>수업을 도와줘</h1></a>
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <!-- Call Search -->
-                    <li><a href="javascript:void(0);" class="js-search" data-close="true"><i class="material-icons">search</i></a></li>
-                    <!-- #END# Call Search -->
                     
                     <!-- Tasks -->
                     <li class="dropdown">
@@ -207,7 +204,7 @@
                     <li>
                         <a href="/student/main">
                             <i class="material-icons">home</i>
-                            <span>홈으로</span>
+                            <span>HOME</span>
                         </a>
                     </li>
                     
@@ -215,14 +212,14 @@
                     <li>
                     	<a href="/student/lecturelist" id="leLi">                        
                        		<i class="material-icons">view_list</i>
-                       		<span>수강중인 강의목록</span>
+                       		<span>나의 강의목록</span>
                        	</a>                       
                     </li>
                     
                     <li>
                     	<a href="/student/lectureSearch" id="leSe">                    	
                     		<i class="material-icons">search</i>
-                    		<span>강의실 찾기</span>
+                    		<span>추천강의 찾기</span>
                     	</a>                    
                     </li>
                     
@@ -236,7 +233,7 @@
                     <li>
                     	<a href="/student/QnA_list" id="QnA">                    	
                     		<i class="material-icons">question_answer</i>
-                    		<span>Q&A </span>
+                    		<span>문의하기 </span>
                     	</a>                    
                     </li>
                        

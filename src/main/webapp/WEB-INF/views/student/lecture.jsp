@@ -258,8 +258,8 @@
             return;
         }
 
-        //var url="ws://192.168.0.185:8080/echo/";
-        var url="ws://localhost:8080/echo/";
+        var url="ws://192.168.0.185:8080/echo/";
+        //var url="ws://localhost:8080/echo/";
 	        url+="${lectureInfo.lecture_no}/";
 	        url+=decodeEntities("<sec:authentication property='principal.user.user_name'/>/");
 	        url+=decodeEntities("<sec:authentication property='principal.user.user_no'/>");

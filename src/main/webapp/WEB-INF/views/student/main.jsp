@@ -14,7 +14,7 @@
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="card">
 						<div class="header">
-							<h1>공지사항</h1>
+							<h1>홈 - 공지사항</h1>
 						</div>
 						<div class="body">
 							<div class="table-responsive">
