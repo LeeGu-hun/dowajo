@@ -10,7 +10,7 @@
 <section class="content">
 	<div class="container-fluid">
 		<div class="block-header">
-			<h2>회원 정보</h2>
+			<h4>강의실 만들기</h4>
 			<br>
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<div class="card">

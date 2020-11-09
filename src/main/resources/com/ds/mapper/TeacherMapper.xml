@@ -50,7 +50,7 @@
 		from ds_class_list c
 		left OUTER JOIN ds_lecture l on c.lecture_no = l.lecture_no
 		left OUTER JOIN ds_auth a on c.user_no = a.user_no
-		where c.user_no=#{user_no} and a.user_auth=	'ROLE_TEACHER' order by l.lecture_no
+		where c.user_no=#{user_no} and a.user_auth=	'ROLE_TEACHER' order by l.lecture_no desc 
 	</select>
 	<select id="regetlist_canecl" resultType="com.ds.domain.TeacherVO">
 		select DISTINCT u.user_no,u.user_name,u.user_mobile,l.class_status

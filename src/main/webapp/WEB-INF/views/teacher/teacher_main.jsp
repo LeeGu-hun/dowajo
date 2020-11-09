@@ -24,7 +24,7 @@
 			<div class="panel">
 				<div class="panel-heading">
 					<div style="width: 30%;display: inline-block;">
-						<h4 style="display: inline-block;">내 강의목록</h4>
+						<h4 style="display: inline-block;">강의 리스트</h4>
 					</div>
 				</div>
 				<div class="panel-body">
@@ -55,7 +55,7 @@
 											aria-controls="datatables-example" rowspan="1" colspan="1"
 											aria-sort="ascending"
 											aria-label="Name: activate to sort column descending"
-											style="width: 250px;">강의 번호</th>
+											style="width: 250px;">강사님 사진</th>
 										<th class="sorting" tabindex="0"
 											aria-controls="datatables-example" rowspan="1" colspan="1"
 											aria-label="Position: activate to sort column ascending"

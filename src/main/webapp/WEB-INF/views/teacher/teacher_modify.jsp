@@ -11,7 +11,7 @@
 <section class="content">
 	<div class="container-fluid">
 		<div class="block-header">
-			<h2>강의 정보</h2>
+			<h4>강의 수정</h4>
 			<br>
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<div class="card">
@@ -21,7 +21,7 @@
 							<input type='hidden' name='user_no' value='<sec:authentication property="principal.user.user_no"/>'>
 							<input type='hidden' name='lecture_no' value='<c:out value="${lecture_no}"/>'>			
 							<div class="msg">
-								<b>강의실(강의) 수정</b>
+								<b>강의 수정</b>
 							</div>
 							<div class="input-group">
 								<span class="input-group-addon"> 
