@@ -86,34 +86,11 @@
 								</tbody>
 							</table>
 						</div>
-						<div class="col-md-6" style="padding-top: 20px;">
-							<!-- <span>showing 0-10 of 30 items</span> -->
-						</div>
-						<div class="col-md-6">
-							<ul class="pagination pull-right">
-								<c:if test="${pageMaker.prev }">
-									<li class="page_btn"><a href="${pageMaker.startPage - 1}" aria-label="Previous"> <span
-											aria-hidden="true">&laquo;</span>
-									</a></li>
-								</c:if>
-								<c:forEach var="num" begin="${pageMaker.startPage }"
-										end="${pageMaker.endPage }">
-									<li 
-									class='page_btn ${pageMaker.cri.pageNum == num?"active":""}'><a href="${num}">${num}</a></li>
-								</c:forEach>
-								<c:if test="${pageMaker.next }">
-									<li class="page_btn"><a href="${pageMaker.endPage + 1 }" aria-label="Next"> <span
-											aria-hidden="true">&raquo;</span>
-									</a></li>
-								</c:if>
-							</ul>
-						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
 </section>
 </body>
 <form id='actionForm' action="/teacher/teacher_main" method='get'>

@@ -83,7 +83,6 @@ $(document).ready(function() {
 	var formObj = $("form");
 	$('#listbtn').on("click", function(e){
 		e.preventDefault();
-		alert("hello!");
 		history.back();
 	});
 	$('#regBtn').on("click", function(e) {
