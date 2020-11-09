@@ -1,17 +1,23 @@
 package com.ds.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.ds.domain.LectureVO;
+import com.ds.domain.MLectureVO;
 import com.ds.domain.UserVO;
 import com.ds.mapper.UserMapper;
+import com.ds.service.StudentService;
 import com.ds.service.UserService;
 
 import lombok.Setter;
@@ -75,13 +81,47 @@ public class CommonController {
 		return "redirect:/customLogin";
 	}
 	
+	
+	
+	
 	@Setter(onMethod_ = {@Autowired})
 	private UserMapper userMapper;
 	
+	@Setter(onMethod_ = { @Autowired })
+	private StudentService studentService;
+	
+	@Setter(onMethod_ = {@Autowired})	
+	private PasswordEncoder pwencoder;
+	
 	@ResponseBody
-	@GetMapping({"/mlogin"})
-	public UserVO mlogin(@RequestParam("username") String userName){
-		UserVO vo = userMapper.checkLogin(userName);  
-		return vo;
+	@PostMapping({"/mlogin"})
+	public Long mlogin(String userId, String userPw){
+		System.out.println("userPw : "+userPw);
+		UserVO uvo = userMapper.checkLogin(userId);
+		
+		boolean passMatch = pwencoder.matches(userPw, uvo.getUser_pw());
+		if(uvo==null || !passMatch) {
+			return null;
+		}
+		else {
+			Long user_no=uvo.getUser_no();
+			return user_no;
+		}
+	}
+	
+	@ResponseBody
+	@GetMapping({"/mlist"})
+	public List<MLectureVO> mlist(Long user_no){
+		List<LectureVO> lvo=studentService.lectureConfirmList(user_no);
+		List<MLectureVO> mlvo = new ArrayList<MLectureVO>();
+		for(int i=0;i<lvo.size();i++) {
+			MLectureVO vo=new MLectureVO();
+			vo.setNumber(lvo.get(i).getLecture_no().toString());
+			vo.setName(lvo.get(i).getLecture_name().toString());
+			vo.setAfid(lvo.get(i).getLecture_afreecaid().toString());
+			mlvo.add(vo);
+		}
+		
+		return mlvo;
 	}
 }
