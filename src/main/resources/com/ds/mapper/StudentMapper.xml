@@ -185,11 +185,13 @@
 	
 	<select id="getTeacherName" resultType="String">
 	select distinct u.user_name from 
-	(select lecture_no, lecture_name, lecture_afreecaid, savedLecImage from ds_lecture
-	where lecture_no in (select lecture_no from ds_class_list where user_no=#{user_no})) l,
-	ds_class_list c, ds_auth a, ds_user u 
-	where l.lecture_no=c.lecture_no 
-	and c.user_no=a.user_no and a.user_auth='ROLE_TEACHER' and a.user_no=u.user_no	
+		(select l2.lecture_no, l2.lecture_name, c2.user_no 
+		from ds_lecture l2, ds_class_list c2 
+		where l2.lecture_no=c2.lecture_no 
+		and user_no=#{user_no} and c2.class_status='true') l , 
+		ds_class_list c, ds_auth a, ds_user u 
+		where l.lecture_no=c.lecture_no and
+		c.user_no=a.user_no and a.user_auth='ROLE_TEACHER' and a.user_no=u.user_no		
 	</select>
 	
 	<update id="upHit" parameterType="int">
