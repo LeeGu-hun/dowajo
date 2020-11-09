@@ -101,5 +101,12 @@
 	      </script>
 	 </c:if>  
 </body>
+<script type="text/javascript">
+var csrfHeaderName = "${_csrf.headerName}";
+var csrfTokenValue = "${_csrf.token}";
+console.log(csrfHeaderName);
+console.log(csrfTokenValue);
+
+</script>
 
 </html>
