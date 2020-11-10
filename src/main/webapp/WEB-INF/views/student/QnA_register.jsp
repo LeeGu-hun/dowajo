@@ -39,6 +39,9 @@ table, tr, td{
 		<div id="content">
 			<div class="col-md-12 top-20 padding-0">
 				<div class="col-md-12">
+				<h1>
+				문의하기
+				</h1>
 					<div class="panel form-element-padding">
 						<div class="panel-heading">
 							<h4></h4>
@@ -51,9 +54,9 @@ table, tr, td{
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 									<div class="card">
 										<div class="header">
-											<h2>
-												<b>문의하기</b><small>글 등록</small>
-											</h2>
+											<h3>
+												글 등록
+											</h3>
 										</div>
 										<div class="body table-responsive">
 											<table>

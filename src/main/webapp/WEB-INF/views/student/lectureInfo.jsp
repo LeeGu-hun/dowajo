@@ -8,24 +8,26 @@
 
 <section class="content" >
     
-    <h3>강의정보</h3><br>
+    <h3>강의 신청하기</h3><br>
     
    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="card">
                         <div class="header bg-blue-grey">
                             <h2>
-                                <label>강의실 이름</label> : <label><c:out value="${leIn.lecture_name}"/></label><br>
-                            </h2>
-                            
+                                <label>강의 정보</label><br>
+                            </h2>                            
                         </div>
                         <div class="body">
+                            <label>강의실 이름</label> : <label><c:out value="${leIn.lecture_name}"/></label><br>
+                            <br>
+                            <br>
                             <label>강의소개</label> : <label><c:out value="${leIn.lecture_description}"/></label><br>
                             <br>
                             <br>
-						 <label>강사이름</label> :  <label><c:out value="${leIn.user_name}"/></label>
-						 <br>
-						 <br>
-						 <br>
+						    <label>강사이름</label> :  <label><c:out value="${leIn.user_name}"/></label>
+						    <br>
+						    <br>
+						    <br>
 						 <div align="right">
 						 <button type="button" class="btn bg-indigo waves-effect" data-toggle="modal" data-target="#defaultModal">신청</button>
 						 <button type="button" class="btn bg-indigo waves-effect" id="backBtn">목록으로</button>

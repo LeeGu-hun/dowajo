@@ -212,7 +212,7 @@
                     <li>
                     	<a href="/student/lectureSearch" id="leSe">                    	
                     		<i class="material-icons">search</i>
-                    		<span>추천강의 찾기</span>
+                    		<span>추천 강의 찾기</span>
                     	</a>                    
                     </li>
                     

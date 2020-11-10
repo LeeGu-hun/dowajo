@@ -19,7 +19,7 @@ text-align : center;
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="card">
 						<div class="header">
-							<h1>강의실찾기</h1>
+							<h1>추천 강의 찾기</h1>
 						</div>
 						<div class="body">
 							<div class="table-responsive">

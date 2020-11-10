@@ -20,6 +20,9 @@ table, tr, th{
 		<div id="content">
 			<div class="col-md-12 top-20 padding-0">
 				<div class="col-md-12">
+				<h1>
+				문의하기
+				</h1>
 					<div class="panel form-element-padding">
 						<div class="panel-heading">
 							<h4></h4>
@@ -30,9 +33,10 @@ table, tr, th{
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 									<div class="card">
 										<div class="header">
-											<h2>
-												<b>질문하기</b><i class="material-icons">question_answer </i><small>목록</small>
-											</h2>
+											
+											<h3>
+											목록
+											</h3>
 										</div>
 										<div class="body table-responsive">
 											<table class="table table-hover" >
@@ -54,14 +58,14 @@ table, tr, th{
 															<td><fmt:formatDate pattern="yyyy-MM-dd" value="${list.qa_date}" /></td>
 															<td>
 															<c:if test="${list.qa_status eq 0}">대기</c:if>
-															<c:if test="${list.qa_status eq 1}">완료</c:if>
+															<c:if test="${list.qa_status eq 1}"><p style="color:#0703fc;">완료</p></c:if>
 															</td>															
 														</tr>
 													</c:forEach>
 												</tbody>
 											</table>
 											<div class="divBtn">
-											<button type="button" id = "btn" class="btn bg-blue-grey waves-effect">질문하기</button>
+											<button type="button" id = "btn" class="btn bg-blue-grey waves-effect">문의하기</button>
 											</div>
 										</div>
 									</div>
