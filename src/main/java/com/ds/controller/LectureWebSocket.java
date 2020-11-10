@@ -69,6 +69,7 @@ public class LectureWebSocket {
         userNameMap.put(session.getId(),user_name);
         userNoMap.put(session.getId(),user_no);
         
+        
         sessions.add(session);
     }
     
@@ -118,7 +119,6 @@ public class LectureWebSocket {
 		//setAbsent(Long.parseLong(lectureNoMap.get(session.getId()).toString()), Long.parseLong(userNoMap.get(session.getId()).toString()));
     	new SetAttend(Long.parseLong(lectureNoMap.get(session.getId()).toString()), Long.parseLong(userNoMap.get(session.getId()).toString())).start();
     	
-        System.out.println("Session " +session.getId()+" has ended");
         String str="{\"type\":\"nonAttendance\",\"id\":\""+session.getUserPrincipal().getName()+"\", \"name\":\""+userNameMap.get(session.getId())+"\" }";
         sendAllSessionToMessage( session, str );
         lectureNoMap.remove(session.getId());
@@ -182,12 +182,10 @@ public class LectureWebSocket {
 			pstmt.setLong(2, userNo);
 			pstmt.setString(3, "퇴실");
 			if(pstmt.executeUpdate()>0) {
-				System.out.println("퇴실처리됨");
 				conn.commit();
 				conn.setAutoCommit(true);
 			}
 			else {
-				System.out.println("퇴실처리안됨");
 				conn.rollback();
 				conn.setAutoCommit(true);
 				return;
@@ -270,12 +268,10 @@ public class LectureWebSocket {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setLong(1, lectureNo);
 			if(pstmt.executeUpdate()>0) {
-				System.out.println("과제마감상태로 변경");
 				conn.commit();
 				conn.setAutoCommit(true);
 			}
 			else {
-				System.out.println("과제마감상태로 변경 실패");
 				conn.rollback();
 				conn.setAutoCommit(true);
 				return;
@@ -317,12 +313,10 @@ public class LectureWebSocket {
 					flist2 = path2.listFiles();
 					for(int k=0 ; k < flist2.length; k++){
 						flist2[k].delete() ;
-						System.out.println(flist2[k].getName() + " 파일(폴더안)을 삭제했습니다.");
 					}
 				} catch (Exception e) {
 				}
 				flist[j].delete() ;
-				System.out.println(flist[j].getName() + " 파일을 삭제했습니다.");
 			}
 		}
 	}

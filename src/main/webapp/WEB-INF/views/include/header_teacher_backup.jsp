@@ -9,8 +9,8 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <title>학생 페이지</title>
-    <!-- Favicon-->
+    <title>Blank Page | Bootstrap Based Admin Template - Material Design</title>
+   <!-- Favicon-->
     <link rel="icon" href="/resources/favicon.ico" type="image/x-icon">
 
     <!-- Google Fonts -->
@@ -41,11 +41,11 @@
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
     <link href="/resources/css/themes/all-themes.css" rel="stylesheet" />
     
-    
     <script
   src="https://code.jquery.com/jquery-3.5.1.min.js"
   integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
   crossorigin="anonymous"></script>
+  
 </head>
 
 <body class="theme-red">
@@ -68,104 +68,28 @@
     <!-- #END# Page Loader -->
     <!-- Overlay For Sidebars -->
     <div class="overlay"></div>
-    <div id="space-margin" style="height:45px;"></div>    
     <!-- #END# Overlay For Sidebars -->
-    
+    <!-- Search Bar -->
+    <div class="search-bar">
+        <div class="search-icon">
+            <i class="material-icons">search</i>
+        </div>
+        <input type="text" placeholder="START TYPING...">
+        <div class="close-search">
+            <i class="material-icons">close</i>
+        </div>
+    </div>
+    <!-- #END# Search Bar -->
     <!-- Top Bar -->
-    <nav class="navbar" >
-        <div class="container-fluid" >
+     <nav class="navbar">
+        <div class="container-fluid">
             <div class="navbar-header">
-                <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
-                <a href="javascript:void(0);" class="bars"></a>
-                <a class="navbar-brand" href="/student/main" style="height:100%;"><h1>수업을 도와줘</h1></a>
+                <a class="navbar-brand" href="/teacher/main"style="height:100%;"><h1>수업을 도와줘</h1></a>
             </div>
-            <div class="collapse navbar-collapse" id="navbar-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    
-                    <!-- Tasks -->
-                    <li class="dropdown">
-                       
-                        <ul class="dropdown-menu">
-                            <li class="header">TASKS</li>
-                            <li class="body">
-                                <ul class="menu tasks">
-                                    <li>
-                                        <a href="javascript:void(0);">
-                                            <h4>
-                                                Footer display issue
-                                                <small>32%</small>
-                                            </h4>
-                                            <div class="progress">
-                                                <div class="progress-bar bg-pink" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 32%">
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);">
-                                            <h4>
-                                                Make new buttons
-                                                <small>45%</small>
-                                            </h4>
-                                            <div class="progress">
-                                                <div class="progress-bar bg-cyan" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);">
-                                            <h4>
-                                                Create new dashboard
-                                                <small>54%</small>
-                                            </h4>
-                                            <div class="progress">
-                                                <div class="progress-bar bg-teal" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 54%">
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);">
-                                            <h4>
-                                                Solve transition issue
-                                                <small>65%</small>
-                                            </h4>
-                                            <div class="progress">
-                                                <div class="progress-bar bg-orange" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 65%">
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);">
-                                            <h4>
-                                                Answer GitHub questions
-                                                <small>92%</small>
-                                            </h4>
-                                            <div class="progress">
-                                                <div class="progress-bar bg-purple" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 92%">
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="footer">
-                                <a href="javascript:void(0);">View All Tasks</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <!-- #END# Tasks -->
-                    <li class="pull-right"><a href="javascript:void(0);" class="js-right-sidebar" data-close="true"><i class="material-icons">more_vert</i></a></li>
-                </ul>
-            </div>
-        </div>        
+        </div>
     </nav>
-    
     <!-- #Top Bar -->
-        
-    <section>    	
+    <section>
         <!-- Left Sidebar -->
         <aside id="leftsidebar" class="sidebar" style="margin-top: 50px;">
             <!-- User Info -->
@@ -175,16 +99,17 @@
                 </div>
                 <div class="info-container">
                     <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <sec:authorize access="isAuthenticated()">
-					<sec:authentication property="principal.user.user_name"/>
-					</sec:authorize>
-                    </div>                    
+                    	<sec:authorize access="isAuthenticated()">
+		                <sec:authentication property="principal.user.user_name"/>
+		                </sec:authorize>
+                    </div> 
                     <div class="btn-group user-helper-dropdown">
                         <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
                         <ul class="dropdown-menu pull-right">
-                            <li><a href="/student/myPage?user_id=<sec:authentication property='principal.user.user_id'/>"><i class="material-icons">person</i>내 정보</a></li>                            
+                            <li><a href="/teacher/myPage?user_id=<sec:authentication property='principal.user.user_id'/>"><i class="material-icons">person</i>Profile</a></li>
+                            <li role="seperator" class="divider"></li>	
                             <li role="seperator" class="divider"></li>
-                            <li><a id='logout' href="javascript:void(0);"><i class="material-icons">input</i>로그아웃</a></li>
+                            <li><a id="logout" href="javascript:void(0);"><i class="material-icons">input</i>Sign Out</a></li>
                         </ul>
                     </div>
                 </div>
@@ -193,61 +118,64 @@
             <!-- Menu -->
             <div class="menu">
                 <ul class="list">
-                    
+                    <li class="header">목록</li>
                     <li>
-                        <a href="/student/main">
+                        <a href="/teacher/main.html" id="home">
                             <i class="material-icons">home</i>
                             <span>메인으로</span>
                         </a>
                     </li>
-                    
-                    
                     <li>
-                    	<a href="/student/lecturelist" id="leLi">                        
-                       		<i class="material-icons">view_list</i>
-                       		<span>나의 강의목록</span>
-                       	</a>                       
+                        <a href="/teacher/teacher_main.html" id="gohome">
+                            <i class="material-icons">home</i>
+                            <span>강의리스트</span>
+                        </a>
                     </li>
-                    
                     <li>
-                    	<a href="/student/lectureSearch" id="leSe">                    	
-                    		<i class="material-icons">search</i>
-                    		<span>추천 강의 찾기</span>
-                    	</a>                    
+                        <a href="/teacher/teacher_reg.html" id = "gocreate">
+                            <i class="material-icons">create</i>
+                            <span>강의만들기</span>
+                        </a>
                     </li>
-                    
                     <li>
-                    	<a href="/student/TQnA_list" id="TQnA">                    	
+                    	<a href="/teacher/TQnA_list" id="TQnA">                    	
                     		<i class="material-icons">live_help</i>
-                    		<span>강사 Q&A </span>
+                    		<span>내가 받은 질문 확인하기 </span>
                     	</a>                    
                     </li>
                     
-                    <li>
-                    	<a href="/student/QnA_list" id="QnA">                    	
-                    		<i class="material-icons">question_answer</i>
-                    		<span>문의하기 </span>
-                    	</a>                    
-                    </li>
-                       
-                   <li style="display:none">
-                     <a href="javascript:void(0);" class="menu-toggle">
-                      
-                            
+                   
+                   
+                    
+                  
+                   
+                    <li class="active" style="display:none">
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">content_copy</i>
+                            <span>Example Pages</span>
                         </a>
                         <ul class="ml-menu">
-                            
+                            <li>
+                                <a href="/resources/pages/examples/sign-in.html">Sign In</a>
+                            </li>
+                            <li>
+                                <a href="/resources/pages/examples/sign-up.html">Sign Up</a>
+                            </li>
+                            <li>
+                                <a href="/resources/pages/examples/forgot-password.html">Forgot Password</a>
+                            </li>
                             <li class="active">
                                 <a href="/resources/pages/examples/blank.html">Blank Page</a>
                             </li>
-                            
+                            <li>
+                                <a href="/resources/pages/examples/404.html">404 - Not Found</a>
+                            </li>
+                            <li>
+                                <a href="/resources/pages/examples/500.html">500 - Server Error</a>
+                            </li>
                         </ul>
-                    </li>
-                  
-                    
-                   
+                    </li>               
                 </ul>
-               
             </div>
             <!-- #Menu -->
             <!-- Footer -->
@@ -404,26 +332,20 @@
                 </div>
             </div>
         </aside>
-        <!-- #END# Right Sidebar -->        
+        <!-- #END# Right Sidebar -->
     </section>
 
 <form action="/customLogout" method='post' id="logoutForm">
 	<input type="hidden"name="${_csrf.parameterName}"value="${_csrf.token}"/>
 </form>
-	
-<form action="/student/lecturelist" method='get' id="shootuserNO">
-	<input type='hidden' name='user_no' value='<sec:authentication property="principal.user.user_no"/>'>	
+<form action="/teacher/teacher_main" method='get' id="gouser_no">
+	<input type='hidden' name='user_no' value='<sec:authentication property="principal.user.user_no"/>'>
 </form>
-
-<form action="/student/lectureSearch" method='get' id="shootUN">
+<form action="/teacher/teacher_reg" method='get' id="gouser_no_reg">
 	<input type='hidden' name='user_no' value='<sec:authentication property="principal.user.user_no"/>'>
 </form>
 
-<form action="/student/QnA_list" method='get' id="shootUNo">
-	<input type='hidden' name='user_no' value='<sec:authentication property="principal.user.user_no"/>'>
-</form>
-
-<form action="/student/TQnA_list" method='get' id="shootUNo2">
+<form action="/teacher/TQnA_list" method='get' id="shootUNo2">
 	<input type='hidden' name='user_no' value='<sec:authentication property="principal.user.user_no"/>'>
 </form>
 
@@ -433,25 +355,20 @@
 			e.preventDefault();
 			$('#logoutForm').submit();
 		});
-
-		$('#leLi').on("click", function(e){
-			e.preventDefault();
-			$('#shootuserNO').submit();
-		});
-
-		$('#leSe').on("click", function(e){
-			e.preventDefault();
-			$('#shootUN').submit();
-		});
-
-		$('#QnA').on("click", function(e){
-			e.preventDefault();
-			$('#shootUNo').submit();
-		});
-
-		$('#TQnA').on("click", function(e){
-			e.preventDefault();
-			$('#shootUNo2').submit();
-		});
 	});
+	$('#gohome').on("click", function(e){
+		e.preventDefault();
+		$('#gouser_no').submit();
+	});
+
+	$('#gocreate').on("click", function(e){
+		e.preventDefault();
+		$('#gouser_no_reg').submit();
+	});
+
+	$('#TQnA').on("click", function(e){
+		e.preventDefault();
+		$('#shootUNo2').submit();
+	});
+	
 </script>
