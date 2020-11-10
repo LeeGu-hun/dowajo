@@ -68,25 +68,16 @@
     <!-- #END# Page Loader -->
     <!-- Overlay For Sidebars -->
     <div class="overlay"></div>
+    <div id="space-margin" style="height:50px;"></div>    
     <!-- #END# Overlay For Sidebars -->
-    <!-- Search Bar -->
-    <div class="search-bar">
-        <div class="search-icon">
-            <i class="material-icons">search</i>
-        </div>
-        <input type="text" placeholder="START TYPING...">
-        <div class="close-search">
-            <i class="material-icons">close</i>
-        </div>
-    </div>
-    <!-- #END# Search Bar -->
+    
     <!-- Top Bar -->
     <nav class="navbar" >
         <div class="container-fluid" >
             <div class="navbar-header">
                 <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
                 <a href="javascript:void(0);" class="bars"></a>
-                <a class="navbar-brand" href="/student/main" ><h1>수업을 도와줘</h1></a>
+                <a class="navbar-brand" href="/student/main" style="height:100%;"><h1>수업을 도와줘</h1></a>
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
@@ -169,12 +160,14 @@
                     <li class="pull-right"><a href="javascript:void(0);" class="js-right-sidebar" data-close="true"><i class="material-icons">more_vert</i></a></li>
                 </ul>
             </div>
-        </div>
+        </div>        
     </nav>
+    
     <!-- #Top Bar -->
-    <section>
+        
+    <section>    	
         <!-- Left Sidebar -->
-        <aside id="leftsidebar" class="sidebar">
+        <aside id="leftsidebar" class="sidebar" style="margin-top: 50px;">
             <!-- User Info -->
             <div class="user-info">
                 <div class="image">
@@ -204,7 +197,7 @@
                     <li>
                         <a href="/student/main">
                             <i class="material-icons">home</i>
-                            <span>HOME</span>
+                            <span>메인으로</span>
                         </a>
                     </li>
                     
@@ -254,6 +247,7 @@
                     
                    
                 </ul>
+               
             </div>
             <!-- #Menu -->
             <!-- Footer -->
@@ -410,7 +404,7 @@
                 </div>
             </div>
         </aside>
-        <!-- #END# Right Sidebar -->
+        <!-- #END# Right Sidebar -->        
     </section>
 
 <form action="/customLogout" method='post' id="logoutForm">
