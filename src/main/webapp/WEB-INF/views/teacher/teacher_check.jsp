@@ -10,7 +10,7 @@
 
 <section class="content">
 	<div class="container-fluid">
-		<div class="block-header">
+		<div class="block-header" style="margin-top: 50px;">
 			<h4>
 				강의 등록,신청 및 수업시작(강의내용 수정할려면 '수정하기'를 눌러주세요)
 				<button type="button" class="btn bg-teal waves-effect" style="float:right" id="modify_Btn">강의수정</button>

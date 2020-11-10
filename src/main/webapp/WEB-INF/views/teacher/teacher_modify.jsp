@@ -11,7 +11,7 @@
 <section class="content">
 	<div class="container-fluid">
 		<div class="block-header">
-			<h4>강의 수정</h4>
+			<h1>강의 수정</h1>
 			<br>
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<div class="card">

@@ -24,7 +24,7 @@
 			<div class="panel">
 				<div class="panel-heading">
 					<div style="width: 30%;display: inline-block;">
-						<h4 style="display: inline-block;">강의 리스트</h4>
+						<h1 style="display: inline-block;">강의 리스트</h1>
 					</div>
 				</div>
 				<div class="panel-body">
@@ -101,7 +101,7 @@
 </form>
 <script>
 $(document).ready(function(){
-	
+	var user_id = $(user_id);
 	$('.move').on("click", function(e){		
 		e.preventDefault();
 		console.log("move click");

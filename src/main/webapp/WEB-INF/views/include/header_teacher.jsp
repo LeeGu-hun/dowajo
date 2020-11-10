@@ -81,24 +81,17 @@
     </div>
     <!-- #END# Search Bar -->
     <!-- Top Bar -->
-    <nav class="navbar">
+     <nav class="navbar">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
-                <a href="javascript:void(0);" class="bars"></a>
-                <a class="navbar-brand" href="/resources/index.html">수업을 도와줘</a>
-            </div>
-            <div class="collapse navbar-collapse" id="navbar-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                 
-                </ul>
+                <a class="navbar-brand" href="/teacher/main"style="height:100%;"><h1>수업을 도와줘</h1></a>
             </div>
         </div>
     </nav>
     <!-- #Top Bar -->
     <section>
         <!-- Left Sidebar -->
-        <aside id="leftsidebar" class="sidebar">
+        <aside id="leftsidebar" class="sidebar" style="margin-top: 50px;">
             <!-- User Info -->
             <div class="user-info">
                 <div class="image">
@@ -129,7 +122,7 @@
                     <li>
                         <a href="/teacher/main.html" id="home">
                             <i class="material-icons">home</i>
-                            <span>공지사항</span>
+                            <span>메인으로</span>
                         </a>
                     </li>
                     <li>
