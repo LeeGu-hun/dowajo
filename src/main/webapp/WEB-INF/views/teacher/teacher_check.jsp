@@ -290,13 +290,13 @@
 	    				});           
 	    	        },
 	    	        error:function(jqXHR, textStatus, errorThrown){
-	    	            alert("에러 발생~~ \n" + textStatus + " : " + errorThrown);
+	    	            alert("에러 발생:체크하지않았거나 비어있습니다. \n");
 	    	            self.close();
 	    	        }
 	    	    });           
 	        },
 	        error:function(jqXHR, textStatus, errorThrown){
-	            alert("에러 발생~~ \n" + textStatus + " : " + errorThrown);
+	            alert("에러 발생:체크하지않았거나 비어있습니다. \n");
 	            self.close();
 	        }
 	    });
@@ -388,14 +388,14 @@
 		    				});           
 		    	        },
 		    	        error:function(jqXHR, textStatus, errorThrown){
-		    	            alert("에러 발생~~ \n" + textStatus + " : " + errorThrown);
+		    	            alert("에러 발생:체크하지않았거나 비어있습니다. \n");
 		    	            self.close();
 		    	        }
 		    	    });   
 		            
 		        },
 		        error:function(jqXHR, textStatus, errorThrown){
-		            alert("에러 발생~~ \n" + textStatus + " : " + errorThrown);
+		            alert("에러 발생:체크하지않았거나 비어있습니다.~ \n");
 		            self.close();
 		        }
 		    });
@@ -469,13 +469,13 @@
 		    				});           
 		    	        },
 		    	        error:function(jqXHR, textStatus, errorThrown){
-		    	            alert("에러 발생~~ \n" + textStatus + " : " + errorThrown);
+		    	            alert("에러 발생:체크하지않았거나 비어있습니다. \n");
 		    	            self.close();
 		    	        }
 		    	    });           
 		        },
 		        error:function(jqXHR, textStatus, errorThrown){
-		            alert("에러 발생~~s \n" + textStatus + " : " + errorThrown);
+		            alert("에러 발생:체크하지않았거나 비어있습니다. \n");
 		            self.close();
 		        }
 		    });
