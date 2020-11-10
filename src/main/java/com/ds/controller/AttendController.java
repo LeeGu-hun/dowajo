@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ds.domain.AttendanceVO;
-import com.ds.domain.FileVO;
 import com.ds.service.LectureService;
 
 import lombok.Setter;
@@ -31,9 +30,6 @@ public class AttendController {
 	@PostMapping(value="/putAttendance", produces = "application/text; charset=utf8")
 	@ResponseBody
 	public String putAttendance(AttendanceVO vo) {
-//	    log.info("getLecture_no : " + vo.getLecture_no());
-//	    log.info("getUser_no : " + vo.getUser_no());
-//	    log.info("getAttendance_state : " + vo.getAttendance_state());
 	    
 	    lectureService.setAttend(vo);
 	    
@@ -42,10 +38,6 @@ public class AttendController {
 	@PostMapping(value="/viewAttendance", produces = {MediaType.APPLICATION_XML_VALUE,	MediaType.APPLICATION_JSON_UTF8_VALUE})
 	@ResponseBody
 	public List<AttendanceVO> viewAttendance(@RequestParam("lectureNo") Long lectureNo, @RequestParam("id") String id) {
-		log.info("lectureNo : " + lectureNo);
-		log.info("userNo : " + id);
-		
-		
 		
 		return lectureService.viewAttend(lectureNo, id);
 	}

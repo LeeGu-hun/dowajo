@@ -64,7 +64,7 @@
 	        		
 				</div>
 				<div style="height:1px"></div>
-        		<div style="height:50%; background-color:#FFEB3B; padding:10px 0px 10px 10px; margin-bottom:0px;" class="card">
+        		<div style="height:50%; background-color:#8BC34A; padding:10px 0px 10px 10px; margin-bottom:0px;" class="card">
         			<div style="overflow:auto; height:90%;" id="messages"></div>
         			<input style="width:80%; margin-top:6px;" type="text" id="messageinput" />
         			<button id="sendMsg" style="margin-right:10px;"  type="button" class="btn btn-default btn-circle waves-effect waves-green waves-circle waves-float pull-right" >
@@ -115,7 +115,6 @@
 </script>
 
 <script type="text/javascript">
-	//html decoder
 	function decodeEntities(encodedString) {
 	  var div = document.createElement('div');
 	  div.innerHTML = encodedString;
@@ -123,24 +122,16 @@
 	}
 
 
-	/* -- 파일업로드 위한 추가 ------------------------------------------ */ 
 	var csrfHeaderName = "${_csrf.headerName}";
 	var csrfTokenValue = "${_csrf.token}";
 
-	// 업로드 파일 확장자 필터링
-	//var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");  //정규식
-	var maxSize = 5242880;  //5MB
+	var maxSize = 5242880;
 
 	function checkExtension(fileName, fileSize) {
 		if (fileSize >= maxSize) {
 			alert("파일 사이즈 초과");
 			return false;
 		}
-		
-		/* if (regex.test(fileName)) {
-			alert("해당 종류의 파일은 업로드할 수 없습니다.");
-			return false;
-		} */
 		return true;
 	}
 
@@ -151,8 +142,6 @@
 		var files = inputFile[0].files;
 		var userNo="<sec:authentication property='principal.user.user_no'/>";
 		var lectureNo="${lectureInfo.lecture_no}";
-		console.log(inputFile)
-		console.log(files)
 		
 		for (var i = 0; i < files.length; i++) {
 			if (!checkExtension(files[i].name, files[i].size)) {
@@ -186,7 +175,6 @@
 			}
 		});
 	}
-	/* -- 파일업로드 위한 추가 끝 ----------- */ 
 	
 	function viewFile(){
 		var userNo="<sec:authentication property='principal.user.user_no'/>";
@@ -231,21 +219,11 @@
 				var mylecturenum=lectureNo.length;
 				var realName=result.substring(mylecturenum+mynum+2);
 				alert(realName+"이/가 삭제되었습니다.");
-				console.log('#div'+result);
 				fileDiv.remove();
 			}
 		});
 	}) 
 
-	/* $(".forFileDelete").on("click", function(e){
-		alert("눌림"));
-        
-    }); */
-	/* $(".forFileDelete").on("click", function(e){
-		alert("눌림"));
-		var fileName=$(this).attr("id");
-		alert(fileName);
-	}); */
 	
 
 
@@ -273,7 +251,6 @@
 
         
         webSocket.onmessage = function(event) {
-        	console.log(event.data);
         	
             var myJsonData=JSON.parse(event.data);
 
@@ -281,17 +258,6 @@
             	
             	alert("강의창은 하나만 띄울 수 있습니다.");
             	window.open('/student/main','_self').close();
-            	
-            	//self.opener=self;
-            	//window.close();
-            	
-            	//window.open('','_self').close();
-            	     
-            	//window.open('','_parent','');
-                //window.close();
-                
-           		//alert("강의창은 하나만 띄울 수 있습니다.");
-           		//window.close();
            	}
            	
            	if(myJsonData.type=='message'){
@@ -358,7 +324,6 @@
 
 
 	$("#messageinput").on("keypress", function(e){
-		//e.stopPropagation();
 		if(e.keyCode==13){
 			if($('#messageinput').val()!=""){
 				var message={
@@ -393,7 +358,6 @@
         	    role: "<sec:authentication property='principal.Authorities'/>",
             	no: "<sec:authentication property='principal.user.user_no'/>"
         	  };
-		//webSocket.onopen = () =>webSocket.send(JSON.stringify(attendance)); //ie에선 람다식 안먹힘
 		webSocket.send(JSON.stringify(attendance));
     }
 
@@ -411,7 +375,6 @@
 			type: 'POST',             
             dataType: "text",
 			success: function(result){
-				console.log(result);
 				
 			}
 		});

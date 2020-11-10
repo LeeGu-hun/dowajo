@@ -96,7 +96,6 @@ public class CommonController {
 	@ResponseBody
 	@PostMapping({"/mlogin"})
 	public Long mlogin(String userId, String userPw){
-		System.out.println("userPw : "+userPw);
 		UserVO uvo = userMapper.checkLogin(userId);
 		
 		boolean passMatch = pwencoder.matches(userPw, uvo.getUser_pw());

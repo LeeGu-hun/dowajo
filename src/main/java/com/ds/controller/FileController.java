@@ -58,7 +58,6 @@ public class FileController {
 		
 
 		File uploadPath = new File(uploadFolder);
-		log.info("upload path: " + uploadPath);
 		
 		if (uploadPath.exists() == false) {
 			uploadPath.mkdirs();
@@ -68,11 +67,9 @@ public class FileController {
 		for (MultipartFile multipartFile : uploadFile) {
 			
 			String uploadFileName = multipartFile.getOriginalFilename();
-			log.info("uploadFileName: " + uploadFileName);
 			
 			uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\")+1);
 			String savingFileName=lectureNo.toString()+"_"+userNo.toString()+"_"+uploadFileName;
-			log.info("savingFileName: " + savingFileName);
 			
 			for(int i=0;i<fileVo.size();i++) {
 				if(fileVo.get(i).getFile_name().equals(savingFileName)) {
@@ -100,7 +97,6 @@ public class FileController {
 				e.printStackTrace();
 			}
 		}
-		log.info("result: " + result);
 		return result;
 	}
 	
@@ -109,13 +105,6 @@ public class FileController {
 	@PostMapping(value = "/download", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
 	@ResponseBody
 	public ResponseEntity<Resource> downloadFile(@RequestParam("fileName") String[] fileName, @RequestParam("lectureNo") String lectureNo, HttpServletResponse response) throws IOException {
-		
-		
-		//log.info("download file: " + fileName);
-		//Resource resource = new FileSystemResource("c:\\upload\\1\\" + fileName);
-		//Resource resource = new FileSystemResource("c:\\upload\\1\\*");
-		
-		log.info("lectureNo: " + lectureNo);
 		
 		
 		
@@ -128,20 +117,12 @@ public class FileController {
 		List<FileVO> fileVo=lectureService.fileListAll(Long.parseLong(lectureNo));
 		for(int i=0; i<fileVo.size();i++) {
 			String voFileName=fileVo.get(i).getFile_name();
-			log.info("fileName : " + voFileName);
 			sourceFiles.add("C:/upload/"+lectureNo+"/"+voFileName);
 		}
-		lectureService.fileDeleteAll(Long.parseLong(lectureNo));//DB에서 경로삭제
+		lectureService.fileDeleteAll(Long.parseLong(lectureNo));
 		
 		
 		
-//		for(int i=0; i<fileName.length;i++) {
-//			if(!fileName[i].equals("")) {
-//				log.info("fileName : " + fileName[i]);
-//				sourceFiles.add("C:/upload/"+lectureNo+"/"+fileName[i]);
-//			}
-//		}
-		//sourceFiles.add("C:/upload/1/dream02.png");
 		FileOutputStream fout = new FileOutputStream(zipFile);
 	    ZipOutputStream zout = new ZipOutputStream(fout);
 	    if (sourceFiles.size() == 0) {
@@ -158,19 +139,15 @@ public class FileController {
 	    	int idx2 = beforeRealName.indexOf("_");
 	    	String realName = beforeRealName.substring(idx2+1);
 	    	
-	        //본래 파일명 유지, 경로제외 파일압축을 위해 new File로 
-	        //ZipEntry zipEntry = new ZipEntry(new File(sourceFiles.get(i)).getName());
 	        ZipEntry zipEntry = new ZipEntry(beforeRealName);
 	        zout.putNextEntry(zipEntry);
 
-	        //경로포함 압축
-	        //zout.putNextEntry(new ZipEntry(sourceFiles.get(i)));
 
 	        FileInputStream fin = new FileInputStream(sourceFiles.get(i));
 	        byte[] buffer = new byte[1024];
 	        int length;
 
-	        // input file을 1024바이트로 읽음, zip stream에 읽은 바이트를 씀
+	        
 	        while((length = fin.read(buffer)) > 0){
 	            zout.write(buffer, 0, length);
 	        }
@@ -181,10 +158,7 @@ public class FileController {
 	        
 	        
 	        File file = new File(sourceFiles.get(i));
-	        file.delete(); //실제파일삭제
-	        
-	        
-	        
+	        file.delete(); 
 	    }
 
 	    zout.close();
@@ -193,14 +167,11 @@ public class FileController {
 	    
 	    Resource resource = new FileSystemResource("c:\\upload\\"+lectureNo+"\\assignment.zip");
 	    
-		log.info("resource: " + resource);
-		
 		if (resource.exists() == false) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		
 		String resourceName = resource.getFilename();
-		log.info("resourceName: " + resourceName);
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Disposition", "attachment; fileName=" + resourceName);
@@ -212,8 +183,6 @@ public class FileController {
 	@PostMapping("/fileState")
 	@ResponseBody
 	public String fileState(boolean file_status, Long lecture_no) {
-	    log.info("file_state: " + file_status);
-	    log.info("lecture_no: " + lecture_no);
 	    lectureService.fileState(file_status, lecture_no);
 	    
 	    
@@ -225,11 +194,8 @@ public class FileController {
 	@PostMapping(value = "/viewFileList" , produces = {MediaType.APPLICATION_XML_VALUE,	MediaType.APPLICATION_JSON_UTF8_VALUE})
 	@ResponseBody
 	public List<String> viewFileList(@RequestParam("lectureNo") Long lectureNo, @RequestParam("userNo") Long userNo ) {
-		System.out.println("lectureNo : "+lectureNo);
-		System.out.println("userNo : "+userNo);
 		List<String> result=new ArrayList<String>();
 		List<FileVO> fileList=lectureService.fileList(lectureNo, userNo);
-		System.out.println("fileList : "+fileList);
 		if(fileList!=null) {
 			for(int i=0;i<fileList.size();i++) {
 				result.add(fileList.get(i).getFile_name());
@@ -242,7 +208,6 @@ public class FileController {
 	@PostMapping(value="/deleteFile", produces = "application/text; charset=utf8")
 	@ResponseBody
 	public ResponseEntity<String> deleteFile(Long lectureNo, String fileName) {
-	    log.info("deleteFile: " + fileName);
 	    File file;
 	    
 	    try {
@@ -264,7 +229,6 @@ public class FileController {
 		List<FileVO> result=new ArrayList<FileVO>();
 		result=lectureService.fileListAll(lectureNo);
 		
-		log.info("homeworkList: " + result);
 		
 		
 		return result;
@@ -274,10 +238,8 @@ public class FileController {
 	@ResponseBody
 	public String setDeadline(String date, Long lectureNo) {
 		
-		log.info("date: " + date);
 		
 		java.sql.Timestamp t = java.sql.Timestamp.valueOf(date);
-		System.out.println("sqldate타입 : "+t);
 		lectureService.setFileDeadline(t, lectureNo);
 		
 		return t.toString();

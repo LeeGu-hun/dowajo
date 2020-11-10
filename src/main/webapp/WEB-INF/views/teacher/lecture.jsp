@@ -64,15 +64,6 @@
         		<div style="height:50%;">
         			<div style="overflow:auto; height:100%; width:60%; float:left; margin-bottom:0px;" class="card"> <!-- background-color:#f8cb4f; -->
         			
-        				<%-- <span class="label label-default">접속 유저</span>
-        				<ul id="attendance" style="margin-top:30px;">
-		        			<li id="<sec:authentication property='principal.user.user_id'/>"></li>
-		        			
-		        			<c:forEach items="${lectureUser}" var="userList">
-	       						<div id="${userList.user_no}"></div>
-		       				</c:forEach>
-	        				
-	        			</ul> --%>
 	        			
 	        			<table class="table">
                                 <thead><tr><th>접속 유저</th></tr></thead>
@@ -87,12 +78,6 @@
                         
         			</div>   			
         			<div style="overflow:auto; height:100%; width:39%; float:right; background-color:#EEE; margin-bottom:0px;" class="card">
-	        			<%-- <span class="label label-default">미접속 유저</span>
-       					<ul id="nonAttendance" style="margin-top:30px;">
-		       				<c:forEach items="${lectureUser}" var="userList">
-	       						<li id="${userList.user_id}">${userList.user_name} </li>
-		       				</c:forEach>
-       					</ul> --%>
        					
        					
        					
@@ -110,7 +95,7 @@
         			</div>
 				</div>
 				<div style="height:1px;"></div>
-        		<div style="height:50%; background-color:#FFEB3B; padding:10px 0px 10px 10px; margin-bottom:0px;" class="card">
+        		<div style="height:50%; background-color:#8BC34A; padding:10px 0px 10px 10px; margin-bottom:0px;" class="card">
         			<div style="overflow:auto; height:90%; width:100%;" id="messages"></div>
         			<input style="width:80%; margin-top:6px;" type="text" id="messageinput" />
         			<button id="sendMsg" style="margin-right:10px;"  type="button" class="btn btn-default btn-circle waves-effect waves-green waves-circle waves-float pull-right" >
@@ -248,7 +233,6 @@
             url+="${lectureInfo.lecture_no}/";
             url+=decodeEntities("<sec:authentication property='principal.user.user_name'/>/");
             url+=decodeEntities("<sec:authentication property='principal.user.user_no'/>");
-            console.log(url);
         webSocket = new WebSocket(url);
 
         webSocket.onopen = function(event) {
@@ -259,24 +243,12 @@
 
         
         webSocket.onmessage = function(event) {
-        	console.log(event.data);
 
         	var myJsonData=JSON.parse(event.data);
 			if(myJsonData.type=='overlap'){
             	
             	alert("강의창은 하나만 띄울 수 있습니다.");
             	window.open('/teacher/main','_self').close();
-            	
-            	//self.opener=self;
-            	//window.close();
-            	
-            	//window.open('','_self').close();
-            	     
-            	//window.open('','_parent','');
-                //window.close();
-                
-           		//alert("강의창은 하나만 띄울 수 있습니다.");
-           		//window.close();
            	}
             
            	if(myJsonData.type=='message'){
@@ -294,7 +266,6 @@
 					$("#"+id).html(name);
 				}
 				else if(role.includes("ROLE_STUDENT")){
-					//$("#attendance #"+no).html('<li id="'+id+'" >' + name + '  <div style="display:inline; vertical-align: middle;" class="chkPg" id="chkPg'+id+'"></div> <div style="display:inline; vertical-align: middle;" class="chkHw" id="chkHw'+id+'"></div></li>');
 					$("#attendance #"+no).html('<td id="'+id+'" style="height:60px; vertical-align: middle;">' + name + ' &nbsp;<div style="display:inline; vertical-align: middle;" class="chkPg" id="chkPg'+id+'"></div> &nbsp;&nbsp;<div style="display:inline; vertical-align: middle;" class="chkHw" id="chkHw'+id+'"></div></td>');
 				}
 				
@@ -303,7 +274,6 @@
                	var name=decodeEntities(myJsonData.name);
                	var id=decodeEntities(myJsonData.id);
                	$('#attendance #'+ id ).remove();
-				//$("#nonAttendance").append('<li id="'+id+'" >' + name + '</li>');
 				$("#nonAttendance").append('<tr><td id="'+id+'">'+name+'</td></tr>');
 				
        		}
@@ -383,7 +353,6 @@
 	        dataType: 'text',
 	        type: 'POST',
 	        success: function(result) {
-	            console.log(result);
 	        }
 	    });
     	
@@ -414,7 +383,6 @@
 	        dataType: 'text',
 	        type: 'POST',
 	        success: function(result) {
-	            console.log(result);
 	        }
 	    });
 
@@ -423,8 +391,6 @@
     $("#getHomework").on("click", function(e){
     	
 		$("#receiveFile").submit();
-		//self.location = "/file/download?fileName=dream01.png";
-    	// + "${product.filename}";
 	    
     });
     
@@ -471,7 +437,6 @@
 				var name=[];
 				$.each(result, function (index, item) {
 					if(!name.includes(item.user_no)){
-						console.log(new Date().toJSON());
 						$("#findHomworkStudent").append("<input type='text' class='form-control' value='"+item.user_name+" - ("+moment(item.regdate).format('L')+" "+moment(item.regdate).format('LTS')+")' readonly> ");/* <fmt:formatDate pattern='yyyy-MM-dd kk:mm:ss' value='' /> */
 						name.push(item.user_no);
 					} 
@@ -534,8 +499,6 @@
 
             var lectureNo=${lectureInfo.lecture_no};
 
-        	console.log("값 : "+$(".datetimepicker").val());
-        	console.log("date : "+date);
 
 
         	$.ajax({
@@ -565,8 +528,6 @@
     $("#goYoutube").on("click", function(e){
         var adr=$('#youtubeAddress').val().substring(17)
         var youtube=$('#youtubeAddress').val().substring(8, 16)
-        console.log(adr);
-        console.log(youtube);
 
     	if($('#youtubeAddress').val()==""){
 			alert("유튜브 주소를 입력하세요");
@@ -602,22 +563,16 @@
             	no: "<sec:authentication property='principal.user.user_no'/>"
                 	
         	  };
-		//webSocket.onopen = () =>webSocket.send(JSON.stringify(attendance)); //function webSocket.onopen(){}과 같은 의미? webSocket.onopen = function(){}의 의미?
-		//webSocket.onopen = function(){webSocket.send(JSON.stringify(attendance))};
 		webSocket.send(JSON.stringify(attendance));
     }
-    //sendAttendence();
 
 
     function checkAttendence() {
 		var chkAttendance={
         	    type: "chkAttendance"
         	  };
-		//webSocket.onopen = () =>webSocket.send(JSON.stringify(attendance)); //ie에선 람다식 안먹힘
-		//webSocket.onopen = function(){webSocket.send(JSON.stringify(chkAttendance))};
 		webSocket.send(JSON.stringify(chkAttendance));
     }
-    //checkAttendence();
     
     function setAttendanceHistory() {
 		var userNo="<sec:authentication property='principal.user.user_no'/>";
@@ -633,7 +588,6 @@
 			type: 'POST',             
             dataType: "text",
 			success: function(result){
-				console.log(result);
 				
 			}
 		});
