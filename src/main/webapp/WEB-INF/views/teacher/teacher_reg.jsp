@@ -10,7 +10,7 @@
 <section class="content">
 	<div class="container-fluid">
 		<div class="block-header">
-			<h1>강의실 만들기</h1>
+			<h1>강의 만들기</h1>
 			<br>
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<div class="card">
@@ -19,7 +19,7 @@
 							id="form_regist" encType="multipart/form-data">							
 							<input type='hidden' name='user_no' value='<sec:authentication property="principal.user.user_no"/>'>			
 							<div class="msg">
-								<b>강의실(강의) 정보</b>
+								<b>강의 정보</b>
 							</div>
 							<div class="input-group">
 								<span class="input-group-addon"> 

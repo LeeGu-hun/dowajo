@@ -134,7 +134,7 @@
                     <li>
                         <a href="/teacher/teacher_reg.html" id = "gocreate">
                             <i class="material-icons">create</i>
-                            <span>강의실만들기</span>
+                            <span>강의만들기</span>
                         </a>
                     </li>
                     <li>
