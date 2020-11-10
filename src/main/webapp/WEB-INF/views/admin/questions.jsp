@@ -14,7 +14,7 @@
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="card">
 						<div class="header">
-							<h2>문의사항</h2>
+							<b><h2>문의사항<h2></b>
 						</div>
 						<div class="body">
 							<div class="table-responsive">

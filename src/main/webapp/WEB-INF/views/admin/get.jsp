@@ -10,7 +10,6 @@
 <section class="content">
 	<div class="container-fluid">
 		<div class="block-header">
-			<h2>회원 정보</h2>
 			<br>
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<div class="card">
@@ -23,7 +22,9 @@
 	 						<input type='hidden' name='type' value='<c:out value="${cri.type }"/>'>
 							<input type='hidden' name='keyword' value='<c:out value="${cri.keyword }"/>'>						
 							<div class="msg">
-								<b>회원 정보</b>
+								<h2>
+									<b>회원관리</b><small>회원정보</small>
+								</h2>
 							</div>
 							<div class="input-group">
 								<span class="input-group-addon"> 

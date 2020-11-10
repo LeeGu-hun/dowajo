@@ -7,6 +7,7 @@
 
 <style>
 </style>
+
 <section class="content">
 	<div class="container-fluid">
 		<div class="block-header">
@@ -71,18 +72,22 @@ $(document).ready(function() {
 		}
 		formObj.submit();
 	});
+	
 	 $("textarea").keydown(function(){
+		 
 		    var numChar = $(this).val().length;
 		    var maxNum = 500;
 		    var charRemain = maxNum - numChar;
+		    
 		    $("span > em").text(charRemain);
+		    
 		    if(charRemain < 0){
 		      $("span > em").addClass("warning");
 		      $("#submitBtn").prop("disabled", true);
 		    } else {
 		      $("#submitBtn").prop("disabled", false);
 		    }
-		  });
+	 });
 });
 
 </script>

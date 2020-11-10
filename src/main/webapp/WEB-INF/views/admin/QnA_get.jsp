@@ -60,7 +60,7 @@ table, tr, td{
 									<div class="card">
 										<div class="header">
 											<h2>
-												<b>문의하기</b><small>답변하기</small>
+												<b>문의사항</b><small>답변하기</small>
 											</h2>
 										</div>
 										<div class="body table-responsive">
