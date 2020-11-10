@@ -76,7 +76,7 @@
 													value="${user.qa_date }" /></td>
 												<td>
 													<c:if test="${user.qa_status eq 0}">대기</c:if>
-													<c:if test="${user.qa_status eq 1}">완료</c:if>
+													<c:if test="${user.qa_status eq 1}"><p style="color:#0703fc;">완료</p></c:if>
 												</td>
 											</tr>
 											</c:forEach>
