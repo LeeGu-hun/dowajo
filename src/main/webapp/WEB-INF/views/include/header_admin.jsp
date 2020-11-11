@@ -109,7 +109,7 @@
                     <li>
                         <a href="/admin/main">
                             <i class="material-icons">home</i>
-                            <span>메인으로</span>
+                            <span>메인</span>
                         </a>
                     </li>
                     <li>

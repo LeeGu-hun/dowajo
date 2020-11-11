@@ -22,9 +22,10 @@
 	 						<input type='hidden' name='type' value='<c:out value="${cri.type }"/>'>
 							<input type='hidden' name='keyword' value='<c:out value="${cri.keyword }"/>'>						
 							<div class="msg">
-								<h2>
-									<b>회원관리</b><small>회원정보</small>
-								</h2>
+								<h1>
+								회원관리
+								</h1>
+								<h3>회원정보</h3>
 							</div>
 							<div class="input-group">
 								<span class="input-group-addon"> 

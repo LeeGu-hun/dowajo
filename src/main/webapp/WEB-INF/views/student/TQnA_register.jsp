@@ -38,9 +38,7 @@ table, tr, td{
 		<div id="content">
 			<div class="col-md-12 top-20 padding-0">
 				<div class="col-md-12">
-				<h1>
-				강사 Q&A
-				</h1>	
+				
 					<div class="panel form-element-padding">
 						<div class="panel-heading">
 							<h4></h4>
@@ -52,7 +50,10 @@ table, tr, td{
 							<div class="row clearfix">
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 									<div class="card">
-										<div class="header">											
+										<div class="header">	
+										<h1>
+										강사 Q&A
+										</h1>											
 											<h3>
 											질문하기
 											</h3>

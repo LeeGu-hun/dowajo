@@ -102,8 +102,8 @@
                         <div class="form-line">
                             <input type="password" class="form-control" name="re_pw" id="re_pw" minlength="6" placeholder="비밀번호 확인" required>
                         </div>
-                    </div>                  
-                    <button class="btn btn-block btn-lg bg-pink waves-effect" type="submit">등록</button>
+                    </div>              
+                    <button class="btn btn-block btn-lg bg-pink waves-effect" type="submit">등록</button>                                        
                 </form>
             </div>
         </div>
@@ -141,8 +141,8 @@ $(document).ready(function() {
 			$('#user_pw').focus();
 			return false;
 		}
-		formObj.submit();
-	});
+		formObj.submit();		
+	
 	$('#user_id').focusout(function(e){
 		e.preventDefault();
 		if(idObj.val()!='' && checkId()){

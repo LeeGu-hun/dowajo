@@ -10,7 +10,7 @@
 <meta charset="UTF-8">
 <meta
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-<title>classHELPER | 사용자 등록</title>
+<title>TeachingAssistant | 사용자 등록</title>
 <!-- Favicon-->
 <link rel="icon" href="/resources/favicon.ico" type="image/x-icon">
 
@@ -39,7 +39,7 @@
 <body class="signup-page">
 	<div class="signup-box">
 		<div class="logo">
-			<a href="javascript:void(0);">class<b>HELPER</b></a>
+			<a href="javascript:void(0);">Teaching<b>Assistant</b></a>
 		</div>
 		<div class="card">
 			<div class="body">

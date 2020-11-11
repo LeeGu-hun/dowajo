@@ -111,6 +111,7 @@ text-align : center;
 				</div>
 			</div>
 		</div>
+		</div>
 	</div>
 </section>
 

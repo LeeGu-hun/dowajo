@@ -46,15 +46,11 @@ table, tr, td{
 <body>
 	<section class="content">
 		<!-- start: Content -->
-		<div id="content">
+		<div id="content">		
 			<div class="col-md-12 top-20 padding-0">
-				<div class="col-md-12">
-				<h1>
-				강사 Q&A
-				</h1>	
+				<div class="col-md-12">				
 					<div class="panel form-element-padding">
-						<div class="panel-heading">
-							<h4></h4>
+						<div class="panel-heading">							
 						</div>
 						<div class="panel-body" style="padding-bottom: 30px;">
 							<form id='actionForm' action="/student/QnA_register" method="POST">
@@ -64,9 +60,12 @@ table, tr, td{
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 									<div class="card">
 										<div class="header">
-											<h3>
-											  질문확인									
-											</h3>
+										<h1>
+										강사 Q&A
+										</h1>	
+										<h3>
+										 질문확인									
+										</h3>
 										</div>
 										<div class="body table-responsive">
 											<table>

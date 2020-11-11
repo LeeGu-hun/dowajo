@@ -14,9 +14,9 @@
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="card">
 						<div class="header">
-								<h2>
-									<b>메인으로</b><small>공지사항</small>
-							</h2>
+						<h1>
+						메인 - 공지사항
+						</h1>		
 						</div>
 						<div class="body">
 							<div class="table-responsive">

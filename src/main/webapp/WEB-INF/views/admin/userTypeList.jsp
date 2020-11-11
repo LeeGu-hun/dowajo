@@ -14,13 +14,13 @@
 					<div class="card">
 						<div class="header">
 						<c:if test="${user_auth eq 'ROLE_ADMIN'}">
-							<h2>관리자 계정관리</h2>
+							<h1>관리자 계정관리</h1>
 						</c:if>
 						<c:if test="${user_auth eq 'ROLE_TEACHER'}">
-							<h2>강사 계정관리</h2>
+							<h1>강사 계정관리</h1>
 						</c:if>
 						<c:if test="${user_auth eq 'ROLE_STUDENT'}">
-							<h2>학생 계정관리</h2>
+							<h1>학생 계정관리</h1>
 						</c:if>
 						</div>
 						<div class="body">
