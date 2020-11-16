@@ -5,12 +5,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
 <section class="content" >
     
     <h3>강의 신청하기</h3><br>
     
-   <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+   <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12" style="width:100%;">
                     <div class="card">
                         <div class="header bg-blue-grey">
                             <h2>
@@ -27,7 +28,12 @@
 						    <label>강사이름</label> :  <label><c:out value="${leIn.user_name}"/></label>
 						    <br>
 						    <br>
-						    <br>
+						    <label>강의 사진</label> : <label><c:if test="${leAL.savedLecImage==null}">
+														   <img src='<spring:url value="/lec_img/defaultImage.jpg"/>' height ="500dp">
+														   </c:if>
+														   <c:if test="${leAL.savedLecImage!=null}">
+												           <img src='<spring:url value="/lec_img/${leAL.savedLecImage}"/>' height ="500dp">
+														   </c:if></label>									
 						 <div align="right">
 						 <button type="button" class="btn bg-indigo waves-effect" data-toggle="modal" data-target="#defaultModal">신청</button>
 						 <button type="button" class="btn bg-indigo waves-effect" id="backBtn">목록으로</button>
