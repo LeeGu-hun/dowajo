@@ -55,7 +55,7 @@
 											aria-controls="datatables-example" rowspan="1" colspan="1"
 											aria-sort="ascending"
 											aria-label="Name: activate to sort column descending"
-											style="width: 250px;">강사님 사진</th>
+											style="width: 250px;">강의 사진</th>
 										<th class="sorting" tabindex="0"
 											aria-controls="datatables-example" rowspan="1" colspan="1"
 											aria-label="Position: activate to sort column ascending"
