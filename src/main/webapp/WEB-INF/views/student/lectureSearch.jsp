@@ -56,7 +56,7 @@ text-align : center;
 												<th class="sorting" tabindex="0"
 													aria-controls="DataTables_Table_1" rowspan="1" colspan="1"
 													aria-label="Position: activate to sort column ascending"
-													style="width: 100px; text-align:center;">강사님 사진</th>
+													style="width: 100px; text-align:center;">강의 사진</th>
 												<th class="sorting_asc" tabindex="0"
 													aria-controls="DataTables_Table_1" rowspan="1" colspan="1"
 													aria-sort="ascending"
