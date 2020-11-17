@@ -284,41 +284,41 @@ public class LectureWebSocket {
 	}
 	
 	
-	@Scheduled(cron="0 0 2 * * *")  
-	public void deleteFileAll() throws Exception{
-		
-
-		Calendar cal = Calendar.getInstance() ;
-		long todayMil = cal.getTimeInMillis() ;
-		long oneDayMil = 24*60*60*1000 ;
-		
-		Calendar fileCal = Calendar.getInstance() ;
-		Date fileDate = null ;
-		
-		
-		File path = new File("c:\\upload") ;
-		File[] flist = path.listFiles() ;
-		
-		
-		for(int j=0 ; j < flist.length; j++){
-			fileDate = new Date(flist[j].lastModified()) ;
-			fileCal.setTime(fileDate);
-			long diffMil = todayMil - fileCal.getTimeInMillis() ;
-			int diffDay = (int)(diffMil/oneDayMil) ;
-			
-			if(diffDay > 30 && flist[j].exists()){
-				try {
-					File path2 = new File(flist[j].toString());
-					File[] flist2;
-					flist2 = path2.listFiles();
-					for(int k=0 ; k < flist2.length; k++){
-						flist2[k].delete() ;
-					}
-				} catch (Exception e) {
-				}
-				flist[j].delete() ;
-			}
-		}
-	}
+//	@Scheduled(cron="0 0 2 * * *")  
+//	public void deleteFileAll() throws Exception{
+//		
+//
+//		Calendar cal = Calendar.getInstance() ;
+//		long todayMil = cal.getTimeInMillis() ;
+//		long oneDayMil = 24*60*60*1000 ;
+//		
+//		Calendar fileCal = Calendar.getInstance() ;
+//		Date fileDate = null ;
+//		
+//		
+//		File path = new File("c:\\upload") ;
+//		File[] flist = path.listFiles() ;
+//		
+//		
+//		for(int j=0 ; j < flist.length; j++){
+//			fileDate = new Date(flist[j].lastModified()) ;
+//			fileCal.setTime(fileDate);
+//			long diffMil = todayMil - fileCal.getTimeInMillis() ;
+//			int diffDay = (int)(diffMil/oneDayMil) ;
+//			
+//			if(diffDay > 30 && flist[j].exists()){
+//				try {
+//					File path2 = new File(flist[j].toString());
+//					File[] flist2;
+//					flist2 = path2.listFiles();
+//					for(int k=0 ; k < flist2.length; k++){
+//						flist2[k].delete() ;
+//					}
+//				} catch (Exception e) {
+//				}
+//				flist[j].delete() ;
+//			}
+//		}
+//	}
 }
  
