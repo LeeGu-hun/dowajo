@@ -86,7 +86,7 @@
 
 
 	<select id="lectureInfo" resultType="com.ds.domain.LectureVO">
-		select l.lecture_no, l.lecture_name, l.lecture_description, u.user_name, l.savedlecimage from  
+		select l.lecture_no, l.lecture_name, l.lecture_description, u.user_name, l.savedLecImage from  
 		ds_lecture l , ds_class_list c, ds_auth a, ds_user u 
 		where l.lecture_no=c.lecture_no and
 		c.user_no=a.user_no and a.user_auth='ROLE_TEACHER' and a.user_no=u.user_no
